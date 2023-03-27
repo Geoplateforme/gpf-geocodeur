@@ -28,5 +28,8 @@
       "unicorn/prevent-abbreviations": "off",
       "import/no-unassigned-import": "off"
     }
+  },
+  "engines": {
+    "node": ">= 18.12"
   }
 }
