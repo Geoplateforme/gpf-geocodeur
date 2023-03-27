@@ -13,5 +13,20 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "xo": "^0.53.1"
+  },
+  "xo": {
+    "semicolon": false,
+    "space": 2,
+    "rules": {
+      "comma-dangle": [
+        "error",
+        "never"
+      ],
+      "unicorn/prevent-abbreviations": "off",
+      "import/no-unassigned-import": "off"
+    }
   }
 }
