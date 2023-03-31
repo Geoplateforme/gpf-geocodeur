@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  geocodeur:
+    build: .
+    environment:
+      ADDRESS_ADDOK_SERVER_URL: http://addok-server:5000
+    ports:
+      - '3000:3000'
+    networks:
+      - geocodeur-network
+
+  addok-server:
+    image: ghcr.io/livingdata-co/addok-server
+    environment:
+      ADDOK_FILTERS: citycode,postcode,type
+      ADDOK_REDIS_URL: redis://addok-server-redis
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./data/addok.conf:/etc/addok/addok.conf
+      - ./data/addok.db:/data/addok.db
+    networks:
+      - geocodeur-network
+
+  addok-server-redis:
+    image: ghcr.io/livingdata-co/addok-server-redis
+    restart: always
+    volumes:
+      - ./data/dump.rdb:/data/dump.rdb
+    networks:
+      - geocodeur-network
+
+networks:
+  geocodeur-network:
