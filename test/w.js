@@ -12,7 +12,7 @@ test('w with a simple 200 response', async t => {
   t.is(response.status, 200)
 })
 
-test('w with an error thown', async t => {
+test('w with an error thrown', async t => {
   const app = express()
 
   app.get('/', w(async () => {
