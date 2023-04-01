@@ -13,6 +13,8 @@ const PORT = process.env.PORT || 3000
 
 const app = express()
 
+app.disable('x-powered-by')
+
 if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'))
 }
