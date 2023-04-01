@@ -14,6 +14,7 @@ cp .env.sample .env
 | --- | --- |
 | `PORT` | Port node will use to start the server |
 | `ADDRESS_ADDOK_SERVER_URL`* | An Addok server URL for address index |
+| `CORS_DISABLE` | Set to `1` to disable CORS policy |
 
 ***Required**
 

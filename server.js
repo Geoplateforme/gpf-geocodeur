@@ -17,7 +17,9 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'))
 }
 
-app.use(cors({origin: true}))
+if (process.env.CORS_DISABLE !== '1') {
+  app.use(cors({origin: true}))
+}
 
 app.use('/', createRouter())
 
