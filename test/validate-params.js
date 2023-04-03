@@ -49,7 +49,7 @@ test('extractParam / limit', t => {
   }
 
   for (const limit of ['0.5', 'foo']) {
-    t.throws(() => validateLimit(limit), {message: 'Unable to parse as integer'})
+    t.throws(() => validateLimit(limit), {message: 'Unable to parse value as integer'})
   }
 })
 
