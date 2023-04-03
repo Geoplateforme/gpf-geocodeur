@@ -1,5 +1,5 @@
 import test from 'ava'
-import validateParams, {isFirstCharValid, extractParam, PARAMS} from '../lib/validate-params.js'
+import validateParams, {isFirstCharValid, extractParam, PARAMS} from '../lib/params.js'
 
 test('isFirstCharValid', t => {
   t.false(isFirstCharValid('---'))
