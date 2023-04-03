@@ -1,5 +1,5 @@
 import test from 'ava'
-import validateParams, {isFirstCharValid, validateQ, extractParam, PARAMS, validateLonLat} from '../lib/validate-params.js'
+import validateParams, {isFirstCharValid, validateQ, extractParams, extractParam, PARAMS} from '../lib/validate-params.js'
 
 test('isFirstCharValid', t => {
   t.false(isFirstCharValid('---'))
@@ -69,23 +69,30 @@ test('extractParam / indexes', t => {
   t.throws(() => extractIndexes('address,foo'), {message: 'Unexpected value \'foo\' for param indexes'})
 })
 
-test('validateLonLat', t => {
-  t.deepEqual(validateLonLat(1, 1), [1, 1])
-  t.deepEqual(validateLonLat(10.5, 10), [10.5, 10])
-  t.deepEqual(validateLonLat(0, 10.5), [0, 10.5])
-  t.deepEqual(validateLonLat('12', '11'), [12, 11])
+test('extractParam / lon-lat', t => {
+  function extractLon(lon) {
+    return extractParam({lon}, 'lon', PARAMS.lon)
+  }
 
-  const errorA = t.throws(() => validateLonLat(1, undefined), {message: 'Parse query failed'})
-  t.deepEqual(errorA.detail, ['Error: lon/lat must be present together if defined'])
+  function extractLat(lat) {
+    return extractParam({lat}, 'lat', PARAMS.lat)
+  }
 
-  const errorB = t.throws(() => validateLonLat(undefined, 1), {message: 'Parse query failed'})
-  t.deepEqual(errorB.detail, ['Error: lon/lat must be present together if defined'])
+  t.is(extractLat('1'), 1)
+  t.is(extractLat('1.1'), 1.1)
+  t.is(extractLat('-66.56'), -66.56)
+  t.is(extractLat('66.56'), 66.56)
 
-  const errorC = t.throws(() => validateLonLat(192, 6.4), {message: 'Parse query failed'})
-  t.deepEqual(errorC.detail, ['Error: lon/lat must be valid WGS-84 coordinates'])
+  t.is(extractLon('1'), 1)
+  t.is(extractLon('1.1'), 1.1)
+  t.is(extractLon('-166.56'), -166.56)
+  t.is(extractLon('166.56'), 166.56)
 
-  const errorD = t.throws(() => validateLonLat(6.5, -95), {message: 'Parse query failed'})
-  t.deepEqual(errorD.detail, ['Error: lon/lat must be valid WGS-84 coordinates'])
+  t.throws(() => extractLat('a'), {message: 'Unable to parse value as float'})
+  t.throws(() => extractLat('-95'), {message: 'lat must be a float between -90 and 90'})
+
+  t.throws(() => extractLon('a'), {message: 'Unable to parse value as float'})
+  t.throws(() => extractLon('-195'), {message: 'lon must be a float between -180 and 180'})
 })
 
 test('validateParams / all params', t => {
