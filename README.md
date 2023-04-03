@@ -10,11 +10,12 @@
 cp .env.sample .env
 ```
 
-| Environment variable name | Description |
-| --- | --- |
-| `PORT` | Port node will use to start the server |
-| `ADDRESS_ADDOK_SERVER_URL`* | An Addok server URL for address index |
-| `CORS_DISABLE` | Set to `1` to disable CORS policy |
+| Environment variable name | Description | Default |
+| --- | --- | --- |
+| `PORT` | Port node will use to start the server | `3000` |
+| `GEOCODE_INDEXES` | Indexes to load | `address,parcel,poi` |
+| `ADDRESS_ADDOK_SERVER_URL`* | An Addok server URL for address index | |
+| `CORS_DISABLE` | Set to `1` to disable CORS policy | `0` |
 
 ***Required**
 
