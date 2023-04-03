@@ -1,5 +1,5 @@
 import test from 'ava'
-import validateParams, {isFirstCharValid, validateQ, validateLimit, validateLonLat} from '../lib/validate-params.js'
+import validateParams, {isFirstCharValid, validateQ, extractParam, PARAMS, validateLonLat} from '../lib/validate-params.js'
 
 test('isFirstCharValid', t => {
   t.false(isFirstCharValid('---'))
@@ -34,26 +34,23 @@ test('validateQ', t => {
   t.deepEqual(errorF.detail, [`Error: Parameter [q] must contain between 3 and ${qMaxLength} chars and start with a number or a letter`])
 })
 
-test('validateLimit', t => {
-  t.is(validateLimit(1), 1)
-  t.is(validateLimit(5), 5)
-  t.is(validateLimit(20), 20)
-  t.is(validateLimit('12'), 12)
+test('extractParam / limit', t => {
+  function validateLimit(limit) {
+    return extractParam({limit}, 'limit', PARAMS.limit)
+  }
 
-  const errorA = t.throws(() => validateLimit(0), {message: 'Parse query failed'})
-  t.deepEqual(errorA.detail, ['Error: Parameter [limit] must be an integer between 1 and 20'])
+  t.is(validateLimit('1'), 1)
+  t.is(validateLimit('5'), 5)
+  t.is(validateLimit('20'), 20)
+  t.is(validateLimit(''), 5)
 
-  const errorB = t.throws(() => validateLimit(-1), {message: 'Parse query failed'})
-  t.deepEqual(errorB.detail, ['Error: Parameter [limit] must be an integer between 1 and 20'])
+  for (const limit of ['0', '-1', '101']) {
+    t.throws(() => validateLimit(limit), {message: 'Param limit must be an integer between 1 and 20'})
+  }
 
-  const errorC = t.throws(() => validateLimit(101), {message: 'Parse query failed'})
-  t.deepEqual(errorC.detail, ['Error: Parameter [limit] must be an integer between 1 and 20'])
-
-  const errorD = t.throws(() => validateLimit(0.5), {message: 'Parse query failed'})
-  t.deepEqual(errorD.detail, ['Error: Parameter [limit] must be an integer between 1 and 20'])
-
-  const errorE = t.throws(() => validateLimit(Number.NaN), {message: 'Parse query failed'})
-  t.deepEqual(errorE.detail, ['Error: Parameter [limit] must be an integer between 1 and 20'])
+  for (const limit of ['0.5', 'foo']) {
+    t.throws(() => validateLimit(limit), {message: 'Unable to parse as integer'})
+  }
 })
 
 test('validateLonLat', t => {
