@@ -118,6 +118,7 @@ test('validateParams / with parcelOnly', t => {
     validateParams({}, {operation: 'search', parcelOnly: true}),
     {
       indexes: ['address'],
+      limit: 5,
       q: undefined
     }
   )
