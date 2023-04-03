@@ -1,5 +1,5 @@
 import test from 'ava'
-import validateParams, {isFirstCharValid, validateQ, extractParams, extractParam, PARAMS} from '../lib/validate-params.js'
+import validateParams, {isFirstCharValid, extractParam, PARAMS} from '../lib/validate-params.js'
 
 test('isFirstCharValid', t => {
   t.false(isFirstCharValid('---'))
@@ -9,29 +9,31 @@ test('isFirstCharValid', t => {
   t.true(isFirstCharValid('É--'))
 })
 
-test('validateQ', t => {
-  const qMaxLength = 200
+test('extractParam / q', t => {
+  function extractQ(q) {
+    return extractParam({q}, 'q', PARAMS.q)
+  }
 
-  t.is(validateQ('foo'), 'foo')
-  t.is(validateQ(' foo'), 'foo')
+  t.is(extractQ('foo'), 'foo')
+  t.is(extractQ(' foo '), 'foo')
+  t.is(extractQ(''), undefined)
 
-  const errorA = t.throws(() => validateQ(null), {message: 'Parse query failed'})
-  t.deepEqual(errorA.detail, ['Error: Missing [q] parameter'])
-
-  const errorB = t.throws(() => validateQ(1), {message: 'Parse query failed'})
-  t.deepEqual(errorB.detail, ['Error: Parameter [q] must be a string'])
-
-  const errorC = t.throws(() => validateQ(''), {message: 'Parse query failed'})
-  t.deepEqual(errorC.detail, ['Error: Missing [q] parameter'])
-
-  const errorD = t.throws(() => validateQ('a'), {message: 'Parse query failed'})
-  t.deepEqual(errorD.detail, [`Error: Parameter [q] must contain between 3 and ${qMaxLength} chars and start with a number or a letter`])
-
-  const errorE = t.throws(() => validateQ('aa'), {message: 'Parse query failed'})
-  t.deepEqual(errorE.detail, [`Error: Parameter [q] must contain between 3 and ${qMaxLength} chars and start with a number or a letter`])
-
-  const errorF = t.throws(() => validateQ('-aaa'), {message: 'Parse query failed'})
-  t.deepEqual(errorF.detail, [`Error: Parameter [q] must contain between 3 and ${qMaxLength} chars and start with a number or a letter`])
+  t.throws(
+    () => extractQ('aa'),
+    {message: 'must contain between 3 and 200 chars and start with a number or a letter'}
+  )
+  t.throws(
+    () => extractQ('-aaa'),
+    {message: 'must contain between 3 and 200 chars and start with a number or a letter'}
+  )
+  t.throws(
+    () => extractQ('   aa'),
+    {message: 'must contain between 3 and 200 chars and start with a number or a letter'}
+  )
+  t.throws(
+    () => extractQ(Array.from({length: 300}).fill('a').join('')),
+    {message: 'must contain between 3 and 200 chars and start with a number or a letter'}
+  )
 })
 
 test('extractParam / limit', t => {
@@ -96,50 +98,32 @@ test('extractParam / lon-lat', t => {
 })
 
 test('validateParams / all params', t => {
-  const params = {
+  t.deepEqual(validateParams({
     foo: 'bar',
     limit: '10',
     lon: '6.5',
     lat: '60',
     q: 'foobar'
-  }
-
-  t.deepEqual(validateParams(params, {operation: 'search'}), {
+  }, {operation: 'search'}), {
     indexes: ['address'],
     limit: 10,
     lon: 6.5,
     lat: 60,
     q: 'foobar'
   })
-
-  t.deepEqual(validateParams(params, {operation: 'search', parcelOnly: true}), {
-    indexes: ['address'],
-    limit: 10,
-    lon: 6.5,
-    lat: 60,
-    q: undefined
-  })
-
-  t.deepEqual(validateParams(params, {operation: 'reverse'}), {
-    indexes: ['address'],
-    limit: 10,
-    lon: 6.5,
-    lat: 60
-  })
 })
 
 test('validateParams / missing q parameter', t => {
-  const error = t.throws(() => validateParams({}, {operation: 'search'}), {message: 'Parse query failed'})
-  t.deepEqual(error.detail, ['Error: Missing [q] parameter'])
+  const error = t.throws(() => validateParams({}, {operation: 'search'}), {message: 'Failed parsing query'})
+  t.deepEqual(error.detail, ['q is a required param'])
 })
 
-test('validateParams / with parcelOnly', t => {
+test('validateParams / missing q but parcel only', t => {
   t.deepEqual(
-    validateParams({}, {operation: 'search', parcelOnly: true}),
+    validateParams({index: 'parcel'}, {operation: 'search'}),
     {
-      indexes: ['address'],
-      limit: 5,
-      q: undefined
+      indexes: ['parcel'],
+      limit: 5
     }
   )
 })
