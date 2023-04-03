@@ -8,8 +8,8 @@
   "scripts": {
     "start": "node server",
     "lint": "xo",
-    "test": "c8 --all ava test/*.js",
-    "test-lcov": "c8 --reporter=lcov --reporter=text --all ava test/*.js"
+    "test": "c8 --all ava",
+    "test-lcov": "c8 --reporter=lcov --reporter=text --all ava"
   },
   "dependencies": {
     "cors": "^2.8.5",
