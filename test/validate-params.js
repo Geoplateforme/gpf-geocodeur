@@ -53,6 +53,22 @@ test('extractParam / limit', t => {
   }
 })
 
+test('extractParam / indexes', t => {
+  function extractIndexes(index) {
+    return extractParam({index}, 'indexes', PARAMS.indexes)
+  }
+
+  t.deepEqual(extractIndexes('address'), ['address'])
+  t.deepEqual(extractIndexes('address,poi'), ['address', 'poi'])
+  t.deepEqual(extractIndexes('address,poi,poi'), ['address', 'poi']) // Dedupe
+  t.deepEqual(extractIndexes('address,poi,parcel'), ['address', 'poi', 'parcel'])
+  t.deepEqual(extractIndexes(''), ['address'])
+  t.deepEqual(extractIndexes(), ['address'])
+
+  t.throws(() => extractIndexes('foo,bar'), {message: 'Unexpected value \'foo\' for param indexes'})
+  t.throws(() => extractIndexes('address,foo'), {message: 'Unexpected value \'foo\' for param indexes'})
+})
+
 test('validateLonLat', t => {
   t.deepEqual(validateLonLat(1, 1), [1, 1])
   t.deepEqual(validateLonLat(10.5, 10), [10.5, 10])
