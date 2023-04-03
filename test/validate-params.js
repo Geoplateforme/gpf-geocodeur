@@ -78,20 +78,22 @@ test('validateLonLat', t => {
 test('validateParams / all params', t => {
   const params = {
     foo: 'bar',
-    limit: 10,
-    lon: 6.5,
-    lat: 60,
+    limit: '10',
+    lon: '6.5',
+    lat: '60',
     q: 'foobar'
   }
 
-  t.deepEqual(validateParams(params, {operation: 'geocode'}), {
+  t.deepEqual(validateParams(params, {operation: 'search'}), {
+    indexes: ['address'],
     limit: 10,
     lon: 6.5,
     lat: 60,
     q: 'foobar'
   })
 
-  t.deepEqual(validateParams(params, {operation: 'geocode', parcelOnly: true}), {
+  t.deepEqual(validateParams(params, {operation: 'search', parcelOnly: true}), {
+    indexes: ['address'],
     limit: 10,
     lon: 6.5,
     lat: 60,
@@ -99,6 +101,7 @@ test('validateParams / all params', t => {
   })
 
   t.deepEqual(validateParams(params, {operation: 'reverse'}), {
+    indexes: ['address'],
     limit: 10,
     lon: 6.5,
     lat: 60
@@ -106,10 +109,16 @@ test('validateParams / all params', t => {
 })
 
 test('validateParams / missing q parameter', t => {
-  const error = t.throws(() => validateParams({}, {operation: 'geocode'}), {message: 'Parse query failed'})
+  const error = t.throws(() => validateParams({}, {operation: 'search'}), {message: 'Parse query failed'})
   t.deepEqual(error.detail, ['Error: Missing [q] parameter'])
 })
 
 test('validateParams / with parcelOnly', t => {
-  t.deepEqual(validateParams({}, {operation: 'geocode', parcelOnly: true}), {q: undefined})
+  t.deepEqual(
+    validateParams({}, {operation: 'search', parcelOnly: true}),
+    {
+      indexes: ['address'],
+      q: undefined
+    }
+  )
 })
