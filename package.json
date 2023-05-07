@@ -12,14 +12,17 @@
     "test-lcov": "c8 --reporter=lcov --reporter=text --all ava"
   },
   "dependencies": {
+    "@etalab/decoupage-administratif": "^3.0.0",
     "@mapbox/geojsonhint": "^3.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "flexsearch": "^0.7.31",
     "got": "^12.6.0",
     "http-errors": "^2.0.0",
     "lodash-es": "^4.17.21",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "natural": "^6.3.0"
   },
   "devDependencies": {
     "ava": "^5.2.0",
