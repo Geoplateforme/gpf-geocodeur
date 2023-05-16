@@ -1,5 +1,18 @@
 # geocodeur
 
+## Architecture
+
+```mermaid
+graph TB
+  G["Géocodeur"]
+  G -- "API privée" --> IA["Index Address"]
+  G -- "API privée" --> IP["Index Parcel"]
+  G -- "API privée" --> IPO["Index POI"]
+  linkStyle 0 stroke:#2ecd71,stroke-width:2px;
+  linkStyle 1 stroke:#2ecd71,stroke-width:2px;
+  linkStyle 2 stroke:#2ecd71,stroke-width:2px;
+```
+
 ## Prerequisites
 
 - Node.js 18 LTS and above
