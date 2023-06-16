@@ -9,8 +9,8 @@ import {rm, mkdir} from 'node:fs/promises'
 import fg from 'fast-glob'
 
 import {downloadAndExtractToTmp} from '../../../lib/build/extract.js'
+import {getArchiveURL} from '../../../lib/build/ign.js'
 
-import {getArchiveURL} from './sources.js'
 import {readFeatures} from './gdal.js'
 import {createSpatialIndexBuilder} from './spatial-index.js'
 import {transformParcel} from './transform.js'
@@ -33,6 +33,8 @@ const DEPARTEMENTS = process.env.DEPARTEMENTS
   ? process.env.DEPARTEMENTS.split(',')
   : ALL_DEPARTEMENTS
 
+const {PARCELLAIRE_EXPRESS_URL} = process.env
+
 const DATA_PATH = process.env.DATA_PATH
   ? path.resolve(process.env.DATA_PATH)
   : path.resolve('./data')
@@ -45,7 +47,7 @@ const indexBuilder = await createSpatialIndexBuilder(path.join(PARCEL_INDEX_DATA
 for (const codeDepartement of DEPARTEMENTS) {
   console.log(codeDepartement)
 
-  const archiveUrl = getArchiveURL(codeDepartement)
+  const archiveUrl = getArchiveURL(PARCELLAIRE_EXPRESS_URL, codeDepartement)
   const archiveDirPath = await downloadAndExtractToTmp(archiveUrl)
 
   // We find PARCELLE.SHP absolute path

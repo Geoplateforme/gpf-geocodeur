@@ -13,11 +13,11 @@ import {mapValues, isFunction, uniq, compact, chain} from 'lodash-es'
 import truncate from '@turf/truncate'
 
 import {downloadAndExtractToTmp} from '../../../lib/build/extract.js'
+import {getArchiveURL} from '../../../lib/build/ign.js'
 
 import LAYERS from './mapping.js'
 import {createCommunesIndex} from './communes.js'
 import {getPath} from './util.js'
-import {getArchiveURL} from './sources.js'
 import {getCommune} from './cog.js'
 
 const ALL_DEPARTEMENTS = [
@@ -37,6 +37,8 @@ const ALL_DEPARTEMENTS = [
 const DEPARTEMENTS = process.env.DEPARTEMENTS
   ? process.env.DEPARTEMENTS.split(',')
   : ALL_DEPARTEMENTS
+
+const {BDTOPO_URL} = process.env
 
 const DATA_PATH = process.env.DATA_PATH
   ? path.resolve(process.env.DATA_PATH)
@@ -143,7 +145,7 @@ const outputFile = createWriteStream(path.join(POI_RAW_DATA_PATH, 'poi.ndjson'),
 for (const codeDepartement of DEPARTEMENTS) {
   console.log(codeDepartement)
 
-  const archiveUrl = getArchiveURL(codeDepartement)
+  const archiveUrl = getArchiveURL(BDTOPO_URL, codeDepartement)
   const archiveDirPath = await downloadAndExtractToTmp(archiveUrl)
   const datasetPath = await getPath(archiveDirPath, 'BDT_3-3_GPKG_*.gpkg')
 
