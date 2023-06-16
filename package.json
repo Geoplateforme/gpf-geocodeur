@@ -9,13 +9,16 @@
     "test": "c8 --all ava",
     "test-lcov": "c8 --reporter=lcov --reporter=text --all ava",
     "poi:build-from-bdtopo": "node scripts/poi/build-from-bdtopo",
-    "parcel:build-index": "node scripts/parcel/build-index"
+    "parcel:build-index": "node indexes/parcel/scripts/build-index"
   },
   "dependencies": {
     "@etalab/decoupage-administratif": "^3.0.0",
     "@mapbox/geojsonhint": "^3.1.1",
     "@turf/bbox": "^6.5.0",
+    "@turf/boolean-intersects": "^6.5.0",
     "@turf/centroid": "^6.5.0",
+    "@turf/circle": "^6.5.0",
+    "@turf/distance": "^6.5.0",
     "@turf/truncate": "^6.5.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",

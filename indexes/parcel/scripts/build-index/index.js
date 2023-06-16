@@ -6,9 +6,11 @@ import path from 'node:path'
 import process from 'node:process'
 import {rm, mkdir} from 'node:fs/promises'
 
-import {downloadAndExtractToTmp} from '../../../lib/build/extract.js'
-import {getArchiveURL} from '../../../lib/build/ign.js'
-import {getPath} from '../../../lib/build/path.js'
+import {downloadAndExtractToTmp} from '../../../../lib/build/extract.js'
+import {getArchiveURL} from '../../../../lib/build/ign.js'
+import {getPath} from '../../../../lib/build/path.js'
+
+import {PARCEL_INDEX_PATH} from '../../util/paths.js'
 
 import {readFeatures} from './gdal.js'
 import {createSpatialIndexBuilder} from './spatial-index.js'
@@ -34,14 +36,8 @@ const DEPARTEMENTS = process.env.DEPARTEMENTS
 
 const {PARCELLAIRE_EXPRESS_URL} = process.env
 
-const DATA_PATH = process.env.DATA_PATH
-  ? path.resolve(process.env.DATA_PATH)
-  : path.resolve('./data')
-
-const PARCEL_INDEX_DATA_PATH = path.join(DATA_PATH, 'parcel', 'index')
-
-await mkdir(PARCEL_INDEX_DATA_PATH, {recursive: true})
-const indexBuilder = await createSpatialIndexBuilder(path.join(PARCEL_INDEX_DATA_PATH, 'parcel'))
+await mkdir(PARCEL_INDEX_PATH, {recursive: true})
+const indexBuilder = await createSpatialIndexBuilder()
 
 for (const codeDepartement of DEPARTEMENTS) {
   console.log(codeDepartement)
