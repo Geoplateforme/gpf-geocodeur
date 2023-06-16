@@ -12,10 +12,12 @@ import gdal from 'gdal-async'
 import {mapValues, isFunction, uniq, compact, chain} from 'lodash-es'
 import truncate from '@turf/truncate'
 
-import {downloadAndExtractToTmp} from '../../../lib/build/extract.js'
-import {getArchiveURL} from '../../../lib/build/ign.js'
-import {getPath} from '../../../lib/build/path.js'
-import {getCommune} from '../../../lib/cog.js'
+import {downloadAndExtractToTmp} from '../../../../lib/build/extract.js'
+import {getArchiveURL} from '../../../../lib/build/ign.js'
+import {getPath} from '../../../../lib/build/path.js'
+import {getCommune} from '../../../../lib/cog.js'
+
+import {POI_DATA_PATH} from '../../util/paths.js'
 
 import LAYERS from './mapping.js'
 import {createCommunesIndex} from './communes.js'
@@ -39,12 +41,6 @@ const DEPARTEMENTS = process.env.DEPARTEMENTS
   : ALL_DEPARTEMENTS
 
 const {BDTOPO_URL} = process.env
-
-const DATA_PATH = process.env.DATA_PATH
-  ? path.resolve(process.env.DATA_PATH)
-  : path.resolve('./data')
-
-const POI_RAW_DATA_PATH = path.join(DATA_PATH, 'poi', 'raw')
 
 const communesIndex = await createCommunesIndex()
 const cleabsUniqIndex = new Set()
@@ -139,8 +135,8 @@ function * readFeatures(datasetPath, layersDefinitions) {
   ds.close()
 }
 
-await mkdir(POI_RAW_DATA_PATH, {recursive: true})
-const outputFile = createWriteStream(path.join(POI_RAW_DATA_PATH, 'poi.ndjson'), {encoding: 'utf8'})
+await mkdir(POI_DATA_PATH, {recursive: true})
+const outputFile = createWriteStream(path.join(POI_DATA_PATH, 'poi.ndjson'), {encoding: 'utf8'})
 
 for (const codeDepartement of DEPARTEMENTS) {
   console.log(codeDepartement)

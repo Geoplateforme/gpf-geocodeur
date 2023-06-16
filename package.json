@@ -8,8 +8,9 @@
     "lint": "xo",
     "test": "c8 --all ava",
     "test-lcov": "c8 --reporter=lcov --reporter=text --all ava",
-    "poi:build-from-bdtopo": "node scripts/poi/build-from-bdtopo",
-    "parcel:build-index": "node indexes/parcel/scripts/build-index"
+    "poi:build-from-bdtopo": "node indexes/poi/scripts/build-from-bdtopo",
+    "parcel:build-index": "node indexes/parcel/scripts/build-index",
+    "parcel:start": "node indexes/parcel/service"
   },
   "dependencies": {
     "@etalab/decoupage-administratif": "^3.0.0",

@@ -4,8 +4,8 @@ import {rm} from 'node:fs/promises'
 import gdal from 'gdal-async'
 import Flatbush from 'flatbush'
 
-import {getPath} from './util.js'
-import {downloadAndExtractToTmp} from './extract.js'
+import {getPath} from '../../../../lib/build/path.js'
+import {downloadAndExtractToTmp} from '../../../../lib/build/extract.js'
 
 const {ADMIN_EXPRESS_URL} = process.env
 
