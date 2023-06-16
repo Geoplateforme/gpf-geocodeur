@@ -7,7 +7,8 @@
     "start": "node server",
     "lint": "xo",
     "test": "c8 --all ava",
-    "test-lcov": "c8 --reporter=lcov --reporter=text --all ava"
+    "test-lcov": "c8 --reporter=lcov --reporter=text --all ava",
+    "poi:build-from-bdtopo": "node scripts/poi/build-from-bdtopo"
   },
   "dependencies": {
     "@etalab/decoupage-administratif": "^3.0.0",
