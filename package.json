@@ -1,9 +1,7 @@
 {
-  "name": "geocodeur",
+  "name": "@geoplateforme/geocodeur",
   "version": "0.0.0",
-  "main": "index.js",
-  "license": "UNLICENSED",
-  "private": true,
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "start": "node server",
