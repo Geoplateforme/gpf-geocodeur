@@ -6,10 +6,9 @@ import path from 'node:path'
 import process from 'node:process'
 import {rm, mkdir} from 'node:fs/promises'
 
-import fg from 'fast-glob'
-
 import {downloadAndExtractToTmp} from '../../../lib/build/extract.js'
 import {getArchiveURL} from '../../../lib/build/ign.js'
+import {getPath} from '../../../lib/build/path.js'
 
 import {readFeatures} from './gdal.js'
 import {createSpatialIndexBuilder} from './spatial-index.js'
@@ -50,11 +49,7 @@ for (const codeDepartement of DEPARTEMENTS) {
   const archiveUrl = getArchiveURL(PARCELLAIRE_EXPRESS_URL, codeDepartement)
   const archiveDirPath = await downloadAndExtractToTmp(archiveUrl)
 
-  // We find PARCELLE.SHP absolute path
-  const [parcelleShpPath] = await fg(
-    ['**/PARCELLE.SHP'],
-    {absolute: true, unique: true, cwd: archiveDirPath}
-  )
+  const parcelleShpPath = await getPath(archiveDirPath, 'PARCELLE.SHP')
 
   const startedAt = Date.now()
   const initialCount = indexBuilder.written

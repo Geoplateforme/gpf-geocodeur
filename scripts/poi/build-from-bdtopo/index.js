@@ -14,10 +14,10 @@ import truncate from '@turf/truncate'
 
 import {downloadAndExtractToTmp} from '../../../lib/build/extract.js'
 import {getArchiveURL} from '../../../lib/build/ign.js'
+import {getPath} from '../../../lib/build/path.js'
 
 import LAYERS from './mapping.js'
 import {createCommunesIndex} from './communes.js'
-import {getPath} from './util.js'
 import {getCommune} from './cog.js'
 
 const ALL_DEPARTEMENTS = [
