@@ -15,10 +15,10 @@ import truncate from '@turf/truncate'
 import {downloadAndExtractToTmp} from '../../../lib/build/extract.js'
 import {getArchiveURL} from '../../../lib/build/ign.js'
 import {getPath} from '../../../lib/build/path.js'
+import {getCommune} from '../../../lib/cog.js'
 
 import LAYERS from './mapping.js'
 import {createCommunesIndex} from './communes.js'
-import {getCommune} from './cog.js'
 
 const ALL_DEPARTEMENTS = [
   '01', '02', '03', '04', '05', '06', '07', '08', '09',
