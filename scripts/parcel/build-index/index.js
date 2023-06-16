@@ -5,9 +5,12 @@ import 'dotenv/config.js'
 import path from 'node:path'
 import process from 'node:process'
 import {rm, mkdir} from 'node:fs/promises'
+
 import fg from 'fast-glob'
+
+import {downloadAndExtractToTmp} from '../../../lib/build/extract.js'
+
 import {getArchiveURL} from './sources.js'
-import {downloadAndExtractToTemp} from './extract.js'
 import {readFeatures} from './gdal.js'
 import {createSpatialIndexBuilder} from './spatial-index.js'
 import {transformParcel} from './transform.js'
@@ -43,7 +46,7 @@ for (const codeDepartement of DEPARTEMENTS) {
   console.log(codeDepartement)
 
   const archiveUrl = getArchiveURL(codeDepartement)
-  const archiveDirPath = await downloadAndExtractToTemp(archiveUrl)
+  const archiveDirPath = await downloadAndExtractToTmp(archiveUrl)
 
   // We find PARCELLE.SHP absolute path
   const [parcelleShpPath] = await fg(

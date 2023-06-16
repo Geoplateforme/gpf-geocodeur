@@ -7,14 +7,17 @@ import {finished} from 'node:stream/promises'
 import {Readable} from 'node:stream'
 import {createWriteStream} from 'node:fs'
 import {rm, mkdir} from 'node:fs/promises'
+
 import gdal from 'gdal-async'
 import {mapValues, isFunction, uniq, compact, chain} from 'lodash-es'
 import truncate from '@turf/truncate'
+
+import {downloadAndExtractToTmp} from '../../../lib/build/extract.js'
+
 import LAYERS from './mapping.js'
 import {createCommunesIndex} from './communes.js'
 import {getPath} from './util.js'
 import {getArchiveURL} from './sources.js'
-import {downloadAndExtractToTmp} from './extract.js'
 import {getCommune} from './cog.js'
 
 const ALL_DEPARTEMENTS = [
