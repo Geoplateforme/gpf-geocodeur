@@ -4,7 +4,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "node server",
+    "api:start": "node api",
     "lint": "xo",
     "test": "c8 --all ava",
     "test-lcov": "c8 --reporter=lcov --reporter=text --all ava",

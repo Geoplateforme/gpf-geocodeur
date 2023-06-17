@@ -1,8 +1,8 @@
 import process from 'node:process'
 import express from 'express'
 
-import w from './util/w.js'
-import errorHandler from './util/error-handler.js'
+import w from '../lib/w.js'
+import errorHandler from '../lib/error-handler.js'
 
 import {createIndexes} from './indexes/index.js'
 import search from './operations/search.js'

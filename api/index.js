@@ -7,7 +7,7 @@ import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 
-import createRouter from './lib/routes.js'
+import createRouter from './router.js'
 
 const PORT = process.env.PORT || 3000
 

@@ -1,7 +1,7 @@
 import {deburr, chain} from 'lodash-es'
 import Flexsearch from 'flexsearch'
 import computeDistance from 'natural/lib/natural/distance/jaro-winkler_distance.js'
-import {getCommunes} from '../cog.js'
+import {getCommunes} from '../../lib/cog.js'
 
 const codesIndex = new Map()
 const namesIndex = new Flexsearch.Index({

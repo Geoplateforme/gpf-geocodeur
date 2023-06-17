@@ -1,6 +1,6 @@
 import {Router, json} from 'express'
 
-import w from '../../../lib/util/w.js'
+import w from '../../../lib/w.js'
 
 import {createDatabase} from './db.js'
 import {createRtree} from './rtree.js'
