@@ -2,13 +2,10 @@
 /* eslint no-await-in-loop: off, array-element-newline: off */
 import 'dotenv/config.js'
 
-import path from 'node:path'
 import process from 'node:process'
 import {rm, mkdir} from 'node:fs/promises'
 
-import {downloadAndExtractToTmp} from '../../../../lib/build/extract.js'
-import {getArchiveURL} from '../../../../lib/build/ign.js'
-import {getPath} from '../../../../lib/build/path.js'
+import {downloadAndExtractToTmp, getArchiveURL, getPath} from '../../../../lib/geoservices.js'
 
 import {PARCEL_INDEX_PATH} from '../../util/paths.js'
 

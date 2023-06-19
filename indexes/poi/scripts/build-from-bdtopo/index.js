@@ -12,9 +12,7 @@ import gdal from 'gdal-async'
 import {mapValues, isFunction, uniq, compact, chain} from 'lodash-es'
 import truncate from '@turf/truncate'
 
-import {downloadAndExtractToTmp} from '../../../../lib/build/extract.js'
-import {getArchiveURL} from '../../../../lib/build/ign.js'
-import {getPath} from '../../../../lib/build/path.js'
+import {downloadAndExtractToTmp, getArchiveURL, getPath} from '../../../../lib/geoservices.js'
 import {getCommune} from '../../../../lib/cog.js'
 
 import {POI_DATA_PATH} from '../../util/paths.js'
