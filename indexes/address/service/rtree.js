@@ -1,5 +1,5 @@
 import Flatbush from 'flatbush'
-import readBigFile from '../../../lib/read-big-file.js'
+import readBigFile from '../../../lib/spatial-index/read-big-file.js'
 
 import {ADDRESS_INDEX_RTREE_PATH} from '../util/paths.js'
 
