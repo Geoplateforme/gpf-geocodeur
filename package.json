@@ -9,6 +9,7 @@
     "test": "c8 --all ava",
     "test-lcov": "c8 --reporter=lcov --reporter=text --all ava",
     "poi:build-from-bdtopo": "node indexes/poi/scripts/build-from-bdtopo",
+    "poi:build-index": "node indexes/poi/scripts/build-index",
     "parcel:build-index": "node indexes/parcel/scripts/build-index",
     "parcel:start": "node indexes/parcel/service",
     "address:build-index": "node indexes/address/scripts/build-index",
