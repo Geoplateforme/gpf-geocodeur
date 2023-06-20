@@ -3,8 +3,9 @@
 import 'dotenv/config.js'
 
 import process from 'node:process'
-import {createSpatialIndexBuilder} from './spatial-index.js'
-import {extractItems} from './extract.js'
+import {createIndexer} from '../../../../lib/spatial-index/indexer.js'
+import {extractFeatures} from './extract.js'
+import {ADDRESS_INDEX_MDB_BASE_PATH} from '../../util/paths.js'
 
 const ALL_DEPARTEMENTS = [
   '01', '02', '03', '04', '05', '06', '07', '08', '09',
@@ -31,7 +32,7 @@ const DEPARTEMENTS = process.env.DEPARTEMENTS
   ? process.env.DEPARTEMENTS.split(',')
   : ALL_DEPARTEMENTS
 
-const indexBuilder = await createSpatialIndexBuilder()
+const indexer = await createIndexer(ADDRESS_INDEX_MDB_BASE_PATH, {geometryType: 'Point'})
 
 for (const codeDepartement of DEPARTEMENTS) {
   console.log(codeDepartement)
@@ -39,21 +40,21 @@ for (const codeDepartement of DEPARTEMENTS) {
   const fileUrl = getFileUrl(codeDepartement)
 
   const startedAt = Date.now()
-  const initialCount = indexBuilder.written
+  const initialCount = indexer.written
 
   const writeFeaturesLoop = setInterval(() => {
-    const written = indexBuilder.written - initialCount
+    const written = indexer.written - initialCount
 
     console.log({
-      writing: indexBuilder.writing,
+      writing: indexer.writing,
       written,
       writeBySec: written / (Date.now() - startedAt) * 1000
     })
   }, 2000)
 
-  await indexBuilder.writeItems(extractItems(fileUrl))
+  await indexer.writeFeatures(extractFeatures(fileUrl))
 
   clearInterval(writeFeaturesLoop)
 }
 
-await indexBuilder.finish()
+await indexer.finish()

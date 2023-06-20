@@ -1,68 +1,36 @@
-import LMDB from 'lmdb'
-import {omit} from 'lodash-es'
-
+import {createInstance} from '../../../lib/spatial-index/lmdb.js'
 import {ADDRESS_INDEX_MDB_PATH} from '../util/paths.js'
 
 export async function createDatabase() {
-  const env = LMDB.open(ADDRESS_INDEX_MDB_PATH, {readOnly: true})
-  const itemsDb = env.openDB('items', {keyEncoding: 'uint32', cache: true})
-  const idIdxDb = env.openDB('id-idx', {cache: true})
+  const dbInstance = createInstance(ADDRESS_INDEX_MDB_PATH, {
+    geometryType: 'Point',
+    readOnly: true,
+    cache: true
+  })
 
-  function getItemByIdx(idx) {
-    const item = itemsDb.get(idx)
+  function getCompleteFeatureByIdx(idx) {
+    let feature = dbInstance.getFeatureByIdx(idx)
 
-    if (!item) {
-      throw new Error(`No matching item for idx ${idx}`)
-    }
-
-    return item
-  }
-
-  function getItemById(id) {
-    const idx = idIdxDb.get(id)
-
-    if (idx !== undefined) {
-      return getItemByIdx(idx)
-    }
-  }
-
-  function getFeatureByIdx(idx) {
-    let item = getItemByIdx(idx)
-
-    if (item.type === 'housenumber') {
-      const street = getItemById(item.street)
+    if (feature.properties.type === 'housenumber') {
+      const street = dbInstance.getFeatureById(feature.properties.street)
 
       if (!street) {
-        throw new Error(`No matching street for id ${item.street}`)
+        throw new Error(`No matching street for id ${feature.properties.street}`)
       }
 
-      item = prepareHousenumber(item, street)
-    } else if (item.type === 'municipality') {
-      item = prepareMunicipality(item)
+      feature = prepareHousenumber(feature, street)
+    } else if (feature.properties.type === 'municipality') {
+      feature = prepareMunicipality(feature)
     } else {
       // Type 'street' or 'locality'
-      item = prepareStreet(item)
+      feature = prepareStreet(feature)
     }
 
-    return {
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [item.lon, item.lat]
-      },
-      properties: omit(item, ['lon', 'lat'])
-    }
-  }
-
-  function close() {
-    env.close()
+    return feature
   }
 
   return {
-    getFeatureByIdx,
-    getItemByIdx,
-    getItemById,
-    close
+    getCompleteFeatureByIdx
   }
 }
 
@@ -118,37 +86,37 @@ const HN_FIELDS = [
   'y'
 ]
 
-function prepareHousenumber(hnEntry, streetEntry) {
-  const streetValues = pickValues(streetEntry, HN_STREET_FIELDS)
-  const hnValues = pickValues(hnEntry, HN_FIELDS)
+function prepareHousenumber(hnFeature, streetFeature) {
+  const streetProperties = pickValues(streetFeature.properties, HN_STREET_FIELDS)
+  const hnProperties = pickValues(hnFeature.properties, HN_FIELDS)
 
-  return {
+  const properties = {
     type: 'housenumber',
-    name: `${hnEntry.housenumber} ${streetEntry.name}`,
-    label: `${hnEntry.housenumber} ${streetEntry.name} ${streetValues.postcode} ${streetValues.city}`,
-    street: streetEntry.name,
-    ...streetValues,
-    ...hnValues
+    name: `${hnFeature.properties.housenumber} ${streetFeature.properties.name}`,
+    label: `${hnFeature.properties.housenumber} ${streetFeature.properties.name} ${streetProperties.postcode} ${streetProperties.city}`,
+    street: streetFeature.properties.name,
+    ...streetProperties,
+    ...hnProperties
   }
+
+  return {...hnFeature, properties}
 }
 
-function prepareMunicipality(entry) {
-  const values = pickValues(entry, MUNICIPALITY_FIELDS)
-
-  return {
+function prepareMunicipality(feature) {
+  const properties = {
     type: 'municipality',
-    ...values,
-    label: `${values.postcode} ${values.city}`
+    ...pickValues(feature.properties, MUNICIPALITY_FIELDS),
+    label: `${feature.properties.postcode} ${feature.properties.city}`
   }
+
+  return {...feature, properties}
 }
 
-function prepareStreet(entry) {
-  const values = pickValues(entry, STREET_FIELDS)
-
+function prepareStreet(feature) {
   return {
-    type: entry.type,
-    ...values,
-    label: `${values.name} ${values.postcode} ${values.city}`
+    type: feature.properties.type,
+    ...pickValues(feature.properties, STREET_FIELDS),
+    label: `${feature.properties.name} ${feature.properties.postcode} ${feature.properties.city}`
   }
 }
 

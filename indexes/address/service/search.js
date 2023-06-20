@@ -60,7 +60,7 @@ export function reverse(options = {}) {
   const matchingFeatures = []
 
   rtreeIndex.search(...geometryBbox, idx => {
-    const feature = db.getFeatureByIdx(idx)
+    const feature = db.getCompleteFeatureByIdx(idx)
     const matches = featureMatches(feature, geometry, filters)
 
     if (matches) {
