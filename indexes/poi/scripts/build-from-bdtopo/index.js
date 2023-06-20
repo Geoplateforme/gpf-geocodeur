@@ -11,6 +11,7 @@ import {rm, mkdir} from 'node:fs/promises'
 import gdal from 'gdal-async'
 import {mapValues, isFunction, uniq, compact, chain} from 'lodash-es'
 import truncate from '@turf/truncate'
+import centroid from '@turf/centroid'
 
 import {downloadAndExtractToTmp, getArchiveURL, getPath} from '../../../../lib/geoservices.js'
 import {getCommune} from '../../../../lib/cog.js'
@@ -131,12 +132,15 @@ function * readFeatures(datasetPath, layersDefinitions) {
         fields.postcode = postcode
       }
 
-      const truegeometry = JSON.stringify(truncate(geometry.toObject(), {mutate: true, coordinates: 2}))
+      const truncatedGeometry = truncate(geometry.toObject(), {mutate: true, coordinates: 2})
+      const truncatedCentroid = truncate(centroid(truncatedGeometry), {mutate: true})
+      const {geometry: {coordinates: [lon, lat]}} = truncatedCentroid
 
-      yield JSON.stringify({
-        ...fields,
-        truegeometry
-      }) + '\n'
+      fields.truegeometry = JSON.stringify(truncatedGeometry)
+      fields.lon = lon
+      fields.lat = lat
+
+      yield JSON.stringify(fields) + '\n'
     }
   }
 
