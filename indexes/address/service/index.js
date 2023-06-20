@@ -7,7 +7,7 @@ import express from 'express'
 import morgan from 'morgan'
 import {createRouter} from './router.js'
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.ADDRESS_SERVICE_PORT || process.env.PORT || 3001
 
 const server = express()
 

@@ -9,7 +9,7 @@ import morgan from 'morgan'
 
 import createRouter from './router.js'
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.API_PORT || process.env.PORT || 3000
 
 const app = express()
 
