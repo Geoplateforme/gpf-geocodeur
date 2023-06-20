@@ -1,14 +1,21 @@
 import {Router, json} from 'express'
 
 import w from '../../../lib/w.js'
+import {createRtree} from '../../../lib/spatial-index/rtree.js'
+import {createInstance} from '../../../lib/spatial-index/lmdb.js'
 
-import {createDatabase} from './db.js'
-import {createRtree} from './rtree.js'
+import {PARCEL_INDEX_RTREE_PATH, PARCEL_INDEX_MDB_PATH} from '../util/paths.js'
+
 import {getById, search, reverse} from './search.js'
 
 export async function createRouter() {
-  const db = await createDatabase()
-  const rtreeIndex = await createRtree()
+  const db = await createInstance(PARCEL_INDEX_MDB_PATH, {
+    geometryType: 'Polygon',
+    readOnly: true,
+    cache: true
+  })
+
+  const rtreeIndex = await createRtree(PARCEL_INDEX_RTREE_PATH)
 
   const router = new Router()
 

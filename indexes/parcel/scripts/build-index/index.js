@@ -3,14 +3,14 @@
 import 'dotenv/config.js'
 
 import process from 'node:process'
-import {rm, mkdir} from 'node:fs/promises'
+import {rm} from 'node:fs/promises'
 
 import {downloadAndExtractToTmp, getArchiveURL, getPath} from '../../../../lib/geoservices.js'
+import {createIndexer} from '../../../../lib/spatial-index/indexer.js'
 
-import {PARCEL_INDEX_PATH} from '../../util/paths.js'
+import {PARCEL_INDEX_MDB_BASE_PATH} from '../../util/paths.js'
 
 import {readFeatures} from './gdal.js'
-import {createSpatialIndexBuilder} from './spatial-index.js'
 import {transformParcel} from './transform.js'
 
 const ALL_DEPARTEMENTS = [
@@ -33,8 +33,7 @@ const DEPARTEMENTS = process.env.DEPARTEMENTS
 
 const {PARCELLAIRE_EXPRESS_URL} = process.env
 
-await mkdir(PARCEL_INDEX_PATH, {recursive: true})
-const indexBuilder = await createSpatialIndexBuilder()
+const indexer = await createIndexer(PARCEL_INDEX_MDB_BASE_PATH, {geometryType: 'Polygon'})
 
 for (const codeDepartement of DEPARTEMENTS) {
   console.log(codeDepartement)
@@ -45,23 +44,23 @@ for (const codeDepartement of DEPARTEMENTS) {
   const parcelleShpPath = await getPath(archiveDirPath, 'PARCELLE.SHP')
 
   const startedAt = Date.now()
-  const initialCount = indexBuilder.written
+  const initialCount = indexer.written
 
   const writeFeaturesLoop = setInterval(() => {
-    const written = indexBuilder.written - initialCount
+    const written = indexer.written - initialCount
 
     console.log({
-      writing: indexBuilder.writing,
+      writing: indexer.writing,
       written,
       writeBySec: written / (Date.now() - startedAt) * 1000
     })
   }, 2000)
 
-  await indexBuilder.writeFeatures(readFeatures(parcelleShpPath, transformParcel))
+  await indexer.writeFeatures(readFeatures(parcelleShpPath, transformParcel))
 
   clearInterval(writeFeaturesLoop)
 
   await rm(archiveDirPath, {recursive: true})
 }
 
-await indexBuilder.finish()
+await indexer.finish()
