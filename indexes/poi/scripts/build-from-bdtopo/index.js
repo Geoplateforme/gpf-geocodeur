@@ -43,11 +43,23 @@ const {BDTOPO_URL} = process.env
 const communesIndex = await createCommunesIndex()
 const cleabsUniqIndex = new Set()
 
-function computeFields(originalProperties, fieldsDefinition) {
-  const fields = mapValues(fieldsDefinition, (resolver, _fieldName) => {
-    if (isFunction(resolver)) {
-      let resolvedValue = resolver(originalProperties)
+const COMPUTED_FIELDS_SCHEMA = {
+  name: Array,
+  toponym: String,
+  category: Array,
+  classification: Number,
+  postcode: Array,
+  citycode: Array,
+  city: Array
+}
 
+function computeFields(originalProperties, fieldsDefinition) {
+  return mapValues(fieldsDefinition, (resolver, _fieldName) => {
+    let resolvedValue = isFunction(resolver)
+      ? resolver(originalProperties)
+      : resolver
+
+    if (COMPUTED_FIELDS_SCHEMA[_fieldName] === Array) {
       if (!Array.isArray(resolvedValue)) {
         resolvedValue = [resolvedValue]
       }
@@ -55,14 +67,8 @@ function computeFields(originalProperties, fieldsDefinition) {
       return uniq(compact(resolvedValue))
     }
 
-    return resolver
+    return resolvedValue
   })
-
-  fields.importance = fields.classification
-    ? Math.round((1 - ((fields.classification - 1) * 0.1)) * 100) / 100
-    : 0.4
-
-  return fields
 }
 
 function * readFeatures(datasetPath, layersDefinitions) {
@@ -96,6 +102,10 @@ function * readFeatures(datasetPath, layersDefinitions) {
       }
 
       const fields = computeFields(properties, config.fields)
+
+      fields.importance = fields.classification
+        ? Math.round((1 - ((fields.classification - 1) * 0.1)) * 100) / 100
+        : 0.4
 
       fields.extrafields = {
         cleabs
