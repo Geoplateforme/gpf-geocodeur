@@ -2,6 +2,8 @@ FROM --platform=linux/amd64 nikolaik/python-nodejs:python3.10-nodejs18-slim
 
 WORKDIR /app
 
+RUN pip install addok==1.1.1 addok-france==1.1.3 addok-fr==1.0.1
+
 COPY package.json yarn.lock ./
 RUN yarn install --prod --frozen-lockfile
 
