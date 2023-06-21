@@ -1,11 +1,11 @@
-FROM node:18-alpine
+FROM --platform=linux/amd64 nikolaik/python-nodejs:python3.10-nodejs18-slim
 
 WORKDIR /app
 
 COPY package.json yarn.lock ./
-RUN yarn --prod --frozen-lockfile
+RUN yarn install --prod --frozen-lockfile
 
-COPY . .
+COPY lib indexes api ./
 
 ENV NODE_ENV production
 ENV PORT 3000
