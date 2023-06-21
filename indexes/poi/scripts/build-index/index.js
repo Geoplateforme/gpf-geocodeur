@@ -43,7 +43,9 @@ await addokImporter.batchImport(
     .pipe(parse())
     .pipe(new Transform({
       transform(row, enc, cb) {
-        cb(null, omit(row, ['truegeometry', 'toponym']))
+        const obj = omit(row, ['truegeometry', 'toponym', 'extrafields', 'classification'])
+        obj.id = row.extrafields.cleabs
+        cb(null, obj)
       },
       objectMode: true
     }))
