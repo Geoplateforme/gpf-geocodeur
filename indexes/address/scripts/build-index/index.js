@@ -3,9 +3,12 @@
 import 'dotenv/config.js'
 
 import process from 'node:process'
+import {createGunzip} from 'node:zlib'
+import got from 'got'
 import {createIndexer} from '../../../../lib/spatial-index/indexer.js'
+import {createImporter} from '../../../../lib/addok-importer.js'
 import {extractFeatures} from './extract.js'
-import {ADDRESS_INDEX_MDB_BASE_PATH} from '../../util/paths.js'
+import {ADDRESS_INDEX_PATH, ADDRESS_INDEX_MDB_BASE_PATH} from '../../util/paths.js'
 
 const ALL_DEPARTEMENTS = [
   '01', '02', '03', '04', '05', '06', '07', '08', '09',
@@ -32,6 +35,7 @@ const DEPARTEMENTS = process.env.DEPARTEMENTS
   ? process.env.DEPARTEMENTS.split(',')
   : ALL_DEPARTEMENTS
 
+const addokImporter = await createImporter(ADDRESS_INDEX_PATH, './indexes/address/config/addok.conf')
 const indexer = await createIndexer(ADDRESS_INDEX_MDB_BASE_PATH, {geometryType: 'Point'})
 
 for (const codeDepartement of DEPARTEMENTS) {
@@ -55,6 +59,13 @@ for (const codeDepartement of DEPARTEMENTS) {
   await indexer.writeFeatures(extractFeatures(fileUrl))
 
   clearInterval(writeFeaturesLoop)
+
+  // Importing into addok
+  await addokImporter.batchImport(
+    got.stream(fileUrl)
+      .pipe(createGunzip())
+  )
 }
 
 await indexer.finish()
+await addokImporter.finish()
