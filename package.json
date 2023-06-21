@@ -24,6 +24,7 @@
     "@turf/circle": "^6.5.0",
     "@turf/distance": "^6.5.0",
     "@turf/truncate": "^6.5.0",
+    "addok-cluster": "^0.6.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "execa": "^7.1.1",

@@ -604,6 +604,17 @@ acorn@^8.8.0, acorn@^8.8.1:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.8.2.tgz#1b2f25db02af965399b9776b0c2c391276d37c4a"
   integrity sha512-xjIYgE8HBrkpd/sJqOGNspf8uHG+NOHGOw6a/Urj8taM2EXfdNAH2oFcPeIFfsv3+kz/mJrS5VuMqbNLjCa2vw==
 
+addok-cluster@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/addok-cluster/-/addok-cluster-0.6.1.tgz#4ad45e6a283b93bebb569bfde56a08cbfe788170"
+  integrity sha512-09ekpEOX6fayo68/oQu+EUslCgCdEvBC1Ommd2B/oQ4FriyPx6Pa43NKVU5kQxjXlCTP8o2zlgcS/sHV4nFFJA==
+  dependencies:
+    debug "^4.3.4"
+    http-errors "^2.0.0"
+    lodash-es "^4.17.21"
+    python-shell "^5.0.0"
+    supports-color "^9.3.1"
+
 afinn-165-financialmarketnews@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/afinn-165-financialmarketnews/-/afinn-165-financialmarketnews-3.0.0.tgz#cf422577775bf94f9bc156f3f001a1f29338c3d8"
@@ -4238,6 +4249,11 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.3.0.tgz#f67fa67c94da8f4d0cfff981aee4118064199b8f"
   integrity sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==
 
+python-shell@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/python-shell/-/python-shell-5.0.0.tgz#26fc9a0e477cb30fc98ef2d9d5f53ab38a060eac"
+  integrity sha512-RUOOOjHLhgR1MIQrCtnEqz/HJ1RMZBIN+REnpSUrfft2bXqXy69fwJASVziWExfFXsR1bCY0TznnHooNsCo0/w==
+
 qs@6.11.0:
   version "6.11.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.11.0.tgz#fd0d963446f7a65e1367e01abd85429453f0c37a"
@@ -4912,6 +4928,11 @@ supports-color@^7.0.0, supports-color@^7.1.0:
   integrity sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==
   dependencies:
     has-flag "^4.0.0"
+
+supports-color@^9.3.1:
+  version "9.3.1"
+  resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-9.3.1.tgz#34e4ad3c71c9a39dae3254ecc46c9b74e89e15a6"
+  integrity sha512-knBY82pjmnIzK3NifMo3RxEIRD9E0kIzV4BKcyTZ9+9kWgLMxd4PrsTSMoFQUabgRBbF8KOLRDCyKgNV+iK44Q==
 
 supports-hyperlinks@^2.0.0:
   version "2.3.0"
