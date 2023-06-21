@@ -163,8 +163,11 @@ function formatResult(feature, {center, distanceCache, returntruegeometry}) {
 
   if (distanceCache) {
     result.properties.distance = distanceCache
+    result.properties.score = computeScore(distanceCache)
   } else if (center) {
-    result.properties.distance = computeDistance(feature, center)
+    const distance = computeDistance(feature, center)
+    result.properties.distance = distance
+    result.properties.score = computeScore(distanceCache)
   }
 
   if (returntruegeometry) {
@@ -177,4 +180,8 @@ function formatResult(feature, {center, distanceCache, returntruegeometry}) {
 function computeDistance(feature, center) {
   const {lon, lat} = feature.properties
   return Math.round(distance(center, [lon, lat]) * 1000)
+}
+
+function computeScore(distance) {
+  return 1 - Math.min(1, distance / 10_000)
 }

@@ -95,7 +95,9 @@ function formatResult(feature, {center}) {
   }
 
   if (center) {
-    result.properties.distance = computeDistance(feature, center)
+    const distance = computeDistance(feature, center)
+    result.properties.distance = distance
+    result.properties.score = computeScore(distance)
   }
 
   return result
@@ -103,4 +105,8 @@ function formatResult(feature, {center}) {
 
 function computeDistance(feature, center) {
   return Math.round(distance(center, feature) * 1000)
+}
+
+function computeScore(distance) {
+  return 1 - Math.min(1, distance / 10_000)
 }
