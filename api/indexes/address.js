@@ -4,35 +4,41 @@ import {Agent as HttpsAgent} from 'node:https'
 import {pick} from 'lodash-es'
 import got from 'got'
 
-const {ADDRESS_ADDOK_SERVER_URL} = process.env
+const {ADDRESS_INDEX_URL} = process.env
 
-const SEARCH_PARAMS = [
-  'q',
-  'limit',
-  'lon',
-  'lat',
-  'type',
+const FILTERS = [
   'citycode',
-  'postcode'
+  'postcode',
+  'type'
 ]
 
-const REVERSE_PARAMS = [
-  'limit',
-  'lon',
-  'lat',
-  'type',
-  'citycode',
-  'postcode'
-]
+function prepareRequest(params) {
+  const filters = pick(params, FILTERS)
+  const center = params.lon !== undefined && params.lat !== undefined
+    ? [params.lon, params.lat]
+    : undefined
+
+  return {
+    q: params.q,
+    center,
+    filters,
+    limit: params.limit || 10,
+    geometry: params.geometry,
+    autocomplete: params.autocomplete
+  }
+}
 
 export default function createAddressIndex(options = {}) {
-  const addokServerUrl = options.addokServerUrl || ADDRESS_ADDOK_SERVER_URL
+  const addressIndexUrl = options.addressIndexUrl || ADDRESS_INDEX_URL
+
   const agent = {
     http: new HttpAgent({keepAlive: true, keepAliveMsecs: 1000}),
     https: new HttpsAgent({keepAlive: true, keepAliveMsecs: 1000})
   }
+
   const execRequest = got.extend({
-    prefixUrl: addokServerUrl,
+    prefixUrl: addressIndexUrl,
+    method: 'POST',
     responseType: 'json',
     resolveBodyOnly: true,
     decompress: true,
@@ -41,15 +47,13 @@ export default function createAddressIndex(options = {}) {
 
   return {
     async search(params) {
-      const searchParams = pick(params, SEARCH_PARAMS)
-      const result = await execRequest('search', {searchParams})
-      return result.features
+      const requestBody = prepareRequest(params)
+      return execRequest('search', {json: requestBody})
     },
 
     async reverse(params) {
-      const searchParams = pick(params, REVERSE_PARAMS)
-      const result = await execRequest('reverse', {searchParams})
-      return result.features
+      const requestBody = prepareRequest(params)
+      return execRequest('reverse', {json: requestBody})
     }
   }
 }

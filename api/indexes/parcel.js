@@ -27,7 +27,8 @@ function prepareRequest(params) {
     center,
     filters,
     limit: params.limit || 10,
-    returntruegeometry: params.returntruegeometry
+    returntruegeometry: params.returntruegeometry,
+    geometry: params.geometry
   }
 }
 
