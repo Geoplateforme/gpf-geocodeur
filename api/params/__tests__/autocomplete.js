@@ -82,15 +82,6 @@ test('extractParam / poiType', t => {
   t.deepEqual(extractPoiType('barrage'), ['barrage'])
   t.deepEqual(extractPoiType('aérodrome,administratif,barrage'), ['aérodrome', 'administratif', 'barrage'])
   t.is(extractPoiType(''), undefined)
-
-  t.throws(
-    () => extractPoiType('foo'),
-    {message: 'Unexpected value \'foo\' for param poiType'}
-  )
-  t.throws(
-    () => extractPoiType('bar'),
-    {message: 'Unexpected value \'bar\' for param poiType'}
-  )
 })
 
 test('extractParam / lonlat', t => {

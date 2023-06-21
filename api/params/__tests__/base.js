@@ -245,15 +245,6 @@ test('extractParam / category', t => {
   t.deepEqual(extractCategory('barrage'), ['barrage'])
   t.deepEqual(extractCategory('aérodrome,administratif,barrage'), ['aérodrome', 'administratif', 'barrage'])
   t.is(extractCategory(''), undefined)
-
-  t.throws(
-    () => extractCategory('foo'),
-    {message: 'Unexpected value \'foo\' for param category'}
-  )
-  t.throws(
-    () => extractCategory('bar'),
-    {message: 'Unexpected value \'bar\' for param category'}
-  )
 })
 
 test('extractParam / returntruegeometry', t => {

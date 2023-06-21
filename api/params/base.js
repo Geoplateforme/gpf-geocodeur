@@ -5,7 +5,6 @@ import {extractSingleParams, isFirstCharValid, isDepartmentcodeValid} from '../u
 import {normalizeQuery} from '../util/querystring.js'
 import {validateCoordinatesValue} from '../util/coordinates.js'
 import {searchCity} from '../util/search-city.js'
-import {poiCategories} from '../poi-categories.js'
 
 export function validateSearchgeom(searchgeom) {
   if (!Object.hasOwn(searchgeom, 'type')) {
@@ -136,7 +135,6 @@ export const PARAMS = {
 
   category: {
     type: 'string',
-    allowedValues: poiCategories,
     array: true
   },
 

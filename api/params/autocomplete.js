@@ -1,6 +1,5 @@
 import {extractSingleParams, isFirstCharValid, parseFloatAndValidate} from '../util/params.js'
 import {normalizeQuery} from '../util/querystring.js'
-import {poiCategories} from '../poi-categories.js'
 
 export function isTerrValid(terr) {
   if (terr === 'METROPOLE' || terr === 'DOMTOM') {
@@ -69,7 +68,6 @@ export const AUTOCOMPLETE = {
 
   poiType: {
     type: 'string',
-    allowedValues: poiCategories,
     array: true
   },
 
