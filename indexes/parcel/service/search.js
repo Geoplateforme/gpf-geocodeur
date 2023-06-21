@@ -167,7 +167,7 @@ function formatResult(feature, {center, distanceCache, returntruegeometry}) {
   } else if (center) {
     const distance = computeDistance(feature, center)
     result.properties.distance = distance
-    result.properties.score = computeScore(distanceCache)
+    result.properties.score = computeScore(distance)
   }
 
   if (returntruegeometry) {
