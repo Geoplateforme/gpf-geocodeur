@@ -143,6 +143,11 @@ export const PARAMS = {
     defaultValue: false
   },
 
+  autocomplete: {
+    type: 'boolean',
+    defaultValue: true
+  },
+
   departmentcode: {
     type: 'string',
     validate(v) {
