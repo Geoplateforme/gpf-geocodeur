@@ -9,7 +9,7 @@ import {Transform} from 'node:stream'
 import {parse, stringify} from 'ndjson'
 import {omit} from 'lodash-es'
 
-import {createImporter} from '../../../../lib/addok-importer.js'
+import {createImporter} from '../../../../lib/addok/importer.js'
 import {createIndexer} from '../../../../lib/spatial-index/indexer.js'
 import {POI_INDEX_MDB_BASE_PATH, POI_INDEX_PATH, POI_DATA_PATH} from '../../util/paths.js'
 import {extractFeatures} from './extract.js'

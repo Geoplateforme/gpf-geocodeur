@@ -6,7 +6,7 @@ import process from 'node:process'
 import {createGunzip} from 'node:zlib'
 import got from 'got'
 import {createIndexer} from '../../../../lib/spatial-index/indexer.js'
-import {createImporter} from '../../../../lib/addok-importer.js'
+import {createImporter} from '../../../../lib/addok/importer.js'
 import {extractFeatures} from './extract.js'
 import {ADDRESS_INDEX_PATH, ADDRESS_INDEX_MDB_BASE_PATH} from '../../util/paths.js'
 
