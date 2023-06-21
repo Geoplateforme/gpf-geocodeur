@@ -3,6 +3,7 @@ import {Router, json} from 'express'
 import {createCluster} from 'addok-cluster'
 
 import w from '../../../lib/w.js'
+import errorHandler from '../../../lib/error-handler.js'
 import {createRtree} from '../../../lib/spatial-index/rtree.js'
 import {createInstance as createRedisServer} from '../../../lib/addok/redis.js'
 
@@ -33,12 +34,7 @@ export async function createRouter() {
     res.send(reverse({...req.body, db, rtreeIndex}))
   }))
 
-  router.use((err, req, res, _next) => {
-    res.status(err.statusCode || 500).send({
-      code: err.statusCode || 500,
-      message: err.message
-    })
-  })
+  router.use(errorHandler)
 
   return router
 }
