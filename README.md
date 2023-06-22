@@ -40,7 +40,7 @@ cp .env.sample .env
 | `POI_INDEX_URL` | URL to serve POI index | `http://localhost:3003` |
 | `CORS_DISABLE` | Set to `1` to disable CORS policy | `0` |
 | `PARCELLAIRE_EXPRESS_URL` | URL of parcel database (Official SHP archive in `7z`) | `https://gpf-ign-data.s3.sbg.io.cloud.ovh.net/parcellaire-express/PARCELLAIRE_EXPRESS_1-1__SHP_{crs}_{dep}_2023-01-01.7z`|
-| `ADMIN_EXPRESS_URL` | URL of IGN/'s ADMIN EXPRESS (Official SHP archive in `7z`) | `https://gpf-ign-data.s3.sbg.io.cloud.ovh.net/admin-express/ADMIN-EXPRESS-COG_3-2__SHP_WGS84G_FRA_2023-05-03.7z` |
+| `ADMIN_EXPRESS_URL` | URL of IGN’s ADMIN EXPRESS (Official SHP archive in `7z`) | `https://gpf-ign-data.s3.sbg.io.cloud.ovh.net/admin-express/ADMIN-EXPRESS-COG_3-2__SHP_WGS84G_FRA_2023-05-03.7z` |
 | `BDTOPO_URL` | URL of the public IGN database | `https://gpf-ign-data.s3.sbg.io.cloud.ovh.net/bdtopo/BDTOPO_3-3_TOUSTHEMES_GPKG_{crs}_{dep}_2023-03-15.7z`|
 | `DEPARTEMENTS` | List of departements to limit data | `empty` |
 | `TMP_PATH` | Path to the `tmp` folder | `./tmp` |
