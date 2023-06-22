@@ -75,30 +75,3 @@ yarn address:start
 
 *TODO city parameter, reverse, autocomplete, POI*
 
-## Install with docker-compose
-
-### Prepare address data (with French BAN)
-
-- Download
-
-```bash
-wget https://adresse.data.gouv.fr/data/ban/adresses/latest/addok/addok-france-bundle.zip -O data.zip
-```
-
-- Extract
-
-```bash
-unzip data.zip -d ./data
-```
-
-- Remove zip archive
-
-```bash
-rm data.zip
-```
-
-### Run docker-compose
-
-```bash
-docker-compose up -d
-```
