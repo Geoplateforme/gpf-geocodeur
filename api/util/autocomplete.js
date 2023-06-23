@@ -17,3 +17,27 @@ export function formatAutocompleteParams(params) {
 
   return formattedParams
 }
+
+export function formatResult(params, features) {
+  const {type} = params
+  const autocompleteResult = []
+
+  if (type.includes('StreetAddress')) {
+    for (const feature of features) {
+      const {properties} = feature
+
+      autocompleteResult.push({
+        country: 'StreetAddress',
+        city: properties.city,
+        zipcode: properties.postcode,
+        street: properties.street,
+        metropole: properties.citycode.slice(0, 2) !== '97',
+        fulltext: `${properties.name}, ${properties.postcode} ${properties.city}`,
+        x: properties.x,
+        y: properties.y
+      })
+    }
+  }
+
+  return autocompleteResult
+}
