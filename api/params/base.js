@@ -54,14 +54,18 @@ export const PARAMS = {
     array: true,
     required: false,
     allowedValues: ['address', 'poi', 'parcel'],
-    defaultValue: ['address']
+    defaultValue: ['address'],
+    description: 'index de recherche',
+    example: 'address,parcel,poi'
   },
 
   searchgeom: {
     type: 'object',
     validate(v) {
       validateSearchgeom(v)
-    }
+    },
+    description: 'géométrie de recherche',
+    example: '{"type":"Polygon","coordinates":[[[2.354550,48.837961],[2.354550,48.839232],[2.357211,48.839232],[2.357211,48.837961],[2.354550,48.837961]]]}'
   },
 
   q: {
@@ -70,7 +74,9 @@ export const PARAMS = {
       if (v.length < 3 || v.length > 200 || !isFirstCharValid(v)) {
         throw new Error('must contain between 3 and 200 chars and start with a number or a letter')
       }
-    }
+    },
+    description: 'chaîne décrivant la localisation à rechercher',
+    example: '73 Avenue de Paris Saint-Mandé'
   },
 
   limit: {
@@ -80,7 +86,9 @@ export const PARAMS = {
       if (v < 1 || v > 20) {
         throw new Error('Param limit must be an integer between 1 and 20')
       }
-    }
+    },
+    description: 'nombre maximum de candidats retournés',
+    example: '5'
   },
 
   lon: {
@@ -89,7 +97,9 @@ export const PARAMS = {
       if (v < -180 || v > 180) {
         throw new Error('lon must be a float between -180 and 180')
       }
-    }
+    },
+    description: 'longitude d’un localisant pour favoriser les candidats les plus proches',
+    example: '2.327640'
   },
 
   lat: {
@@ -98,12 +108,16 @@ export const PARAMS = {
       if (v < -90 || v > 90) {
         throw new Error('lat must be a float between -90 and 90')
       }
-    }
+    },
+    description: 'latitude d’un localisant pour favoriser les candidats les plus proches',
+    example: '48.835187'
   },
 
   type: {
     type: 'string',
-    allowedValues: ['housenumber', 'street', 'locality', 'municipality']
+    allowedValues: ['housenumber', 'street', 'locality', 'municipality'],
+    description: 'filtre pour l’index address. Il permet de filtrer par type de données adresse : numéro de maison, rue, commune, ...',
+    example: 'municipality'
   },
 
   postcode: {
@@ -112,7 +126,9 @@ export const PARAMS = {
       if (!/^\d{5}$/.test(v)) {
         throw new Error('Param postcode must contain 5 digits')
       }
-    }
+    },
+    description: 'filtre pour les index address et poi. Il permet de filtrer les résultats par code postal',
+    example: '94160'
   },
 
   citycode: {
@@ -121,7 +137,9 @@ export const PARAMS = {
       if (!/^(\d{5}|\d[AB]\d{3})$/.test(v)) {
         throw new Error('Param citycode is invalid')
       }
-    }
+    },
+    description: 'filtre pour les index address et poi. Il permet de filtrer les résultats par code INSSE',
+    example: '94067'
   },
 
   city: {
@@ -130,17 +148,23 @@ export const PARAMS = {
       if (v.length > 50) {
         throw new Error('must contain between 1 and 50 chars')
       }
-    }
+    },
+    description: 'filtre pour les index address et parcel. Il permet de filtrer par nom de commune',
+    example: 'saint-mandé'
   },
 
   category: {
     type: 'string',
-    array: true
+    array: true,
+    description: 'filtre pour l’index poi. Il permet de filtrer par catégorie de poi',
+    example: 'administratif'
   },
 
   returntruegeometry: {
     type: 'boolean',
-    defaultValue: false
+    defaultValue: false,
+    description: 'indique si la vraie géométrie doit être retournée',
+    example: 'false'
   },
 
   autocomplete: {
@@ -154,7 +178,9 @@ export const PARAMS = {
       if (!isDepartmentcodeValid(v)) {
         throw new Error('Param departmentcode is invalid')
       }
-    }
+    },
+    description: 'filtre pour l’index parcel. Il permet de filtrer par code de département',
+    example: '94'
   },
 
   municipalitycode: {
@@ -163,7 +189,9 @@ export const PARAMS = {
       if (!/^\d{2,3}$/.test(v)) {
         throw new Error('Param municipalitycode is invalid')
       }
-    }
+    },
+    description: 'filtre pour l’index parcel. Il permet de filtrer par code de commune',
+    example: '000'
   },
 
   oldmunicipalitycode: {
@@ -172,7 +200,9 @@ export const PARAMS = {
       if (!/^\d{3}$/.test(v)) {
         throw new Error('Param oldmunicipalitycode is invalid')
       }
-    }
+    },
+    description: 'filtre pour l’index parcel. Il permet de filtrer par code d’andienne commune',
+    example: '000'
   },
 
   districtcode: {
@@ -181,7 +211,9 @@ export const PARAMS = {
       if (!/^\d{3}$/.test(v)) {
         throw new Error('Param districtcode is invalid')
       }
-    }
+    },
+    description: 'filtre pour l’index parcel. Il permet de filtrer par code d’arrondissement',
+    example: '105'
   },
 
   section: {
@@ -190,7 +222,9 @@ export const PARAMS = {
       if (!/^(\d{1,2}|[A-Z]{1,2}|0?[A-Z])$/.test(v)) {
         throw new Error('Param section is invalid')
       }
-    }
+    },
+    description: 'filtre pour l’index parcel. Il permet de filtrer par section',
+    example: 'AC'
   },
 
   number: {
@@ -199,7 +233,9 @@ export const PARAMS = {
       if (!/^\d{1,4}$/.test(v)) {
         throw new Error('Param number is invalid')
       }
-    }
+    },
+    description: 'filtre pour l’index parcel. Il permet de filtrer par feuille',
+    example: '0035'
   },
 
   sheet: {
@@ -208,7 +244,9 @@ export const PARAMS = {
       if (!/^\d{1,2}$/.test(v)) {
         throw new Error('Param sheet is invalid')
       }
-    }
+    },
+    description: 'filtre pour l’index parcel. Il permet de filtrer par feuille',
+    example: '1'
   }
 }
 
