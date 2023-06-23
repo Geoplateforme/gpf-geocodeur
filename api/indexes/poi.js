@@ -3,6 +3,7 @@ import {Agent as HttpAgent} from 'node:http'
 import {Agent as HttpsAgent} from 'node:https'
 import {pick} from 'lodash-es'
 import got from 'got'
+import {formatAutocompleteParams} from '../util/autocomplete.js'
 
 const {POI_INDEX_URL} = process.env
 
@@ -54,6 +55,13 @@ export default function createPoiIndex(options = {}) {
     async reverse(params) {
       const requestBody = prepareRequest(params)
       return execRequest('reverse', {json: requestBody})
+    },
+
+    async autocomplete(params) {
+      const autocompleteParams = formatAutocompleteParams(params)
+
+      const requestBody = prepareRequest(autocompleteParams)
+      return execRequest('search', {json: requestBody})
     }
   }
 }
