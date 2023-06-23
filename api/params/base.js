@@ -75,6 +75,7 @@ export const PARAMS = {
         throw new Error('must contain between 3 and 200 chars and start with a number or a letter')
       }
     },
+    operation: 'search',
     description: 'chaîne décrivant la localisation à rechercher',
     example: '73 Avenue de Paris Saint-Mandé'
   },
