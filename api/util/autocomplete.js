@@ -3,7 +3,7 @@ const AUTOCOMPLETE_INDEXES = {
   PositionOfInterest: 'poi'
 }
 
-export function getCoordinates(params) {
+export function getCenterFromCoordinates(params) {
   const {bbox, lonlat} = params
 
   if (!lonlat && !bbox) {
@@ -26,7 +26,7 @@ export function getCoordinates(params) {
 }
 
 export function formatAutocompleteParams(params) {
-  const coordinates = getCoordinates(params)
+  const coordinates = getCenterFromCoordinates(params)
 
   const formattedParams = {
     q: params.text,
