@@ -64,6 +64,7 @@ export const PARAMS = {
     validate(v) {
       validateSearchgeom(v)
     },
+    operation: 'reverse',
     description: 'géométrie de recherche',
     example: '{"type":"Polygon","coordinates":[[[2.354550,48.837961],[2.354550,48.839232],[2.357211,48.839232],[2.357211,48.837961],[2.354550,48.837961]]]}'
   },
