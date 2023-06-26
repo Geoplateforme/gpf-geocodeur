@@ -171,7 +171,9 @@ export const PARAMS = {
 
   autocomplete: {
     type: 'boolean',
-    defaultValue: true
+    defaultValue: true,
+    description: 'indique si la recherche doit être réalisée en mode auto-complétion. Pertinent uniquement pour la saisie en direct d\'utilisateurs',
+    example: 'false'
   },
 
   departmentcode: {
