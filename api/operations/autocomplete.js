@@ -1,14 +1,10 @@
 import {mergeResults} from '../merge.js'
-
-const AUTOCOMPLETE_INDEXES = {
-  StreetAddress: 'address',
-  PositionOfInterest: 'poi'
-}
+import {formatAutocompleteParams} from '../util/autocomplete.js'
 
 export default async function autocomplete(params, options = {}) {
   const {indexes} = options
-  params.indexes = params.type.map(v => AUTOCOMPLETE_INDEXES[v])
+  const autocompleteParams = formatAutocompleteParams(params)
 
-  const results = await indexes.dispatchRequest(params, 'autocomplete')
+  const results = await indexes.dispatchRequest(autocompleteParams, 'autocomplete')
   return mergeResults(results, params)
 }

@@ -3,7 +3,7 @@ import {Agent as HttpAgent} from 'node:http'
 import {Agent as HttpsAgent} from 'node:https'
 import {pick} from 'lodash-es'
 import got from 'got'
-import {formatAutocompleteParams, formatResult} from '../util/autocomplete.js'
+import {formatResult} from '../util/autocomplete.js'
 
 const {ADDRESS_INDEX_URL} = process.env
 
@@ -58,9 +58,7 @@ export default function createAddressIndex(options = {}) {
     },
 
     async autocomplete(params) {
-      const autocompleteParams = formatAutocompleteParams(params)
-
-      const requestBody = prepareRequest(autocompleteParams)
+      const requestBody = prepareRequest(params)
       const results = await execRequest('search', {json: requestBody})
       return formatResult(params, results)
     }

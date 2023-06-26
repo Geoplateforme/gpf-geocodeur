@@ -1,5 +1,10 @@
 import {getCoordinates} from './coordinates.js'
 
+const AUTOCOMPLETE_INDEXES = {
+  StreetAddress: 'address',
+  PositionOfInterest: 'poi'
+}
+
 export function formatAutocompleteParams(params) {
   const coordinates = getCoordinates(params)
 
@@ -8,6 +13,7 @@ export function formatAutocompleteParams(params) {
     autocomplete: true
   }
 
+  formattedParams.indexes = params.type.map(v => AUTOCOMPLETE_INDEXES[v])
   formattedParams.limit = params.maximumResponses
 
   if (coordinates) {
@@ -19,10 +25,10 @@ export function formatAutocompleteParams(params) {
 }
 
 export function formatResult(params, features) {
-  const {type} = params
+  const {indexes} = params
   const autocompleteResult = []
 
-  if (type.includes('StreetAddress')) {
+  if (indexes.includes('address')) {
     for (const feature of features) {
       const {properties} = feature
 
