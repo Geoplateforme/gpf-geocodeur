@@ -1,8 +1,28 @@
-import {getCoordinates} from './coordinates.js'
-
 const AUTOCOMPLETE_INDEXES = {
   StreetAddress: 'address',
   PositionOfInterest: 'poi'
+}
+
+export function getCoordinates(params) {
+  const {bbox, lonlat} = params
+
+  if (!lonlat && !bbox) {
+    return
+  }
+
+  if (lonlat) {
+    return {
+      lon: lonlat[0],
+      lat: lonlat[1]
+    }
+  }
+
+  if (bbox) {
+    return {
+      lon: (bbox[0] / 2) + (bbox[2] / 2),
+      lat: (bbox[1] / 2) + (bbox[3] / 2)
+    }
+  }
 }
 
 export function formatAutocompleteParams(params) {
