@@ -40,11 +40,18 @@ export default function createRouter(options = {}) {
 
   router.get('/completion', w(async (req, res) => {
     const params = extractAutocompleteParams(req.query)
-    const results = await autocomplete(params, {indexes})
-    res.send({
-      status: res.statusCode === 200 ? 'OK' : res.statusCode,
-      results
-    })
+    try {
+      const results = await autocomplete(params, {indexes})
+      res.send({
+        status: 'OK',
+        results
+      })
+    } catch (error) {
+      res.send({
+        status: 'Error',
+        error: error.message
+      })
+    }
   }))
 
   router.use(errorHandler)
