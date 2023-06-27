@@ -59,7 +59,7 @@ function groupParamsByOperation() {
       in: 'query',
       description,
       required: required || false,
-      default: PARAMS[k].default,
+      default: PARAMS[k].defaultValue,
       schema: {
         type: type === 'float' ? 'number' : type,
         example,
