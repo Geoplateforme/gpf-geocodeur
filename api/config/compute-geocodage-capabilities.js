@@ -63,7 +63,7 @@ function groupParamsByOperation() {
       schema: {
         type: type === 'float' ? 'number' : type,
         example,
-        enum: nameInQuery === 'index' ? allowedValues : undefined
+        enum: (nameInQuery === 'index' || k === 'type') ? allowedValues : undefined
       }
     }
 
