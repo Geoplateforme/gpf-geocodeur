@@ -1,4 +1,4 @@
-export default function getAddressIndexes() {
+export default function getAddressCapabilities() {
   return (
     {
       id: 'address',

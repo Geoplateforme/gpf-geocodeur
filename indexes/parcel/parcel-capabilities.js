@@ -1,4 +1,4 @@
-export default function getParcelIndexes() {
+export default function getParcelCapabilities() {
   return (
     {
       id: 'parcel',

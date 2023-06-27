@@ -300,39 +300,3 @@ export function extractParams(query, {operation}) {
   return parsedParams
 }
 
-export function groupParamsByOperation() {
-  const searchParameters = []
-  const reverseParameters = []
-
-  for (const k of Object.keys(PARAMS)) {
-    const {nameInQuery, description, required, type, example, allowedValues} = PARAMS[k]
-
-    const capabilitiesParams = {
-      name: nameInQuery || k,
-      in: 'query',
-      description,
-      required: required || false,
-      default: PARAMS[k].default,
-      schema: {
-        type: type === 'float' ? 'number' : type,
-        example,
-        enum: nameInQuery === 'index' ? allowedValues : undefined
-      }
-    }
-
-    const {operation} = PARAMS[k]
-
-    if (!operation || operation === 'search') {
-      searchParameters.push(capabilitiesParams)
-    }
-
-    if (!operation || operation !== 'search') {
-      reverseParameters.push(capabilitiesParams)
-    }
-  }
-
-  return {
-    searchParameters,
-    reverseParameters
-  }
-}
