@@ -63,6 +63,27 @@ export function formatResult(params, features) {
         y: properties.y
       })
     }
+  } else if (indexes.includes('poi')) {
+    for (const feature of features) {
+      const {properties} = feature
+
+      const street = properties.category.includes('administratif') || properties.category.includes('commune') ? properties.city : properties.toponym
+
+      autocompleteResult.push({
+        country: 'PositionOfInterest',
+        names: properties.name,
+        city: properties.city,
+        zipcode: properties.postcode[0],
+        zipcodes: properties.postcode,
+        metropole: properties.citycode.slice(0, 2) !== '97',
+        poiType: properties.category,
+        street,
+        kind: properties.toponym,
+        fulltext: `${properties.name}, ${properties.postcode} ${properties.city}`,
+        x: properties.x,
+        y: properties.y
+      })
+    }
   }
 
   return autocompleteResult
