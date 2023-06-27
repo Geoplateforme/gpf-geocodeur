@@ -53,7 +53,9 @@ export const AUTOCOMPLETE = {
       if (v.length < 3 || v.length > 200 || !isFirstCharValid(v)) {
         throw new Error('must contain between 3 and 200 chars and start with a number or a letter')
       }
-    }
+    },
+    description: 'le texte devant être completé',
+    example: '10 ru'
   },
 
   terr: {
@@ -63,12 +65,16 @@ export const AUTOCOMPLETE = {
       if (v.some(value => !isTerrValid(value))) {
         throw new Error('Unexpected value(s) for param terr')
       }
-    }
+    },
+    description: 'une limitation de la zone de recherche de localisants',
+    example: '75013'
   },
 
   poiType: {
     type: 'string',
-    array: true
+    array: true,
+    description: 'filtre sur le localisant pour le type de POI',
+    example: 'administratif'
   },
 
   lonlat: {
@@ -87,14 +93,18 @@ export const AUTOCOMPLETE = {
     },
     validate(v) {
       validateLonlat(v)
-    }
+    },
+    description: 'coordonnées (longitude, latitude) d\'un localisant pour favoriser les candidats les plus proches',
+    example: '2.347640,48.835187'
   },
 
   type: {
     type: 'string',
     array: true,
     allowedValues: ['PositionOfInterest', 'StreetAddress'],
-    defaultValue: ['PositionOfInterest', 'StreetAddress']
+    defaultValue: ['PositionOfInterest', 'StreetAddress'],
+    description: 'le type de localisant recherché, il est possible de spécifier plusieurs types séparés par une virgule',
+    example: 'PositionOfInterest'
   },
 
   maximumResponses: {
@@ -104,7 +114,9 @@ export const AUTOCOMPLETE = {
       if (v < 1 || v > 15) {
         throw new Error('Param limit must be an integer between 1 and 15')
       }
-    }
+    },
+    description: 'le nombre maximum de réponses que l\'on souhaite voir retournées',
+    example: '6'
   },
 
   bbox: {
@@ -125,7 +137,9 @@ export const AUTOCOMPLETE = {
     },
     validate(v) {
       validateBbox(v)
-    }
+    },
+    description: 'filtre avec une bbox suivant l\'ordre xmin, ymin, xmax, ymax',
+    example: '48.573569106948469,27.837770518544438,48.417446881093412,27.381161181879751'
   }
 }
 
