@@ -1,15 +1,18 @@
 import {PARAMS} from '../params/base.js'
 import getParcelIndexes from '../../indexes/parcel/parcel-capabilities.js'
 import getAddressIndexes from '../../indexes/address/address-capabilities.js'
+import getPOICapabilities from '../../indexes/poi/poi-capabilities.js'
 
 export default function computeGeocodageCapabilities() {
   const {searchParameters, reverseParameters} = groupParamsByOperation()
   const parcelIndexes = getParcelIndexes()
   const addressIndexes = getAddressIndexes()
+  const poiIndexes = getPOICapabilities()
 
   return {
     info: {
       name: 'Géocodage',
+      url: '',
       description: 'Service de géocodage et géocodage inverse.'
     },
     api: {
@@ -38,6 +41,7 @@ export default function computeGeocodageCapabilities() {
     ],
     indexes: [
       addressIndexes,
+      poiIndexes,
       parcelIndexes
     ]
   }
