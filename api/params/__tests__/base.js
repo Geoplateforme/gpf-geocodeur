@@ -385,7 +385,8 @@ test('extractParams / all params', t => {
     limit: 10,
     lon: 6.5,
     lat: 60,
-    q: 'foobar'
+    q: 'foobar',
+    autocomplete: true
   })
 })
 
@@ -399,7 +400,8 @@ test('extractParams / missing q but parcel only', t => {
     extractParams({index: 'parcel'}, {operation: 'search'}),
     {
       indexes: ['parcel'],
-      limit: 5
+      limit: 5,
+      autocomplete: true
     }
   )
 })
@@ -415,7 +417,8 @@ test('extractParams / with searchgeom', t => {
       coordinates: [2.1, 48.5],
       radius: 100
     },
-    limit: 10
+    limit: 10,
+    autocomplete: true
   })
 })
 
@@ -438,7 +441,8 @@ test('extractParams / city / found', t => {
     city: 'Metz',
     citycode: '57463',
     lon: 2.1,
-    lat: 48.5
+    lat: 48.5,
+    autocomplete: true
   })
 })
 

@@ -1,0 +1,28 @@
+{
+  "info": {
+    "name": "Géocodage",
+    "description": "Service de géocodage et géocodage inverse."
+  },
+  "api": {
+    "name": "rest",
+    "version": "1.0.0"
+  },
+  "operations": [
+    {
+      "id": "search",
+      "description": "fourni les coordonnées géographiques d'un lieu (adresse, point d'intérêt, parcelle cadastrale...)",
+      "url": "/search?",
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "id": "reverse",
+      "description": "fourni des lieux (adresse, point d'intérêt, parcelle cadastrale...) à partir de coordonnées géographiques",
+      "url": "/reverse?",
+      "methods": [
+        "GET"
+      ]
+    }
+  ]
+}
