@@ -1,7 +1,7 @@
 import {PARAMS} from '../params/base.js'
 import readJson from '../../lib/read-json.js'
 
-export default async function computeGeocodageCapabilities() {
+export default async function computeGeocodeCapabilities() {
   const {searchParameters, reverseParameters} = groupParamsByOperation()
   const infosCapabilities = await readJson('./config/capabilities/geocode.json')
   const addressCapabilities = await readJson('./config/capabilities/address.json')

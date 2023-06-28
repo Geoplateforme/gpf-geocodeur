@@ -8,7 +8,7 @@ import {createIndexes} from './indexes/index.js'
 import search from './operations/search.js'
 import reverse from './operations/reverse.js'
 import {PARAMS, extractParams} from './params/base.js'
-import computeGeocodageCapabilities from './capabilities/compute-geocodage-capabilities.js'
+import computeGeocodeCapabilities from './capabilities/geocode.js'
 
 const GEOCODE_INDEXES = process.env.GEOCODE_INDEXES
   ? process.env.GEOCODE_INDEXES.split(',')
@@ -38,7 +38,7 @@ export default function createRouter(options = {}) {
   }))
 
   router.get('/geocodage/getCapabilities', w(async (req, res) => {
-    const capabilities = await computeGeocodageCapabilities()
+    const capabilities = await computeGeocodeCapabilities()
     res.send(capabilities)
   }))
 
