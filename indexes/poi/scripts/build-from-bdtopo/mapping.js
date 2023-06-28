@@ -1,6 +1,19 @@
 /* eslint camelcase: off, curly: off, object-shorthand: off */
 
-const MAPPING = {
+export const MAIN_CATEGORIES = [
+  'cimetière',
+  'réservoir',
+  'administratif',
+  'construction',
+  'hydrographie',
+  'élément topographique ou forestier',
+  'transport',
+  'poste de transformation',
+  'zone d\'activité ou d\'intérêt',
+  'zone d\'habitation'
+]
+
+export const LAYERS = {
   cimetiere: {
     fields: {
       name: ({toponyme, nature}) => toponyme || (nature && `Cimetière ${nature.toLowerCase()}`) || 'Cimetière',
@@ -331,5 +344,3 @@ const MAPPING = {
     simplification: 0.0005
   }
 }
-
-export default MAPPING
