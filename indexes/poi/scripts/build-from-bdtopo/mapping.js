@@ -262,7 +262,6 @@ const MAPPING = {
         code_insee,
         code_insee_du_departement
       ],
-      city: [],
       classification: ({capitale_d_etat, chef_lieu_de_region, chef_lieu_de_departement, chef_lieu_d_arrondissement, chef_lieu_de_collectivite_terr, population}) => {
         if (capitale_d_etat) return 1
 
@@ -305,9 +304,6 @@ const MAPPING = {
       name: ({nom_officiel}) => nom_officiel,
       toponym: ({nom_officiel}) => nom_officiel,
       category: ['administratif', 'epci'],
-      postcode: [],
-      citycode: [],
-      city: [],
       classification: 2
     },
     simplification: 0.0005
@@ -318,9 +314,7 @@ const MAPPING = {
       name: ({nom_officiel}) => nom_officiel,
       toponym: ({nom_officiel}) => nom_officiel,
       category: ['administratif', 'département'],
-      postcode: [],
       citycode: ({code_insee}) => code_insee,
-      city: [],
       classification: 1
     },
     simplification: 0.0005
@@ -331,9 +325,7 @@ const MAPPING = {
       name: ({nom_officiel}) => nom_officiel,
       toponym: ({nom_officiel}) => nom_officiel,
       category: ['administratif', 'région'],
-      postcode: [],
       citycode: ({code_insee}) => [code_insee],
-      city: [],
       classification: 1
     },
     simplification: 0.0005
