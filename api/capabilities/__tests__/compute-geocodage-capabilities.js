@@ -1,8 +1,8 @@
 import test from 'ava'
 import computeGeocodageCapabilities from '../compute-geocodage-capabilities.js'
 
-test('computeGeocodageCapabilities / Fields', t => {
-  const computedCapabilities = computeGeocodageCapabilities()
+test('computeGeocodageCapabilities / Fields', async t => {
+  const computedCapabilities = await computeGeocodageCapabilities()
   const searchOperations = computedCapabilities.operations[0]
   const reverseOperations = computedCapabilities.operations[1]
 
