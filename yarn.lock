@@ -162,10 +162,10 @@
   resolved "https://registry.yarnpkg.com/@lmdb/lmdb-win32-x64/-/lmdb-win32-x64-2.8.1.tgz#ffdd4839d5afa91cf06fbb0bde0eefc852b601d6"
   integrity sha512-egriGEkuPS8tm9QDhTjqmV+v4STFS/ROc/L/4lwWwja1x9mMdpTZpkDYR8mN2aLLSsnBpoVx/k4UJbcnET70/A==
 
-"@mapbox/geojsonhint@^3.1.1":
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/@mapbox/geojsonhint/-/geojsonhint-3.1.1.tgz#ce73506290c22746761ba0093e3725ae72785cec"
-  integrity sha512-K70YnCS9BQsEvJOFNOP9dbDr39nY8VjxR8yxjFdj3kMwtwjyNq+vWQ81MW2AFe4Y2ZzdQvKJwqRSe+GvtncGyg==
+"@mapbox/geojsonhint@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@mapbox/geojsonhint/-/geojsonhint-3.2.0.tgz#3bf88d3f22a90dcdebca175c761fb4e8a31a822e"
+  integrity sha512-2gvaeDq0uGZ2jiKsdKBd2u3HJD6h0H1GzDnZjH3nVQHyyig3aNFNrMMqDYn0XipkQvkKGU96Y971qsJM1qpDdw==
   dependencies:
     concat-stream "^1.6.1"
     jsonlint-lines "1.7.1"
