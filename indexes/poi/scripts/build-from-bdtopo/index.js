@@ -55,12 +55,16 @@ const COMPUTED_FIELDS_SCHEMA = {
 }
 
 function computeFields(originalProperties, fieldsDefinition) {
-  return mapValues(fieldsDefinition, (resolver, _fieldName) => {
+  return mapValues(fieldsDefinition, (resolver, fieldName) => {
     let resolvedValue = isFunction(resolver)
       ? resolver(originalProperties)
       : resolver
 
-    if (COMPUTED_FIELDS_SCHEMA[_fieldName] === Array) {
+    if (resolvedValue === undefined) {
+      return
+    }
+
+    if (COMPUTED_FIELDS_SCHEMA[fieldName] === Array) {
       if (!Array.isArray(resolvedValue)) {
         resolvedValue = [resolvedValue]
       }
