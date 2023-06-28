@@ -9,10 +9,10 @@ export default async function computeGeocodeCapabilities() {
   }
 
   const {searchParameters, reverseParameters} = groupParamsByOperation()
-  const capabilities = await readJson('./config/capabilities/geocode.json')
-  const addressCapabilities = await readJson('./config/capabilities/address.json')
-  const parcelCapabilities = await readJson('./config/capabilities/parcel.json')
-  const poiCapabilities = await readJson('./config/capabilities/poi.json')
+  const capabilities = await readJson('./config/capabilities/geocode/base.json')
+  const addressCapabilities = await readJson('./config/capabilities/geocode/address.json')
+  const parcelCapabilities = await readJson('./config/capabilities/geocode/parcel.json')
+  const poiCapabilities = await readJson('./config/capabilities/geocode/poi.json')
 
   capabilities.operations[0].parameters = searchParameters
   capabilities.operations[1].parameters = reverseParameters
