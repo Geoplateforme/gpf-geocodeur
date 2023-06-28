@@ -29,7 +29,7 @@ export async function createRouter() {
   const redisServer = await createRedisServer(POI_INDEX_PATH)
   const addokCluster = await createCluster({
     addokRedisUrl: ['unix:' + redisServer.socketPath],
-    addokConfigModule: path.resolve('./indexes/address/config/addok.conf')
+    addokConfigModule: path.resolve('./indexes/poi/config/addok.conf')
   })
 
   const router = new Router()
