@@ -43,7 +43,7 @@
     "morgan": "^1.10.0",
     "msgpackr": "^1.9.5",
     "nanoid": "^4.0.2",
-    "natural": "^6.3.0",
+    "natural": "^6.5.0",
     "ndjson": "^2.0.0",
     "p-event": "^6.0.0",
     "pbf": "^3.2.1"
