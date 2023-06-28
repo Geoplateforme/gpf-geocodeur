@@ -49,30 +49,32 @@ export function formatResult(result) {
 
   for (const r of Object.keys(result)) {
     if (r === 'address') {
-      autocompleteResult.address = result[r].map(({properties}) => ({
+      autocompleteResult.address = result[r].map(feature => ({
         country: 'StreetAddress',
-        city: properties.city,
-        zipcode: properties.postcode,
-        street: properties.street,
-        metropole: properties.citycode.slice(0, 2) !== '97',
-        fulltext: `${properties.name}, ${properties.postcode} ${properties.city}`,
-        x: properties.x,
-        y: properties.y,
-        score: properties.score
+        city: feature.properties.city,
+        zipcode: feature.properties.postcode,
+        street: feature.properties.street,
+        metropole: feature.properties.citycode.slice(0, 2) !== '97',
+        fulltext: `${feature.properties.name}, ${feature.properties.postcode} ${feature.properties.city}`,
+        x: feature.geometry.coordinates[0],
+        y: feature.geometry.coordinates[1],
+        score: feature.properties.score
       }))
     } else if (r === 'poi') {
-      autocompleteResult.poi = result[r].map(({properties}) => ({
+      autocompleteResult.poi = result[r].map(feature => ({
         country: 'PositionOfInterest',
-        names: properties.name,
-        city: properties.city,
-        zipcode: properties.postcode[0],
-        zipcodes: properties.postcode,
-        metropole: properties.citycode.slice(0, 2) !== '97',
-        poiType: properties.category,
-        street: properties.category.includes('administratif') || properties.category.includes('commune') ? properties.city : properties.toponym,
-        kind: properties.toponym,
-        fulltext: `${properties.name}, ${properties.postcode} ${properties.city}`,
-        score: properties.score
+        names: feature.properties.name,
+        city: feature.properties.city,
+        zipcode: feature.properties.postcode[0],
+        zipcodes: feature.properties.postcode,
+        metropole: feature.properties.citycode.slice(0, 2) !== '97',
+        poiType: feature.properties.category,
+        street: feature.properties.category.includes('administratif') || feature.properties.category.includes('commune') ? feature.properties.city : feature.properties.toponym,
+        kind: feature.properties.toponym,
+        fulltext: `${feature.properties.name}, ${feature.properties.postcode} ${feature.properties.city}`,
+        x: feature.geometry.coordinates[0],
+        y: feature.geometry.coordinates[1],
+        score: feature.properties.score
       }))
     }
   }
