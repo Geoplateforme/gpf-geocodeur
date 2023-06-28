@@ -132,35 +132,35 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@lmdb/lmdb-darwin-arm64@2.8.1":
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/@lmdb/lmdb-darwin-arm64/-/lmdb-darwin-arm64-2.8.1.tgz#5603a5d27bfd40ccc9716f1408e0c5f4440fe0cd"
-  integrity sha512-+lJnQ46itw1OYYuqR/G6PMBpuBCj41zSGBDeL7tggf7LN8yngO6ZF9bfHQ6tgxPzz1Y3QfISJFEEQmZbHnLSuA==
+"@lmdb/lmdb-darwin-arm64@2.8.2":
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/@lmdb/lmdb-darwin-arm64/-/lmdb-darwin-arm64-2.8.2.tgz#cca35cdb7e6516208d6fc326e471949e0e7558e1"
+  integrity sha512-u5BJDGsS87KAS8Rmvuamo+VWo+yjFfyOcLfQvP7d4oMOnJZ+kgn9+THshHqrMiQzOZCVZoLwmLyOyh9tQNFVpw==
 
-"@lmdb/lmdb-darwin-x64@2.8.1":
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/@lmdb/lmdb-darwin-x64/-/lmdb-darwin-x64-2.8.1.tgz#a700c4b1672cc09d20835b37651b6d5f4a118928"
-  integrity sha512-NUGODQn36sJcXc/AssC+1v+8V+Z8RP2R8a/rWSdDy4xPUbyXipZx7c8DV22kfaGSkn5ADAZp7uEiS3ll8nX/EA==
+"@lmdb/lmdb-darwin-x64@2.8.2":
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/@lmdb/lmdb-darwin-x64/-/lmdb-darwin-x64-2.8.2.tgz#5b846fbfc6982f959471565d12ea43dec5cff195"
+  integrity sha512-5k+v+41l2wJdCxNpKNnskTqKn7A3nZB9aQOhhaHmlsEVj8BnGgVvF53WD5VQByoxUkk2QnCwM9P0Ao/RooXa2g==
 
-"@lmdb/lmdb-linux-arm64@2.8.1":
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/@lmdb/lmdb-linux-arm64/-/lmdb-linux-arm64-2.8.1.tgz#c76d5aa48bb24772ae35cb7f0a3a99bc7dfa939c"
-  integrity sha512-xOhnwT1VTWz+NhN0BR4W1+xwjdqLYprobYdmYm5F+VKtmzqyEOKSnyzt3pp8qiKNQ7jbQfUOlIE33pW3g8C6uA==
+"@lmdb/lmdb-linux-arm64@2.8.2":
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/@lmdb/lmdb-linux-arm64/-/lmdb-linux-arm64-2.8.2.tgz#ca70bf696a0ba7649a4b65d146f0d3b58922914e"
+  integrity sha512-eiS5O0Um9nG3vTGMEnSqntVxq75UJ7BpwLLdrNmC0s0TkKVDLk5ugrjoOiYnQRUQ/7WjW3mmefFNweMV+vC8mQ==
 
-"@lmdb/lmdb-linux-arm@2.8.1":
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/@lmdb/lmdb-linux-arm/-/lmdb-linux-arm-2.8.1.tgz#ae5e9c398b233c20354880e08bb98d5d3c561d0f"
-  integrity sha512-+/lzCUZ8oc2iMsFgs9wt+W0HTHKB5xunCJkX8ZxPXH3NySVVLBK3Y4bYaq8UeKGnoZnm8VtnvbchDJ9xeVPPTw==
+"@lmdb/lmdb-linux-arm@2.8.2":
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/@lmdb/lmdb-linux-arm/-/lmdb-linux-arm-2.8.2.tgz#734dabc4cb9a758fe584dd89edfe7ece408408f5"
+  integrity sha512-0JIbQn7MrLuJUgz7/YfE9zscNcBSlU5yaAwGp+0W+XgmmwxMl35tVQxF2XPUnaD69dnBAaNJzxt64E1h7tj6cw==
 
-"@lmdb/lmdb-linux-x64@2.8.1":
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/@lmdb/lmdb-linux-x64/-/lmdb-linux-x64-2.8.1.tgz#af3ee83a4207d9bcedecf8caef525a0fc065a92c"
-  integrity sha512-n44Rz5mh/win3N/ufr9rsQqC+Mec9rDEZM7qqM5ZppodJD7VxFvQEcxSZ+n4MMrq9jCvn7vswRW4Jw65LSNh4w==
+"@lmdb/lmdb-linux-x64@2.8.2":
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/@lmdb/lmdb-linux-x64/-/lmdb-linux-x64-2.8.2.tgz#de89de163c0b67de7c4e76b83142aabbd6c2fd12"
+  integrity sha512-Ol7ErAD/phdDOH0en44zbnVLXVZSqieOG5WbdmS3C9/YEBkJBaRa2oz4bOY0gIO4SUH6x0Z8kOHTDHmkOjPssw==
 
-"@lmdb/lmdb-win32-x64@2.8.1":
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/@lmdb/lmdb-win32-x64/-/lmdb-win32-x64-2.8.1.tgz#ffdd4839d5afa91cf06fbb0bde0eefc852b601d6"
-  integrity sha512-egriGEkuPS8tm9QDhTjqmV+v4STFS/ROc/L/4lwWwja1x9mMdpTZpkDYR8mN2aLLSsnBpoVx/k4UJbcnET70/A==
+"@lmdb/lmdb-win32-x64@2.8.2":
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/@lmdb/lmdb-win32-x64/-/lmdb-win32-x64-2.8.2.tgz#cd2b9e1b5104df5ef4ce4017ab39630fdc877778"
+  integrity sha512-Jq7/OO6ZPYWoD+LIX5KBoTNCfBjWIJedMW/KO9AQZ68AHhlSY6HlrjNpGC3ugY1v3dOqYjdvl+mKziWQxNZ6Jw==
 
 "@mapbox/geojsonhint@^3.2.0":
   version "3.2.0"
@@ -3259,10 +3259,10 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.2.4.tgz#eca284f75d2965079309dc0ad9255abb2ebc1632"
   integrity sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==
 
-lmdb@^2.8.1:
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/lmdb/-/lmdb-2.8.1.tgz#f3050fb299fa1b078eab86654ff2c085f4b607e0"
-  integrity sha512-xer4bBJ0jAJGgA17z3Zh5k1uDKUyS0RberxiRNMnjqB0FnlNMzvl7dvFCkJVjU0Q53EmQ76bPTnbZWyMcw317A==
+lmdb@^2.8.2:
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/lmdb/-/lmdb-2.8.2.tgz#9cb02f2a123136a1de8a016aec6179e3a158aa8f"
+  integrity sha512-G5scdU7lStJzoxQv3dym0rvryTbPC+fhf2qe/uF022KVzyDawlby552vdWeA/OCQVF297lchWkR3dukIfTd/Zw==
   dependencies:
     msgpackr "^1.9.5"
     node-addon-api "^6.1.0"
@@ -3271,12 +3271,12 @@ lmdb@^2.8.1:
     weak-lru-cache "^1.2.2"
     yarn "^1.22.19"
   optionalDependencies:
-    "@lmdb/lmdb-darwin-arm64" "2.8.1"
-    "@lmdb/lmdb-darwin-x64" "2.8.1"
-    "@lmdb/lmdb-linux-arm" "2.8.1"
-    "@lmdb/lmdb-linux-arm64" "2.8.1"
-    "@lmdb/lmdb-linux-x64" "2.8.1"
-    "@lmdb/lmdb-win32-x64" "2.8.1"
+    "@lmdb/lmdb-darwin-arm64" "2.8.2"
+    "@lmdb/lmdb-darwin-x64" "2.8.2"
+    "@lmdb/lmdb-linux-arm" "2.8.2"
+    "@lmdb/lmdb-linux-arm64" "2.8.2"
+    "@lmdb/lmdb-linux-x64" "2.8.2"
+    "@lmdb/lmdb-win32-x64" "2.8.2"
 
 load-json-file@^7.0.0:
   version "7.0.1"
