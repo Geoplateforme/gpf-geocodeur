@@ -205,7 +205,7 @@ export const PARAMS = {
         throw new Error('Param oldmunicipalitycode is invalid')
       }
     },
-    description: 'filtre pour l’index parcel. Il permet de filtrer par code d’andienne commune',
+    description: 'filtre pour l’index parcel. Il permet de filtrer par code d’ancienne commune',
     example: '000'
   },
 
