@@ -44,15 +44,12 @@ export function formatAutocompleteParams(params) {
   return formattedParams
 }
 
-export function formatResult(params, features) {
-  const {indexes} = params
-  const autocompleteResult = []
+export function formatResult(result) {
+  const autocompleteResult = {}
 
-  if (indexes.includes('address')) {
-    for (const feature of features) {
-      const {properties} = feature
-
-      autocompleteResult.push({
+  for (const r of Object.keys(result)) {
+    if (r === 'address') {
+      autocompleteResult.address = result[r].map(({properties}) => ({
         country: 'StreetAddress',
         city: properties.city,
         zipcode: properties.postcode,
@@ -60,16 +57,11 @@ export function formatResult(params, features) {
         metropole: properties.citycode.slice(0, 2) !== '97',
         fulltext: `${properties.name}, ${properties.postcode} ${properties.city}`,
         x: properties.x,
-        y: properties.y
-      })
-    }
-  } else if (indexes.includes('poi')) {
-    for (const feature of features) {
-      const {properties} = feature
-
-      const street = properties.category.includes('administratif') || properties.category.includes('commune') ? properties.city : properties.toponym
-
-      autocompleteResult.push({
+        y: properties.y,
+        score: properties.score
+      }))
+    } else if (r === 'poi') {
+      autocompleteResult.poi = result[r].map(({properties}) => ({
         country: 'PositionOfInterest',
         names: properties.name,
         city: properties.city,
@@ -77,12 +69,11 @@ export function formatResult(params, features) {
         zipcodes: properties.postcode,
         metropole: properties.citycode.slice(0, 2) !== '97',
         poiType: properties.category,
-        street,
+        street: properties.category.includes('administratif') || properties.category.includes('commune') ? properties.city : properties.toponym,
         kind: properties.toponym,
         fulltext: `${properties.name}, ${properties.postcode} ${properties.city}`,
-        x: properties.x,
-        y: properties.y
-      })
+        score: properties.score
+      }))
     }
   }
 
