@@ -54,6 +54,11 @@ export default function createAddressIndex(options = {}) {
     async reverse(params) {
       const requestBody = prepareRequest(params)
       return execRequest('reverse', {json: requestBody})
+    },
+
+    async autocomplete(params) {
+      const requestBody = prepareRequest(params)
+      return execRequest('search', {json: requestBody})
     }
   }
 }
