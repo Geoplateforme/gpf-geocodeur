@@ -1,0 +1,79 @@
+{
+  "id": "StreetAddress",
+  "description": "adresses postales",
+  "fields": [
+    {
+      "name": "country",
+      "description": "Le type du localisant proposé",
+      "type": "string",
+      "queryable": false,
+      "filter": false,
+      "values": [
+        "StreetAddress"
+      ]
+    },
+    {
+      "name": "city",
+      "description": "Le nom de la commune",
+      "type": "string",
+      "queryable": false,
+      "filter": false
+    },
+    {
+      "name": "oldcity",
+      "description": "Les anciens nom de la commune",
+      "type": "string",
+      "queryable": false,
+      "filter": false
+    },
+    {
+      "name": "zipcode",
+      "description": "Le code postal de la commune",
+      "type": "string",
+      "queryable": false,
+      "filter": true
+    },
+    {
+      "name": "street",
+      "description": "Le Libelle",
+      "type": "string",
+      "queryable": false,
+      "filter": false
+    },
+    {
+      "name": "classification",
+      "description": "La Classification",
+      "type": "integer",
+      "queryable": false,
+      "filter": false
+    },
+    {
+      "name": "kind",
+      "description": "Le Type",
+      "type": "string",
+      "queryable": false,
+      "filter": false
+    },
+    {
+      "name": "metropole",
+      "description": "L'adresse est-elle située en France métropolitaine ?",
+      "type": "boolean",
+      "queryable": false,
+      "filter": true
+    },
+    {
+      "name": "fulltext",
+      "description": "La proposition complète de localisant pour l’autocomplétion",
+      "type": "string",
+      "queryable": true,
+      "filter": false
+    },
+    {
+      "name": "importance",
+      "description": "Le Poids",
+      "type": "float",
+      "queryable": false,
+      "filter": false
+    }
+  ]
+}

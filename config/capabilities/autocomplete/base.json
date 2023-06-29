@@ -1,0 +1,20 @@
+{
+  "info": {
+    "name": "Autocompletion",
+    "description": "Service d'autocompletion"
+  },
+  "api": {
+    "name": "rest",
+    "version": "1.0.0"
+  },
+  "operations": [
+    {
+      "id": "completion",
+      "description": "fourni des suggestions d'objets géolocalisés pouvant correspondre à la chaine de caractères entrée par l'utilisateur.",
+      "url": "/completion?",
+      "methods": [
+        "GET"
+      ]
+    }
+  ]
+}
