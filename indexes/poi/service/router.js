@@ -18,7 +18,8 @@ const POI_FIELDS = [
   'postcode',
   'citycode',
   'city',
-  'extrafields'
+  'extrafields',
+  'classification'
 ]
 
 export async function createRouter() {

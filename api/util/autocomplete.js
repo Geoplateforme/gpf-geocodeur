@@ -58,6 +58,7 @@ export function formatResult(result) {
         fulltext: `${feature.properties.name}, ${feature.properties.postcode} ${feature.properties.city}`,
         x: feature.geometry.coordinates[0],
         y: feature.geometry.coordinates[1],
+        classification: 7,
         score: feature.properties.score
       }}))
     } else if (r === 'poi') {
@@ -74,6 +75,7 @@ export function formatResult(result) {
         fulltext: `${feature.properties.name}, ${feature.properties.postcode}${feature.properties.city ? ` ${feature.properties.city}` : ''}`,
         x: feature.geometry.coordinates[0],
         y: feature.geometry.coordinates[1],
+        classification: feature.properties.classification,
         score: feature.properties.score
       }}))
     }
