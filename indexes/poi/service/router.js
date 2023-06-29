@@ -1,7 +1,6 @@
 import path from 'node:path'
 import {Router, json} from 'express'
 import {createCluster} from 'addok-cluster'
-import {pick} from 'lodash-es'
 
 import w from '../../../lib/w.js'
 import readJson from '../../../lib/read-json.js'
@@ -11,16 +10,7 @@ import {createInstance as createLmdbInstance} from '../../../lib/spatial-index/l
 
 import {POI_INDEX_PATH, POI_INDEX_MDB_PATH, POI_INDEX_CATEGORIES_PATH} from '../util/paths.js'
 
-const POI_FIELDS = [
-  'name',
-  'toponym',
-  'category',
-  'postcode',
-  'citycode',
-  'city',
-  'extrafields',
-  'classification'
-]
+import {search} from './search.js'
 
 export async function createRouter() {
   const db = await createLmdbInstance(POI_INDEX_MDB_PATH, {
@@ -41,26 +31,8 @@ export async function createRouter() {
   router.use(json())
 
   router.post('/search', w(async (req, res) => {
-    const results = await addokCluster.geocode(req.body)
-    res.send(results.map(result => {
-      const {id} = result.properties
-      const storedFeature = db.getFeatureById(id)
-
-      const properties = {
-        ...pick(storedFeature.properties, POI_FIELDS),
-        score: result.properties.score
-      }
-
-      if (req.body.returntruegeometry) {
-        properties.truegeometry = JSON.stringify(storedFeature.geometry)
-      }
-
-      return {
-        type: 'Feature',
-        geometry: result.geometry,
-        properties
-      }
-    }))
+    const results = await search(req.body, {addokCluster, db})
+    res.send(results)
   }))
 
   router.get('/categories', (req, res) => {
