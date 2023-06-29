@@ -1,7 +1,13 @@
 import {AUTOCOMPLETE} from '../params/autocomplete.js'
 import readJson from '../../lib/read-json.js'
 
+let _capabilities = null
+
 export default async function computeAutocompleteCapabilities() {
+  if (_capabilities) {
+    return _capabilities
+  }
+
   const parameters = computeParameters()
   const capabilities = await readJson('./config/capabilities/autocomplete/base.json')
   const addressCapabilities = await readJson('./config/capabilities/autocomplete/address.json')
@@ -10,6 +16,7 @@ export default async function computeAutocompleteCapabilities() {
   capabilities.operations[0].parameters = parameters
   capabilities.indexes = [addressCapabilities, poiCapabilities]
 
+  _capabilities = capabilities
   return capabilities
 }
 
