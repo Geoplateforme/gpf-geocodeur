@@ -9,6 +9,7 @@ import search from './operations/search.js'
 import reverse from './operations/reverse.js'
 import {PARAMS, extractParams} from './params/base.js'
 import computeGeocodeCapabilities from './capabilities/geocode.js'
+import computeAutocompleteCapabilities from './capabilities/autocomplete.js'
 
 const GEOCODE_INDEXES = process.env.GEOCODE_INDEXES
   ? process.env.GEOCODE_INDEXES.split(',')
@@ -39,6 +40,11 @@ export default function createRouter(options = {}) {
 
   router.get('/geocodage/getCapabilities', w(async (req, res) => {
     const capabilities = await computeGeocodeCapabilities()
+    res.send(capabilities)
+  }))
+
+  router.get('/autocomplete/getCapabilities', w(async (req, res) => {
+    const capabilities = await computeAutocompleteCapabilities()
     res.send(capabilities)
   }))
 
