@@ -71,7 +71,7 @@ export function formatResult(result) {
         poiType: feature.properties.category,
         street: feature.properties.category.includes('administratif') || feature.properties.category.includes('commune') ? feature.properties.city : feature.properties.toponym,
         kind: feature.properties.toponym,
-        fulltext: `${feature.properties.name}, ${feature.properties.postcode} ${feature.properties.city}`,
+        fulltext: `${feature.properties.name}, ${feature.properties.postcode}${feature.properties.city ? ` ${feature.properties.city}` : ''}`,
         x: feature.geometry.coordinates[0],
         y: feature.geometry.coordinates[1],
         score: feature.properties.score
