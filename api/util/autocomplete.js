@@ -52,6 +52,7 @@ export function formatResult(result) {
       autocompleteResult.address = result[r].map(feature => ({properties: {
         country: 'StreetAddress',
         city: feature.properties.city,
+        oldcity: feature.properties.oldcity,
         zipcode: feature.properties.postcode,
         street: feature.properties.street,
         metropole: feature.properties.citycode.slice(0, 2) !== '97',
