@@ -4,6 +4,7 @@ import 'dotenv/config.js'
 
 import path from 'node:path'
 import {createReadStream} from 'node:fs'
+import {copyFile} from 'node:fs/promises'
 import {Transform} from 'node:stream'
 
 import {parse, stringify} from 'ndjson'
@@ -11,7 +12,7 @@ import {omit} from 'lodash-es'
 
 import {createImporter} from '../../../../lib/addok/importer.js'
 import {createIndexer} from '../../../../lib/spatial-index/indexer.js'
-import {POI_INDEX_MDB_BASE_PATH, POI_INDEX_PATH, POI_DATA_PATH} from '../../util/paths.js'
+import {POI_INDEX_MDB_BASE_PATH, POI_INDEX_PATH, POI_DATA_PATH, POI_DATA_CATEGORIES_PATH, POI_INDEX_CATEGORIES_PATH} from '../../util/paths.js'
 import {extractFeatures} from './extract.js'
 
 const INPUT_FILE = path.join(POI_DATA_PATH, 'poi.ndjson')
@@ -51,6 +52,9 @@ await addokImporter.batchImport(
     }))
     .pipe(stringify())
 )
+
+// Copy categories file
+await copyFile(POI_DATA_CATEGORIES_PATH, POI_INDEX_CATEGORIES_PATH)
 
 await indexer.finish()
 await addokImporter.finish()

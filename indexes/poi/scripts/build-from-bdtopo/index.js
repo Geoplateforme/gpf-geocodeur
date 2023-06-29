@@ -6,7 +6,7 @@ import process from 'node:process'
 import {finished} from 'node:stream/promises'
 import {Readable} from 'node:stream'
 import {createWriteStream} from 'node:fs'
-import {rm, mkdir} from 'node:fs/promises'
+import {rm, mkdir, writeFile} from 'node:fs/promises'
 
 import gdal from 'gdal-async'
 import {mapValues, isFunction, uniq, compact, chain} from 'lodash-es'
@@ -16,10 +16,11 @@ import centroid from '@turf/centroid'
 import {downloadAndExtractToTmp, getArchiveURL, getPath} from '../../../../lib/geoservices.js'
 import {getCommune} from '../../../../lib/cog.js'
 
-import {POI_DATA_PATH} from '../../util/paths.js'
+import {POI_DATA_PATH, POI_DATA_CATEGORIES_PATH} from '../../util/paths.js'
 
-import LAYERS from './mapping.js'
+import {LAYERS, MAIN_CATEGORIES} from './mapping.js'
 import {createCommunesIndex} from './communes.js'
+import {createAccumulator} from './categories.js'
 
 const ALL_DEPARTEMENTS = [
   '01', '02', '03', '04', '05', '06', '07', '08', '09',
@@ -43,6 +44,7 @@ const {BDTOPO_URL} = process.env
 
 const communesIndex = await createCommunesIndex()
 const cleabsUniqIndex = new Set()
+const categoriesAccumulator = createAccumulator(MAIN_CATEGORIES)
 
 const COMPUTED_FIELDS_SCHEMA = {
   name: Array,
@@ -55,12 +57,16 @@ const COMPUTED_FIELDS_SCHEMA = {
 }
 
 function computeFields(originalProperties, fieldsDefinition) {
-  return mapValues(fieldsDefinition, (resolver, _fieldName) => {
+  return mapValues(fieldsDefinition, (resolver, fieldName) => {
     let resolvedValue = isFunction(resolver)
       ? resolver(originalProperties)
       : resolver
 
-    if (COMPUTED_FIELDS_SCHEMA[_fieldName] === Array) {
+    if (resolvedValue === undefined) {
+      return
+    }
+
+    if (COMPUTED_FIELDS_SCHEMA[fieldName] === Array) {
       if (!Array.isArray(resolvedValue)) {
         resolvedValue = [resolvedValue]
       }
@@ -72,7 +78,7 @@ function computeFields(originalProperties, fieldsDefinition) {
   })
 }
 
-function * readFeatures(datasetPath, layersDefinitions) {
+function * readFeatures(datasetPath, layersDefinitions, acc) {
   const ds = gdal.open(datasetPath)
   const wgs84 = gdal.SpatialReference.fromProj4('+init=epsg:4326')
 
@@ -140,6 +146,8 @@ function * readFeatures(datasetPath, layersDefinitions) {
       fields.lon = lon
       fields.lat = lat
 
+      acc.addCategories(fields.category)
+
       yield JSON.stringify(fields) + '\n'
     }
   }
@@ -157,12 +165,17 @@ for (const codeDepartement of DEPARTEMENTS) {
   const archiveDirPath = await downloadAndExtractToTmp(archiveUrl)
   const datasetPath = await getPath(archiveDirPath, 'BDT_3-3_GPKG_*.gpkg')
 
-  const featureStream = Readable.from(readFeatures(datasetPath, LAYERS))
+  const featureStream = Readable.from(readFeatures(datasetPath, LAYERS, categoriesAccumulator))
   featureStream.pipe(outputFile, {end: false})
   await finished(featureStream)
 
   await rm(archiveDirPath, {recursive: true})
 }
+
+await writeFile(
+  POI_DATA_CATEGORIES_PATH,
+  JSON.stringify(categoriesAccumulator.getSummary())
+)
 
 outputFile.end()
 await finished(outputFile)
