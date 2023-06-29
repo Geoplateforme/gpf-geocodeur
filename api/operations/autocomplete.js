@@ -12,5 +12,5 @@ export default async function autocomplete(params, options = {}) {
   const formattedResult = formatResult(results)
   const mergedResults = mergeResults(formattedResult, autocompleteParams)
 
-  return mergedResults.map(m => omit(m, ['score', 'properties']))
+  return mergedResults.map(result => (omit({...result.properties}, ['_type', 'score'])))
 }

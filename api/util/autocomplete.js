@@ -49,7 +49,7 @@ export function formatResult(result) {
 
   for (const r of Object.keys(result)) {
     if (r === 'address') {
-      autocompleteResult.address = result[r].map(feature => ({
+      autocompleteResult.address = result[r].map(feature => ({properties: {
         country: 'StreetAddress',
         city: feature.properties.city,
         zipcode: feature.properties.postcode,
@@ -59,9 +59,9 @@ export function formatResult(result) {
         x: feature.geometry.coordinates[0],
         y: feature.geometry.coordinates[1],
         score: feature.properties.score
-      }))
+      }}))
     } else if (r === 'poi') {
-      autocompleteResult.poi = result[r].map(feature => ({
+      autocompleteResult.poi = result[r].map(feature => ({properties: {
         country: 'PositionOfInterest',
         names: feature.properties.name,
         city: feature.properties.city,
@@ -75,7 +75,7 @@ export function formatResult(result) {
         x: feature.geometry.coordinates[0],
         y: feature.geometry.coordinates[1],
         score: feature.properties.score
-      }))
+      }}))
     }
   }
 
