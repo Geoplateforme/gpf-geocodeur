@@ -4,11 +4,12 @@ import {createCluster} from 'addok-cluster'
 import {pick} from 'lodash-es'
 
 import w from '../../../lib/w.js'
+import readJson from '../../../lib/read-json.js'
 import errorHandler from '../../../lib/error-handler.js'
 import {createInstance as createRedisServer} from '../../../lib/addok/redis.js'
 import {createInstance as createLmdbInstance} from '../../../lib/spatial-index/lmdb.js'
 
-import {POI_INDEX_PATH, POI_INDEX_MDB_PATH} from '../util/paths.js'
+import {POI_INDEX_PATH, POI_INDEX_MDB_PATH, POI_INDEX_CATEGORIES_PATH} from '../util/paths.js'
 
 const POI_FIELDS = [
   'name',
@@ -29,8 +30,10 @@ export async function createRouter() {
   const redisServer = await createRedisServer(POI_INDEX_PATH)
   const addokCluster = await createCluster({
     addokRedisUrl: ['unix:' + redisServer.socketPath],
-    addokConfigModule: path.resolve('./indexes/address/config/addok.conf')
+    addokConfigModule: path.resolve('./indexes/poi/config/addok.conf')
   })
+
+  const categories = await readJson(POI_INDEX_CATEGORIES_PATH)
 
   const router = new Router()
 
@@ -58,6 +61,10 @@ export async function createRouter() {
       }
     }))
   }))
+
+  router.get('/categories', (req, res) => {
+    res.send(categories)
+  })
 
   router.use(errorHandler)
 

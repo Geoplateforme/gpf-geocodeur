@@ -10,6 +10,7 @@ import reverse from './operations/reverse.js'
 import autocomplete from './operations/autocomplete.js'
 import {PARAMS, extractParams} from './params/base.js'
 import {extractParams as extractAutocompleteParams} from './params/autocomplete.js'
+import computeGeocodeCapabilities from './capabilities/geocode.js'
 
 const GEOCODE_INDEXES = process.env.GEOCODE_INDEXES
   ? process.env.GEOCODE_INDEXES.split(',')
@@ -52,6 +53,11 @@ export default function createRouter(options = {}) {
         error: error.message
       })
     }
+  }))
+
+  router.get('/geocodage/getCapabilities', w(async (req, res) => {
+    const capabilities = await computeGeocodeCapabilities()
+    res.send(capabilities)
   }))
 
   router.use(errorHandler)
