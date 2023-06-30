@@ -20,7 +20,7 @@ const GEOCODE_INDEXES = process.env.GEOCODE_INDEXES
 export default function createRouter(options = {}) {
   const router = new express.Router()
 
-  const indexes = createIndexes(options.indexes || GEOCODE_INDEXES)
+  const indexes = options.customIndexes || createIndexes(options.indexes || GEOCODE_INDEXES)
 
   router.get('/search', w(async (req, res) => {
     const params = extractParams(req.query, {operation: 'search'}, PARAMS)
