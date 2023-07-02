@@ -1,10 +1,10 @@
-import {chain, take, omit} from 'lodash-es'
+import {omit} from 'lodash-es'
 import createError from 'http-errors'
 import bbox from '@turf/bbox'
 import circle from '@turf/circle'
 import distance from '@turf/distance'
 
-import {bboxMaxLength, featureMatches} from '../../../lib/spatial-index/util.js'
+import {bboxMaxLength, featureMatches, sortAndPickResults, computeScore} from '../../../lib/spatial-index/util.js'
 
 import {getNomCommune} from './cog.js'
 
@@ -117,17 +117,6 @@ export function reverse(options = {}) {
   )
 }
 
-function sortAndPickResults(results, {limit, center}) {
-  if (center) {
-    return chain(results)
-      .sortBy(r => r.properties.distance)
-      .take(limit)
-      .value()
-  }
-
-  return take(results, limit)
-}
-
 function formatResult(feature, {center, distanceCache, returntruegeometry}) {
   const result = {
     type: 'Feature',
@@ -160,8 +149,4 @@ function formatResult(feature, {center, distanceCache, returntruegeometry}) {
 function computeDistance(feature, center) {
   const {lon, lat} = feature.properties
   return Math.round(distance(center, [lon, lat]) * 1000)
-}
-
-function computeScore(distance) {
-  return 1 - Math.min(1, distance / 10_000)
 }
