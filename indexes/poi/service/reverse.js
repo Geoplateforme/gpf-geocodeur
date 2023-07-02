@@ -1,9 +1,10 @@
 import {chain, take, omit} from 'lodash-es'
 import createError from 'http-errors'
-import booleanIntersects from '@turf/boolean-intersects'
 import bbox from '@turf/bbox'
 import circle from '@turf/circle'
 import distance from '@turf/distance'
+
+import {bboxMaxLength, featureMatches} from '../../../lib/spatial-index/util.js'
 
 function extractConfig({rtreeIndex, db}) {
   if (!rtreeIndex || !db) {
@@ -53,27 +54,6 @@ export function reverse(options = {}) {
     matchingFeatures,
     {limit, center}
   )
-}
-
-export function bboxMaxLength([xMin, yMin, xMax, yMax]) {
-  return Math.max(
-    distance([xMin, yMin], [xMin, yMax]),
-    distance([xMin, yMin], [xMax, yMin])
-  )
-}
-
-export function featureMatches(feature, geometry, filters = {}) {
-  for (const [filterKey, filterValue] of Object.entries(filters)) {
-    if (feature.properties[filterKey] !== filterValue) {
-      return false
-    }
-  }
-
-  if (!geometry) {
-    return true
-  }
-
-  return booleanIntersects(geometry, feature)
 }
 
 function sortAndPickResults(results, {limit, center}) {
