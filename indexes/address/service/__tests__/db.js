@@ -45,6 +45,11 @@ test('prepareHousenumber', t => {
 
 test('prepareMunicipality', t => {
   const feature = {
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [2, 40]
+    },
     properties: {
       id: '123456789',
       name: 'Ville',
@@ -62,6 +67,11 @@ test('prepareMunicipality', t => {
   const result = prepareMunicipality(feature)
 
   t.deepEqual(result, {
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [2, 40]
+    },
     properties: {
       type: 'municipality',
       name: 'Ville',
