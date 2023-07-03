@@ -53,8 +53,8 @@ export function formatAutocompleteParams(params) {
   formattedParams.limit = params.maximumResponses
 
   if (coordinates) {
-    formattedParams.lon = coordinates[0]
-    formattedParams.lat = coordinates[1]
+    formattedParams.lon = coordinates.lon
+    formattedParams.lat = coordinates.lat
   }
 
   return formattedParams
