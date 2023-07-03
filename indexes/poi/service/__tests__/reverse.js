@@ -1,16 +1,5 @@
 import test from 'ava'
-import {extractConfig, reverse, formatResult, computeDistance} from '../reverse.js'
-
-test('extractConfig / empty parameters', t => {
-  t.throws(() => extractConfig({options: null}), {message: 'search must be called with db and rtreeIndex params'})
-})
-
-test('extractConfig', t => {
-  const returned = extractConfig({rtreeIndex: 'foo', db: 'bar'})
-
-  t.is(returned.rtreeIndex, 'foo')
-  t.is(returned.db, 'bar')
-})
+import {reverse, formatResult, computeDistance} from '../reverse.js'
 
 test('reverse / no limit', t => {
   t.throws(() => reverse({
