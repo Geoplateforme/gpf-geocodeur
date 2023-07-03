@@ -86,7 +86,7 @@ const HN_FIELDS = [
   'y'
 ]
 
-function prepareHousenumber(hnFeature, streetFeature) {
+export function prepareHousenumber(hnFeature, streetFeature) {
   const streetProperties = pickValues(streetFeature.properties, HN_STREET_FIELDS)
   const hnProperties = pickValues(hnFeature.properties, HN_FIELDS)
 
@@ -102,7 +102,7 @@ function prepareHousenumber(hnFeature, streetFeature) {
   return {...hnFeature, properties}
 }
 
-function prepareMunicipality(feature) {
+export function prepareMunicipality(feature) {
   const properties = {
     type: 'municipality',
     ...pickValues(feature.properties, MUNICIPALITY_FIELDS),
@@ -120,7 +120,7 @@ function prepareStreet(feature) {
   }
 }
 
-function pickValues(item, values) {
+export function pickValues(item, values) {
   const result = {}
 
   for (const key of values) {
