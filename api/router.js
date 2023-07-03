@@ -1,4 +1,5 @@
 import process from 'node:process'
+import path from 'node:path'
 import express from 'express'
 
 import w from '../lib/w.js'
@@ -64,6 +65,14 @@ export default function createRouter(options = {}) {
   router.get('/autocomplete/getCapabilities', w(async (req, res) => {
     const capabilities = await computeAutocompleteCapabilities()
     res.send(capabilities)
+  }))
+
+  router.get('/geocodage/openAPI/geocode.yaml', w((req, res) => {
+    res.sendFile(path.resolve('./config/open-api/geocode.yaml'))
+  }))
+
+  router.get('/autocomplete/openAPI/completion.yaml', w((req, res) => {
+    res.sendFile(path.resolve('./config/open-api/completion.yaml'))
   }))
 
   router.use(errorHandler)
