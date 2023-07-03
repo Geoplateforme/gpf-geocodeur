@@ -6,7 +6,7 @@ import distance from '@turf/distance'
 
 import {bboxMaxLength, featureMatches, sortAndPickResults, computeScore} from '../../../lib/spatial-index/util.js'
 
-function extractConfig({rtreeIndex, db}) {
+export function extractConfig({rtreeIndex, db}) {
   if (!rtreeIndex || !db) {
     throw new Error('search must be called with db and rtreeIndex params')
   }
@@ -56,7 +56,7 @@ export function reverse(options = {}) {
   )
 }
 
-function formatResult(feature, {center, distanceCache, returntruegeometry}) {
+export function formatResult(feature, {center, distanceCache, returntruegeometry}) {
   const result = {
     type: 'Feature',
     geometry: {
@@ -82,7 +82,7 @@ function formatResult(feature, {center, distanceCache, returntruegeometry}) {
   return result
 }
 
-function computeDistance(feature, center) {
+export function computeDistance(feature, center) {
   const {lon, lat} = feature.properties
   return Math.round(distance(center, [lon, lat]) * 1000)
 }
