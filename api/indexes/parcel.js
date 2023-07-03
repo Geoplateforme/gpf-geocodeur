@@ -16,7 +16,7 @@ const FILTERS = [
   'number'
 ]
 
-function prepareRequest(params) {
+export function prepareRequest(params) {
   const filters = pick(params, FILTERS)
   const center = params.lon !== undefined && params.lat !== undefined
     ? [params.lon, params.lat]

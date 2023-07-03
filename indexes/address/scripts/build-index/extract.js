@@ -27,7 +27,7 @@ export async function * extractFeatures(fileUrl) {
   }
 }
 
-function asFeature(properties) {
+export function asFeature(properties) {
   return {
     type: 'Feature',
     geometry: {type: 'Point', coordinates: [properties.lon, properties.lat]},
