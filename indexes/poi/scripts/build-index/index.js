@@ -19,22 +19,7 @@ const INPUT_FILE = path.join(POI_DATA_PATH, 'poi.ndjson')
 
 const indexer = await createIndexer(POI_INDEX_MDB_BASE_PATH, {geometryType: 'Mixed', idFn: p => p.extrafields.cleabs})
 
-const startedAt = Date.now()
-const initialCount = indexer.written
-
-const writeFeaturesLoop = setInterval(() => {
-  const written = indexer.written - initialCount
-
-  console.log({
-    writing: indexer.writing,
-    written,
-    writeBySec: written / (Date.now() - startedAt) * 1000
-  })
-}, 2000)
-
 await indexer.writeFeatures(extractFeatures(INPUT_FILE))
-
-clearInterval(writeFeaturesLoop)
 
 const addokImporter = await createImporter(POI_INDEX_PATH, './indexes/poi/config/addok.conf')
 

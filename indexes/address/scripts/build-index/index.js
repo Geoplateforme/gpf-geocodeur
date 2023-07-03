@@ -43,22 +43,7 @@ for (const codeDepartement of DEPARTEMENTS) {
 
   const fileUrl = getFileUrl(codeDepartement)
 
-  const startedAt = Date.now()
-  const initialCount = indexer.written
-
-  const writeFeaturesLoop = setInterval(() => {
-    const written = indexer.written - initialCount
-
-    console.log({
-      writing: indexer.writing,
-      written,
-      writeBySec: written / (Date.now() - startedAt) * 1000
-    })
-  }, 2000)
-
   await indexer.writeFeatures(extractFeatures(fileUrl))
-
-  clearInterval(writeFeaturesLoop)
 
   // Importing into addok
   await addokImporter.batchImport(

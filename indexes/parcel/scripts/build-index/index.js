@@ -43,22 +43,7 @@ for (const codeDepartement of DEPARTEMENTS) {
 
   const parcelleShpPath = await getPath(archiveDirPath, 'PARCELLE.SHP')
 
-  const startedAt = Date.now()
-  const initialCount = indexer.written
-
-  const writeFeaturesLoop = setInterval(() => {
-    const written = indexer.written - initialCount
-
-    console.log({
-      writing: indexer.writing,
-      written,
-      writeBySec: written / (Date.now() - startedAt) * 1000
-    })
-  }, 2000)
-
   await indexer.writeFeatures(readFeatures(parcelleShpPath, transformParcel))
-
-  clearInterval(writeFeaturesLoop)
 
   await rm(archiveDirPath, {recursive: true})
 }
