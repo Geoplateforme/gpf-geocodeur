@@ -1,5 +1,5 @@
 import test from 'ava'
-import {pickValues, prepareHousenumber, prepareMunicipality} from '../db.js'
+import {pickValues, prepareHousenumber, prepareMunicipality, prepareStreet} from '../db.js'
 
 test('prepareHousenumber', t => {
   const hnFeature = {
@@ -85,6 +85,40 @@ test('prepareMunicipality', t => {
       city: 'Ville',
       label: '12345 Ville'
     }
+  })
+})
+
+test('prepareStreet', t => {
+  const feature = {
+    properties: {
+      type: 'street',
+      id: '123456789',
+      lon: 2,
+      lat: 40,
+      x: 12,
+      y: 6,
+      citycode: '12345',
+      name: 'Rue Principale',
+      postcode: '12345',
+      city: 'Ville',
+      foo: 'bar'
+    }
+  }
+
+  const result = prepareStreet(feature)
+
+  t.deepEqual(result, {
+    type: 'street',
+    id: '123456789',
+    lon: 2,
+    lat: 40,
+    x: 12,
+    y: 6,
+    citycode: '12345',
+    name: 'Rue Principale',
+    postcode: '12345',
+    city: 'Ville',
+    label: 'Rue Principale 12345 Ville'
   })
 })
 

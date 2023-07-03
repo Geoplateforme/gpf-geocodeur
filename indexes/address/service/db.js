@@ -112,7 +112,7 @@ export function prepareMunicipality(feature) {
   return {...feature, properties}
 }
 
-function prepareStreet(feature) {
+export function prepareStreet(feature) {
   return {
     type: feature.properties.type,
     ...pickValues(feature.properties, STREET_FIELDS),
