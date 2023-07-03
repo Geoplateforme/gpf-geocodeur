@@ -14,8 +14,6 @@ const params = {
 test('prepareRequest', t => {
   const preparedRequest = prepareRequest(params)
 
-  console.log(preparedRequest)
-
   t.is(preparedRequest.q, 'metz')
   t.is(preparedRequest.center, undefined)
   t.is(preparedRequest.limit, 5)
