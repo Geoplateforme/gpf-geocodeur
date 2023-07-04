@@ -15,7 +15,7 @@ export function reverse(options) {
   })
 }
 
-function formatResult(feature, {center}) {
+export function formatResult(feature, {center}) {
   const result = {
     type: 'Feature',
     geometry: feature.geometry,
@@ -31,6 +31,6 @@ function formatResult(feature, {center}) {
   return result
 }
 
-function computeDistance(feature, center) {
+export function computeDistance(feature, center) {
   return Math.round(distance(center, feature) * 1000)
 }
