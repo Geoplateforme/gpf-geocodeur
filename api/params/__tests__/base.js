@@ -1,6 +1,6 @@
 import test from 'ava'
 import {extractParam} from '../../util/params.js'
-import {PARAMS, extractSearchParams, extractReverseParams, validateSearchgeom} from '../base.js'
+import {PARAMS, extractSearchParams, extractReverseParams, validateSearchgeom, validateLonLat, cleanupStructuredSearchParams} from '../base.js'
 
 test('validateSearchgeom', t => {
   t.is(validateSearchgeom({type: 'Circle', coordinates: [2.1, 48.5], radius: 100}), undefined)
@@ -412,6 +412,20 @@ test('extractSearchParams / missing q but parcel only', t => {
   )
 })
 
+test('extractSearchParams / city', t => {
+  t.deepEqual(extractSearchParams({
+    city: 'Metz',
+    q: 'toto'
+  }), {
+    indexes: ['address'],
+    limit: 5,
+    city: 'Metz',
+    citycode: '57463',
+    q: 'toto',
+    autocomplete: true
+  })
+})
+
 test('extractReverseParams / with searchgeom', t => {
   t.deepEqual(extractReverseParams({
     searchgeom: '{"type": "Circle", "coordinates": [2.1, 48.5], "radius": 100}',
@@ -433,6 +447,13 @@ test('extractReverseParams / searchgeom geometry not allowed', t => {
     () => extractReverseParams({searchgeom: '{"type": "Point", "coordinates": [2.1, 48.5]}'}), {message: 'Failed parsing query'})
 
   t.deepEqual(error.detail, ['Geometry type \'Point\' not allowed for address index'])
+})
+
+test('extractReverseParams / no searchgeom no lonlat', t => {
+  const error = t.throws(
+    () => extractReverseParams({}), {message: 'Failed parsing query'})
+
+  t.deepEqual(error.detail, ['At least lon/lat or searchgeom must be defined'])
 })
 
 test('extractReverseParams / city / found', t => {
@@ -470,4 +491,27 @@ test('extractReverseParams / city / conflict with citycode', t => {
   }))
 
   t.is(error.detail[0], 'city and citycode are not consistent')
+})
+
+test('validateLonLat', t => {
+  t.throws(() => validateLonLat({lon: 1}))
+  t.throws(() => validateLonLat({lat: 1}))
+  t.notThrows(() => validateLonLat({lon: 1, lat: 1}))
+  t.notThrows(() => validateLonLat({lon: 0, lat: 0, foo: 'bar'}))
+})
+
+test('cleanupStructuredSearchParams', t => {
+  const params = {
+    departmentcode: 'a',
+    municipalitycode: 'b',
+    oldmunicipalitycode: 'c',
+    districtcode: 'd',
+    section: 'e',
+    sheet: 'f',
+    number: 'g',
+    foo: 'bar'
+  }
+
+  cleanupStructuredSearchParams(params)
+  t.deepEqual(params, {foo: 'bar'})
 })

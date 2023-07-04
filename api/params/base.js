@@ -256,7 +256,7 @@ export const PARAMS = {
   }
 }
 
-function cleanupStructuredSearchParams(params) {
+export function cleanupStructuredSearchParams(params) {
   delete params.departmentcode
   delete params.municipalitycode
   delete params.oldmunicipalitycode
@@ -266,15 +266,19 @@ function cleanupStructuredSearchParams(params) {
   delete params.number
 }
 
-export function extractSearchParams(query) {
-  const parsedParams = extractSingleParams(normalizeQuery(query), PARAMS)
-
-  const hasLat = 'lat' in parsedParams
-  const hasLon = 'lon' in parsedParams
+export function validateLonLat(params) {
+  const hasLat = 'lat' in params
+  const hasLon = 'lon' in params
 
   if ((hasLat && !hasLon) || (hasLon && !hasLat)) {
     throw createError(400, 'Failed parsing query', {detail: ['lon/lat must be present together if defined']})
   }
+}
+
+export function extractSearchParams(query) {
+  const parsedParams = extractSingleParams(normalizeQuery(query), PARAMS)
+
+  validateLonLat(parsedParams)
 
   const parcelOnly = parsedParams.indexes.length === 1 && parsedParams.indexes[0] === 'parcel'
 
@@ -299,17 +303,14 @@ export function extractSearchParams(query) {
 export function extractReverseParams(query) {
   const parsedParams = extractSingleParams(normalizeQuery(query), PARAMS)
 
-  const hasLat = 'lat' in parsedParams
-  const hasLon = 'lon' in parsedParams
-  const hasSearchGeom = 'searchgeom' in parsedParams
-
-  if ((hasLat && !hasLon) || (hasLon && !hasLat)) {
-    throw createError(400, 'Failed parsing query', {detail: ['lon/lat must be present together if defined']})
-  }
+  validateLonLat(parsedParams)
 
   if (parsedParams.indexes.includes('address') && 'searchgeom' in parsedParams && !['Polygon', 'Circle'].includes(parsedParams.searchgeom.type)) {
     throw createError(400, 'Failed parsing query', {detail: [`Geometry type '${parsedParams.searchgeom.type}' not allowed for address index`]})
   }
+
+  const hasLon = 'lon' in parsedParams
+  const hasSearchGeom = 'searchgeom' in parsedParams
 
   if (!hasLon && !hasSearchGeom) {
     throw createError(400, 'Failed parsing query', {detail: ['At least lon/lat or searchgeom must be defined']})
