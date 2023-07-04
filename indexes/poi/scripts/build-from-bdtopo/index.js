@@ -7,9 +7,9 @@ import process from 'node:process'
 import {finished} from 'node:stream/promises'
 import {Readable} from 'node:stream'
 import {createWriteStream} from 'node:fs'
-import {rm, mkdir, writeFile} from 'node:fs/promises'
+import {mkdir, writeFile} from 'node:fs/promises'
 
-import {downloadAndExtractToTmp, getArchiveURL, getPath} from '../../../../lib/geoservices.js'
+import {downloadAndExtract, getArchiveURL} from '../../../../lib/geoservices.js'
 import {computeDepartements} from '../../../../lib/cli.js'
 
 import {POI_DATA_PATH, POI_DATA_CATEGORIES_PATH} from '../../util/paths.js'
@@ -42,8 +42,8 @@ for (const codeDepartement of computeDepartements('poi')) {
   console.log(codeDepartement)
 
   const archiveUrl = getArchiveURL(BDTOPO_URL, codeDepartement)
-  const archiveDirPath = await downloadAndExtractToTmp(archiveUrl)
-  const datasetPath = await getPath(archiveDirPath, 'BDT_3-3_GPKG_*.gpkg')
+  const bdtopoArchive = await downloadAndExtract(archiveUrl)
+  const datasetPath = await bdtopoArchive.getPath('BDT_3-3_GPKG_*.gpkg')
 
   const featureStream = Readable.from(extractFeatures({
     datasetPath,
@@ -57,7 +57,7 @@ for (const codeDepartement of computeDepartements('poi')) {
   featureStream.pipe(outputFile, {end: false})
   await finished(featureStream)
 
-  await rm(archiveDirPath, {recursive: true})
+  await bdtopoArchive.cleanup()
 }
 
 await writeFile(

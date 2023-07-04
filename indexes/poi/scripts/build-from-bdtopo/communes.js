@@ -1,10 +1,9 @@
 import process from 'node:process'
-import {rm} from 'node:fs/promises'
 
 import gdal from 'gdal-async'
 import Flatbush from 'flatbush'
 
-import {downloadAndExtractToTmp, getPath} from '../../../../lib/geoservices.js'
+import {downloadAndExtract} from '../../../../lib/geoservices.js'
 
 const {ADMIN_EXPRESS_URL} = process.env
 
@@ -14,10 +13,10 @@ export function featureToBbox(feature) {
 }
 
 export async function createCommunesIndex() {
-  const adminExpressPath = await downloadAndExtractToTmp(ADMIN_EXPRESS_URL)
+  const adminExpressArchive = await downloadAndExtract(ADMIN_EXPRESS_URL)
 
-  const communesPath = await getPath(adminExpressPath, 'COMMUNE.SHP')
-  const arrondissementsPath = await getPath(adminExpressPath, 'ARRONDISSEMENT_MUNICIPAL.SHP')
+  const communesPath = await adminExpressArchive.getPath('COMMUNE.SHP')
+  const arrondissementsPath = await adminExpressArchive.getPath('ARRONDISSEMENT_MUNICIPAL.SHP')
 
   const communesDataset = gdal.open(communesPath)
   const arrondissementsDataset = gdal.open(arrondissementsPath)
@@ -81,7 +80,7 @@ export async function createCommunesIndex() {
     async close() {
       communesDataset.close()
       arrondissementsDataset.close()
-      await rm(adminExpressPath, {recursive: true})
+      await adminExpressArchive.cleanup()
     }
   }
 }

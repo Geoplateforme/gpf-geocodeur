@@ -3,9 +3,8 @@
 import 'dotenv/config.js'
 
 import process from 'node:process'
-import {rm} from 'node:fs/promises'
 
-import {downloadAndExtractToTmp, getArchiveURL, getPath} from '../../../../lib/geoservices.js'
+import {downloadAndExtract, getArchiveURL} from '../../../../lib/geoservices.js'
 import {computeDepartements} from '../../../../lib/cli.js'
 import {createIndexer} from '../../../../lib/spatial-index/indexer.js'
 
@@ -22,13 +21,13 @@ for (const codeDepartement of computeDepartements('parcel')) {
   console.log(codeDepartement)
 
   const archiveUrl = getArchiveURL(PARCELLAIRE_EXPRESS_URL, codeDepartement)
-  const archiveDirPath = await downloadAndExtractToTmp(archiveUrl)
+  const parcellaireArchive = await downloadAndExtract(archiveUrl)
 
-  const parcelleShpPath = await getPath(archiveDirPath, 'PARCELLE.SHP')
+  const parcelleShpPath = await parcellaireArchive.getPath('PARCELLE.SHP')
 
   await indexer.writeFeatures(readFeatures(parcelleShpPath, transformParcel))
 
-  await rm(archiveDirPath, {recursive: true})
+  await parcellaireArchive.cleanup()
 }
 
 await indexer.finish()
