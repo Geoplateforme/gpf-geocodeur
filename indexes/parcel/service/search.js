@@ -17,20 +17,20 @@ function checkConfig({rtreeIndex, db}) {
   }
 }
 
-export function getById(options = {}) {
+export function getById(options) {
   checkConfig(options)
 
-  const {id, center, returntruegeometry, db} = options
+  const {q, center, returntruegeometry, db} = options
 
-  if (!id) {
-    throw new Error('id is a required param')
-  }
-
-  const feature = db.getFeatureById(id)
+  const feature = db.getFeatureById(q)
 
   if (feature) {
     return formatResult(feature, {center, returntruegeometry})
   }
+}
+
+export function asArray(result) {
+  return result ? [result] : []
 }
 
 export function structuredSearch(options) {
@@ -43,7 +43,7 @@ export function structuredSearch(options) {
   const searchPattern = `${citycode}${oldmunicipalitycode || '000'}${section || '**'}${number || '****'}`
 
   if (!searchPattern.includes('*')) {
-    return getById({id: searchPattern, returntruegeometry, db})
+    return asArray(getById({q: searchPattern, returntruegeometry, db}))
   }
 
   const start = searchPattern.slice(0, searchPattern.indexOf('*')).padEnd(14, '0')
@@ -111,6 +111,10 @@ export function search(options) {
 
   if (!options.limit) {
     throw createError(400, 'limit is a required param')
+  }
+
+  if (options.q) {
+    return asArray(getById(options))
   }
 
   if (options.center) {

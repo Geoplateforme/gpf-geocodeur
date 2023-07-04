@@ -22,7 +22,7 @@ export function prepareRequest(params) {
     : undefined
 
   return {
-    id: params.q,
+    q: params.q,
     center,
     filters,
     limit: params.limit || 10,
