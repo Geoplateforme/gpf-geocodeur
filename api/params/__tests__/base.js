@@ -1,6 +1,6 @@
 import test from 'ava'
 import {extractParam} from '../../util/params.js'
-import {PARAMS, extractParams, validateSearchgeom} from '../base.js'
+import {PARAMS, extractSearchParams, extractReverseParams, validateSearchgeom} from '../base.js'
 
 test('validateSearchgeom', t => {
   t.is(validateSearchgeom({type: 'Circle', coordinates: [2.1, 48.5], radius: 100}), undefined)
@@ -373,14 +373,14 @@ test('extractParam / sheet', t => {
   t.throws(() => extractSheet('12a'), {message: 'Param sheet is invalid'})
 })
 
-test('extractParams / all params', t => {
-  t.deepEqual(extractParams({
+test('extractSearchParams / all params', t => {
+  t.deepEqual(extractSearchParams({
     foo: 'bar',
     limit: '10',
     lon: '6.5',
     lat: '60',
     q: 'foobar'
-  }, {operation: 'search'}, PARAMS), {
+  }), {
     indexes: ['address'],
     limit: 10,
     lon: 6.5,
@@ -390,27 +390,33 @@ test('extractParams / all params', t => {
   })
 })
 
-test('extractParams / missing q parameter', t => {
-  const error = t.throws(() => extractParams({}, {operation: 'search'}), {message: 'Failed parsing query'})
+test('extractSearchParams / missing q parameter', t => {
+  const error = t.throws(() => extractSearchParams({}), {message: 'Failed parsing query'})
   t.deepEqual(error.detail, ['q is a required param'])
 })
 
-test('extractParams / missing q but parcel only', t => {
+test('extractSearchParams / missing q but parcel only', t => {
   t.deepEqual(
-    extractParams({index: 'parcel'}, {operation: 'search'}),
+    extractSearchParams({
+      index: 'parcel',
+      departmentcode: '57',
+      municipalitycode: '415'
+    }),
     {
       indexes: ['parcel'],
       limit: 5,
-      autocomplete: true
+      autocomplete: true,
+      departmentcode: '57',
+      municipalitycode: '415'
     }
   )
 })
 
-test('extractParams / with searchgeom', t => {
-  t.deepEqual(extractParams({
+test('extractReverseParams / with searchgeom', t => {
+  t.deepEqual(extractReverseParams({
     searchgeom: '{"type": "Circle", "coordinates": [2.1, 48.5], "radius": 100}',
     limit: '10'
-  }, {operation: 'reverse'}), {
+  }), {
     indexes: ['address'],
     searchgeom: {
       type: 'Circle',
@@ -422,20 +428,19 @@ test('extractParams / with searchgeom', t => {
   })
 })
 
-test('extractParams / searchgeom geometry not allowed', t => {
+test('extractReverseParams / searchgeom geometry not allowed', t => {
   const error = t.throws(
-    () => extractParams({searchgeom: '{"type": "Point", "coordinates": [2.1, 48.5]}'},
-      {operation: 'reverse'}), {message: 'Failed parsing query'})
+    () => extractReverseParams({searchgeom: '{"type": "Point", "coordinates": [2.1, 48.5]}'}), {message: 'Failed parsing query'})
 
   t.deepEqual(error.detail, ['Geometry type \'Point\' not allowed for address index'])
 })
 
-test('extractParams / city / found', t => {
-  t.deepEqual(extractParams({
+test('extractReverseParams / city / found', t => {
+  t.deepEqual(extractReverseParams({
     city: 'Metz',
     lon: '2.1',
     lat: '48.5'
-  }, {operation: 'reverse'}), {
+  }), {
     indexes: ['address'],
     limit: 5,
     city: 'Metz',
@@ -446,23 +451,23 @@ test('extractParams / city / found', t => {
   })
 })
 
-test('extractParams / city / not found', t => {
-  const error = t.throws(() => extractParams({
+test('extractReverseParams / city / not found', t => {
+  const error = t.throws(() => extractReverseParams({
     city: 'Plop',
     lon: '2.1',
     lat: '48.5'
-  }, {operation: 'reverse'}))
+  }))
 
   t.is(error.detail[0], 'city not found')
 })
 
-test('extractParams / city / conflict with citycode', t => {
-  const error = t.throws(() => extractParams({
+test('extractReverseParams / city / conflict with citycode', t => {
+  const error = t.throws(() => extractReverseParams({
     city: 'Metz',
     citycode: '12345',
     lon: '2.1',
     lat: '48.5'
-  }, {operation: 'reverse'}))
+  }))
 
   t.is(error.detail[0], 'city and citycode are not consistent')
 })

@@ -9,7 +9,7 @@ import {createIndexes} from './indexes/index.js'
 import search from './operations/search.js'
 import reverse from './operations/reverse.js'
 import autocomplete from './operations/autocomplete.js'
-import {PARAMS, extractParams} from './params/base.js'
+import {extractSearchParams, extractReverseParams} from './params/base.js'
 import {extractParams as extractAutocompleteParams} from './params/autocomplete.js'
 import computeGeocodeCapabilities from './capabilities/geocode.js'
 import computeAutocompleteCapabilities from './capabilities/autocomplete.js'
@@ -24,7 +24,7 @@ export default function createRouter(options = {}) {
   const indexes = options.customIndexes || createIndexes(options.indexes || GEOCODE_INDEXES)
 
   router.get('/search', w(async (req, res) => {
-    const params = extractParams(req.query, {operation: 'search'}, PARAMS)
+    const params = extractSearchParams(req.query)
     const results = await search(params, {indexes})
     res.send({
       type: 'FeatureCollection',
@@ -33,7 +33,7 @@ export default function createRouter(options = {}) {
   }))
 
   router.get('/reverse', w(async (req, res) => {
-    const params = extractParams(req.query, {operation: 'reverse'})
+    const params = extractReverseParams(req.query)
     const results = await reverse(params, {indexes})
     res.send({
       type: 'FeatureCollection',

@@ -6,7 +6,7 @@ import {validateStructuredSearchParams} from '../../lib/parcel/structured-search
 import {extractSingleParams, isFirstCharValid, isDepartmentcodeValid} from '../util/params.js'
 import {normalizeQuery} from '../util/querystring.js'
 import {validateCoordinatesValue} from '../util/coordinates.js'
-import {searchCity} from '../util/search-city.js'
+import {handleCityParam} from '../util/search-city.js'
 
 export function validateSearchgeom(searchgeom) {
   if (!Object.hasOwn(searchgeom, 'type')) {
@@ -256,7 +256,47 @@ export const PARAMS = {
   }
 }
 
-export function extractParams(query, {operation}) {
+function cleanupStructuredSearchParams(params) {
+  delete params.departmentcode
+  delete params.municipalitycode
+  delete params.oldmunicipalitycode
+  delete params.districtcode
+  delete params.section
+  delete params.sheet
+  delete params.number
+}
+
+export function extractSearchParams(query) {
+  const parsedParams = extractSingleParams(normalizeQuery(query), PARAMS)
+
+  const hasLat = 'lat' in parsedParams
+  const hasLon = 'lon' in parsedParams
+
+  if ((hasLat && !hasLon) || (hasLon && !hasLat)) {
+    throw createError(400, 'Failed parsing query', {detail: ['lon/lat must be present together if defined']})
+  }
+
+  const parcelOnly = parsedParams.indexes.length === 1 && parsedParams.indexes[0] === 'parcel'
+
+  if (parcelOnly && !('q' in parsedParams)) {
+    validateStructuredSearchParams(parsedParams)
+    return parsedParams
+  }
+
+  cleanupStructuredSearchParams(parsedParams)
+
+  if (!('q' in parsedParams)) {
+    throw createError(400, 'Failed parsing query', {detail: ['q is a required param']})
+  }
+
+  if ('city' in parsedParams) {
+    handleCityParam(parsedParams)
+  }
+
+  return parsedParams
+}
+
+export function extractReverseParams(query) {
   const parsedParams = extractSingleParams(normalizeQuery(query), PARAMS)
 
   const hasLat = 'lat' in parsedParams
@@ -267,42 +307,17 @@ export function extractParams(query, {operation}) {
     throw createError(400, 'Failed parsing query', {detail: ['lon/lat must be present together if defined']})
   }
 
-  const parcelOnly = parsedParams.indexes.length === 1 && parsedParams.indexes[0] === 'parcel'
-
-  if (operation === 'search' && !parcelOnly && !('q' in parsedParams)) {
-    throw createError(400, 'Failed parsing query', {detail: ['q is a required param']})
-  }
-
-  if (operation === 'search' && parcelOnly && !(q in 'parsedParams')) {
-    validateStructuredSearchParams(parsedParams)
-  }
-
-  if (operation === 'reverse' && parsedParams.indexes.includes('address') && 'searchgeom' in parsedParams && !['Polygon', 'Circle'].includes(parsedParams.searchgeom.type)) {
+  if (parsedParams.indexes.includes('address') && 'searchgeom' in parsedParams && !['Polygon', 'Circle'].includes(parsedParams.searchgeom.type)) {
     throw createError(400, 'Failed parsing query', {detail: [`Geometry type '${parsedParams.searchgeom.type}' not allowed for address index`]})
   }
 
-  if (operation === 'reverse' && (!hasLon && !hasSearchGeom)) {
+  if (!hasLon && !hasSearchGeom) {
     throw createError(400, 'Failed parsing query', {detail: ['At least lon/lat or searchgeom must be defined']})
   }
 
   if ('city' in parsedParams) {
-    const foundCitycode = searchCity(parsedParams.city)
-
-    if (!foundCitycode) {
-      throw createError(400, 'Failed to parse query', {detail: [
-        'city not found'
-      ]})
-    }
-
-    if ('citycode' in parsedParams && foundCitycode !== parsedParams.citycode) {
-      throw createError(400, 'Failed to parse query', {detail: [
-        'city and citycode are not consistent'
-      ]})
-    }
-
-    parsedParams.citycode = foundCitycode
+    handleCityParam(parsedParams)
   }
 
   return parsedParams
 }
-

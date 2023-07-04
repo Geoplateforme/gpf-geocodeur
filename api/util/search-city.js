@@ -1,3 +1,4 @@
+import createError from 'http-errors'
 import {deburr, chain} from 'lodash-es'
 import Flexsearch from 'flexsearch'
 import computeDistance from 'natural/lib/natural/distance/jaro-winkler_distance.js'
@@ -58,4 +59,22 @@ export function normalizeString(string) {
     .toLowerCase()
     .replace(/[^a-z\d]+/g, ' ')
     .replace(/sainte?\s/g, 'st ')
+}
+
+export function handleCityParam(params) {
+  const foundCitycode = searchCity(params.city)
+
+  if (!foundCitycode) {
+    throw createError(400, 'Failed to parse query', {detail: [
+      'city not found'
+    ]})
+  }
+
+  if ('citycode' in params && foundCitycode !== params.citycode) {
+    throw createError(400, 'Failed to parse query', {detail: [
+      'city and citycode are not consistent'
+    ]})
+  }
+
+  params.citycode = foundCitycode
 }
