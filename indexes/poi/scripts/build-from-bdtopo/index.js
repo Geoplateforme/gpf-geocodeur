@@ -1,4 +1,5 @@
-/* eslint array-element-newline: off */
+#!/usr/bin/env node
+/* eslint no-await-in-loop: off */
 import 'dotenv/config.js'
 
 import path from 'node:path'
