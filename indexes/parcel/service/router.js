@@ -7,7 +7,7 @@ import {createInstance} from '../../../lib/spatial-index/lmdb.js'
 
 import {PARCEL_INDEX_RTREE_PATH, PARCEL_INDEX_MDB_PATH} from '../util/paths.js'
 
-import {getById, search, reverse} from './search.js'
+import {search, reverse} from './search.js'
 
 export async function createRouter() {
   const db = await createInstance(PARCEL_INDEX_MDB_PATH, {
@@ -23,14 +23,7 @@ export async function createRouter() {
   router.use(json())
 
   router.post('/search', w((req, res) => {
-    const params = {...req.body, db, rtreeIndex}
-
-    if (params.id) {
-      const result = getById(params)
-      return res.send(result ? [result] : [])
-    }
-
-    res.send(search(params))
+    res.send(search({...req.body, db, rtreeIndex}))
   }))
 
   router.post('/reverse', w((req, res) => {

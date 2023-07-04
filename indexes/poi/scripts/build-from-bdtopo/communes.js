@@ -8,7 +8,7 @@ import {downloadAndExtractToTmp, getPath} from '../../../../lib/geoservices.js'
 
 const {ADMIN_EXPRESS_URL} = process.env
 
-function featureToBbox(feature) {
+export function featureToBbox(feature) {
   const envelope = feature.getGeometry().getEnvelope()
   return [envelope.minX, envelope.minY, envelope.maxX, envelope.maxY]
 }
@@ -86,7 +86,7 @@ export async function createCommunesIndex() {
   }
 }
 
-function getMeasure(geometry) {
+export function getMeasure(geometry) {
   if (geometry.dimension === 0) {
     return 1
   }
