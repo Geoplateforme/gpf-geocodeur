@@ -4,23 +4,23 @@ import distance from '@turf/distance'
 
 import {featureMatches, sortAndPickResults, computeScore} from '../../../lib/spatial-index/util.js'
 import {reverse as reverseBase} from '../../../lib/spatial-index/reverse.js'
+import {validateStructuredSearchParams} from '../../../lib/parcel/structured-search.js'
 
 import {getNomCommune} from './cog.js'
 
 const SEARCH_MAX_DISTANCE_IN_KM = 2
 const SEARCH_MAX_ITERATIONS = 10_000
 
-function extractConfig({rtreeIndex, db}) {
+function checkConfig({rtreeIndex, db}) {
   if (!rtreeIndex || !db) {
     throw new Error('search must be called with db and rtreeIndex params')
   }
-
-  return {rtreeIndex, db}
 }
 
 export function getById(options = {}) {
-  const {db} = extractConfig(options)
-  const {id, center, returntruegeometry} = options
+  checkConfig(options)
+
+  const {id, center, returntruegeometry, db} = options
 
   if (!id) {
     throw new Error('id is a required param')
@@ -33,17 +33,49 @@ export function getById(options = {}) {
   }
 }
 
-export function search(options = {}) {
-  const {rtreeIndex, db} = extractConfig(options)
-  const {center, filters, returntruegeometry, limit} = options
+export function structuredSearch(options) {
+  const {filters, limit, returntruegeometry, db} = options
+  const {departmentcode, municipalitycode, oldmunicipalitycode, districtcode, section, sheet, number} = filters
 
-  if (!limit) {
-    throw createError(400, 'limit is a required param')
+  validateStructuredSearchParams({departmentcode, municipalitycode, districtcode})
+
+  const citycode = `${departmentcode}${districtcode || municipalitycode}`
+  const searchPattern = `${citycode}${oldmunicipalitycode || '000'}${section || '**'}${number || '****'}`
+
+  if (!searchPattern.includes('*')) {
+    return getById({id: searchPattern, returntruegeometry, db})
   }
 
-  if (!center) {
-    throw createError(400, 'center is currently required')
+  const start = searchPattern.slice(0, searchPattern.indexOf('*')).padEnd(14, '0')
+  const end = searchPattern.slice(0, searchPattern.indexOf('*')).padEnd(14, 'Z')
+
+  const regexp = new RegExp('^' + searchPattern.replace(/\*/g, '.') + '$')
+
+  const parcels = []
+
+  for (const parcelId of db.idIdxDb.getKeys({start, end, snapshot: false})) {
+    if (!regexp.test(parcelId)) {
+      continue
+    }
+
+    const parcelFeature = db.getFeatureById(parcelId)
+
+    if (sheet && parcelFeature.properties.sheet !== sheet) {
+      continue
+    }
+
+    parcels.push(parcelFeature)
+
+    if (parcels.length === limit) {
+      break
+    }
   }
+
+  return parcels.map(parcelFeature => formatResult(parcelFeature, {returntruegeometry}))
+}
+
+export function geoSearch(options) {
+  const {center, filters, limit, returntruegeometry, rtreeIndex, db} = options
 
   const [lon, lat] = center
   const matchingFeatures = []
@@ -72,6 +104,24 @@ export function search(options = {}) {
     matchingFeatures,
     {limit, center}
   )
+}
+
+export function search(options) {
+  checkConfig(options)
+
+  if (!options.limit) {
+    throw createError(400, 'limit is a required param')
+  }
+
+  if (options.center) {
+    return geoSearch(options)
+  }
+
+  if (options.filters) {
+    return structuredSearch(options)
+  }
+
+  throw createError(400, 'Parcel search requires filters or center')
 }
 
 export function reverse(options) {

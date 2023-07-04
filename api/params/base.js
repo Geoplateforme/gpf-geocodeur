@@ -1,6 +1,8 @@
 import createError from 'http-errors'
 import {hint} from '@mapbox/geojsonhint'
 
+import {validateStructuredSearchParams} from '../../lib/parcel/structured-search.js'
+
 import {extractSingleParams, isFirstCharValid, isDepartmentcodeValid} from '../util/params.js'
 import {normalizeQuery} from '../util/querystring.js'
 import {validateCoordinatesValue} from '../util/coordinates.js'
@@ -269,6 +271,10 @@ export function extractParams(query, {operation}) {
 
   if (operation === 'search' && !parcelOnly && !('q' in parsedParams)) {
     throw createError(400, 'Failed parsing query', {detail: ['q is a required param']})
+  }
+
+  if (operation === 'search' && parcelOnly && !(q in 'parsedParams')) {
+    validateStructuredSearchParams(parsedParams)
   }
 
   if (operation === 'reverse' && parsedParams.indexes.includes('address') && 'searchgeom' in parsedParams && !['Polygon', 'Circle'].includes(parsedParams.searchgeom.type)) {
