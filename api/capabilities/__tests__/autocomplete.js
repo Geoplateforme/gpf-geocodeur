@@ -1,7 +1,10 @@
-import 'dotenv/config.js'
+/* eslint import/first: off */
 import process from 'node:process'
 import test from 'ava'
 import nock from 'nock'
+
+process.env.POI_INDEX_URL = 'http://poi-index'
+
 import computeAutocompleteCapabilities from '../autocomplete.js'
 
 test('computeAutocompleteCapabilities / Fields', async t => {
