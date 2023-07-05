@@ -225,7 +225,7 @@ test('openAPI / geocode.yaml', async t => {
   app.use('/', router)
 
   const response = await request(app)
-    .get('/geocodage/openAPI/geocode.yaml')
+    .get('/geocodage/openapi/geocode.yaml')
 
   t.is(response.status, 200)
   t.is(response.headers['content-type'], 'text/yaml; charset=UTF-8')
@@ -244,7 +244,7 @@ test('openAPI / completion.yaml', async t => {
   app.use('/', router)
 
   const response = await request(app)
-    .get('/autocomplete/openAPI/completion.yaml')
+    .get('/autocomplete/openapi/completion.yaml')
 
   t.is(response.status, 200)
   t.is(response.headers['content-type'], 'text/yaml; charset=UTF-8')

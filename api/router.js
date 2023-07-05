@@ -67,11 +67,11 @@ export default function createRouter(options = {}) {
     res.send(capabilities)
   }))
 
-  router.get('/geocodage/openAPI/geocode.yaml', w((req, res) => {
+  router.get('/geocodage/openapi/geocode.yaml', w((req, res) => {
     res.sendFile(path.resolve('./config/open-api/geocode.yaml'))
   }))
 
-  router.get('/autocomplete/openAPI/completion.yaml', w((req, res) => {
+  router.get('/autocomplete/openapi/completion.yaml', w((req, res) => {
     res.sendFile(path.resolve('./config/open-api/completion.yaml'))
   }))
 
