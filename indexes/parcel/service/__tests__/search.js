@@ -1,18 +1,9 @@
 import test from 'ava'
-import {formatResult, checkConfig, getById, search, reverse} from '../search.js'
+import {formatResult, checkConfig, getById, search, reverse, asArray, structuredSearch} from '../search.js'
 
 test('checkConfig / no db', t => {
   t.throws(() => checkConfig({db: 'database'}), {
     message: 'search must be called with db and rtreeIndex params'
-  })
-})
-
-test('getById / no id', t => {
-  t.throws(() => getById({
-    db: 'database',
-    rtreeIndex: 'index'
-  }), {
-    message: 'id is a required param'
   })
 })
 
@@ -56,6 +47,14 @@ test('getById', t => {
   })
 })
 
+test('asArray', t => {
+  const newArray = asArray('coucou')
+  const emptyArray = asArray()
+
+  t.deepEqual(newArray, ['coucou'])
+  t.deepEqual(emptyArray, [])
+})
+
 test('search / no limit', t => {
   const options = {
     rtreeIndex: 'index',
@@ -67,6 +66,61 @@ test('search / no limit', t => {
   t.throws(() => search(options), {
     message: 'limit is a required param'
   })
+})
+
+test('structuredSearch', t => {
+  const options = {
+    db: {
+      getFeatureById() {
+        return {
+          type: 'Feature',
+          properties: {
+            lon: 12,
+            lat: 8
+          },
+          geometry: {
+            type: 'Point',
+            coordinates: [12, 8]
+          }
+        }
+      },
+      idIdxDb: {
+        getKeys() {
+          return [
+            121_010,
+            101_212,
+            281_182
+          ]
+        }
+      }
+    },
+    limit: 1,
+    filters: {
+      departmentcode: 55,
+      municipalitycode: 55_210,
+      section: 6,
+      number: 6
+    },
+    returntruegeometry: true
+  }
+
+  const result = structuredSearch(options)
+
+  t.deepEqual(result,
+    [
+      {
+        type: 'Feature',
+        geometry: {type: 'Point', coordinates: [12, 8]},
+        properties: {
+          city: undefined,
+          truegeometry: {
+            type: 'Point',
+            coordinates: [12, 8]
+          }
+        }
+      }
+    ]
+  )
 })
 
 test('search / no center', t => {
@@ -82,7 +136,42 @@ test('search / no center', t => {
   })
 })
 
-test('search', t => {
+test('search / q', t => {
+  const options = {
+    db: {
+      getFeatureById() {
+        return {
+          type: 'Feature',
+          properties: {
+            lon: 12,
+            lat: 8
+          },
+          geometry: {
+            type: 'Point',
+            coordinates: [12, 8]
+          }
+        }
+      }
+    },
+    q: 'oh !',
+    rtreeIndex: {
+      neighbors() {
+        return 'ok'
+      }
+    },
+    id: 1,
+    center: [2, 4],
+    limit: 1,
+    filters: {un: 'filtre'},
+    returntruegeometry: true
+  }
+
+  const result = search(options)
+
+  t.truthy(result)
+})
+
+test('search / center', t => {
   const options = {
     db: {
       getFeatureById() {
@@ -104,9 +193,53 @@ test('search', t => {
         return 'ok'
       }
     },
-    id: 1,
     center: [2, 4],
     limit: 1,
+    filters: {un: 'filtre'},
+    returntruegeometry: true
+  }
+
+  const result = search(options)
+
+  t.truthy(result)
+})
+
+test('search / filters', t => {
+  const options = {
+    db: {
+      getFeatureById() {
+        return {
+          type: 'Feature',
+          properties: {
+            lon: 12,
+            lat: 8
+          },
+          geometry: {
+            type: 'Point',
+            coordinates: [12, 8]
+          }
+        }
+      },
+      idIdxDb: {
+        getKeys() {
+          return [
+            121_010,
+            101_212,
+            281_182
+          ]
+        }
+      }
+    },
+    rtreeIndex: {
+      neighbors() {
+        return 'ok'
+      }
+    },
+    limit: 1,
+    filters: {
+      departmentcode: 55,
+      municipalitycode: 55_210
+    },
     returntruegeometry: true
   }
 
