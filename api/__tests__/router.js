@@ -1,6 +1,9 @@
+import 'dotenv/config.js'
+import process from 'node:process'
 import test from 'ava'
 import request from 'supertest'
 import express from 'express'
+import nock from 'nock'
 
 import createRouter from '../router.js'
 
@@ -171,6 +174,13 @@ test('completion / with error', async t => {
 test('getCapabilities / geocodage', async t => {
   const app = express()
 
+  nock(process.env.POI_INDEX_URL)
+    .get('/categories')
+    .reply(200, {
+      cimetiere: [],
+      construction: ['pont', 'croix']
+    })
+
   const customIndexes = {
     dispatchRequest() {
       return {}
@@ -192,6 +202,13 @@ test('getCapabilities / geocodage', async t => {
 
 test('getCapabilities / autocomplete', async t => {
   const app = express()
+
+  nock(process.env.POI_INDEX_URL)
+    .get('/categories')
+    .reply(200, {
+      cimetiere: [],
+      construction: ['pont', 'croix']
+    })
 
   const customIndexes = {
     dispatchRequest() {
