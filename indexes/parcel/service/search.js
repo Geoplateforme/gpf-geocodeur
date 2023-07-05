@@ -11,14 +11,16 @@ import {getNomCommune} from './cog.js'
 const SEARCH_MAX_DISTANCE_IN_KM = 2
 const SEARCH_MAX_ITERATIONS = 10_000
 
-function checkConfig({rtreeIndex, db}) {
+export function checkConfig({rtreeIndex, db}) {
   if (!rtreeIndex || !db) {
     throw new Error('search must be called with db and rtreeIndex params')
   }
 }
 
 export function getById(options) {
-  checkConfig(options)
+  if (!options.db) {
+    throw new Error('db is required')
+  }
 
   const {q, center, returntruegeometry, db} = options
 
@@ -140,7 +142,7 @@ export function reverse(options) {
   })
 }
 
-function formatResult(feature, {center, distanceCache, returntruegeometry}) {
+export function formatResult(feature, {center, distanceCache, returntruegeometry}) {
   const result = {
     type: 'Feature',
     geometry: {
