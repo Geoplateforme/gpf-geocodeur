@@ -1,6 +1,7 @@
+import got from 'got'
+import process from 'node:process'
 import {PARAMS} from '../params/base.js'
 import readJson from '../../lib/read-json.js'
-import process from 'node:process'
 
 let _capabilities = null
 
@@ -64,7 +65,7 @@ function groupParamsByOperation() {
 }
 
 async function getCategories() {
-  const response = await fetch(`${process.env.POI_INDEX_URL}/categories`)
+  const data = await got.get(`${process.env.POI_INDEX_URL}/categories`).json()
 
-  return response.json()
+  return data
 }
