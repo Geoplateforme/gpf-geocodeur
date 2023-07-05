@@ -16,9 +16,20 @@ test('computeAutocompleteCapabilities / Fields', async t => {
     })
 
   const computedCapabilities = await computeAutocompleteCapabilities()
-  const {operations} = computedCapabilities
+  const {operations, indexes} = computedCapabilities
 
   t.truthy(operations[0].parameters.find(k => k.name === 'bbox'))
-  t.truthy(operations[0].parameters.find(k => k.name === 'poiType'))
+
+  const poiIndex = indexes.find(i => i.id === 'PositionOfInterest')
+  t.truthy(poiIndex)
+
+  const poiType = poiIndex.fields.find(f => f.name === 'poiType')
+  t.truthy(poiType)
+
+  t.deepEqual(poiType.values, {
+    cimetiere: [],
+    construction: ['pont', 'croix']
+  })
+
   t.is(operations[0].id, 'completion')
 })
