@@ -1,0 +1,21 @@
+image: node:18
+
+include:
+  - project: geoplateforme/templates
+    ref: main
+    file:
+      - "ci/docker-v5.yml"
+
+cache:
+  paths:
+    - node_modules/
+
+lint:
+  script:
+    - yarn --frozen-lockfile
+    - yarn lint
+
+test:
+  script:
+    - yarn --frozen-lockfile
+    - yarn test-lcov
