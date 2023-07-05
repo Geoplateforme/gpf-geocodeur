@@ -4,9 +4,12 @@ import {PARAMS} from '../params/base.js'
 import readJson from '../../lib/read-json.js'
 
 let _capabilities = null
+let _capabilitiesDate = null
+
+const FIVE_MINUTES = 5 * 60 * 1000
 
 export default async function computeGeocodeCapabilities() {
-  if (_capabilities) {
+  if (_capabilities && (Date.now() - _capabilitiesDate < FIVE_MINUTES)) {
     return _capabilities
   }
 
@@ -24,6 +27,8 @@ export default async function computeGeocodeCapabilities() {
   capabilities.indexes = [addressCapabilities, poiCapabilities, parcelCapabilities]
 
   _capabilities = capabilities
+  _capabilitiesDate = Date.now()
+
   return capabilities
 }
 

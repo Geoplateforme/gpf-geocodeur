@@ -4,9 +4,12 @@ import {AUTOCOMPLETE} from '../params/autocomplete.js'
 import readJson from '../../lib/read-json.js'
 
 let _capabilities = null
+let _capabilitiesDate = null
+
+const FIVE_MINUTES = 5 * 60 * 1000
 
 export default async function computeAutocompleteCapabilities() {
-  if (_capabilities) {
+  if (_capabilities && (Date.now() - _capabilitiesDate < FIVE_MINUTES)) {
     return _capabilities
   }
 
@@ -22,6 +25,8 @@ export default async function computeAutocompleteCapabilities() {
   capabilities.indexes = [addressCapabilities, poiCapabilities]
 
   _capabilities = capabilities
+  _capabilitiesDate = Date.now()
+
   return capabilities
 }
 
