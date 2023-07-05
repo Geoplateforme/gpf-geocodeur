@@ -1,10 +1,15 @@
+import got from 'got'
+import process from 'node:process'
 import {PARAMS} from '../params/base.js'
 import readJson from '../../lib/read-json.js'
 
 let _capabilities = null
+let _capabilitiesDate = null
+
+const FIVE_MINUTES = 5 * 60 * 1000
 
 export default async function computeGeocodeCapabilities() {
-  if (_capabilities) {
+  if (_capabilities && (Date.now() - _capabilitiesDate < FIVE_MINUTES)) {
     return _capabilities
   }
 
@@ -13,12 +18,17 @@ export default async function computeGeocodeCapabilities() {
   const addressCapabilities = await readJson('./config/capabilities/geocode/address.json')
   const parcelCapabilities = await readJson('./config/capabilities/geocode/parcel.json')
   const poiCapabilities = await readJson('./config/capabilities/geocode/poi.json')
+  const categories = await getCategories()
+
+  poiCapabilities.fields[0].values = categories
 
   capabilities.operations[0].parameters = searchParameters
   capabilities.operations[1].parameters = reverseParameters
   capabilities.indexes = [addressCapabilities, poiCapabilities, parcelCapabilities]
 
   _capabilities = capabilities
+  _capabilitiesDate = Date.now()
+
   return capabilities
 }
 
@@ -57,4 +67,10 @@ function groupParamsByOperation() {
     searchParameters,
     reverseParameters
   }
+}
+
+async function getCategories() {
+  const data = await got.get(`${process.env.POI_INDEX_URL}/categories`).json()
+
+  return data
 }
