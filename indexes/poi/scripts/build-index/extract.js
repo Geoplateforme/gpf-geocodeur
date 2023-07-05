@@ -11,7 +11,7 @@ export async function * extractFeatures(filePath) {
   }
 }
 
-function asFeature(poiEntry) {
+export function asFeature(poiEntry) {
   const properties = omit(poiEntry, ['truegeometry'])
   const geometry = JSON.parse(poiEntry.truegeometry)
 
