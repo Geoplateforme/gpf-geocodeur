@@ -1,5 +1,6 @@
 import {PARAMS} from '../params/base.js'
 import readJson from '../../lib/read-json.js'
+import process from 'node:process'
 
 let _capabilities = null
 
@@ -13,6 +14,9 @@ export default async function computeGeocodeCapabilities() {
   const addressCapabilities = await readJson('./config/capabilities/geocode/address.json')
   const parcelCapabilities = await readJson('./config/capabilities/geocode/parcel.json')
   const poiCapabilities = await readJson('./config/capabilities/geocode/poi.json')
+  const categories = await getCategories()
+
+  poiCapabilities.fields[0].values = categories
 
   capabilities.operations[0].parameters = searchParameters
   capabilities.operations[1].parameters = reverseParameters
@@ -57,4 +61,10 @@ function groupParamsByOperation() {
     searchParameters,
     reverseParameters
   }
+}
+
+async function getCategories() {
+  const response = await fetch(`${process.env.POI_INDEX_URL}/categories`)
+
+  return response.json()
 }
