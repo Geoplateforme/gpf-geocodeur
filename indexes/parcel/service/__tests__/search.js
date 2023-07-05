@@ -47,6 +47,12 @@ test('getById', t => {
   })
 })
 
+test('getById / no db', t => {
+  t.throws(() => getById({options: null}), {
+    message: 'db is required'
+  })
+})
+
 test('asArray', t => {
   const newArray = asArray('coucou')
   const emptyArray = asArray()
