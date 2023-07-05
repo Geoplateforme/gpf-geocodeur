@@ -10,7 +10,7 @@ RUN pip install addok==1.1.1 addok-france==1.1.3 addok-fr==1.0.1
 COPY package.json yarn.lock ./
 RUN yarn install --prod --frozen-lockfile
 
-COPY lib indexes api ./
+COPY lib indexes api config ./
 
 ENV NODE_ENV production
 ENV TMP_PATH /tmp
