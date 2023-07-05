@@ -1,4 +1,4 @@
-image: node:18
+image: nikolaik/python-nodejs:python3.10-nodejs18
 
 include:
   - project: geoplateforme/templates
@@ -16,6 +16,8 @@ lint:
     - yarn lint
 
 test:
+  before_script:
+    - apt-get update && apt-get install -y p7zip-full
   script:
     - yarn --frozen-lockfile
     - yarn test-lcov
