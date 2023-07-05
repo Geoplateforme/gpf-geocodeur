@@ -12,8 +12,9 @@ export function featureToBbox(feature) {
   return [envelope.minX, envelope.minY, envelope.maxX, envelope.maxY]
 }
 
-export async function createCommunesIndex() {
-  const adminExpressArchive = await downloadAndExtract(ADMIN_EXPRESS_URL)
+export async function createCommunesIndex(adminExpressUrl) {
+  adminExpressUrl = adminExpressUrl || ADMIN_EXPRESS_URL
+  const adminExpressArchive = await downloadAndExtract(adminExpressUrl)
 
   const communesPath = await adminExpressArchive.getPath('COMMUNE.SHP')
   const arrondissementsPath = await adminExpressArchive.getPath('ARRONDISSEMENT_MUNICIPAL.SHP')
