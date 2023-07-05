@@ -1,9 +1,11 @@
-import 'dotenv/config.js'
+/* eslint import/first: off */
 import process from 'node:process'
 import test from 'ava'
 import request from 'supertest'
 import express from 'express'
 import nock from 'nock'
+
+process.env.POI_INDEX_URL = 'http://poi-index'
 
 import createRouter from '../router.js'
 
@@ -181,13 +183,7 @@ test('getCapabilities / geocodage', async t => {
       construction: ['pont', 'croix']
     })
 
-  const customIndexes = {
-    dispatchRequest() {
-      return {}
-    }
-  }
-
-  const router = createRouter({customIndexes})
+  const router = createRouter()
   app.use('/', router)
 
   const response = await request(app)
@@ -210,13 +206,7 @@ test('getCapabilities / autocomplete', async t => {
       construction: ['pont', 'croix']
     })
 
-  const customIndexes = {
-    dispatchRequest() {
-      return {}
-    }
-  }
-
-  const router = createRouter({customIndexes})
+  const router = createRouter()
   app.use('/', router)
 
   const response = await request(app)
@@ -231,14 +221,7 @@ test('getCapabilities / autocomplete', async t => {
 
 test('openAPI / geocode.yaml', async t => {
   const app = express()
-
-  const customIndexes = {
-    dispatchRequest() {
-      return {}
-    }
-  }
-
-  const router = createRouter({customIndexes})
+  const router = createRouter()
   app.use('/', router)
 
   const response = await request(app)
@@ -250,14 +233,7 @@ test('openAPI / geocode.yaml', async t => {
 
 test('openAPI / completion.yaml', async t => {
   const app = express()
-
-  const customIndexes = {
-    dispatchRequest() {
-      return {}
-    }
-  }
-
-  const router = createRouter({customIndexes})
+  const router = createRouter()
   app.use('/', router)
 
   const response = await request(app)
