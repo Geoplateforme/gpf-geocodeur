@@ -18,7 +18,9 @@ export function checkConfig({rtreeIndex, db}) {
 }
 
 export function getById(options) {
-  checkConfig(options)
+  if (!options.db) {
+    throw new Error('db is required')
+  }
 
   const {q, center, returntruegeometry, db} = options
 
