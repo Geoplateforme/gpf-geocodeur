@@ -121,3 +121,131 @@ test('search / server error', async t => {
   t.is(response.status, 500)
   t.is(response.body.message, 'An unexpected error has occurred')
 })
+
+test('completion', async t => {
+  const app = express()
+
+  const customIndexes = {
+    dispatchRequest() {
+      return {}
+    }
+  }
+
+  const router = createRouter({customIndexes})
+  app.use('/', router)
+
+  const response = await request(app)
+    .get('/completion')
+    .query({text: 'test'})
+
+  t.is(response.status, 200)
+  t.deepEqual(response.body, {
+    status: 'OK',
+    results: []
+  })
+})
+
+test('completion / with error', async t => {
+  const app = express()
+
+  const customIndexes = {
+    dispatchRequest() {
+      throw new Error('Error in autocomplete')
+    }
+  }
+
+  const router = createRouter({customIndexes})
+  app.use('/', router)
+
+  const response = await request(app)
+    .get('/completion')
+    .query({text: 'test'})
+
+  t.is(response.status, 200)
+  t.deepEqual(response.body, {
+    status: 'Error',
+    error: 'Error in autocomplete'
+  })
+})
+
+test('getCapabilities / geocodage', async t => {
+  const app = express()
+
+  const customIndexes = {
+    dispatchRequest() {
+      return {}
+    }
+  }
+
+  const router = createRouter({customIndexes})
+  app.use('/', router)
+
+  const response = await request(app)
+    .get('/geocodage/getCapabilities')
+
+  t.is(response.status, 200)
+  t.truthy(response.body.api)
+  t.truthy(response.body.indexes)
+  t.truthy(response.body.info)
+  t.truthy(response.body.operations)
+})
+
+test('getCapabilities / autocomplete', async t => {
+  const app = express()
+
+  const customIndexes = {
+    dispatchRequest() {
+      return {}
+    }
+  }
+
+  const router = createRouter({customIndexes})
+  app.use('/', router)
+
+  const response = await request(app)
+    .get('/autocomplete/getCapabilities')
+
+  t.is(response.status, 200)
+  t.truthy(response.body.api)
+  t.truthy(response.body.indexes)
+  t.truthy(response.body.info)
+  t.truthy(response.body.operations)
+})
+
+test('openAPI / geocode.yaml', async t => {
+  const app = express()
+
+  const customIndexes = {
+    dispatchRequest() {
+      return {}
+    }
+  }
+
+  const router = createRouter({customIndexes})
+  app.use('/', router)
+
+  const response = await request(app)
+    .get('/geocodage/openAPI/geocode.yaml')
+
+  t.is(response.status, 200)
+  t.is(response.headers['content-type'], 'text/yaml; charset=UTF-8')
+})
+
+test('openAPI / completion.yaml', async t => {
+  const app = express()
+
+  const customIndexes = {
+    dispatchRequest() {
+      return {}
+    }
+  }
+
+  const router = createRouter({customIndexes})
+  app.use('/', router)
+
+  const response = await request(app)
+    .get('/autocomplete/openAPI/completion.yaml')
+
+  t.is(response.status, 200)
+  t.is(response.headers['content-type'], 'text/yaml; charset=UTF-8')
+})
