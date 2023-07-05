@@ -1,5 +1,6 @@
 import {AUTOCOMPLETE} from '../params/autocomplete.js'
 import readJson from '../../lib/read-json.js'
+import process from 'node:process'
 
 let _capabilities = null
 
@@ -12,6 +13,9 @@ export default async function computeAutocompleteCapabilities() {
   const capabilities = await readJson('./config/capabilities/autocomplete/base.json')
   const addressCapabilities = await readJson('./config/capabilities/autocomplete/address.json')
   const poiCapabilities = await readJson('./config/capabilities/autocomplete/poi.json')
+  const categories = await getCategories()
+
+  poiCapabilities.fields[0].values = categories
 
   capabilities.operations[0].parameters = parameters
   capabilities.indexes = [addressCapabilities, poiCapabilities]
@@ -44,3 +48,8 @@ function computeParameters() {
   return parameters
 }
 
+async function getCategories() {
+  const response = await fetch(`${process.env.POI_INDEX_URL}/categories`)
+
+  return response.json()
+}
