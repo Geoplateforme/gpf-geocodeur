@@ -1,5 +1,6 @@
 import test from 'ava'
 import {extractParam} from '../../util/params.js'
+import {normalizeQuery} from '../../util/querystring.js'
 import {AUTOCOMPLETE, extractParams, isTerrValid, validateBbox, validateLonlat} from '../autocomplete.js'
 
 test('isTerrValid', t => {
@@ -74,7 +75,7 @@ test('extractParam / terr', t => {
 
 test('extractParam / poiType', t => {
   function extractPoiType(poiType) {
-    return extractParam({poiType}, 'poiType', AUTOCOMPLETE.poiType, AUTOCOMPLETE)
+    return extractParam(normalizeQuery({poiType}), 'poiType', AUTOCOMPLETE.poiType, AUTOCOMPLETE)
   }
 
   t.deepEqual(extractPoiType('aérodrome'), ['aérodrome'])
@@ -114,7 +115,7 @@ test('extractParam / type', t => {
 
 test('extractParam / maximumResponses', t => {
   function extractMaximumResponses(maximumResponses) {
-    return extractParam({maximumResponses}, 'maximumResponses', AUTOCOMPLETE.maximumResponses, AUTOCOMPLETE)
+    return extractParam(normalizeQuery({maximumResponses}), 'maximumResponses', AUTOCOMPLETE.maximumResponses, AUTOCOMPLETE)
   }
 
   t.is(extractMaximumResponses('1'), 1)
@@ -163,6 +164,17 @@ test('extractParams', t => {
     type: ['PositionOfInterest'],
     maximumResponses: 10,
     bbox: [2.1, 48.7, 2.4, 49.1]
+  })
+})
+
+test('extractParams / maximumResponses', t => {
+  t.deepEqual(extractParams({
+    text: 'foo',
+    maximumResponses: '5'
+  }), {
+    text: 'foo',
+    maximumResponses: 5,
+    type: ['PositionOfInterest', 'StreetAddress']
   })
 })
 
