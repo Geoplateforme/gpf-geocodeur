@@ -1,16 +1,23 @@
 import {extractSingleParams, isFirstCharValid, parseFloatAndValidate} from '../util/params.js'
 import {normalizeQuery} from '../util/querystring.js'
+import {getDepartements} from '../../lib/cog.js'
+
+const codesDepartements = new Set(getDepartements().map(d => d.code))
 
 export function isTerrValid(terr) {
   if (terr === 'METROPOLE' || terr === 'DOMTOM') {
     return true
   }
 
-  if (terr.length < 2 || terr.length > 5 || !isFirstCharValid(terr)) {
-    return false
+  if (codesDepartements.has(terr)) {
+    return true
   }
 
-  return true
+  if (/^\d{5}$/.test(terr)) {
+    return true
+  }
+
+  return false
 }
 
 export function validateLonlat(lonlat) {
