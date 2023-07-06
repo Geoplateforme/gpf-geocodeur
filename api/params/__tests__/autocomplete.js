@@ -166,6 +166,17 @@ test('extractParams', t => {
   })
 })
 
+test('extractParams / maximumResponses', t => {
+  t.deepEqual(extractParams({
+    text: 'foo',
+    maximumResponses: '5'
+  }), {
+    text: 'foo',
+    maximumResponses: 5,
+    type: ['PositionOfInterest', 'StreetAddress']
+  })
+})
+
 test('extractParams / missing text parameter', t => {
   const error = t.throws(() => extractParams({}), {message: 'Failed parsing query'})
   t.deepEqual(error.detail, ['text is a required param'])
