@@ -1,5 +1,5 @@
 import test from 'ava'
-import {formatAutocompleteParams, formatResult, getCenterFromCoordinates} from '../autocomplete.js'
+import {formatAutocompleteParams, formatResult, getCenterFromCoordinates, getDepartementsList, getTerrCodes} from '../autocomplete.js'
 
 test('getCenterFromCoordinates', t => {
   t.is(getCenterFromCoordinates({}), undefined)
@@ -185,4 +185,20 @@ test('formatResult', t => {
       }
     ]
   })
+})
+
+test('getDepartementsList', t => {
+  const departementsList = getDepartementsList()
+
+  t.is(departementsList.metropole.length, 96)
+  t.is(departementsList.domtom.length, 8)
+})
+
+test('getTerrCodes', t => {
+  const departementsList = getDepartementsList()
+
+  t.is(getTerrCodes({}), undefined)
+  t.deepEqual(getTerrCodes({terr: ['57', '54', '54', '54778', '972', '974', '69784', '54778', '97240', '97413', '97512']}), {postcodes: ['69784', '97512'], departmentcodes: ['57', '54', '972', '974']})
+  t.deepEqual(getTerrCodes({terr: ['57', '54', 'METROPOLE', '54778', '69784', '54778', '97413']}), {postcodes: ['97413'], departmentcodes: departementsList.metropole})
+  t.deepEqual(getTerrCodes({terr: ['DOMTOM', '54778', '69784', '54778', '97413', '97240']}), {postcodes: ['54778', '69784'], departmentcodes: departementsList.domtom})
 })

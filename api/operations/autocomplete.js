@@ -1,6 +1,8 @@
 import {omit} from 'lodash-es'
 
+import {isDepartmentcodeValid} from '../util/params.js'
 import {mergeResults} from '../merge.js'
+import {getDepartements} from '../../lib/cog.js'
 
 export default async function autocomplete(params, options = {}) {
   const {indexes} = options
@@ -99,4 +101,76 @@ export function formatResult(result) {
   }
 
   return autocompleteResult
+}
+
+export function getDepartementsList() {
+  const departements = getDepartements()
+  const metropole = []
+  const domtom = []
+
+  for (const departement of departements) {
+    const {code} = departement
+
+    if (code >= '971' && code <= '978') {
+      domtom.push(code)
+    } else if (code.length === 2) {
+      metropole.push(code)
+    }
+  }
+
+  return {
+    metropole,
+    domtom
+  }
+}
+
+export function getTerrCodes(params) {
+  if (!params.terr) {
+    return
+  }
+
+  const uniqueTerr = new Set(params.terr)
+  const terrCodes = {
+    departmentcodes: [],
+    postcodes: []
+  }
+  const departementsList = getDepartementsList()
+
+  if (uniqueTerr.has('METROPOLE')) {
+    terrCodes.departmentcodes.push(...departementsList.metropole)
+  } else {
+    const otherDepartements = [...uniqueTerr].filter(v => v.length === 2)
+
+    for (const code of otherDepartements) {
+      if (isDepartmentcodeValid(code)) {
+        terrCodes.departmentcodes.push(code)
+      }
+    }
+  }
+
+  if (uniqueTerr.has('DOMTOM')) {
+    terrCodes.departmentcodes.push(...departementsList.domtom)
+  } else {
+    const otherDepartements = [...uniqueTerr].filter(v => v.length === 3)
+
+    for (const code of otherDepartements) {
+      if (isDepartmentcodeValid(code)) {
+        terrCodes.departmentcodes.push(code)
+      }
+    }
+  }
+
+  const postcodes = [...uniqueTerr].filter(v => v.length === 5)
+
+  for (const postcode of postcodes) {
+    if (postcode.slice(0, 2) !== '97' && !terrCodes.departmentcodes.includes(postcode.slice(0, 2))) {
+      terrCodes.postcodes.push(postcode)
+    }
+
+    if ((postcode.slice(0, 3) >= '971' && postcode.slice(0, 3) <= '978') && !terrCodes.departmentcodes.includes(postcode.slice(0, 3))) {
+      terrCodes.postcodes.push(postcode)
+    }
+  }
+
+  return terrCodes
 }
