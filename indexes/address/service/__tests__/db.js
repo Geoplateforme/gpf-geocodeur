@@ -3,11 +3,14 @@ import {pickValues, prepareHousenumber, prepareMunicipality, prepareStreet} from
 
 test('prepareHousenumber', t => {
   const hnFeature = {
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [1, 1]
+    },
     properties: {
       housenumber: '123',
       id: '123456789',
-      lon: 2,
-      lat: 40,
       x: 12,
       y: 6,
       foo: 'bar'
@@ -15,6 +18,11 @@ test('prepareHousenumber', t => {
   }
 
   const streetFeature = {
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [2, 2]
+    },
     properties: {
       name: 'Rue Principale',
       postcode: '12345',
@@ -26,11 +34,14 @@ test('prepareHousenumber', t => {
   const result = prepareHousenumber(hnFeature, streetFeature)
 
   t.deepEqual(result, {
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [1, 1]
+    },
     properties: {
       type: 'housenumber',
       id: '123456789',
-      lon: 2,
-      lat: 40,
       x: 12,
       y: 6,
       housenumber: '123',
@@ -53,8 +64,6 @@ test('prepareMunicipality', t => {
     properties: {
       id: '123456789',
       name: 'Ville',
-      lon: 2,
-      lat: 40,
       x: 12,
       y: 6,
       citycode: '12345',
@@ -76,8 +85,6 @@ test('prepareMunicipality', t => {
       type: 'municipality',
       name: 'Ville',
       id: '123456789',
-      lon: 2,
-      lat: 40,
       x: 12,
       y: 6,
       citycode: '12345',
@@ -90,11 +97,14 @@ test('prepareMunicipality', t => {
 
 test('prepareStreet', t => {
   const feature = {
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [2, 2]
+    },
     properties: {
       type: 'street',
       id: '123456789',
-      lon: 2,
-      lat: 40,
       x: 12,
       y: 6,
       citycode: '12345',
@@ -108,17 +118,22 @@ test('prepareStreet', t => {
   const result = prepareStreet(feature)
 
   t.deepEqual(result, {
-    type: 'street',
-    id: '123456789',
-    lon: 2,
-    lat: 40,
-    x: 12,
-    y: 6,
-    citycode: '12345',
-    name: 'Rue Principale',
-    postcode: '12345',
-    city: 'Ville',
-    label: 'Rue Principale 12345 Ville'
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [2, 2]
+    },
+    properties: {
+      type: 'street',
+      id: '123456789',
+      x: 12,
+      y: 6,
+      citycode: '12345',
+      name: 'Rue Principale',
+      postcode: '12345',
+      city: 'Ville',
+      label: 'Rue Principale 12345 Ville'
+    }
   })
 })
 

@@ -113,11 +113,13 @@ export function prepareMunicipality(feature) {
 }
 
 export function prepareStreet(feature) {
-  return {
+  const properties = {
     type: feature.properties.type,
     ...pickValues(feature.properties, STREET_FIELDS),
     label: `${feature.properties.name} ${feature.properties.postcode} ${feature.properties.city}`
   }
+
+  return {...feature, properties}
 }
 
 export function pickValues(item, values) {
