@@ -1,0 +1,473 @@
+/search:
+  - request: "?q=nancy"
+    results:
+      firstResult:
+        id: "54395"
+  - request: "?q=mairie&citycode=54280"
+    results:
+      firstResult:
+        id: "54280_0030"
+      only:
+        citycode: "54280"
+  - request: "?q=Cimetière de vincennes&index=poi"
+    results:
+      firstResult:
+        id: "CIMETIER0000000004273495"
+  - request: "?q=73 Avenue de Paris Saint-Mandé"
+    results:
+      firstResult:
+        id: "94067_7115_00073"
+  - request: "?q=Paris&type=municipality"
+    results:
+      firstResult:
+        id: "75056"
+      only:
+        type: "municipality"
+  - request: "?q=5 Rue de la Paix, Paris"
+    results:
+      firstResult:
+        id: "75102_6998_00005"
+  - request: "?q=8 Rue de Strasbourg, Reims"
+    results:
+      firstResult:
+        id: "51454_8430_00008"
+  - request: "?q=1 Place du Capitole, Toulouse"
+    results:
+      firstResult:
+        id: "31555_1676_00001"
+  - request: "?q=5 Avenue de la République, Marseille&type=street"
+    results:
+      firstResult:
+        id: "13202_7849"
+      only:
+        type: "street"
+  - request: "?q=10 Rue de Rivoli, Paris"
+    results:
+      firstResult:
+        id: "75104_8249_00010"
+  - request: "?q=25 Rue Jean Jaurès, Lille"
+    results:
+      firstResult:
+        id: "59350_4931_00025"
+  - request: "?q=gare&postcode=33200"
+    results:
+      firstResult:
+        id: "33063_3841"
+  - request: "?q=Rue de Nantes, Rennes"
+    results:
+      firstResult:
+        id: "35238_6860"
+  - request: "?q=12 Avenue de la Liberté, Strasbourg"
+    results:
+      firstResult:
+        id: "67482_3975"
+  - request: "?q=7 Avenue des Champs-Élysées, Paris"
+    results:
+      firstResult:
+        id: "75108_1733"
+  - request: "?q=3 Place de la Comédie, Montpellier"
+    results:
+      firstResult:
+        id: "34172_1485_00003"
+  - request: "?q=Mon&index=poi&category=commune"
+    results:
+      firstResult:
+        id: "COMMUNE_0000000009758896"
+      including:
+        category: "commune"
+  - request: "?q=charles&postcode=33000"
+    results:
+      firstResult:
+        id: "33063_ak506c"
+      only:
+        postcode: "33000"
+  - request: "?q=La Grande Arche, Puteaux"
+    results:
+      firstResult:
+        id: "92062_A102"
+  - request: "?q=2 Rue de la Paix, Paris"
+    results:
+      firstResult:
+        id: "75102_6998_00002"
+  - request: "?q=10 Place de la Concorde, Paris"
+    results:
+      firstResult:
+        id: "75108_2259_00010"
+  - request: "?q=tour eiffel&index=poi"
+    results:
+      firstResult:
+        id: SURFACTI0000000000142427
+  - request: "?q=tour eiffel&index=poi&postcode=45300"
+    results:
+      firstResult:
+        id: PAIE_NAT0000000006007428
+      only:
+        postcode: "45300"
+  - request: "?q=&index=parcel&departmentcode=75&municipalitycode=056&districtcode=102"
+    results:
+      firstResult:
+        id: 75102000AB0002
+      only:
+        municipalitycode: "056"
+        departmentcode: "75"
+        districtcode: "102"
+        _type: "parcel"
+  - request: "?q=&lon=2.329070&lat=48.869469&index=parcel&departmentcode=75&municipalitycode=056&districtcode=102"
+    results:
+      firstResult:
+        id: 75102000AB0006
+      only:
+        municipalitycode: "056"
+        departmentcode: "75"
+        districtcode: "102"
+        _type: "parcel"
+  - request: "?q=&index=parcel&departmentcode=13&municipalitycode=111"
+    results:
+      firstResult:
+        id: 131110000A0001
+      only:
+        municipalitycode: "111"
+        departmentcode: "13"
+  - request: "?q=&index=parcel&departmentcode=08&municipalitycode=437&oldmunicipalitycode=012"
+    results:
+      firstResult:
+        id: 084370120A0003
+      only:
+        municipalitycode: "437"
+        departmentcode: "08"
+        oldmunicipalitycode: "012"
+  - request: "?q=musée louvre&index=poi"
+    results:
+      firstResult:
+        id: "SURFACTI0000000000142364"
+  - request: "?q=triomphe&index=poi&category=monument"
+    results:
+      firstResult:
+        id: "SURFACTI0000000000142252"
+  - request: "?q=150560000A0003&index=parcel"
+    results:
+      firstResult:
+        id: "150560000A0003"
+  - request: "?q=mairie&lon=2.451&lat=38.145"
+    results:
+      firstResult:
+        id: "47280_6z3q2l"
+  - request: "?q=mairie&lon=-0.976507&lat=47.206747&returntruegeometry=true"
+    results:
+      firstResult:
+        id: "47280_6z3q2l"
+      hasProperties: ["truegeometry"]
+  - request: "?q=république&limit=3"
+    results:
+      firstResult:
+        id: "28276_mvo6lp"
+      nbResult: 3
+
+/reverse:
+  - request: "?lon=2.3488&lat=48.8534"
+    results:
+      firstResult:
+        id: "75104_6826"
+  - request: "?lon=2.3488&lat=48.8534&postcode=75004"
+    results:
+      firstResult:
+        id: "75104_6826"
+      only:
+        postcode: "75004"
+  - request: "?lon=4.8357&lat=45.7640&type=housenumber&postcode=69002"
+    results:
+      firstResult:
+        id: "69382_6005_00018_bis"
+      only:
+        type: "housenumber"
+        postcode: "69002"
+  - request: "?lon=1.4442&lat=43.6045&type=locality"
+    results:
+      firstResult:
+        id: "31555_7618"
+      only:
+        type: "locality"
+  - request: "?lon=5.3811&lat=43.2965&10&index=parcel&city=marseille&section=0A"
+    results:
+      firstResult:
+        id: "132018030A0163"
+      only:
+        city: "Marseille"
+        section: "0A"
+        _type: "parcel"
+  - request: "?lon=2.488132&lat=45.448845&index=parcel&sheet=03"
+    results:
+      firstResult:
+        id: "192520000A0350"
+      only:
+        sheet: "03"
+        _type: "parcel"
+  - request: "?lon=2.488132&lat=44.448845&index=parcel&number=0085"
+    results:
+      firstResult:
+        id: "12254000AY0085"
+      only:
+        number: "0085"
+        _type: "parcel"
+  - request: "?lon=2.3522&lat=48.8566"
+    results:
+      firstResult:
+        id: "75104_4664_00008"
+  - request: "?lon=3.0572&lat=50.6333"
+    results:
+      firstResult:
+        id: "59350_7264_00016"
+  - request: "?lon=-0.5792&lat=44.8378&type=street"
+    results:
+      firstResult:
+        id: "33063_8030"
+  - request: "?lon=-1.5536&lat=47.2184&postcode=44000"
+    results:
+      firstResult:
+        id: "44109_2100_00004"
+      only:
+        postcode: "44000"
+  - request: "?lon=7.7521&lat=48.5839&type=housenumber"
+    results:
+      firstResult:
+        id: "67482_1215_00003"
+      only:
+        type: "housenumber"
+  - request: "?lon=2.6412&lat=45.9640&postcode=63640"
+    results:
+      firstResult:
+        id: "63094_vt55hm_01755"
+      only:
+        postcode: "63640"
+  - request: "?lon=1.9174&lat=47.9038"
+    results:
+      firstResult:
+        id: "45234_6396"
+  - request: "?lon=3.8770&lat=43.6112&type=street"
+    results:
+      firstResult:
+        id: "34172_3463"
+      only:
+        type: "street"
+  - request: "?lon=2.3018&lat=48.8720&index=poi"
+    results:
+      firstResult:
+        id: "EQ_RESEA0000000000140144"
+  - request: "?lon=1.488132&lat=48.448845&index=parcel,poi"
+    results:
+      firstResult:
+        id: "SURFACTI0000000015532410"
+      many:
+        _type: ["parcel", "poi"]
+  - request: "?lon=1.488132&lat=48.448845&index=parcel&returntruegeometry=1"
+    results:
+      firstResult:
+        id: "28085000AB0120"
+      only:
+        _type: "parcel"
+      hasProperties: ["truegeometry"]
+  - request: "?lon=1.488132&lat=48.448845&index=parcel&returntruegeometry=true"
+    results:
+      firstResult:
+        id: "28085000AB0120"
+      only:
+        _type: "parcel"
+      hasProperties: ["truegeometry"]
+  - request: "?lon=2.4594737981512083&lat=48.779516138928614&index=poi&category=station de métro"
+    results:
+      firstResult:
+        id: "EQ_RESEA0000000004264339"
+      including:
+        category: "station de métro"
+  - request: "?searchgeom={\"type\": \"Point\", \"coordinates\": [2.25691, 46.5472]}&index=poi"
+    results:
+      firstResult:
+        id: "DEPARTEM0000002150000518"
+  - request: "?lon=2&lat=46&searchgeom={\"type\": \"Point\", \"coordinates\": [2.25691, 46.5472]}&index=poi"
+    results:
+      firstResult:
+        id: "COMMUNE_0000000009748965"
+  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [2.25691, 46.5472], \"radius\": 100}&index=poi"
+    results:
+      firstResult:
+        id: "COMMUNE_0000000009748762"
+  - request: "?searchgeom={\"type\": \"LineString\", \"coordinates\": [[1.90600, 47.92306],[1.930199, 47.91619]]}&index=poi,parcel"
+    results:
+      firstResult:
+        id: "PAIHABIT0000000006077735"
+      many:
+        _type: ["poi", "cadastre"]
+  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
+          [
+            [
+              2.6915005618557757,
+              48.26786282131431
+            ],
+            [
+              2.6915005618557757,
+              48.26602312133434
+            ],
+            [
+              2.6951155781056286,
+              48.26602312133434
+            ],
+            [
+              2.6951155781056286,
+              48.26786282131431
+            ],
+            [
+              2.6915005618557757,
+              48.26786282131431
+            ]
+          ]
+        ]}"
+    results:
+      firstResult:
+        id: "77333_0230_00052_bis"
+
+/completion:
+  - request: "?text=bordeaux&type=PositionOfInterest"
+    results:
+      firstResult:
+        fulltext: "Bordeaux, 33000"
+      only:
+        country: "PositionOfInterest"
+  - request: "?text=paris"
+    results:
+      firstResult:
+        fulltext: "Paris"
+  - request: "?text=5 rue de la paix, paris&type=StreetAddress&maximumResponses=2"
+    results:
+      firstResult:
+        fulltext: "5 Rue de la Paix, 75002 Paris"
+      only:
+        country: "StreetAddress"
+      nbResult: 2
+  - request: "?text=place du capitole, toulouse"
+    results:
+      firstResult:
+        fulltext: "Place du Capitole, 31000 Toulouse"
+  - request: "?text=avenue des champs-élysées, paris"
+    results:
+      firstResult:
+        fulltext: "Avenue des Champs Elysées, 75008 Paris"
+  - request: "?text=lyon"
+    results:
+      firstResult:
+        fulltext: "Lyon"
+  - request: "?text=bordeaux&type=StreetAddress"
+    results:
+      firstResult:
+        fulltext: "Bordeaux, 33800 Bordeaux"
+      only:
+        country: "StreetAddress"
+  - request: "?text=nantes"
+    results:
+      firstResult:
+        fulltext: "Nantes, 44000"
+  - request: "?text=lille&citycode=59350"
+    results:
+      firstResult:
+        fulltext: "Lille, 59000"
+  - request: "?text=strasbourg&type=PositionOfInterest&poiType=transport"
+    results:
+      firstResult:
+        fulltext: "Strasbourg, 49100 Angers"
+      only:
+        country: "PositionOfInterest"
+      including:
+        poiType: "transport"
+  - request: "?text=montpellier&postcode=34000"
+    results:
+      firstResult:
+        fulltext: "Montpellier, 34000"
+  - request: "?text=rennes&type=PositionOfInterest&postcode=35000"
+    results:
+      firstResult:
+        fulltext: "Rennes, 35000"
+      only:
+        country: "PositionOfInterest"
+  - request: "?text=marseille&type=PositionOfInterest"
+    results:
+      firstResult:
+        fulltext: Marseille
+      only:
+        country: "PositionOfInterest"
+  - request: "?text=nice&type=PositionOfInterest"
+    results:
+      firstResult:
+        fulltext: "Nice, 06000"
+      only:
+        country: "PositionOfInterest"
+  - request: "?text=toulouse"
+    results:
+      firstResult:
+        fulltext: "Toulouse, 31000"
+  - request: "?text=gare de chateauroux&type=PositionOfInterest"
+    results:
+      firstResult:
+        fulltext: "Gare de Châteauroux, 36000 Châteauroux"
+      only:
+        country: "PositionOfInterest"
+  - request: "?text=assemblée"
+    results:
+      firstResult:
+        fulltext: "Assemblée Nationale, 75001 Paris"
+  - request: "?text=sénat"
+    results:
+      firstResult:
+        fulltext: "Sénat, 75006 Paris 6e Arrondissement"
+  - request: "?text=aéroport paris"
+    results:
+      firstResult:
+        fulltext: "Aeroport Paris Orly, 94290 Villeneuve-le-Roi"
+  - request: "?text=aéroport de fort-de-france"
+    results:
+      firstResult:
+        fulltext: "Aéroport de Fort-de-France-le Lamentin, 97232 Le Lamentin"
+  - request: "?text=marche&terr=METROPOLE"
+    results:
+      firstResult:
+        fulltext: "Marche, 35420 Louvigné-du-Désert"
+  - request: "?text=saint-pierre&terr=DOMTOM"
+    results:
+      firstResult:
+        fulltext: "Saint-Pierre, 97410"
+  - request: "?text=saint-denis&terr=974"
+    results:
+      firstResult:
+        fulltext: "Saint-Denis, 97400"
+  - request: "?text=saint-pierre&terr=972"
+    results:
+      firstResult:
+        fulltext: "Saint-Pierre, 97250"
+  - request: "?text=marche&terr=33,44"
+    results:
+      firstResult:
+        fulltext: "Marche, 33580 Taillecavat"
+  - request: "?text=tai&bbox=-1.153564,44.095476,9.393311,47.672786"
+    results:
+      firstResult:
+        fulltext: "Taillefer, 42500 Le Chambon-Feugerolles"
+  - request: "?text=saint&bbox=-1.732407,48.851162,-0.414047,49.272285"
+    results:
+      firstResult:
+        fulltext: "Saint-Lô, 50000"
+  - request: "?text=marché&terr=13,972"
+    results:
+      firstResult:
+        fulltext: "Marché, 97231 Le Robert"
+      many:
+        terr: ["13", "972"]
+  - request: "?text=republique&terr=DOMTOM,13"
+    results:
+      firstResult:
+        fulltext: "République Dames, 13002 Marseille 2e Arrondissement"
+      many:
+        terr: ["13", "971", "972", "973", "974"]
+  - request: "?text=république&type=PositionOfInterest&poiType=station de métro"
+    results:
+      firstResult:
+        fulltext: "République, 75001 Paris"
+      including:
+        poiType: "station de métro"
