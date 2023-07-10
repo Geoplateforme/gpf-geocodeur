@@ -83,7 +83,7 @@ export function formatResult(result) {
         country: 'PositionOfInterest',
         names: feature.properties.name,
         city: feature.properties.city,
-        zipcode: feature.properties.postcode[0],
+        zipcode: feature.properties.postcode?.[0],
         zipcodes: feature.properties.postcode,
         metropole: feature.properties.citycode.slice(0, 2) < '97',
         poiType: feature.properties.category,
