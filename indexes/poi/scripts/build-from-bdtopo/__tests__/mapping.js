@@ -17,11 +17,11 @@ test('LAYERS / cimetiere', t => {
   t.is(toponym({toponyme: 'Cimetière Saint-Joseph'}), 'Cimetière Saint-Joseph')
   t.is(toponym({toponyme: ''}), 'Cimetière')
 
-  t.is(classification({importance: 1}), 4)
-  t.is(classification({importance: 2}), 5)
-  t.is(classification({importance: 3}), 5)
-  t.is(classification({importance: 4}), 5)
-  t.is(classification({importance: 5}), 7)
+  t.is(classification({importance: '1'}), 4)
+  t.is(classification({importance: '2'}), 5)
+  t.is(classification({importance: '3'}), 5)
+  t.is(classification({importance: '4'}), 5)
+  t.is(classification({importance: '5'}), 7)
 })
 
 test('LAYERS / reservoir', t => {
@@ -277,10 +277,10 @@ test('LAYERS / detail_orographique', t => {
 
   t.deepEqual(category({nature: 'Crête'}), ['crête', 'élément topographique ou forestier', 'détail orographique'])
 
-  t.is(classification({importance: 1}), 3)
-  t.is(classification({importance: 2}), 3)
-  t.is(classification({importance: 3}), 4)
-  t.is(classification({importance: 4}), 8)
+  t.is(classification({importance: '1'}), 3)
+  t.is(classification({importance: '2'}), 3)
+  t.is(classification({importance: '3'}), 4)
+  t.is(classification({importance: '4'}), 8)
 
   t.true(computeCommunes)
 })
@@ -406,11 +406,11 @@ test('LAYERS / zone_d_activite_ou_d_interet', t => {
 
   t.deepEqual(category({nature: 'Zone industrielle'}), ['zone industrielle', 'zone d\'activité ou d\'intérêt'])
 
-  t.is(classification({importance: 1}), 1)
-  t.is(classification({importance: 2}), 2)
-  t.is(classification({importance: 3}), 4)
-  t.is(classification({importance: 4}), 7)
-  t.is(classification({importance: 5}), 9)
+  t.is(classification({importance: '1'}), 1)
+  t.is(classification({importance: '2'}), 2)
+  t.is(classification({importance: '3'}), 4)
+  t.is(classification({importance: '4'}), 7)
+  t.is(classification({importance: '5'}), 9)
 
   t.true(computeCommunes)
 })

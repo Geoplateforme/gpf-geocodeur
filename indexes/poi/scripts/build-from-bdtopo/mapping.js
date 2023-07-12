@@ -20,8 +20,8 @@ export const LAYERS = {
       toponym: ({toponyme}) => toponyme || 'Cimetière',
       category: 'cimetière',
       classification: ({importance}) => {
-        if (importance === 1) return 4
-        if (importance >= 2 && importance <= 4) return 5
+        if (importance === '1') return 4
+        if (importance >= '2' && importance <= '4') return 5
         return 7
       }
     },
@@ -165,8 +165,8 @@ export const LAYERS = {
         'détail orographique'
       ],
       classification: ({importance}) => {
-        if (importance === 1 || importance === 2) return 3
-        if (importance === 3) return 4
+        if (importance === '1' || importance === '2') return 3
+        if (importance === '3') return 4
         return 8
       }
     },
@@ -239,11 +239,12 @@ export const LAYERS = {
         nature && nature.toLowerCase(),
         'zone d\'activité ou d\'intérêt'
       ],
-      classification: ({importance}) => {
-        if (importance === 1) return 1
-        if (importance === 2) return 2
-        if (importance === 3) return 4
-        if (importance === 4) return 7
+      classification: ({toponyme, importance}) => {
+        console.log({toponyme, importance})
+        if (importance === '1') return 1
+        if (importance === '2') return 2
+        if (importance === '3') return 4
+        if (importance === '4') return 7
         return 9
       }
     },
