@@ -61,9 +61,7 @@ export function * extractFeatures({datasetPath, layersDefinitions, cleabsUniqInd
 
       const fields = computeFields(properties, config.fields, computedFieldsSchema)
 
-      fields.importance = fields.classification
-        ? Math.round((1 - ((fields.classification - 1) * 0.1)) * 100) / 100
-        : 0.4
+      fields.importance = computeImportance(fields.classification)
 
       fields.extrafields = {
         cleabs
@@ -104,4 +102,10 @@ export function * extractFeatures({datasetPath, layersDefinitions, cleabsUniqInd
   }
 
   ds.close()
+}
+
+export function computeImportance(classification) {
+  return classification
+    ? Math.round((1 - ((classification - 1) * 0.1)) * 100) / 100
+    : 0.4
 }

@@ -1,7 +1,7 @@
 import {Buffer} from 'node:buffer'
 import test from 'ava'
 import gdal from 'gdal-async'
-import {computeFields, extractFeatures} from '../extract.js'
+import {computeFields, extractFeatures, computeImportance} from '../extract.js'
 import {createAccumulator} from '../categories.js'
 
 test('computeFields', t => {
@@ -132,4 +132,11 @@ test('extractFeatures', async t => {
   t.deepEqual(features, [
     '{"name":["prefix|gymnase"],"classification":7,"category":["cat1","subcat1"],"importance":0.4,"extrafields":{"cleabs":"ABCDEF"},"citycode":["57463","57"],"city":["Metz"],"postcode":["57050","57070","57000"],"truegeometry":"{\\"type\\":\\"Point\\",\\"coordinates\\":[6.174285,49.121918]}","lon":6.174285,"lat":49.121918}\n'
   ])
+})
+
+test('computeImportance', t => {
+  t.is(computeImportance(), 0.4)
+  t.is(computeImportance(1), 1)
+  t.is(computeImportance(4), 0.7)
+  t.is(computeImportance(9), 0.2)
 })
