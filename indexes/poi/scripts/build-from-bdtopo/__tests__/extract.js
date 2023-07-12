@@ -1,7 +1,7 @@
 import {Buffer} from 'node:buffer'
 import test from 'ava'
 import gdal from 'gdal-async'
-import {computeFields, extractFeatures, computeImportance} from '../extract.js'
+import {computeFields, extractFeatures, computeImportance, setToUndefinedIfEmpty} from '../extract.js'
 import {createAccumulator} from '../categories.js'
 
 test('computeFields', t => {
@@ -139,4 +139,12 @@ test('computeImportance', t => {
   t.is(computeImportance(1), 1)
   t.is(computeImportance(4), 0.7)
   t.is(computeImportance(9), 0.2)
+})
+
+test('setToUndefinedIfEmpty', t => {
+  t.is(setToUndefinedIfEmpty('foo'), 'foo')
+  t.is(setToUndefinedIfEmpty(false), false)
+  t.is(setToUndefinedIfEmpty(1), 1)
+  t.deepEqual(setToUndefinedIfEmpty(['foo']), ['foo'])
+  t.is(setToUndefinedIfEmpty([]), undefined)
 })

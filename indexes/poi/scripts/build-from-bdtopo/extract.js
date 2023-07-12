@@ -95,6 +95,10 @@ export function * extractFeatures({datasetPath, layersDefinitions, cleabsUniqInd
       fields.lon = lon
       fields.lat = lat
 
+      fields.citycode = setToUndefinedIfEmpty(fields.citycode)
+      fields.city = setToUndefinedIfEmpty(fields.city)
+      fields.postcode = setToUndefinedIfEmpty(fields.postcode)
+
       categoriesAccumulator.addCategories(fields.category)
 
       yield JSON.stringify(fields) + '\n'
@@ -108,4 +112,12 @@ export function computeImportance(classification) {
   return classification
     ? Math.round((1 - ((classification - 1) * 0.1)) * 100) / 100
     : 0.4
+}
+
+export function setToUndefinedIfEmpty(value) {
+  if (!Array.isArray(value)) {
+    return value
+  }
+
+  return value.length > 0 ? value : undefined
 }
