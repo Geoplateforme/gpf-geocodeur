@@ -239,8 +239,7 @@ export const LAYERS = {
         nature && nature.toLowerCase(),
         'zone d\'activité ou d\'intérêt'
       ],
-      classification: ({toponyme, importance}) => {
-        console.log({toponyme, importance})
+      classification: ({importance}) => {
         if (importance === '1') return 1
         if (importance === '2') return 2
         if (importance === '3') return 4
