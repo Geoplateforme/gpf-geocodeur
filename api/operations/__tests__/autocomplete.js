@@ -1,5 +1,5 @@
 import test from 'ava'
-import {formatAutocompleteParams, formatResult, getCenterFromCoordinates} from '../autocomplete.js'
+import {computeFulltext, formatAutocompleteParams, formatResult, getCenterFromCoordinates} from '../autocomplete.js'
 
 test('getCenterFromCoordinates', t => {
   t.is(getCenterFromCoordinates({}), undefined)
@@ -185,4 +185,11 @@ test('formatResult', t => {
       }
     ]
   })
+})
+
+test('computeFulltext', t => {
+  t.is(computeFulltext({name: 'Location A'}), 'Location A')
+  t.is(computeFulltext({name: 'Location B', postcode: '12345'}), 'Location B, 12345')
+  t.is(computeFulltext({name: 'Location C', city: 'City A'}), 'Location C, City A')
+  t.is(computeFulltext({name: 'Location D', postcode: '12345', city: 'City B'}), 'Location D, 12345 City B')
 })

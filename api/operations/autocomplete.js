@@ -60,6 +60,19 @@ export function formatAutocompleteParams(params) {
   return formattedParams
 }
 
+export function computeFulltext(properties) {
+  let fulltext = properties.name
+  const {postcode, city} = properties
+
+  if (postcode) {
+    fulltext += city ? `, ${postcode} ${city}` : `, ${postcode}`
+  } else if (city) {
+    fulltext += `, ${city}`
+  }
+
+  return fulltext
+}
+
 export function formatResult(result) {
   const autocompleteResult = {}
 
@@ -72,7 +85,7 @@ export function formatResult(result) {
         zipcode: feature.properties.postcode,
         street: feature.properties.street,
         metropole: feature.properties.citycode ? feature.properties.citycode.slice(0, 2) < '97' : undefined,
-        fulltext: `${feature.properties.name}${feature.properties.postcode ? `, ${feature.properties.postcode}` : ''} ${feature.properties.city}`,
+        fulltext: computeFulltext(feature.properties),
         x: feature.geometry.coordinates[0],
         y: feature.geometry.coordinates[1],
         classification: 7,
@@ -89,7 +102,7 @@ export function formatResult(result) {
         poiType: feature.properties.category,
         street: feature.properties.category.includes('administratif') || feature.properties.category.includes('commune') ? feature.properties.city : feature.properties.toponym,
         kind: feature.properties.toponym,
-        fulltext: `${feature.properties.name}${feature.properties.postcode ? `, ${feature.properties.postcode}` : ''} ${feature.properties.city ? ` ${feature.properties.city}` : ''}`,
+        fulltext: computeFulltext(feature.properties),
         x: feature.geometry.coordinates[0],
         y: feature.geometry.coordinates[1],
         classification: feature.properties.classification,
