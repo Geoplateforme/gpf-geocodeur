@@ -48,7 +48,7 @@ test('transformParcel', t => {
       id: 'featureId',
       departmentcode: 55,
       municipalitycode: 55200,
-      oldMunicipalitycode: 55500,
+      oldmunicipalitycode: 55500,
       districtcode: 55120,
       section: 123,
       sheet: '04',

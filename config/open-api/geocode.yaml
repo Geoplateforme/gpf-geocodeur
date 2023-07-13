@@ -469,7 +469,7 @@ components:
         city:
           type: string
           description: "Nom de la commune"
-        oldMunicipalitycode:
+        oldmunicipalitycode:
           type: string
           description: "Code de l'ancienne commune"
         districtcode:
@@ -557,7 +557,7 @@ components:
         city:
           type: string
           description: "Nom de la commune"
-        oldMunicipalitycode:
+        oldmunicipalitycode:
           type: string
           description: "Code de l'ancienne commune"
         districtcode:
