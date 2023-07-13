@@ -5,11 +5,11 @@ import {transformParcel} from '../transform.js'
 const aFeature = {
   properties: {
     IDU: 'featureId',
-    CODE_DEP: 55,
-    CODE_COM: 55200,
-    COM_ABS: 55500,
-    CODE_ARR: 55120,
-    SECTION: 123,
+    CODE_DEP: '55',
+    CODE_COM: '55200',
+    COM_ABS: '55500',
+    CODE_ARR: '55120',
+    SECTION: '123',
     FEUILLE: 4,
     NUMERO: 1
   },
@@ -46,11 +46,11 @@ test('transformParcel', t => {
     },
     properties: {
       id: 'featureId',
-      departmentcode: 55,
-      municipalitycode: 55200,
-      oldMunicipalitycode: 55500,
-      districtcode: 55120,
-      section: 123,
+      departmentcode: '55',
+      municipalitycode: '55200',
+      oldMunicipalitycode: '55500',
+      districtcode: '55120',
+      section: '123',
       sheet: '04',
       number: 1,
       lon: -73.98765,
