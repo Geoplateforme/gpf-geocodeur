@@ -61,11 +61,11 @@ export function formatAutocompleteParams(params) {
 }
 
 export function computeFulltext(properties) {
-  let fulltext = properties.name
-  const {postcode, city} = properties
+  const {name, postcode, city} = properties
+  let fulltext = Array.isArray(name) ? name[0] : name
 
   if (postcode) {
-    fulltext += city ? `, ${postcode} ${city}` : `, ${postcode}`
+    fulltext += city ? `, ${Array.isArray(postcode) ? postcode[0] : postcode} ${city}` : `, ${postcode}`
   } else if (city) {
     fulltext += `, ${city}`
   }

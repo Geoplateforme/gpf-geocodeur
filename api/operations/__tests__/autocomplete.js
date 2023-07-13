@@ -192,4 +192,6 @@ test('computeFulltext', t => {
   t.is(computeFulltext({name: 'Location B', postcode: '12345'}), 'Location B, 12345')
   t.is(computeFulltext({name: 'Location C', city: 'City A'}), 'Location C, City A')
   t.is(computeFulltext({name: 'Location D', postcode: '12345', city: 'City B'}), 'Location D, 12345 City B')
+  t.is(computeFulltext({name: ['Location E', 'Location F'], postcode: ['12345', '654321'], city: 'City B'}), 'Location E, 12345 City B')
+  t.is(computeFulltext({name: ['Location G']}), 'Location G')
 })
