@@ -75,13 +75,20 @@ export function computePoiCity(city) {
 }
 
 export function computeFulltext(properties) {
-  let fulltext = properties.name
-  const {postcode, city} = properties
+  const {postcode, name, street} = properties
+  const city = computePoiCity(properties.city)
+  let fulltext = ''
+
+  if (name || street) {
+    fulltext = name?.[0] || street
 
   if (postcode) {
-    fulltext += city ? `, ${postcode} ${city}` : `, ${postcode}`
+      fulltext += city ? `, ${Array.isArray(postcode) ? postcode[0] : postcode} ${city}` : `, ${postcode}`
   } else if (city) {
     fulltext += `, ${city}`
+    }
+  } else if (postcode) {
+    fulltext = city ? `${postcode} ${city}` : `${postcode}`
   }
 
   return fulltext
