@@ -159,7 +159,6 @@ export const PARAMS = {
 
   category: {
     type: 'string',
-    array: true,
     description: 'filtre pour l’index poi. Il permet de filtrer par catégorie de poi',
     example: 'administratif'
   },

@@ -240,10 +240,10 @@ test('extractParam / category', t => {
     return extractParam({category}, 'category', PARAMS.category, PARAMS)
   }
 
-  t.deepEqual(extractCategory('aérodrome'), ['aérodrome'])
-  t.deepEqual(extractCategory('administratif'), ['administratif'])
-  t.deepEqual(extractCategory('barrage'), ['barrage'])
-  t.deepEqual(extractCategory('aérodrome,administratif,barrage'), ['aérodrome', 'administratif', 'barrage'])
+  t.is(extractCategory('aérodrome'), 'aérodrome')
+  t.is(extractCategory('administratif'), 'administratif')
+  t.is(extractCategory('barrage'), 'barrage')
+  t.is(extractCategory('aérodrome,administratif,barrage'), 'aérodrome,administratif,barrage')
   t.is(extractCategory(''), undefined)
 })
 
