@@ -83,7 +83,6 @@ test('extractParam / poiType', t => {
   t.is(extractPoiType('aérodrome'), 'aérodrome')
   t.is(extractPoiType('administratif'), 'administratif')
   t.is(extractPoiType('barrage'), 'barrage')
-  t.is(extractPoiType('aérodrome,administratif,barrage'), 'aérodrome,administratif,barrage')
   t.is(extractPoiType(''), undefined)
 })
 

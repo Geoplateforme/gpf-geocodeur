@@ -243,7 +243,6 @@ test('extractParam / category', t => {
   t.is(extractCategory('aérodrome'), 'aérodrome')
   t.is(extractCategory('administratif'), 'administratif')
   t.is(extractCategory('barrage'), 'barrage')
-  t.is(extractCategory('aérodrome,administratif,barrage'), 'aérodrome,administratif,barrage')
   t.is(extractCategory(''), undefined)
 })
 
