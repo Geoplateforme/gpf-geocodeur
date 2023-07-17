@@ -49,6 +49,10 @@ export function formatAutocompleteParams(params) {
     autocomplete: true
   }
 
+  if (params.poiType) {
+    formattedParams.category = params.poiType
+  }
+
   formattedParams.indexes = params.type.map(v => AUTOCOMPLETE_INDEXES[v])
   formattedParams.limit = params.maximumResponses
 

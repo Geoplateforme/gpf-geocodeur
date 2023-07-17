@@ -45,6 +45,28 @@ test('formatAutocompleteParams / with coordinates', t => {
   })
 })
 
+test('formatAutocompleteParams / with poiType', t => {
+  const params = {
+    text: 'search text',
+    type: ['PositionOfInterest'],
+    poiType: ['administratif, sommet'],
+    maximumResponses: 5,
+    lonlat: [2, 40]
+  }
+
+  const result = formatAutocompleteParams(params)
+
+  t.deepEqual(result, {
+    q: 'search text',
+    autocomplete: true,
+    indexes: ['poi'],
+    category: ['administratif, sommet'],
+    limit: 5,
+    lon: 2,
+    lat: 40
+  })
+})
+
 test('formatResult', t => {
   const result = {
     address: [
