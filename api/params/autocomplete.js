@@ -79,7 +79,6 @@ export const AUTOCOMPLETE = {
 
   poiType: {
     type: 'string',
-    array: true,
     description: 'filtre sur le localisant pour le type de POI',
     example: 'administratif'
   },

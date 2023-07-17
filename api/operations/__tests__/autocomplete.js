@@ -49,7 +49,7 @@ test('formatAutocompleteParams / with poiType', t => {
   const params = {
     text: 'search text',
     type: ['PositionOfInterest'],
-    poiType: ['administratif', 'sommet'],
+    poiType: 'administratif',
     maximumResponses: 5,
     lonlat: [2, 40]
   }
@@ -60,7 +60,7 @@ test('formatAutocompleteParams / with poiType', t => {
     q: 'search text',
     autocomplete: true,
     indexes: ['poi'],
-    category: ['administratif', 'sommet'],
+    category: 'administratif',
     limit: 5,
     lon: 2,
     lat: 40
