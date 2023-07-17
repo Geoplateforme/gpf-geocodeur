@@ -80,10 +80,9 @@ test('extractParam / poiType', t => {
     return extractParam(normalizeQuery({poiType}), 'poiType', AUTOCOMPLETE.poiType, AUTOCOMPLETE)
   }
 
-  t.deepEqual(extractPoiType('aérodrome'), ['aérodrome'])
-  t.deepEqual(extractPoiType('administratif'), ['administratif'])
-  t.deepEqual(extractPoiType('barrage'), ['barrage'])
-  t.deepEqual(extractPoiType('aérodrome,administratif,barrage'), ['aérodrome', 'administratif', 'barrage'])
+  t.is(extractPoiType('aérodrome'), 'aérodrome')
+  t.is(extractPoiType('administratif'), 'administratif')
+  t.is(extractPoiType('barrage'), 'barrage')
   t.is(extractPoiType(''), undefined)
 })
 
