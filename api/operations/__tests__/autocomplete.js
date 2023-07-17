@@ -1,5 +1,5 @@
 import test from 'ava'
-import {computeFulltext, formatAutocompleteParams, formatResult, getCenterFromCoordinates} from '../autocomplete.js'
+import {computeFulltext, computePoiCity, formatAutocompleteParams, formatResult, getCenterFromCoordinates} from '../autocomplete.js'
 
 test('getCenterFromCoordinates', t => {
   t.is(getCenterFromCoordinates({}), undefined)
@@ -207,6 +207,14 @@ test('formatResult', t => {
       }
     ]
   })
+})
+
+test('computePoiCity', t => {
+  t.is(computePoiCity(['City A']), 'City A')
+  t.is(computePoiCity(['City B', 'City C']), 'City B')
+  t.is(computePoiCity([]), undefined)
+  t.is(computePoiCity(null), undefined)
+  t.is(computePoiCity(undefined), undefined)
 })
 
 test('computeFulltext', t => {

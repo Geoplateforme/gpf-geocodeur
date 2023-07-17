@@ -64,6 +64,16 @@ export function formatAutocompleteParams(params) {
   return formattedParams
 }
 
+export function computePoiCity(city) {
+  if (city && Array.isArray(city) && city.length === 0) {
+    return
+  }
+
+  if (city) {
+    return Array.isArray(city) && city.length > 0 ? city[0] : city
+  }
+}
+
 export function computeFulltext(properties) {
   let fulltext = properties.name
   const {postcode, city} = properties
