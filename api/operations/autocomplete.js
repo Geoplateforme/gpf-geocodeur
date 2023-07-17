@@ -82,10 +82,10 @@ export function computeFulltext(properties) {
   if (name || street) {
     fulltext = name?.[0] || street
 
-  if (postcode) {
+    if (postcode) {
       fulltext += city ? `, ${Array.isArray(postcode) ? postcode[0] : postcode} ${city}` : `, ${postcode}`
-  } else if (city) {
-    fulltext += `, ${city}`
+    } else if (city) {
+      fulltext += `, ${city}`
     }
   } else if (postcode) {
     fulltext = city ? `${postcode} ${city}` : `${postcode}`
@@ -115,13 +115,13 @@ export function formatResult(result) {
     } else if (r === 'poi') {
       autocompleteResult.poi = result[r].map(feature => ({properties: {
         country: 'PositionOfInterest',
-        names: feature.properties.name,
-        city: feature.properties.city,
+        names: feature.properties?.name,
+        city: computePoiCity(feature.properties.city),
         zipcode: feature.properties.postcode?.[0],
         zipcodes: feature.properties.postcode,
         metropole: feature.properties.citycode ? feature.properties.citycode.slice(0, 2) < '97' : undefined,
         poiType: feature.properties.category,
-        street: feature.properties.category.includes('administratif') || feature.properties.category.includes('commune') ? feature.properties.city : feature.properties.toponym,
+        street: feature.properties.category.includes('administratif') || feature.properties.category.includes('commune') ? computePoiCity(feature.properties.city) : feature.properties.toponym,
         kind: feature.properties.toponym,
         fulltext: computeFulltext(feature.properties),
         x: feature.geometry.coordinates[0],
