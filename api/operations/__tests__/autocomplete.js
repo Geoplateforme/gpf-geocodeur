@@ -1,5 +1,5 @@
 import test from 'ava'
-import {computeFulltext, formatAutocompleteParams, formatResult, getCenterFromCoordinates} from '../autocomplete.js'
+import {computeFulltext, computePoiCity, formatAutocompleteParams, formatResult, getCenterFromCoordinates} from '../autocomplete.js'
 
 test('getCenterFromCoordinates', t => {
   t.is(getCenterFromCoordinates({}), undefined)
@@ -77,7 +77,6 @@ test('formatResult', t => {
           postcode: '12345',
           street: 'Street1',
           citycode: '97001',
-          name: 'Location1',
           score: 0.9
         },
         geometry: {
@@ -91,7 +90,6 @@ test('formatResult', t => {
           postcode: '12346',
           street: 'Street2',
           citycode: '97001',
-          name: 'Location2',
           score: 0.8
         },
         geometry: {
@@ -102,8 +100,8 @@ test('formatResult', t => {
     poi: [
       {
         properties: {
-          name: 'POI1',
-          city: 'City B',
+          name: ['POI1'],
+          city: ['City B'],
           postcode: ['97124'],
           citycode: '97123',
           category: 'administratif',
@@ -117,8 +115,8 @@ test('formatResult', t => {
       },
       {
         properties: {
-          name: 'POI2',
-          city: 'City C',
+          name: ['POI2'],
+          city: ['City C'],
           postcode: ['97125'],
           citycode: '97122',
           category: 'administratif',
@@ -145,7 +143,7 @@ test('formatResult', t => {
           zipcode: '12345',
           street: 'Street1',
           metropole: false,
-          fulltext: 'Location1, 12345 City A',
+          fulltext: 'Street1, 12345 City A',
           x: 12.34,
           y: 56.78,
           classification: 7,
@@ -160,7 +158,7 @@ test('formatResult', t => {
           zipcode: '12346',
           street: 'Street2',
           metropole: false,
-          fulltext: 'Location2, 12346 City B',
+          fulltext: 'Street2, 12346 City B',
           x: 2,
           y: 40,
           classification: 7,
@@ -172,7 +170,7 @@ test('formatResult', t => {
       {
         properties: {
           country: 'PositionOfInterest',
-          names: 'POI1',
+          names: ['POI1'],
           city: 'City B',
           zipcode: '97124',
           zipcodes: ['97124'],
@@ -190,7 +188,7 @@ test('formatResult', t => {
       {
         properties: {
           country: 'PositionOfInterest',
-          names: 'POI2',
+          names: ['POI2'],
           city: 'City C',
           zipcode: '97125',
           zipcodes: ['97125'],
@@ -209,9 +207,23 @@ test('formatResult', t => {
   })
 })
 
+test('computePoiCity', t => {
+  t.is(computePoiCity(['City A']), 'City A')
+  t.is(computePoiCity(['City B', 'City C']), 'City B')
+  t.is(computePoiCity([]), undefined)
+  t.is(computePoiCity(null), undefined)
+  t.is(computePoiCity(undefined), undefined)
+})
+
 test('computeFulltext', t => {
-  t.is(computeFulltext({name: 'Location A'}), 'Location A')
-  t.is(computeFulltext({name: 'Location B', postcode: '12345'}), 'Location B, 12345')
-  t.is(computeFulltext({name: 'Location C', city: 'City A'}), 'Location C, City A')
-  t.is(computeFulltext({name: 'Location D', postcode: '12345', city: 'City B'}), 'Location D, 12345 City B')
+  t.is(computeFulltext({name: ['Location A']}), 'Location A')
+  t.is(computeFulltext({name: ['Location B'], postcode: '12345'}), 'Location B, 12345')
+  t.is(computeFulltext({name: ['Location C'], city: 'City A'}), 'Location C, City A')
+  t.is(computeFulltext({name: ['Location D'], postcode: '12345', city: 'City B'}), 'Location D, 12345 City B')
+  t.is(computeFulltext({name: ['Location E', 'Location F'], postcode: ['12345', '654321'], city: 'City B'}), 'Location E, 12345 City B')
+  t.is(computeFulltext({name: ['Location G']}), 'Location G')
+  t.is(computeFulltext({street: 'Location H', city: 'City A'}), 'Location H, City A')
+  t.is(computeFulltext({street: 'Location I', postcode: '12345', city: 'City B'}), 'Location I, 12345 City B')
+  t.is(computeFulltext({street: 'Location J', postcode: '12345'}), 'Location J, 12345')
+  t.is(computeFulltext({name: ['Location K'], street: 'Location L', postcode: '12345'}), 'Location K, 12345')
 })
