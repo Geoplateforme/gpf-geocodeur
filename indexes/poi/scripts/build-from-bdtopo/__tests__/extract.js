@@ -1,7 +1,7 @@
 import {Buffer} from 'node:buffer'
 import test from 'ava'
 import gdal from 'gdal-async'
-import {computeFields, extractFeatures, computeImportance, setToUndefinedIfEmpty} from '../extract.js'
+import {computeFields, extractFeatures, computeImportance, setToUndefinedIfEmpty, isMetropole} from '../extract.js'
 import {createAccumulator} from '../categories.js'
 
 test('computeFields', t => {
@@ -147,4 +147,12 @@ test('setToUndefinedIfEmpty', t => {
   t.is(setToUndefinedIfEmpty(1), 1)
   t.deepEqual(setToUndefinedIfEmpty(['foo']), ['foo'])
   t.is(setToUndefinedIfEmpty([]), undefined)
+})
+
+test('isMetropole', t => {
+  t.true(isMetropole('01'))
+  t.true(isMetropole('2A'))
+  t.true(isMetropole('95'))
+  t.false(isMetropole('971'))
+  t.false(isMetropole('977'))
 })

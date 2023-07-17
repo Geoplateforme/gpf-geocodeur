@@ -51,7 +51,8 @@ for (const codeDepartement of computeDepartements('poi')) {
     layersDefinitions: LAYERS,
     cleabsUniqIndex,
     communesIndex,
-    categoriesAccumulator
+    categoriesAccumulator,
+    codeDepartement
   }))
 
   featureStream.pipe(outputFile, {end: false})

@@ -27,7 +27,7 @@ export function computeFields(originalProperties, fieldsDefinition, computedFiel
   })
 }
 
-export function * extractFeatures({datasetPath, layersDefinitions, cleabsUniqIndex, communesIndex, categoriesAccumulator, computedFieldsSchema}) {
+export function * extractFeatures({datasetPath, layersDefinitions, cleabsUniqIndex, communesIndex, categoriesAccumulator, computedFieldsSchema, codeDepartement}) {
   const ds = gdal.open(datasetPath)
   const wgs84 = gdal.SpatialReference.fromProj4('+init=epsg:4326')
 
@@ -98,6 +98,7 @@ export function * extractFeatures({datasetPath, layersDefinitions, cleabsUniqInd
       fields.citycode = setToUndefinedIfEmpty(fields.citycode)
       fields.city = setToUndefinedIfEmpty(fields.city)
       fields.postcode = setToUndefinedIfEmpty(fields.postcode)
+      fields.territory = isMetropole(codeDepartement) ? 'METRO' : 'DOMTOM'
 
       categoriesAccumulator.addCategories(fields.category)
 
@@ -120,4 +121,8 @@ export function setToUndefinedIfEmpty(value) {
   }
 
   return value.length > 0 ? value : undefined
+}
+
+export function isMetropole(codeDepartement) {
+  return codeDepartement <= '95'
 }
