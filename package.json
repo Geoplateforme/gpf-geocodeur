@@ -57,6 +57,12 @@
     "supertest": "^6.3.3",
     "xo": "^0.54.2"
   },
+  "c8": {
+    "exclude": [
+      "api/index.js",
+      "**/service/index.js"
+    ]
+  },
   "xo": {
     "semicolon": false,
     "space": 2,
