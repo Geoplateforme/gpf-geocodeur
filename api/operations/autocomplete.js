@@ -1,14 +1,34 @@
+import bboxPolygon from '@turf/bbox-polygon'
+import booleanIntersects from '@turf/boolean-intersects'
+
 import {mergeResults} from '../merge.js'
+
+const MAX_LIMIT = 50
 
 export default async function autocomplete(params, options = {}) {
   const {indexes} = options
-  const limit = params.maximumResponses
 
   const autocompleteParams = formatAutocompleteParams(params)
 
+  // Compute limit to use with underlying services
+  const initialLimit = params.maximumResponses
+  const enablePostFiltering = params.terr || params.bbox
+  const limit = computeRetainedLimit(initialLimit, enablePostFiltering)
+
   const results = await indexes.dispatchRequest({...autocompleteParams, limit}, 'autocomplete')
 
-  return mergeResults(results, {limit}).map(resultFeature => formatResult(resultFeature))
+  const postFilters = []
+
+  if (params.terr) {
+    postFilters.push(r => postFilterTerr(r, new Set(params.terr)))
+  }
+
+  if (params.bbox) {
+    postFilters.push(r => postFilterBbox(r, params.bbox))
+  }
+
+  return mergeResults(results, {limit: initialLimit, postFilters})
+    .map(resultFeature => formatResult(resultFeature))
 }
 
 const AUTOCOMPLETE_INDEXES = {
@@ -128,4 +148,50 @@ export function formatResult(resultFeature) {
       classification: properties.classification
     }
   }
+}
+
+export function computeRetainedLimit(limit, enablePostFiltering) {
+  if (!enablePostFiltering) {
+    return limit
+  }
+
+  return Math.min(MAX_LIMIT, 4 * limit)
+}
+
+export function postFilterTerr(result, terr) {
+  const postcode = result.properties.postcode || []
+  if (postcode.some(postcode => terr.has(postcode))) {
+    return true
+  }
+
+  const depcode = computeDepCodeFromCityCode(result.properties.citycode)
+  if (depcode.some(depcode => terr.has(depcode))) {
+    return true
+  }
+
+  const territory = result.properties.territory || computeTerritoryFromDepCode(depcode)
+
+  if (territory && terr.has(territory)) {
+    return true
+  }
+
+  return false
+}
+
+export function postFilterBbox(result, bbox) {
+  return booleanIntersects(result, bboxPolygon(bbox))
+}
+
+export function computeDepCodeFromCityCode(citycode) {
+  return citycode
+    ? [...new Set(citycode.map(code => code.slice(0, code >= '97' ? 3 : 2)))]
+    : []
+}
+
+export function computeTerritoryFromDepCode(depcode) {
+  if (!depcode || depcode.length === 0) {
+    return
+  }
+
+  return depcode.some(d => d >= '97') ? 'DOMTOM' : 'METRO'
 }

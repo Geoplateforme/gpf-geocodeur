@@ -1,5 +1,5 @@
 import test from 'ava'
-import {computeFulltext, computePoiCity, formatAutocompleteParams, formatResult, getCenterFromCoordinates} from '../autocomplete.js'
+import {computeFulltext, computePoiCity, formatAutocompleteParams, formatResult, getCenterFromCoordinates, computeRetainedLimit, postFilterBbox, postFilterTerr, computeDepCodeFromCityCode, computeTerritoryFromDepCode} from '../autocomplete.js'
 
 test('getCenterFromCoordinates', t => {
   t.is(getCenterFromCoordinates({}), undefined)
@@ -205,4 +205,125 @@ test('computeFulltext', t => {
   t.is(computeFulltext({street: 'Location I', postcode: '12345', city: 'City B'}), 'Location I, 12345 City B')
   t.is(computeFulltext({street: 'Location J', postcode: '12345'}), 'Location J, 12345')
   t.is(computeFulltext({name: ['Location K'], street: 'Location L', postcode: '12345'}), 'Location K, 12345')
+})
+
+test('computeRetainedLimit', t => {
+  t.is(computeRetainedLimit(10, false), 10)
+  t.is(computeRetainedLimit(10, true), 40)
+  t.is(computeRetainedLimit(20, true), 50)
+})
+
+test('postFilterBbox', t => {
+  const feature = {
+    type: 'Feature',
+    properties: {},
+    geometry: {
+      coordinates: [
+        5.385_525,
+        49.162_236
+      ],
+      type: 'Point'
+    }
+  }
+
+  t.true(postFilterBbox(feature, [5.360_607, 49.148_59, 5.413_11, 49.179_495]))
+  t.false(postFilterBbox(feature, [5.157_097, 49.126_923, 5.227_785, 49.163_65]))
+})
+
+test('postFilterTerr / territory = METRO', t => {
+  const result = {
+    properties: {territory: 'METRO'}
+  }
+
+  t.true(postFilterTerr(result, new Set(['METRO'])))
+  t.false(postFilterTerr(result, new Set(['DOMTOM'])))
+  t.false(postFilterTerr(result, new Set(['12345'])))
+})
+
+test('postFilterTerr / territory = METRO (infered)', t => {
+  const result = {
+    properties: {citycode: ['12345']}
+  }
+
+  t.true(postFilterTerr(result, new Set(['METRO'])))
+  t.false(postFilterTerr(result, new Set(['DOMTOM'])))
+  t.false(postFilterTerr(result, new Set(['12345'])))
+})
+
+test('postFilterTerr / territory = DOMTOM', t => {
+  const result = {
+    properties: {territory: 'DOMTOM'}
+  }
+
+  t.false(postFilterTerr(result, new Set(['METRO'])))
+  t.true(postFilterTerr(result, new Set(['DOMTOM'])))
+  t.false(postFilterTerr(result, new Set(['12345'])))
+})
+
+test('postFilterTerr / territory = DOMTOM (infered)', t => {
+  const result = {
+    properties: {citycode: ['97123']}
+  }
+
+  t.false(postFilterTerr(result, new Set(['METRO'])))
+  t.true(postFilterTerr(result, new Set(['DOMTOM'])))
+  t.false(postFilterTerr(result, new Set(['12345'])))
+})
+
+test('postFilterTerr / depcode (from citycode)', t => {
+  const result = {
+    properties: {citycode: ['971']}
+  }
+
+  t.true(postFilterTerr(result, new Set(['971'])))
+  t.false(postFilterTerr(result, new Set(['12'])))
+  t.false(postFilterTerr(result, new Set(['974'])))
+})
+
+test('postFilterTerr / depcode (infered from citycode)', t => {
+  const result = {
+    properties: {citycode: ['97123']}
+  }
+
+  t.true(postFilterTerr(result, new Set(['971'])))
+  t.false(postFilterTerr(result, new Set(['12'])))
+  t.false(postFilterTerr(result, new Set(['974'])))
+})
+
+test('postFilterTerr / postcode', t => {
+  const result = {
+    properties: {postcode: ['12340']}
+  }
+
+  t.true(postFilterTerr(result, new Set(['12340'])))
+  t.false(postFilterTerr(result, new Set(['54000'])))
+  t.false(postFilterTerr(result, new Set(['67090'])))
+})
+
+test('postFilterTerr / mixed', t => {
+  const result = {
+    properties: {postcode: ['12340'], citycode: ['54', '57011'], territory: 'METRO'}
+  }
+
+  t.true(postFilterTerr(result, new Set(['12340'])))
+  t.true(postFilterTerr(result, new Set(['54'])))
+  t.true(postFilterTerr(result, new Set(['57'])))
+  t.true(postFilterTerr(result, new Set(['METRO'])))
+  t.false(postFilterTerr(result, new Set(['57011'])))
+})
+
+test('computeDepCodeFromCityCode', t => {
+  t.deepEqual(
+    computeDepCodeFromCityCode(['12345', '12345', '97123', '57', '57123']).sort(),
+    ['12', '57', '971']
+  )
+
+  t.deepEqual(computeDepCodeFromCityCode(null), [])
+})
+
+test('computeTerritoryFromDepCode', t => {
+  t.is(computeTerritoryFromDepCode(undefined), undefined)
+  t.is(computeTerritoryFromDepCode([]), undefined)
+  t.is(computeTerritoryFromDepCode(['12']), 'METRO')
+  t.is(computeTerritoryFromDepCode(['974']), 'DOMTOM')
 })
