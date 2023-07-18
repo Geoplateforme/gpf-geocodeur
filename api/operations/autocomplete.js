@@ -159,8 +159,7 @@ export function computeRetainedLimit(limit, enablePostFiltering) {
 }
 
 export function postFilterTerr(result, terr) {
-  const postcode = result.properties.postcode || []
-  if (postcode.some(postcode => terr.has(postcode))) {
+  if (ensureArray(result.properties.postcode).some(postcode => terr.has(postcode))) {
     return true
   }
 
@@ -183,9 +182,7 @@ export function postFilterBbox(result, bbox) {
 }
 
 export function computeDepCodeFromCityCode(citycode) {
-  return citycode
-    ? [...new Set(citycode.map(code => code.slice(0, code >= '97' ? 3 : 2)))]
-    : []
+  return [...new Set(ensureArray(citycode).map(code => code.slice(0, code >= '97' ? 3 : 2)))]
 }
 
 export function computeTerritoryFromDepCode(depcode) {
@@ -194,4 +191,16 @@ export function computeTerritoryFromDepCode(depcode) {
   }
 
   return depcode.some(d => d >= '97') ? 'DOMTOM' : 'METROPOLE'
+}
+
+export function ensureArray(value) {
+  if (Array.isArray(value)) {
+    return value
+  }
+
+  if (value === null || value === undefined) {
+    return []
+  }
+
+  return [value]
 }

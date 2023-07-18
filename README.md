@@ -72,6 +72,3 @@ yarn poi:start
 yarn parcel:start
 yarn address:start
 ```
-
-*TODO city parameter, reverse, autocomplete, POI*
-

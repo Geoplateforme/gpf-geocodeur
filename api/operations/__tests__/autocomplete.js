@@ -1,5 +1,5 @@
 import test from 'ava'
-import {computeFulltext, computePoiCity, formatAutocompleteParams, formatResult, getCenterFromCoordinates, computeRetainedLimit, postFilterBbox, postFilterTerr, computeDepCodeFromCityCode, computeTerritoryFromDepCode} from '../autocomplete.js'
+import {computeFulltext, computePoiCity, formatAutocompleteParams, formatResult, getCenterFromCoordinates, computeRetainedLimit, postFilterBbox, postFilterTerr, computeDepCodeFromCityCode, computeTerritoryFromDepCode, ensureArray} from '../autocomplete.js'
 
 test('getCenterFromCoordinates', t => {
   t.is(getCenterFromCoordinates({}), undefined)
@@ -327,4 +327,11 @@ test('computeTerritoryFromDepCode', t => {
   t.is(computeTerritoryFromDepCode([]), undefined)
   t.is(computeTerritoryFromDepCode(['12']), 'METROPOLE')
   t.is(computeTerritoryFromDepCode(['974']), 'DOMTOM')
+})
+
+test('ensureArray', t => {
+  t.deepEqual(ensureArray(), [])
+  t.deepEqual(ensureArray(null), [])
+  t.deepEqual(ensureArray('a'), ['a'])
+  t.deepEqual(ensureArray(['a', 'b']), ['a', 'b'])
 })
