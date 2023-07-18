@@ -98,7 +98,7 @@ export function * extractFeatures({datasetPath, layersDefinitions, cleabsUniqInd
       fields.citycode = setToUndefinedIfEmpty(fields.citycode)
       fields.city = setToUndefinedIfEmpty(fields.city)
       fields.postcode = setToUndefinedIfEmpty(fields.postcode)
-      fields.territory = isMetropole(codeDepartement) ? 'METRO' : 'DOMTOM'
+      fields.territory = isMetropole(codeDepartement) ? 'METROPOLE' : 'DOMTOM'
 
       categoriesAccumulator.addCategories(fields.category)
 

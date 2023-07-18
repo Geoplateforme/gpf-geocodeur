@@ -231,22 +231,22 @@ test('postFilterBbox', t => {
   t.false(postFilterBbox(feature, [5.157_097, 49.126_923, 5.227_785, 49.163_65]))
 })
 
-test('postFilterTerr / territory = METRO', t => {
+test('postFilterTerr / territory = METROPOLE', t => {
   const result = {
-    properties: {territory: 'METRO'}
+    properties: {territory: 'METROPOLE'}
   }
 
-  t.true(postFilterTerr(result, new Set(['METRO'])))
+  t.true(postFilterTerr(result, new Set(['METROPOLE'])))
   t.false(postFilterTerr(result, new Set(['DOMTOM'])))
   t.false(postFilterTerr(result, new Set(['12345'])))
 })
 
-test('postFilterTerr / territory = METRO (infered)', t => {
+test('postFilterTerr / territory = METROPOLE (infered)', t => {
   const result = {
     properties: {citycode: ['12345']}
   }
 
-  t.true(postFilterTerr(result, new Set(['METRO'])))
+  t.true(postFilterTerr(result, new Set(['METROPOLE'])))
   t.false(postFilterTerr(result, new Set(['DOMTOM'])))
   t.false(postFilterTerr(result, new Set(['12345'])))
 })
@@ -256,7 +256,7 @@ test('postFilterTerr / territory = DOMTOM', t => {
     properties: {territory: 'DOMTOM'}
   }
 
-  t.false(postFilterTerr(result, new Set(['METRO'])))
+  t.false(postFilterTerr(result, new Set(['METROPOLE'])))
   t.true(postFilterTerr(result, new Set(['DOMTOM'])))
   t.false(postFilterTerr(result, new Set(['12345'])))
 })
@@ -266,7 +266,7 @@ test('postFilterTerr / territory = DOMTOM (infered)', t => {
     properties: {citycode: ['97123']}
   }
 
-  t.false(postFilterTerr(result, new Set(['METRO'])))
+  t.false(postFilterTerr(result, new Set(['METROPOLE'])))
   t.true(postFilterTerr(result, new Set(['DOMTOM'])))
   t.false(postFilterTerr(result, new Set(['12345'])))
 })
@@ -303,13 +303,13 @@ test('postFilterTerr / postcode', t => {
 
 test('postFilterTerr / mixed', t => {
   const result = {
-    properties: {postcode: ['12340'], citycode: ['54', '57011'], territory: 'METRO'}
+    properties: {postcode: ['12340'], citycode: ['54', '57011'], territory: 'METROPOLE'}
   }
 
   t.true(postFilterTerr(result, new Set(['12340'])))
   t.true(postFilterTerr(result, new Set(['54'])))
   t.true(postFilterTerr(result, new Set(['57'])))
-  t.true(postFilterTerr(result, new Set(['METRO'])))
+  t.true(postFilterTerr(result, new Set(['METROPOLE'])))
   t.false(postFilterTerr(result, new Set(['57011'])))
 })
 
@@ -325,6 +325,6 @@ test('computeDepCodeFromCityCode', t => {
 test('computeTerritoryFromDepCode', t => {
   t.is(computeTerritoryFromDepCode(undefined), undefined)
   t.is(computeTerritoryFromDepCode([]), undefined)
-  t.is(computeTerritoryFromDepCode(['12']), 'METRO')
+  t.is(computeTerritoryFromDepCode(['12']), 'METROPOLE')
   t.is(computeTerritoryFromDepCode(['974']), 'DOMTOM')
 })

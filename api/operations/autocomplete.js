@@ -193,5 +193,5 @@ export function computeTerritoryFromDepCode(depcode) {
     return
   }
 
-  return depcode.some(d => d >= '97') ? 'DOMTOM' : 'METRO'
+  return depcode.some(d => d >= '97') ? 'DOMTOM' : 'METROPOLE'
 }
