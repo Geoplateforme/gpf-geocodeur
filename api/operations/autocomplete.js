@@ -96,7 +96,7 @@ export function computeFulltext(properties) {
   let fulltext = ''
 
   if (name || street) {
-    fulltext = name?.[0] || street
+    fulltext = (Array.isArray(name) && name[0]) || (!Array.isArray(name) && name) || street
 
     if (postcode) {
       fulltext += city ? `, ${Array.isArray(postcode) ? postcode[0] : postcode} ${city}` : `, ${postcode}`
