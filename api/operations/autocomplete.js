@@ -4,12 +4,14 @@ import {mergeResults} from '../merge.js'
 
 export default async function autocomplete(params, options = {}) {
   const {indexes} = options
+  const limit = params.maximumResponses
+
   const autocompleteParams = formatAutocompleteParams(params)
 
-  const results = await indexes.dispatchRequest(autocompleteParams, 'autocomplete')
+  const results = await indexes.dispatchRequest({...autocompleteParams, limit}, 'autocomplete')
 
   const formattedResult = formatResult(results)
-  const mergedResults = mergeResults(formattedResult, autocompleteParams)
+  const mergedResults = mergeResults(formattedResult, {limit})
 
   return mergedResults.map(result => (omit({...result.properties}, ['_type', 'score'])))
 }
@@ -54,7 +56,6 @@ export function formatAutocompleteParams(params) {
   }
 
   formattedParams.indexes = params.type.map(v => AUTOCOMPLETE_INDEXES[v])
-  formattedParams.limit = params.maximumResponses
 
   if (coordinates) {
     formattedParams.lon = coordinates.lon

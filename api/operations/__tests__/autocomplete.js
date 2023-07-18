@@ -20,8 +20,7 @@ test('formatAutocompleteParams', t => {
   t.deepEqual(result, {
     q: 'search text',
     autocomplete: true,
-    indexes: ['address', 'poi'],
-    limit: 10
+    indexes: ['address', 'poi']
   })
 })
 
@@ -39,7 +38,6 @@ test('formatAutocompleteParams / with coordinates', t => {
     q: 'search text',
     autocomplete: true,
     indexes: ['poi'],
-    limit: 5,
     lon: 2,
     lat: 40
   })
@@ -61,7 +59,6 @@ test('formatAutocompleteParams / with poiType', t => {
     autocomplete: true,
     indexes: ['poi'],
     category: 'administratif',
-    limit: 5,
     lon: 2,
     lat: 40
   })
