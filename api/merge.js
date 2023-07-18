@@ -1,18 +1,7 @@
 import {chain} from 'lodash-es'
 
 export function mergeResults(indexesResults, params) {
-  const indexesWithResults = Object.keys(indexesResults)
-    .filter(k => indexesResults[k].length > 0)
-
-  if (indexesWithResults.length === 0) {
-    return []
-  }
-
-  if (indexesWithResults.length === 1) {
-    return indexesResults[indexesWithResults[0]]
-  }
-
-  return chain(indexesResults)
+  let results = chain(indexesResults)
     .mapValues((results, indexName) => results.map(r => ({
       ...r,
       properties: {
@@ -22,7 +11,12 @@ export function mergeResults(indexesResults, params) {
     })))
     .map(r => r)
     .flatten()
-    .sortBy(r => -r.properties.score)
-    .take(params.limit)
-    .value()
+
+  const postFilters = params.postFilters || []
+
+  for (const postFilter of postFilters) {
+    results = results.filter(r => postFilter(r))
+  }
+
+  return results.sortBy(r => -r.properties.score).take(params.limit).value()
 }

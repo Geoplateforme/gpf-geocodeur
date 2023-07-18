@@ -14,7 +14,7 @@ test('mergeResults / one index', t => {
     ]
   }
   const expectedResult = [
-    {properties: {score: 0.9}, data: 'foo'}
+    {properties: {score: 0.9, _type: 'foo'}, data: 'foo'}
   ]
 
   const result = mergeResults(indexesResults, {limit: 10})
@@ -33,7 +33,7 @@ test('mergeResults / empty index', t => {
   const result = mergeResults(indexesResults, {limit: 2})
 
   t.deepEqual(result, [
-    {properties: {score: 1}, data: 'foo'}
+    {properties: {score: 1, _type: 'foo'}, data: 'foo'}
   ])
 })
 
@@ -112,5 +112,28 @@ test('mergeResults / limit greater than total results', t => {
     {properties: {score: 1, _type: 'foo'}, data: 'foo1'},
     {properties: {score: 0.9, _type: 'bar'}, data: 'bar'},
     {properties: {score: 0.8, _type: 'foo'}, data: 'foo2'}
+  ])
+})
+
+test('mergeResults / post filters', t => {
+  const indexesResults = {
+    foo: [
+      {properties: {score: 1, firstKey: 1}, data: 'foo1'},
+      {properties: {score: 0.8, firstKey: 1, otherKey: 2}, data: 'foo2'}
+    ],
+    bar: [
+      {properties: {score: 0.9, firstKey: 3}, data: 'bar'}
+    ]
+  }
+
+  const postFilters = [
+    r => r.properties.firstKey === 1,
+    r => r.properties.otherKey === 2
+  ]
+
+  const result = mergeResults(indexesResults, {limit: 5, postFilters})
+
+  t.deepEqual(result, [
+    {properties: {score: 0.8, _type: 'foo', firstKey: 1, otherKey: 2}, data: 'foo2'}
   ])
 })
