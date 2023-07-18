@@ -8,7 +8,8 @@ const POI_FIELDS = [
   'citycode',
   'city',
   'extrafields',
-  'classification'
+  'classification',
+  'territory'
 ]
 
 export async function search(params, {db, addokCluster}) {
