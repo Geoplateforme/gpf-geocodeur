@@ -1,5 +1,3 @@
-import {omit} from 'lodash-es'
-
 import {mergeResults} from '../merge.js'
 
 export default async function autocomplete(params, options = {}) {
@@ -10,10 +8,7 @@ export default async function autocomplete(params, options = {}) {
 
   const results = await indexes.dispatchRequest({...autocompleteParams, limit}, 'autocomplete')
 
-  const formattedResult = formatResult(results)
-  const mergedResults = mergeResults(formattedResult, {limit})
-
-  return mergedResults.map(result => (omit({...result.properties}, ['_type', 'score'])))
+  return mergeResults(results, {limit}).map(resultFeature => formatResult(resultFeature))
 }
 
 const AUTOCOMPLETE_INDEXES = {
@@ -95,43 +90,42 @@ export function computeFulltext(properties) {
   return fulltext
 }
 
-export function formatResult(result) {
-  const autocompleteResult = {}
+export function formatResult(resultFeature) {
+  const {properties, geometry} = resultFeature
 
-  for (const r of Object.keys(result)) {
-    if (r === 'address') {
-      autocompleteResult.address = result[r].map(feature => ({properties: {
-        country: 'StreetAddress',
-        city: feature.properties.city,
-        oldcity: feature.properties.oldcity,
-        zipcode: feature.properties.postcode,
-        street: feature.properties.street,
-        metropole: feature.properties.citycode ? feature.properties.citycode.slice(0, 2) < '97' : undefined,
-        fulltext: computeFulltext(feature.properties),
-        x: feature.geometry.coordinates[0],
-        y: feature.geometry.coordinates[1],
-        classification: 7,
-        score: feature.properties.score
-      }}))
-    } else if (r === 'poi') {
-      autocompleteResult.poi = result[r].map(feature => ({properties: {
-        country: 'PositionOfInterest',
-        names: feature.properties?.name,
-        city: computePoiCity(feature.properties.city),
-        zipcode: feature.properties.postcode?.[0],
-        zipcodes: feature.properties.postcode,
-        metropole: feature.properties.citycode ? feature.properties.citycode.slice(0, 2) < '97' : undefined,
-        poiType: feature.properties.category,
-        street: feature.properties.category.includes('administratif') || feature.properties.category.includes('commune') ? computePoiCity(feature.properties.city) : feature.properties.toponym,
-        kind: feature.properties.toponym,
-        fulltext: computeFulltext(feature.properties),
-        x: feature.geometry.coordinates[0],
-        y: feature.geometry.coordinates[1],
-        classification: feature.properties.classification,
-        score: feature.properties.score
-      }}))
+  const result = {
+    x: geometry.coordinates[0],
+    y: geometry.coordinates[1]
+  }
+
+  if (properties._type === 'address') {
+    return {
+      ...result,
+      country: 'StreetAddress',
+      city: properties.city,
+      oldcity: properties.oldcity,
+      zipcode: properties.postcode,
+      street: properties.street,
+      metropole: properties.citycode ? properties.citycode.slice(0, 2) < '97' : undefined,
+      fulltext: computeFulltext(properties),
+      classification: 7
     }
   }
 
-  return autocompleteResult
+  if (properties._type === 'poi') {
+    return {
+      ...result,
+      country: 'PositionOfInterest',
+      names: properties?.name,
+      city: computePoiCity(properties.city),
+      zipcode: properties.postcode?.[0],
+      zipcodes: properties.postcode,
+      metropole: properties.citycode ? properties.citycode.slice(0, 2) < '97' : undefined,
+      poiType: properties.category,
+      street: properties.category.includes('administratif') || properties.category.includes('commune') ? computePoiCity(properties.city) : properties.toponym,
+      kind: properties.toponym,
+      fulltext: computeFulltext(properties),
+      classification: properties.classification
+    }
+  }
 }

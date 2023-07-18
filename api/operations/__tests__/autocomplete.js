@@ -64,143 +64,125 @@ test('formatAutocompleteParams / with poiType', t => {
   })
 })
 
-test('formatResult', t => {
-  const result = {
-    address: [
-      {
-        properties: {
-          city: 'City A',
-          oldcity: 'Old City A',
-          postcode: '12345',
-          street: 'Street1',
-          citycode: '97001',
-          score: 0.9
-        },
-        geometry: {
-          coordinates: [12.34, 56.78]
-        }
-      },
-      {
-        properties: {
-          city: 'City B',
-          oldcity: 'Old City B',
-          postcode: '12346',
-          street: 'Street2',
-          citycode: '97001',
-          score: 0.8
-        },
-        geometry: {
-          coordinates: [2, 40]
-        }
-      }
-    ],
-    poi: [
-      {
-        properties: {
-          name: ['POI1'],
-          city: ['City B'],
-          postcode: ['97124'],
-          citycode: '97123',
-          category: 'administratif',
-          toponym: 'Admin1',
-          classification: 5,
-          score: 0.8
-        },
-        geometry: {
-          coordinates: [98.76, 54.32]
-        }
-      },
-      {
-        properties: {
-          name: ['POI2'],
-          city: ['City C'],
-          postcode: ['97125'],
-          citycode: '97122',
-          category: 'administratif',
-          toponym: 'Admin1',
-          classification: 5,
-          score: 0.9
-        },
-        geometry: {
-          coordinates: [3, 35]
-        }
-      }
-    ]
-  }
+test('formatResult / address 1', t => {
+  t.deepEqual(formatResult({
+    properties: {
+      city: 'City A',
+      oldcity: 'Old City A',
+      postcode: '12345',
+      street: 'Street1',
+      citycode: '97001',
+      score: 0.9,
+      _type: 'address'
+    },
+    geometry: {
+      coordinates: [12.34, 56.78]
+    }
+  }), {
+    country: 'StreetAddress',
+    city: 'City A',
+    oldcity: 'Old City A',
+    zipcode: '12345',
+    street: 'Street1',
+    metropole: false,
+    fulltext: 'Street1, 12345 City A',
+    x: 12.34,
+    y: 56.78,
+    classification: 7
+  })
+})
 
-  const formattedResult = formatResult(result)
+test('formatResult / address 2', t => {
+  t.deepEqual(formatResult({
+    properties: {
+      city: 'City B',
+      oldcity: 'Old City B',
+      postcode: '12346',
+      street: 'Street2',
+      citycode: '97001',
+      score: 0.8,
+      _type: 'address'
+    },
+    geometry: {
+      coordinates: [2, 40]
+    }
+  }), {
+    country: 'StreetAddress',
+    city: 'City B',
+    oldcity: 'Old City B',
+    zipcode: '12346',
+    street: 'Street2',
+    metropole: false,
+    fulltext: 'Street2, 12346 City B',
+    x: 2,
+    y: 40,
+    classification: 7
+  })
+})
 
-  t.deepEqual(formattedResult, {
-    address: [
-      {
-        properties: {
-          country: 'StreetAddress',
-          city: 'City A',
-          oldcity: 'Old City A',
-          zipcode: '12345',
-          street: 'Street1',
-          metropole: false,
-          fulltext: 'Street1, 12345 City A',
-          x: 12.34,
-          y: 56.78,
-          classification: 7,
-          score: 0.9
-        }
-      },
-      {
-        properties: {
-          country: 'StreetAddress',
-          city: 'City B',
-          oldcity: 'Old City B',
-          zipcode: '12346',
-          street: 'Street2',
-          metropole: false,
-          fulltext: 'Street2, 12346 City B',
-          x: 2,
-          y: 40,
-          classification: 7,
-          score: 0.8
-        }
-      }
-    ],
-    poi: [
-      {
-        properties: {
-          country: 'PositionOfInterest',
-          names: ['POI1'],
-          city: 'City B',
-          zipcode: '97124',
-          zipcodes: ['97124'],
-          metropole: false,
-          poiType: 'administratif',
-          street: 'City B',
-          kind: 'Admin1',
-          fulltext: 'POI1, 97124 City B',
-          x: 98.76,
-          y: 54.32,
-          classification: 5,
-          score: 0.8
-        }
-      },
-      {
-        properties: {
-          country: 'PositionOfInterest',
-          names: ['POI2'],
-          city: 'City C',
-          zipcode: '97125',
-          zipcodes: ['97125'],
-          metropole: false,
-          poiType: 'administratif',
-          street: 'City C',
-          kind: 'Admin1',
-          fulltext: 'POI2, 97125 City C',
-          x: 3,
-          y: 35,
-          classification: 5,
-          score: 0.9
-        }
-      }
-    ]
+test('formatResult / poi 1', t => {
+  t.deepEqual(formatResult({
+    properties: {
+      name: ['POI1'],
+      city: ['City B'],
+      postcode: ['97124'],
+      citycode: '97123',
+      category: 'administratif',
+      toponym: 'Admin1',
+      classification: 5,
+      score: 0.8,
+      _type: 'poi'
+    },
+    geometry: {
+      coordinates: [98.76, 54.32]
+    }
+  }), {
+    country: 'PositionOfInterest',
+    names: ['POI1'],
+    city: 'City B',
+    zipcode: '97124',
+    zipcodes: ['97124'],
+    metropole: false,
+    poiType: 'administratif',
+    street: 'City B',
+    kind: 'Admin1',
+    fulltext: 'POI1, 97124 City B',
+    x: 98.76,
+    y: 54.32,
+    classification: 5
+  })
+})
+
+test('formatResult / poi 2', t => {
+  t.deepEqual(formatResult({
+    properties: {
+      name: ['POI2'],
+      city: ['City C'],
+      postcode: ['97125'],
+      citycode: '97122',
+      category: 'administratif',
+      toponym: 'Admin1',
+      classification: 5,
+      score: 0.9,
+      _type: 'poi'
+    },
+    geometry: {
+      coordinates: [3, 35]
+    }
+  }), {
+    country: 'PositionOfInterest',
+    names: ['POI2'],
+    city: 'City C',
+    zipcode: '97125',
+    zipcodes: ['97125'],
+    metropole: false,
+    poiType: 'administratif',
+    street: 'City C',
+    kind: 'Admin1',
+    fulltext: 'POI2, 97125 City C',
+    x: 3,
+    y: 35,
+    classification: 5
   })
 })
 
