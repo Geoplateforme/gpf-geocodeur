@@ -16,7 +16,7 @@ test('search / address index', async t => {
     dispatchRequest() {
       return {
         foo: [
-          {bar: 'foobar'}
+          {properties: {bar: 'foobar'}}
         ]
       }
     }
@@ -31,7 +31,7 @@ test('search / address index', async t => {
 
   t.is(response.status, 200)
   t.is(response.body.type, 'FeatureCollection')
-  t.deepEqual(response.body.features, [{bar: 'foobar'}])
+  t.deepEqual(response.body.features, [{properties: {bar: 'foobar', _type: 'foo'}}])
 })
 
 test('reverse / address index', async t => {
@@ -41,7 +41,7 @@ test('reverse / address index', async t => {
     dispatchRequest() {
       return {
         foo: [
-          {bar: 'reverse'}
+          {properties: {bar: 'reverse'}}
         ]
       }
     }
@@ -56,7 +56,7 @@ test('reverse / address index', async t => {
 
   t.is(response.status, 200)
   t.is(response.body.type, 'FeatureCollection')
-  t.deepEqual(response.body.features, [{bar: 'reverse'}])
+  t.deepEqual(response.body.features, [{properties: {bar: 'reverse', _type: 'foo'}}])
 })
 
 test('search / empty response', async t => {
