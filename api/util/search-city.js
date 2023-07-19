@@ -57,8 +57,8 @@ export function searchCity(inputString) {
 export function normalizeString(string) {
   return deburr(string)
     .toLowerCase()
-    .replace(/[^a-z\d]+/g, ' ')
-    .replace(/sainte?\s/g, 'st ')
+    .replaceAll(/[^a-z\d]+/g, ' ')
+    .replaceAll(/sainte?\s/g, 'st ')
 }
 
 export function handleCityParam(params) {

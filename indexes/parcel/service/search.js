@@ -51,7 +51,7 @@ export function structuredSearch(options) {
   const start = searchPattern.slice(0, searchPattern.indexOf('*')).padEnd(14, '0')
   const end = searchPattern.slice(0, searchPattern.indexOf('*')).padEnd(14, 'Z')
 
-  const regexp = new RegExp('^' + searchPattern.replace(/\*/g, '.') + '$')
+  const regexp = new RegExp('^' + searchPattern.replaceAll('*', '.') + '$')
 
   const parcels = []
 
