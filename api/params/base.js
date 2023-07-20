@@ -10,7 +10,7 @@ import {handleCityParam} from '../util/search-city.js'
 
 export function validateSearchgeom(searchgeom) {
   if (!Object.hasOwn(searchgeom, 'type')) {
-    throw new Error('Geometry object must have a \'type\' property')
+    throw createError(400, 'Geometry object must have a \'type\' property')
   }
 
   const allowedGeometryTypes = new Set([
@@ -21,7 +21,7 @@ export function validateSearchgeom(searchgeom) {
   ])
 
   if (!allowedGeometryTypes.has(searchgeom.type)) {
-    throw new Error(`Geometry type not allowed: ${searchgeom.type}`)
+    throw createError(400, `Geometry type not allowed: ${searchgeom.type}`)
   }
 
   if (searchgeom.type === 'Circle') {
@@ -31,7 +31,7 @@ export function validateSearchgeom(searchgeom) {
   const errors = hint(searchgeom)
 
   if (errors.length > 0) {
-    throw new Error(`Geometry not valid: ${errors[0].message}`)
+    throw createError(400, `Geometry not valid: ${errors[0].message}`)
   }
 }
 
