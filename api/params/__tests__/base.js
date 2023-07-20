@@ -86,6 +86,21 @@ test('validateSearchgeom / wrong structure', t => {
     {message: 'Geometry not valid: a LinearRing of coordinates needs to have four or more positions'})
 })
 
+test('validateSearchgeom / geometry too large', t => {
+  t.throws(
+    () => validateSearchgeom({coordinates: [
+      [
+        [1.7478, 49.1334],
+        [1.7478, 48.5391],
+        [3.0129, 48.5391],
+        [3.0129, 49.1334],
+        [1.7478, 49.1334]
+      ]
+    ], type: 'Polygon'}),
+    {message: 'Geometry is too big: bbox max length must be less than 1000m'}
+  )
+})
+
 test('extractParam / q', t => {
   function extractQ(q) {
     return extractParam({q}, 'q', PARAMS.q, PARAMS)

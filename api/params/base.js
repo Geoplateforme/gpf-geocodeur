@@ -1,12 +1,16 @@
 import createError from 'http-errors'
 import {hint} from '@mapbox/geojsonhint'
+import computeBbox from '@turf/bbox'
 
 import {validateStructuredSearchParams} from '../../lib/parcel/structured-search.js'
+import {bboxMaxLength} from '../../lib/spatial-index/util.js'
 import {validateCircle} from '../../lib/geometries.js'
 
 import {extractSingleParams, isFirstCharValid, isDepartmentcodeValid} from '../util/params.js'
 import {normalizeQuery} from '../util/querystring.js'
 import {handleCityParam} from '../util/search-city.js'
+
+const SEARCHGEOM_BBOX_MAX_LENGTH = 1000
 
 export function validateSearchgeom(searchgeom) {
   if (!Object.hasOwn(searchgeom, 'type')) {
@@ -25,13 +29,18 @@ export function validateSearchgeom(searchgeom) {
   }
 
   if (searchgeom.type === 'Circle') {
-    return validateCircle(searchgeom, 1000)
+    return validateCircle(searchgeom, SEARCHGEOM_BBOX_MAX_LENGTH)
   }
 
   const errors = hint(searchgeom)
 
   if (errors.length > 0) {
     throw createError(400, `Geometry not valid: ${errors[0].message}`)
+  }
+
+  const bbox = computeBbox(searchgeom)
+  if (bboxMaxLength(bbox) > SEARCHGEOM_BBOX_MAX_LENGTH / 1000) {
+    throw createError(400, `Geometry is too big: bbox max length must be less than ${SEARCHGEOM_BBOX_MAX_LENGTH}m`)
   }
 }
 
