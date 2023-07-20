@@ -2,7 +2,7 @@ import createError from 'http-errors'
 import {hint} from '@mapbox/geojsonhint'
 
 import {validateStructuredSearchParams} from '../../lib/parcel/structured-search.js'
-import {validateCoordinatesValue} from '../../lib/geometries.js'
+import {validateCircle} from '../../lib/geometries.js'
 
 import {extractSingleParams, isFirstCharValid, isDepartmentcodeValid} from '../util/params.js'
 import {normalizeQuery} from '../util/querystring.js'
@@ -25,27 +25,13 @@ export function validateSearchgeom(searchgeom) {
   }
 
   if (searchgeom.type === 'Circle') {
-    if (!('radius' in searchgeom)) {
-      throw new Error('Geometry not valid: radius property is missing')
-    }
+    return validateCircle(searchgeom, 1000)
+  }
 
-    const {radius} = searchgeom
+  const errors = hint(searchgeom)
 
-    if (typeof radius !== 'number' || Number.isNaN(radius) || radius <= 0 || radius > 1000) {
-      throw new TypeError('Geometry not valid: circle radius must be a float between 0 and 1000')
-    }
-
-    try {
-      validateCoordinatesValue(searchgeom.coordinates)
-    } catch (error) {
-      throw new Error(`Geometry not valid: ${error.message}`)
-    }
-  } else {
-    const errors = hint(searchgeom)
-
-    if (errors.length > 0) {
-      throw new Error(`Geometry not valid: ${errors[0].message}`)
-    }
+  if (errors.length > 0) {
+    throw new Error(`Geometry not valid: ${errors[0].message}`)
   }
 }
 

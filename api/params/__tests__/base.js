@@ -31,7 +31,7 @@ test('validateSearchgeom', t => {
 
   t.throws(
     () => validateSearchgeom({type: 'Circle', coordinates: [2.1, 48.5], radius: 'foo'}),
-    {message: 'Geometry not valid: circle radius must be a float between 0 and 1000'})
+    {message: 'Geometry not valid: radius must be a positive float'})
 
   t.throws(() => validateSearchgeom({type: 'LineString', coordinates: [
     ['foo', 48.8],
