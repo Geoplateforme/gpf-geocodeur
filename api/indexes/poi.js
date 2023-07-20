@@ -22,7 +22,7 @@ export function prepareRequest(params) {
     center,
     filters,
     limit: params.limit || 10,
-    geometry: params.geometry,
+    geometry: params.searchgeom,
     autocomplete: params.autocomplete
   }
 }

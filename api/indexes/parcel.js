@@ -27,7 +27,7 @@ export function prepareRequest(params) {
     filters,
     limit: params.limit || 10,
     returntruegeometry: params.returntruegeometry,
-    geometry: params.geometry
+    geometry: params.searchgeom
   }
 }
 
