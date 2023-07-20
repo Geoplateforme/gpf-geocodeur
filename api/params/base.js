@@ -2,10 +2,10 @@ import createError from 'http-errors'
 import {hint} from '@mapbox/geojsonhint'
 
 import {validateStructuredSearchParams} from '../../lib/parcel/structured-search.js'
+import {validateCoordinatesValue} from '../../lib/geometries.js'
 
 import {extractSingleParams, isFirstCharValid, isDepartmentcodeValid} from '../util/params.js'
 import {normalizeQuery} from '../util/querystring.js'
-import {validateCoordinatesValue} from '../util/coordinates.js'
 import {handleCityParam} from '../util/search-city.js'
 
 export function validateSearchgeom(searchgeom) {
