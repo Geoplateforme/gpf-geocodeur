@@ -369,10 +369,10 @@
     results:
       firstResult:
         fulltext: "Lille, 59000"
-  - request: "?text=strasbourg&type=PositionOfInterest&poiType=transport"
+  - request: "?text=strasbourg saint de&type=PositionOfInterest&poiType=transport"
     results:
       firstResult:
-        fulltext: "Strasbourg, 49100 Angers"
+        fulltext: "Strasbourg-Saint-Denis, 75001 Paris"
       only:
         country: "PositionOfInterest"
       including:
@@ -465,7 +465,7 @@
         fulltext: "République Dames, 13002 Marseille 2e Arrondissement"
       many:
         terr: ["13", "971", "972", "973", "974"]
-  - request: "?text=république&type=PositionOfInterest&poiType=station de métro"
+  - request: "?text=république 1&type=PositionOfInterest&poiType=station de métro"
     results:
       firstResult:
         fulltext: "République, 75001 Paris"
