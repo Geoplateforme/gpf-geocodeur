@@ -290,7 +290,7 @@
   - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [2.25691, 46.5472], \"radius\": 100}&index=poi"
     results:
       firstResult:
-        id: "COMMUNE_0000000009748762"
+        id: "DEPARTEM0000002150000518"
   - request: "?searchgeom={\"type\": \"LineString\", \"coordinates\": [[1.90600, 47.92306],[1.930199, 47.91619]]}&index=poi,parcel"
     results:
       firstResult:
