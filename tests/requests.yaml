@@ -291,12 +291,12 @@
     results:
       firstResult:
         id: "DEPARTEM0000002150000518"
-  - request: "?searchgeom={\"type\": \"LineString\", \"coordinates\": [[1.90600, 47.92306],[1.930199, 47.91619]]}&index=poi,parcel"
+  - request: "?searchgeom={\"type\": \"LineString\", \"coordinates\": [[1.909092, 47.922008],[1.913284, 47.920530]]}&index=poi,parcel"
     results:
       firstResult:
-        id: "PAIHABIT0000000006077735"
+        id: "45147000AL0818"
       many:
-        _type: ["poi", "cadastre"]
+        _type: ["poi", "parcel"]
   - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
           [
             [
