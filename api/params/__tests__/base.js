@@ -7,17 +7,18 @@ test('validateSearchgeom', t => {
   t.is(validateSearchgeom({type: 'Point', coordinates: [2, 48.5]}), undefined)
 
   t.is(validateSearchgeom({type: 'LineString', coordinates: [
-    [2.3, 48.8],
-    [4.3, 49.8],
-    [5.3, 50.8]
+    [2.334_35, 48.808_28],
+    [2.337_03, 48.805_08],
+    [2.341_53, 48.806_12]
   ]}), undefined)
 
   t.is(validateSearchgeom({type: 'Polygon', coordinates: [
     [
-      [2.3, 48.8],
-      [4.3, 49.8],
-      [5.3, 50.8],
-      [2.3, 48.8]
+      [2.294_561, 48.819_186],
+      [2.294_561, 48.815_74],
+      [2.301_376_758_780_947, 48.815_74],
+      [2.301_376, 48.819_186],
+      [2.294_561, 48.819_186]
     ]
   ]}), undefined)
 
