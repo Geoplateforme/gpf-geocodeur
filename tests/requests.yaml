@@ -162,6 +162,22 @@
       firstResult:
         id: "28276_mvo6lp"
       nbResult: 3
+  - request: "?q=place de la mairie"
+    results:
+      firstResult:
+        id: "68066_2544"
+  - request: "?q=place de la mairie&lon=2.503978&lat=48.697898"
+    results:
+      firstResult:
+        id: "91114_2280"
+  - request: "?q=place de la république"
+    results:
+      firstResult:
+        id: "72181_4620"
+  - request: "?q=place de la république&lon=2.375574&lat=51.032209"
+    results:
+      firstResult:
+        id: "59183_1440"
 
 /reverse:
   - request: "?lon=2.3488&lat=48.8534"
@@ -489,3 +505,19 @@
         fulltext: "Place du Marché, 97111 Morne-à-l'Eau"
       only:
         metropole: false
+  - request: "?text=place de la mairie"
+    results:
+      firstResult:
+        fulltext: "Place de la Mairie, 68000 Colmar"
+  - request: "?text=place de la mairie&lonlat=2.503978,48.697898"
+    results:
+      firstResult:
+        fulltext: "Place de la Mairie, 91800 Brunoy"
+  - request: "?text=place de la république"
+    results:
+      firstResult:
+        fulltext: "place de la République, 72000 Le Mans"
+  - request: "?text=place de la république&lonlat=2.375574,51.032209"
+    results:
+      firstResult:
+        fulltext: "Place de la République, 59140 Dunkerque"
