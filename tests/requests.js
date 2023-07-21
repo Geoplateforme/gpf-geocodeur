@@ -33,6 +33,7 @@ function getResults(item, route) {
     result.number = properties.number
     result.sheet = properties.sheet
     result._type = properties._type
+    result.metropole = properties.metropole
   } else {
     result.fulltext = item.fulltext
     result.city = item.city
@@ -41,6 +42,7 @@ function getResults(item, route) {
     result.country = item.country
     result.zipcode = item.zipcode
     result.poiType = item.poiType
+    result.metropole = item.metropole
   }
 
   return result

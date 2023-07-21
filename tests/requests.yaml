@@ -459,6 +459,8 @@
         fulltext: "Rue du marche, 13015 Marseille"
       many:
         terr: ["13"]
+      only:
+        metropole: true
   - request: "?text=marché robert&terr=972"
     results:
       firstResult:
@@ -466,6 +468,7 @@
       only:
         city: "Le Robert"
         zipcode: "97231"
+        metropole: false
       many:
         terr: ["972"]
   - request: "?text=republique&terr=DOMTOM,13"
