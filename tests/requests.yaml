@@ -468,7 +468,7 @@
   - request: "?text=saint&bbox=-1.732407,48.851162,-0.414047,49.272285"
     results:
       firstResult:
-        fulltext: "Saint-Lô, 50000"
+        fulltext: "Sainte-Suzanne-sur-Vire, 50750"
   - request: "?text=marché&terr=13" # Bug: Cette requête devrait produire plus de résultats
     results:
       firstResult:
