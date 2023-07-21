@@ -6,6 +6,7 @@ import w from '../../../lib/w.js'
 import errorHandler from '../../../lib/error-handler.js'
 import {createRtree} from '../../../lib/spatial-index/rtree.js'
 import {createInstance as createRedisServer} from '../../../lib/addok/redis.js'
+import {prepareParams} from '../../../lib/addok/prepare-params.js'
 
 import {ADDRESS_INDEX_RTREE_PATH, ADDRESS_INDEX_PATH} from '../util/paths.js'
 
@@ -26,7 +27,7 @@ export async function createRouter() {
   router.use(json())
 
   router.post('/search', w(async (req, res) => {
-    const results = await addokCluster.geocode(req.body)
+    const results = await addokCluster.geocode(prepareParams(req.body))
     res.send(results)
   }))
 

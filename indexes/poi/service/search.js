@@ -1,4 +1,5 @@
 import {pick} from 'lodash-es'
+import {prepareParams} from '../../../lib/addok/prepare-params.js'
 
 const POI_FIELDS = [
   'name',
@@ -13,7 +14,7 @@ const POI_FIELDS = [
 ]
 
 export async function search(params, {db, addokCluster}) {
-  const results = await addokCluster.geocode(params)
+  const results = await addokCluster.geocode(prepareParams(params))
 
   return results.map(result => {
     const {id} = result.properties
