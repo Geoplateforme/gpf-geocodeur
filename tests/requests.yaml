@@ -453,12 +453,21 @@
     results:
       firstResult:
         fulltext: "Saint-Lô, 50000"
-  - request: "?text=marché&terr=13,972"
+  - request: "?text=marché&terr=13"
+    results:
+      firstResult:
+        fulltext: "Rue du marche, 13015 Marseille"
+      many:
+        terr: ["13"]
+  - request: "?text=marché robert&terr=972"
     results:
       firstResult:
         fulltext: "Marché, 97231 Le Robert"
+      only:
+        city: "Le Robert"
+        zipcode: "97231"
       many:
-        terr: ["13", "972"]
+        terr: ["972"]
   - request: "?text=republique&terr=DOMTOM,13"
     results:
       firstResult:
