@@ -453,7 +453,7 @@
     results:
       firstResult:
         fulltext: "Saint-Lô, 50000"
-  - request: "?text=marché&terr=13"
+  - request: "?text=marché&terr=13" # Bug: Cette requête devrait produire plus de résultats
     results:
       firstResult:
         fulltext: "Rue du marche, 13015 Marseille"
@@ -483,3 +483,9 @@
         fulltext: "République, 75001 Paris"
       including:
         poiType: "station de métro"
+  - request: "?text=place du marché&terr=DOMTOM" # Bug: Cette requête devrait produire plus de résultats
+    results:
+      firstResult:
+        fulltext: "Place du Marché, 97111 Morne-à-l'Eau"
+      only:
+        metropole: false
