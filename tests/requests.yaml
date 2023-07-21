@@ -445,10 +445,10 @@
     results:
       firstResult:
         fulltext: "Marche, 33580 Taillecavat"
-  - request: "?text=tai&bbox=-1.153564,44.095476,9.393311,47.672786"
+  - request: "?text=taille&bbox=-1.153564,44.095476,9.393311,47.672786"
     results:
       firstResult:
-        fulltext: "Taillefer, 42500 Le Chambon-Feugerolles"
+        fulltext: "Taille, 37250 Veigné"
   - request: "?text=saint&bbox=-1.732407,48.851162,-0.414047,49.272285"
     results:
       firstResult:
