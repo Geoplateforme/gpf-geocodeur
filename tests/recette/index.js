@@ -75,7 +75,11 @@ for (const [route, routeRequests] of Object.entries(requests)) {
 
         for (const result of results) {
           for (const filter of filters) {
-            t.is(result[filter], r.results.only[filter])
+            if (Array.isArray(r.results.only[filter])) {
+              t.deepEqual(result[filter], r.results.only[filter])
+            } else {
+              t.is(result[filter], r.results.only[filter])
+            }
           }
         }
       }
