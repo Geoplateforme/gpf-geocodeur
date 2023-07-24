@@ -204,7 +204,7 @@ paths:
           Pour l'index <b>address</b>, seules les géométries de type 'Polygon' et 'Circle' sont autorisées.<br>
           Le plus grand côté du rectangle d’emprise de la géométrie ne doit pas excéder 1000 mètres."
         schema:
-          $ref: '#/components/schemas/SearchGeom'
+          type: string
       - name: lon
         in: query
         description: "Si searchGeom est utilisé, il s'agit de la longitude du point d'ordonnancement. C'est le point à partir duquel est calculée la distance, puis le score permettant l'ordonnancement des résultats. <br>
@@ -420,14 +420,6 @@ components:
                       type: "array"
                       items:
                         description: allowed value
-
-    SearchGeom:
-      type: object
-      oneOf:
-      - $ref: '#/components/schemas/GeometryPoint'
-      - $ref: '#/components/schemas/GeometryLineString'
-      - $ref: '#/components/schemas/GeometryPolygon'
-      - $ref: '#/components/schemas/GeometryCircle'
 
     GeocodeResponse:
       type: object
