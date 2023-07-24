@@ -8,7 +8,7 @@ import {readFile} from 'node:fs/promises'
 import got from 'got'
 import yaml, {JSON_SCHEMA} from 'js-yaml'
 
-const {API_TEST_URL} = process.env
+const RECETTE_API_URL = process.env.RECETTE_API_URL || 'https://gpf-geocodeur.livingdata.co'
 const requestsFilePath = path.resolve('./tests/recette/definition.yaml')
 const requests = yaml.load(await readFile(requestsFilePath), {schema: JSON_SCHEMA})
 
@@ -51,7 +51,7 @@ function getResults(item, route) {
 for (const [route, routeRequests] of Object.entries(requests)) {
   for (const r of routeRequests) {
     test(`Test: ${route}${r.request}`, async t => {
-      const url = API_TEST_URL + route + r.request
+      const url = RECETTE_API_URL + route + r.request
       const responses = await got.get(url).json()
 
       t.truthy(responses)
