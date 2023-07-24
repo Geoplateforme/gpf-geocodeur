@@ -178,6 +178,51 @@
     results:
       firstResult:
         id: "59183_1440"
+  - request: "?q=Montataire&index=poi&category=cimetière"
+    results:
+      firstResult:
+        id: "CIMETIER0000000039143988"
+      only:
+        _type: "poi"
+        category: ["cimetière"]
+  - request: "?q=cimetière&postcode=60160&index=poi"
+    results:
+      firstResult:
+        id: "CIMETIER0000000039143983"
+      only:
+        _type: "poi"
+        category: ["cimetière"]
+  - request: "?q=12 rue du Général de Gaulle&citycode=94003"
+    results:
+      firstResult:
+        id: "94003_4123_00012"
+      only:
+        citycode: "94003"
+      nbResult: 1
+  - request: "?q=12 rue du Général de Gaulle&limit=20"
+    results:
+      firstResult:
+        id: "97411_0570_00012"
+      nbResult: 20
+  - request: "?q=12 rue du Général de Gaulle&city=Arcueil"
+    results:
+      firstResult:
+        id: "94003_4123_00012"
+      only:
+        city: "Arcueil"
+      nbResult: 1
+  - request: "?q=12 rue du Général de Gaulle&lon=2.3262&lat=48.808"
+    results:
+      firstResult:
+        id: "94079_0500_00012"
+  - request: "?q=75102000AB0006&index=parcel"
+    results:
+      firstResult:
+        id: "75102000AB0006"
+  - request: "?q=30 rue jules verne 44521 Oudon&index=parcel,address"
+    results:
+      firstResult:
+        id: "44115_0208_00030"
 
 /reverse:
   - request: "?lon=2.3488&lat=48.8534"
@@ -340,6 +385,139 @@
     results:
       firstResult:
         id: "77333_0230_00052_bis"
+  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [-0.04691, 45.5472], \"radius\": 100}&index=address,poi&postcode=16250"
+    results:
+      firstResult:
+        id: "COMMUNE_0000000009753190"
+  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [-0.04691, 45.5472], \"radius\": 100}&index=address,poi&postcode=16452"
+    results:
+      nbResult: 0
+  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [-0.04691, 45.5472], \"radius\": 100}&index=address,poi&citycode=16175"
+    results:
+      firstResult:
+        id: "COMMUNE_0000000009753190"
+  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [-0.04691, 45.5472], \"radius\": 100}&index=address,poi&citycode=17452"
+    results:
+      nbResult: 0
+  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
+          [
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ]
+          ]
+        ]}&city=Saint-Maurice-la-Souterraine&index=address"
+    results:
+      firstResult:
+        id: "23219_r5f8ez_00006"
+      only:
+        _type: "address"
+  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
+          [
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ]
+          ]
+        ]}&city=Marseille"
+    results:
+      nbResult: 0
+  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
+          [
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ]
+          ]
+        ]}&city=Saint-Maurice-la-Souterraine&index=parcel"
+    results:
+      firstResult:
+        id: "23219000ZO0103"
+      only:
+        _type: "parcel"
+  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
+          [
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ]
+          ]
+        ]}&city=Marseille&index=parcel"
+    results:
+      nbResult: 0
+  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [-0.04691, 45.5472], \"radius\": 100}&index=poi&category=administratif"
+    results:
+      firstResult:
+        id: "EPCI____0000002150235999"
+      including:
+        category: "administratif"
+  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [-0.04691, 45.5472], \"radius\": 100}&index=poi&category=cimetière"
+    results:
+      nbResult: 0
 
 /completion:
   - request: "?text=bordeaux&type=PositionOfInterest"
@@ -352,6 +530,12 @@
     results:
       firstResult:
         fulltext: "Paris"
+  - request: "?text=5 rue de la paix, paris&type=StreetAddress"
+    results:
+      firstResult:
+        fulltext: "5 Rue de la Paix, 75002 Paris"
+      only:
+        country: "StreetAddress"
   - request: "?text=5 rue de la paix, paris&type=StreetAddress&maximumResponses=2"
     results:
       firstResult:
@@ -359,6 +543,10 @@
       only:
         country: "StreetAddress"
       nbResult: 2
+  - request: "?text=5 rue de la paix, paris&type=StreetAddress&maximumResponses=21"
+    results:
+      error:
+        code: 400
   - request: "?text=place du capitole, toulouse"
     results:
       firstResult:
@@ -521,3 +709,42 @@
     results:
       firstResult:
         fulltext: "Place de la République, 59140 Dunkerque"
+  - request: "?text=14 rue Claude Tillier"
+    results:
+      firstResult:
+        fulltext: "14 Rue Claude Tillier, 75012 Paris"
+  - request: "?text=14 rue Clade Tillier"
+    results:
+      firstResult:
+        fulltext: "14 Rue Claude Tillier, 75012 Paris"
+  - request: "?text=14 rue Czuade Tillier"
+    results:
+      firstResult:
+        fulltext: "14 Rue Claude Tillier, 75012 Paris"
+  - request: "?text=14 rue clade tilier"
+    results:
+      firstResult:
+        fulltext: "14 Rue Claude Tillier, 75012 Paris"
+  - request: "?text=14 rie clzude tilier"
+    results:
+      firstResult:
+        fulltext: "14 Rue Claude Tillier, 75012 Paris"
+  - request: "?text=14 rie clzude tilié"
+    results:
+      firstResult:
+        fulltext: "14 Rue de la Tilie, 70200 Magny-Danigon"
+  - request: "?text=tour eiffel&type=PositionOfInterest&postcode=75001"
+    results:
+      firstResult:
+        fulltext: "Tour Eiffel, 75001 Paris"
+      only:
+        country: "PositionOfInterest"
+  - request: "?text=tour eif&type=PositionOfInterest&postcode=75001"
+    results:
+      firstResult:
+        fulltext: "Tour Eiffel, 75001 Paris"
+      only:
+        country: "PositionOfInterest"
+  - request: "?text=tour eiffel&type=PositionOfInterest&terr=DOMTOM"
+    results:
+      nbResult: 0
