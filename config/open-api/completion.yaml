@@ -4,12 +4,12 @@ info:
   title: Autocompletion
   description: "Description de l'API du service d'autocompletion de l'IGN"
 servers:
- - url: https://wxs.ign.fr/essentiels/geoportail/geocodage/rest/0.1/completion
+  - url: https://wxs.ign.fr/essentiels/geoportail/geocodage/rest/0.1/completion
 paths:
   /getCapabilities:
     get:
       tags:
-      - getCapabilities
+        - getCapabilities
       summary: Découvrir le service
       description: "Découvrir le service: les opérations possibles, les ressources disponibles et les options proposées."
       operationId: getCapabilities
@@ -43,12 +43,13 @@ paths:
           required: false
           schema:
             type: string
-            enum: ['METROPOLE','DOMTOM','75','75013','93160,97,77300']
+            enum: ["METROPOLE", "DOMTOM", "75", "75013", "93160,97,77300"]
           example: "DOMTOM"
         - name: poiType
           in: query
-          description: "Filtre sur le type de localisant pour le type POI.
-          Les valeurs possibles sont listées dans le getCapabilities du service d'autocompletion."
+          description: |
+            Filtre sur le type de localisant pour le type POI.
+            Les valeurs possibles sont listées dans le getCapabilities du service d'autocompletion.
           required: false
           schema:
             type: string
@@ -61,13 +62,19 @@ paths:
             pattern: '^\d+\.?\d*\,\d+\.?\d*$'
         - name: type
           in: query
-          description: "Le type de localisants recherchés.
-          Il est possible de spécifier plusieurs types séparés par une virgule."
+          description: |
+            Le type de localisants recherchés.
+            Il est possible de spécifier plusieurs types séparés par une virgule.
           required: false
           schema:
             type: string
-            enum: ['PositionOfInterest','StreetAddress','PositionOfInterest,StreetAddress']
-            default: 'PositionOfInterest,StreetAddress'
+            enum:
+              [
+                "PositionOfInterest",
+                "StreetAddress",
+                "PositionOfInterest,StreetAddress",
+              ]
+            default: "PositionOfInterest,StreetAddress"
           example: ""
         - name: maximumResponses
           in: query
@@ -84,7 +91,7 @@ paths:
             type: string
             pattern: '^\d+\.?\d*\,\d+\.?\d*\,\d+\.?\d*\,\d+\.?\d*$'
       responses:
-        '200':
+        "200":
           description: Une liste de suggestions de completions possibles
           content:
             application/json:
@@ -92,21 +99,21 @@ paths:
                 $ref: "#/components/schemas/Response"
               example:
                 {
-                  "status":"OK",
-                  "results":[
-                    {
-                      "country":"StreetAddress",
-                      "city":"Saint-Malo",
-                      "x":-2.004141,
-                      "y":48.655722,
-                      "zipcode":"35400",
-                      "street":"2 av pasteur",
-                      "classification":7,
-                      "kind":"",
-                      "fulltext":"2 av pasteur,35400 Saint-Malo"
-
-                    }
-                  ]
+                  "status": "OK",
+                  "results":
+                    [
+                      {
+                        "country": "StreetAddress",
+                        "city": "Saint-Malo",
+                        "x": -2.004141,
+                        "y": 48.655722,
+                        "zipcode": "35400",
+                        "street": "2 av pasteur",
+                        "classification": 7,
+                        "kind": "",
+                        "fulltext": "2 av pasteur,35400 Saint-Malo",
+                      },
+                    ],
                 }
         default:
           description: unexpected error
@@ -115,10 +122,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
               example:
-                value: {
-                  "status":"OK",
-                  "results":[]
-                }
+                value: { "status": "OK", "results": [] }
 components:
   schemas:
     Getcapabilities:
@@ -157,7 +161,7 @@ components:
                 type: "array"
                 items:
                   type: "string"
-                  enum: ["GET","POST","PUT","DELETE"]
+                  enum: ["GET", "POST", "PUT", "DELETE"]
               parameters:
                 type: "array"
                 items:
@@ -271,4 +275,3 @@ components:
           items:
             type: object
             maxItems: 0
-

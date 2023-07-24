@@ -6,19 +6,19 @@ info:
     email: contact.geoservices@ign.fr
   version: 2.0.0
 servers:
-- url:
+  - url:
 tags:
-- name: getCapabilities
-  description: Découverte du service
-- name: search
-  description: Géocodage direct
-- name: reverse
-  description: Géocodage inverse
+  - name: getCapabilities
+    description: Découverte du service
+  - name: search
+    description: Géocodage direct
+  - name: reverse
+    description: Géocodage inverse
 paths:
   /geocodage/getCapabilities:
     get:
       tags:
-      - getCapabilities
+        - getCapabilities
       summary: Découvrir le service
       description: "Découvrir le service: les opérations possibles, les ressources disponibles et les options proposées."
       operationId: getCapabilities
@@ -35,127 +35,128 @@ paths:
   /search:
     get:
       tags:
-      - search
+        - search
       summary: Recherche par géocodage direct
       operationId: search
       parameters:
-      - name: q
-        in: query
-        description: "chaîne décrivant la localisation à rechercher<br>
+        - name: q
+          in: query
+          description: "chaîne décrivant la localisation à rechercher<br>
 
 
-          Exemples de requêtes:<br>
-          - /search?q=73 Avenue de Paris Saint-Mandé<br>
-          - /search?q=cimetière Vincennes<br>
-          - /search?q=75056104AE0003
+            Exemples de requêtes:<br>
+            - /search?q=73 Avenue de Paris Saint-Mandé<br>
+            - /search?q=cimetière Vincennes<br>
+            - /search?q=75056104AE0003
 
-          Note:<br>
-          L'absence de valeur est autorisée sur le type parcel pour réaliser une recherche structurée.
-          Par exemple: /search?q=&index=parcel&departmentcode=75&municipalitycode=056&section=AV"
-        required: true
-        schema:
-          type: string
-      - name: index
-        in: query
-        description: "index(es) de recherche :<br>
-          - <b>address</b> pour la recherche par adresse<br>
-          - <b>parcel</b> pour la recherche par parcelle cadastrale<br>
-          - <b>poi</b> pour la recherche par lieu et unité administrative<br>
+            Note:<br>
+            L'absence de valeur est autorisée sur le type parcel pour réaliser une recherche structurée.
+            Par exemple: /search?q=&index=parcel&departmentcode=75&municipalitycode=056&section=AV"
+          required: true
+          schema:
+            type: string
+        - name: index
+          in: query
+          description: "index(es) de recherche :<br>
+            - <b>address</b> pour la recherche par adresse<br>
+            - <b>parcel</b> pour la recherche par parcelle cadastrale<br>
+            - <b>poi</b> pour la recherche par lieu et unité administrative<br>
 
-          Il est possible de spécifier plusieurs indexes séparés par une virgule.
+            Il est possible de spécifier plusieurs indexes séparés par une virgule.
 
-          Exemples:
-          - /search?index=parcel
-          - /search?index=poi,address"
-        required: false
-        schema:
-          $ref: '#/components/schemas/Index'
-      - name: limit
-        in: query
-        description: nombre maximum de candidats retournés (entre 1 et 20)
-        schema:
-          type: integer
-          default: 10
-      - name: lat
-        in: query
-        description: "latitude d'un localisant pour favoriser les candidats les plus proches."
-        schema:
-          type: number
-      - name: lon
-        in: query
-        description: "longitude d'un localisant pour favoriser les candidats les plus proches."
-        schema:
-          type: number
-      - name: returntruegeometry
-        in: query
-        description: "indique si la vraie géométrie doit être retournée"
-        schema:
-          type: boolean
-          default: false
-      - name: postcode
-        in: query
-        description: "Filtre pour les index address et poi. Il permet de filtrer les résultats par code postal."
-        schema:
-          $ref: "#/components/schemas/PostalCode"
-      - name: citycode
-        in: query
-        description: "Filtre pour les index address et poi. Il permet de filtrer les résultats par code INSEE."
-        schema:
-          $ref: "#/components/schemas/InseeCode"
-      - name: type
-        in: query
-        description: "Filtre pour l'index address. Il permet de filtrer par type de données adresse : numéro de maison, rue, commune, ..."
-        schema:
-          type: string
-          enum: ["housenumber", "street", "locality", "municipality"]
-      - name: city
-        in: query
-        description: "Filtre pour les index address et parcel. Il permet de filtrer par nom de commune."
-        schema:
-          type: string
-      - name: category
-        in: query
-        description: "Filtre pour l'index poi. Il permet de filtrer par catégorie de poi.
-        Les valeurs possibles sont listées dans le getCapabilities du service de géocodage."
-        schema:
-          type: string
-      - name: departmentcode
-        in: query
-        description: "Filtre pour l'index parcel. Il permet de filtrer par code de département."
-        schema:
-          type: string
-      - name: municipalitycode
-        in: query
-        description: "Filtre pour l'index parcel. Il permet de filtrer par code de commune."
-        schema:
-          type: string
-      - name: oldmunicipalitycode
-        in: query
-        description: "Filtre pour l'index parcel. Il permet de filtrer par code d'ancienne commune."
-        schema:
-          type: string
-      - name: districtcode
-        in: query
-        description: "Filtre pour l'index parcel. Il permet de filtrer par code d'arrondissement."
-        schema:
-          type: string
-      - name: section
-        in: query
-        description: "Filtre pour l'index parcel. Il permet de filtrer par section."
-        schema:
-          type: string
-      - name: number
-        in: query
-        description: "Filtre pour l'index parcel. Il permet de filtrer par numéro."
-        schema:
-          type: string
-      - name: sheet
-        in: query
-        description: "Filtre pour l'index parcel. Il permet de filtrer par feuille."
-        schema:
-          type: string
+            Exemples:
+            - /search?index=parcel
+            - /search?index=poi,address"
+          required: false
+          schema:
+            $ref: "#/components/schemas/Index"
+        - name: limit
+          in: query
+          description: nombre maximum de candidats retournés (entre 1 et 20)
+          schema:
+            type: integer
+            default: 10
+        - name: lat
+          in: query
+          description: "latitude d'un localisant pour favoriser les candidats les plus proches."
+          schema:
+            type: number
+        - name: lon
+          in: query
+          description: "longitude d'un localisant pour favoriser les candidats les plus proches."
+          schema:
+            type: number
+        - name: returntruegeometry
+          in: query
+          description: "indique si la vraie géométrie doit être retournée"
+          schema:
+            type: boolean
+            default: false
+        - name: postcode
+          in: query
+          description: "Filtre pour les index address et poi. Il permet de filtrer les résultats par code postal."
+          schema:
+            $ref: "#/components/schemas/PostalCode"
+        - name: citycode
+          in: query
+          description: "Filtre pour les index address et poi. Il permet de filtrer les résultats par code INSEE."
+          schema:
+            $ref: "#/components/schemas/InseeCode"
+        - name: type
+          in: query
+          description: "Filtre pour l'index address. Il permet de filtrer par type de données adresse : numéro de maison, rue, commune, ..."
+          schema:
+            type: string
+            enum: ["housenumber", "street", "locality", "municipality"]
+        - name: city
+          in: query
+          description: "Filtre pour les index address et parcel. Il permet de filtrer par nom de commune."
+          schema:
+            type: string
+        - name: category
+          in: query
+          description: |
+            Filtre pour l'index poi. Il permet de filtrer par catégorie de poi.
+            Les valeurs possibles sont listées dans le getCapabilities du service de géocodage.
+          schema:
+            type: string
+        - name: departmentcode
+          in: query
+          description: "Filtre pour l'index parcel. Il permet de filtrer par code de département."
+          schema:
+            type: string
+        - name: municipalitycode
+          in: query
+          description: "Filtre pour l'index parcel. Il permet de filtrer par code de commune."
+          schema:
+            type: string
+        - name: oldmunicipalitycode
+          in: query
+          description: "Filtre pour l'index parcel. Il permet de filtrer par code d'ancienne commune."
+          schema:
+            type: string
+        - name: districtcode
+          in: query
+          description: "Filtre pour l'index parcel. Il permet de filtrer par code d'arrondissement."
+          schema:
+            type: string
+        - name: section
+          in: query
+          description: "Filtre pour l'index parcel. Il permet de filtrer par section."
+          schema:
+            type: string
+        - name: number
+          in: query
+          description: "Filtre pour l'index parcel. Il permet de filtrer par numéro."
+          schema:
+            type: string
+        - name: sheet
+          in: query
+          description: "Filtre pour l'index parcel. Il permet de filtrer par feuille."
+          schema:
+            type: string
       responses:
-        '200':
+        "200":
           description: successful operation
           content:
             application/json:
@@ -168,148 +169,152 @@ paths:
                   features:
                     type: array
                     items:
-                      $ref: '#/components/schemas/GeocodeResponse'
-        '400':
-          description: 'Parse query failed'
+                      $ref: "#/components/schemas/GeocodeResponse"
+        "400":
+          description: "Parse query failed"
           content:
             application/json: {}
   /reverse:
     get:
       tags:
-      - reverse
+        - reverse
       summary: Recherche par géocodage inverse
       operationId: reverse
       parameters:
-      - name: searchgeom
-        in: query
-        required: false
-        description: "Géométrie de recherche. La géométrie est réalisé par intersection géométrique. Si ce paramètre est utilisé seul, c'est que l'on souhaite une recherche sans ordonnancement des résultats (tous les objets intersectant la géométrie de recherche ont un score de 1).<br>
-          Si on veut ordonner les résultats, on peut alors utiliser les paramètres lon et lat pour préciser un point d'ordonnancement. <br>
-          Ce paramètre n'est pas obligatoire pour des raisons de rétro-compatibilité. Si searchGeom n'est pas utilisé alors les paramètres lon et lat doivent l'être et on parle de point de recherche. <br>
-          Lorsque la recherche est réalisée par intersection géométrique. Les types géométrique autorisés sont :
+        - name: searchgeom
+          in: query
+          required: false
+          description:
+            "Géométrie de recherche. La géométrie est réalisé par intersection géométrique. Si ce paramètre est utilisé seul, c'est que l'on souhaite une recherche sans ordonnancement des résultats (tous les objets intersectant la géométrie de recherche ont un score de 1).<br>
+            Si on veut ordonner les résultats, on peut alors utiliser les paramètres lon et lat pour préciser un point d'ordonnancement. <br>
+            Ce paramètre n'est pas obligatoire pour des raisons de rétro-compatibilité. Si searchGeom n'est pas utilisé alors les paramètres lon et lat doivent l'être et on parle de point de recherche. <br>
+            Lorsque la recherche est réalisée par intersection géométrique. Les types géométrique autorisés sont :
 
-          - Point
+            - Point
 
-          - LineString
+            - LineString
 
-          - Polygon
+            - Polygon
 
-          - Circle<br>
-          Exemple de géométrie de type Circle :<br>
-          {<br>
+            - Circle<br>
+            Exemple de géométrie de type Circle :<br>
+            {<br>
             &nbsp;&nbsp;&nbsp;&nbsp;type: 'Circle',<br>
             &nbsp;&nbsp;&nbsp;&nbsp;coordinates: [2.0, 48.5],<br>
             &nbsp;&nbsp;&nbsp;&nbsp;radius: 100<br>
-          }<br>
-          Pour l'index <b>address</b>, seules les géométries de type 'Polygon' et 'Circle' sont autorisées.<br>
-          Le plus grand côté du rectangle d’emprise de la géométrie ne doit pas excéder 1000 mètres."
-        schema:
-          type: string
-      - name: lon
-        in: query
-        description: "Si searchGeom est utilisé, il s'agit de la longitude du point d'ordonnancement. C'est le point à partir duquel est calculée la distance, puis le score permettant l'ordonnancement des résultats. <br>
-        Dans un soucis de rétro-compatibilité, si searchGeom n'est pas utilisé, il s'agit de la longitude du point de recherche. À partir de ce point, un cercle est créé pour effectuer la recherche. En plus, ce sera aussi la longitude du point d'ordonnancement."
-        required: false
-        schema:
-          type: number
-      - name: lat
-        in: query
-        description: "Si searchGeom est utilisé, il s'agit de la latitude  du point d'ordonnancement. C'est le point à partir duquel est calculée la distance, puis le score permettant l'ordonnancement des résultats. <br>
-        Dans un soucis de rétro-compatibilité, si searchGeom n'est pas utilisé, il s'agit de la latitude du point de recherche. À partir de ce point, un cercle est créé pour effectuer la recherche. En plus, ce sera aussi la latitude du point d'ordonnancement."
-        required: false
-        schema:
-          type: number
-      - name: index
-        in: query
-        description: "index de recherche :<br>
-          - <b>address</b> pour la recherche par adresse<br>
-          - <b>parcel</b> pour la recherche par parcelle cadastrale<br>
-          - <b>poi</b> pour la recherche par lieu et unité administrative<br>
+            }<br>
+            Pour l'index <b>address</b>, seules les géométries de type 'Polygon' et 'Circle' sont autorisées.<br>
+            Le plus grand côté du rectangle d’emprise de la géométrie ne doit pas excéder 1000 mètres."
+          schema:
+            type: string
+        - name: lon
+          in: query
+          description: |
+            Si searchGeom est utilisé, il s'agit de la longitude du point d'ordonnancement. C'est le point à partir duquel est calculée la distance, puis le score permettant l'ordonnancement des résultats. <br>
+            Dans un soucis de rétro-compatibilité, si searchGeom n'est pas utilisé, il s'agit de la longitude du point de recherche. À partir de ce point, un cercle est créé pour effectuer la recherche. En plus, ce sera aussi la longitude du point d'ordonnancement.
+          required: false
+          schema:
+            type: number
+        - name: lat
+          in: query
+          description: |
+            Si searchGeom est utilisé, il s'agit de la latitude  du point d'ordonnancement. C'est le point à partir duquel est calculée la distance, puis le score permettant l'ordonnancement des résultats.
+            Dans un soucis de rétro-compatibilité, si searchGeom n'est pas utilisé, il s'agit de la latitude du point de recherche. À partir de ce point, un cercle est créé pour effectuer la recherche. En plus, ce sera aussi la latitude du point d'ordonnancement.
+          required: false
+          schema:
+            type: number
+        - name: index
+          in: query
+          description: "index de recherche :<br>
+            - <b>address</b> pour la recherche par adresse<br>
+            - <b>parcel</b> pour la recherche par parcelle cadastrale<br>
+            - <b>poi</b> pour la recherche par lieu et unité administrative<br>
 
-          Il est possible de spécifier plusieurs indexes séparés par une virgule.
+            Il est possible de spécifier plusieurs indexes séparés par une virgule.
 
-          Exemples:
-          - /search?index=parcel
-          - /search?index=poi,address"
-        required: false
-        schema:
-          $ref: '#/components/schemas/Index'
-      - name: limit
-        in: query
-        description: 'nombre maximum de candidats retournés (entre 1 et 20)'
-        schema:
-          type: integer
-          default: 10
-      - name: returntruegeometry
-        in: query
-        description: "indique si la vraie géométrie doit être retournée"
-        schema:
-          type: boolean
-          default: False
-      - name: postcode
-        in: query
-        description: "Filtre pour les index address et poi. Il permet de filtrer les résultats par code postal."
-        schema:
-          $ref: "#/components/schemas/PostalCode"
-      - name: citycode
-        in: query
-        description: "Filtre pour les index address et poi. Il permet de filtrer les résultats par code INSEE."
-        schema:
-          $ref: "#/components/schemas/InseeCode"
-      - name: type
-        in: query
-        description: "Filtre pour l'index address. Il permet de filtrer par type de données adresse : numéro de maison, rue, commune, ..."
-        schema:
-          type: string
+            Exemples:
+            - /search?index=parcel
+            - /search?index=poi,address"
+          required: false
+          schema:
+            $ref: "#/components/schemas/Index"
+        - name: limit
+          in: query
+          description: "nombre maximum de candidats retournés (entre 1 et 20)"
+          schema:
+            type: integer
+            default: 10
+        - name: returntruegeometry
+          in: query
+          description: "indique si la vraie géométrie doit être retournée"
+          schema:
+            type: boolean
+            default: False
+        - name: postcode
+          in: query
+          description: "Filtre pour les index address et poi. Il permet de filtrer les résultats par code postal."
+          schema:
+            $ref: "#/components/schemas/PostalCode"
+        - name: citycode
+          in: query
+          description: "Filtre pour les index address et poi. Il permet de filtrer les résultats par code INSEE."
+          schema:
+            $ref: "#/components/schemas/InseeCode"
+        - name: type
+          in: query
+          description: "Filtre pour l'index address. Il permet de filtrer par type de données adresse : numéro de maison, rue, commune, ..."
+          schema:
+            type: string
             enum: ["housenumber", "street", "locality", "municipality"]
-      - name: city
-        in: query
-        description: "Filtre pour les index address et parcel. Il permet de filtrer par nom de commune."
-        schema:
-          type: string
-      - name: category
-        in: query
-        description: "Filtre pour l'index poi. Il permet de filtrer par catégorie de poi.
-        Les valeurs possibles sont listées dans le getCapabilities du service de géocodage."
-        schema:
-          type: string
-      - name: departmentcode
-        in: query
-        description: "Filtre pour l'index parcel. Il permet de filtrer par code de département."
-        schema:
-          type: string
-      - name: municipalitycode
-        in: query
-        description: "Filtre pour l'index parcel. Il permet de filtrer par code de commune."
-        schema:
-          type: string
-      - name: oldmunicipalitycode
-        in: query
-        description: "Filtre pour l'index parcel. Il permet de filtrer par code d'ancienne commune."
-        schema:
-          type: string
-      - name: districtcode
-        in: query
-        description: "Filtre pour l'index parcel. Il permet de filtrer par code d'arrondissement."
-        schema:
-          type: string
-      - name: section
-        in: query
-        description: "Filtre pour l'index parcel. Il permet de filtrer par section."
-        schema:
-          type: string
-      - name: number
-        in: query
-        description: "Filtre pour l'index parcel. Il permet de filtrer par numéro."
-        schema:
-          type: string
-      - name: sheet
-        in: query
-        description: "Filtre pour l'index parcel. Il permet de filtrer par feuille."
-        schema:
-          type: string
+        - name: city
+          in: query
+          description: "Filtre pour les index address et parcel. Il permet de filtrer par nom de commune."
+          schema:
+            type: string
+        - name: category
+          in: query
+          description: |
+            Filtre pour l'index poi. Il permet de filtrer par catégorie de poi.
+            Les valeurs possibles sont listées dans le getCapabilities du service de géocodage.
+          schema:
+            type: string
+        - name: departmentcode
+          in: query
+          description: "Filtre pour l'index parcel. Il permet de filtrer par code de département."
+          schema:
+            type: string
+        - name: municipalitycode
+          in: query
+          description: "Filtre pour l'index parcel. Il permet de filtrer par code de commune."
+          schema:
+            type: string
+        - name: oldmunicipalitycode
+          in: query
+          description: "Filtre pour l'index parcel. Il permet de filtrer par code d'ancienne commune."
+          schema:
+            type: string
+        - name: districtcode
+          in: query
+          description: "Filtre pour l'index parcel. Il permet de filtrer par code d'arrondissement."
+          schema:
+            type: string
+        - name: section
+          in: query
+          description: "Filtre pour l'index parcel. Il permet de filtrer par section."
+          schema:
+            type: string
+        - name: number
+          in: query
+          description: "Filtre pour l'index parcel. Il permet de filtrer par numéro."
+          schema:
+            type: string
+        - name: sheet
+          in: query
+          description: "Filtre pour l'index parcel. Il permet de filtrer par feuille."
+          schema:
+            type: string
       responses:
-        '200':
+        "200":
           description: successful operation
           content:
             application/json:
@@ -322,14 +327,13 @@ paths:
                   features:
                     type: array
                     items:
-                      $ref: '#/components/schemas/GeocodeReverseResponse'
-        '400':
-          description: 'Parse query failed'
+                      $ref: "#/components/schemas/GeocodeReverseResponse"
+        "400":
+          description: "Parse query failed"
           content:
             application/json: {}
 
 components:
-
   schemas:
     Getcapabilities:
       type: "object"
@@ -367,7 +371,7 @@ components:
                 type: "array"
                 items:
                   type: "string"
-                  enum: ["GET","POST","PUT","DELETE"]
+                  enum: ["GET", "POST", "PUT", "DELETE"]
               parameters:
                 type: "array"
                 items:
@@ -424,16 +428,16 @@ components:
     GeocodeResponse:
       type: object
       oneOf:
-      - $ref: '#/components/schemas/Address'
-      - $ref: '#/components/schemas/Poi'
-      - $ref: '#/components/schemas/Parcel'
+        - $ref: "#/components/schemas/Address"
+        - $ref: "#/components/schemas/Poi"
+        - $ref: "#/components/schemas/Parcel"
 
     GeocodeReverseResponse:
       type: object
       oneOf:
-      - $ref: '#/components/schemas/AddressReverse'
-      - $ref: '#/components/schemas/PoiReverse'
-      - $ref: '#/components/schemas/ParcelReverse'
+        - $ref: "#/components/schemas/AddressReverse"
+        - $ref: "#/components/schemas/PoiReverse"
+        - $ref: "#/components/schemas/ParcelReverse"
 
     Parcel:
       type: object
@@ -442,9 +446,9 @@ components:
           type: string
           example: Feature
         properties:
-          $ref: '#/components/schemas/ParcelProperties'
+          $ref: "#/components/schemas/ParcelProperties"
         geometry:
-          $ref: '#/components/schemas/GeometryPoint'
+          $ref: "#/components/schemas/GeometryPoint"
 
     ParcelProperties:
       type: object
@@ -482,7 +486,7 @@ components:
           type: number
         _type:
           type: string
-          enum: ['parcel']
+          enum: ["parcel"]
       example:
         id: "75056104AV0133"
         departmentcode: "75"
@@ -493,33 +497,20 @@ components:
         section: "AV"
         number: "133"
         sheet: 1
-        truegeometry: {
-          "type": "Polygon",
-          "coordinates": [
-                        [
-                            [
-                                2.35457222187139,
-                                48.8523027661354
-                            ],
-                            [
-                                2.35463049659443,
-                                48.8523731401755
-                            ],
-                            [
-                                2.35465580843827,
-                                48.8523650925735
-                            ],
-                            [
-                                2.35464724014948,
-                                48.8522756505323
-                            ],
-                            [
-                                2.35457222187139,
-                                48.8523027661354
-                            ]
-                        ]
-                    ]
-        }
+        truegeometry:
+          {
+            "type": "Polygon",
+            "coordinates":
+              [
+                [
+                  [2.35457222187139, 48.8523027661354],
+                  [2.35463049659443, 48.8523731401755],
+                  [2.35465580843827, 48.8523650925735],
+                  [2.35464724014948, 48.8522756505323],
+                  [2.35457222187139, 48.8523027661354],
+                ],
+              ],
+          }
         _score: 1
         _type: "parcel"
 
@@ -530,9 +521,9 @@ components:
           type: string
           example: Feature
         properties:
-          $ref: '#/components/schemas/ParcelReverseProperties'
+          $ref: "#/components/schemas/ParcelReverseProperties"
         geometry:
-          $ref: '#/components/schemas/GeometryPoint'
+          $ref: "#/components/schemas/GeometryPoint"
 
     ParcelReverseProperties:
       type: object
@@ -570,7 +561,7 @@ components:
           type: number
         _type:
           type: string
-          enum: ['parcel']
+          enum: ["parcel"]
         distance:
           type: number
       example:
@@ -583,33 +574,20 @@ components:
         section: "AV"
         number: "133"
         sheet: 1
-        truegeometry: {
-          "type": "Polygon",
-          "coordinates": [
-                        [
-                            [
-                                2.35457222187139,
-                                48.8523027661354
-                            ],
-                            [
-                                2.35463049659443,
-                                48.8523731401755
-                            ],
-                            [
-                                2.35465580843827,
-                                48.8523650925735
-                            ],
-                            [
-                                2.35464724014948,
-                                48.8522756505323
-                            ],
-                            [
-                                2.35457222187139,
-                                48.8523027661354
-                            ]
-                        ]
-                    ]
-        }
+        truegeometry:
+          {
+            "type": "Polygon",
+            "coordinates":
+              [
+                [
+                  [2.35457222187139, 48.8523027661354],
+                  [2.35463049659443, 48.8523731401755],
+                  [2.35465580843827, 48.8523650925735],
+                  [2.35464724014948, 48.8522756505323],
+                  [2.35457222187139, 48.8523027661354],
+                ],
+              ],
+          }
         _score: 1
         _type: "parcel"
         distance: 100
@@ -621,9 +599,9 @@ components:
           type: string
           example: Feature
         properties:
-          $ref: '#/components/schemas/AddressProperties'
+          $ref: "#/components/schemas/AddressProperties"
         geometry:
-          $ref: '#/components/schemas/GeometryPoint'
+          $ref: "#/components/schemas/GeometryPoint"
     AddressProperties:
       type: object
       properties:
@@ -633,7 +611,7 @@ components:
         id:
           type: string
         postcode:
-          $ref: '#/components/schemas/PostalCode'
+          $ref: "#/components/schemas/PostalCode"
         city:
           type: string
           description: "Commune de l'adresse"
@@ -646,7 +624,7 @@ components:
         housenumber:
           type: string
         citycode:
-          $ref: '#/components/schemas/InseeCode'
+          $ref: "#/components/schemas/InseeCode"
         x:
           type: number
           description: "Longitude de l'adresse"
@@ -661,10 +639,10 @@ components:
           type: string
         type:
           type: string
-          enum: ['housenumber', 'street', 'locality', 'municipality']
+          enum: ["housenumber", "street", "locality", "municipality"]
         _type:
           type: string
-          enum: ['address']
+          enum: ["address"]
           description: "Rétro-compatibilité"
         context:
           type: string
@@ -681,11 +659,8 @@ components:
         citycode: "75113"
         x: 2.369063
         y: 48.822409
-        housenumberinfos: {
-          date: "2019-11-29",
-          source: "dgfip",
-          kind: "parcel"
-        }
+        housenumberinfos:
+          { date: "2019-11-29", source: "dgfip", kind: "parcel" }
         score: 0.6515151515151515
         _score: 0.6515151515151515
         name: "10 Rue Nationale"
@@ -701,9 +676,9 @@ components:
           type: string
           example: Feature
         properties:
-          $ref: '#/components/schemas/AddressReverseProperties'
+          $ref: "#/components/schemas/AddressReverseProperties"
         geometry:
-          $ref: '#/components/schemas/GeometryPoint'
+          $ref: "#/components/schemas/GeometryPoint"
     AddressReverseProperties:
       type: object
       properties:
@@ -713,7 +688,7 @@ components:
         id:
           type: string
         postcode:
-          $ref: '#/components/schemas/PostalCode'
+          $ref: "#/components/schemas/PostalCode"
         city:
           type: string
           description: "Commune de l'adresse"
@@ -726,7 +701,7 @@ components:
         housenumber:
           type: string
         citycode:
-          $ref: '#/components/schemas/InseeCode'
+          $ref: "#/components/schemas/InseeCode"
         x:
           type: number
           description: "Longitude de l'adresse"
@@ -741,10 +716,10 @@ components:
           type: string
         type:
           type: string
-          enum: ['housenumber', 'street', 'locality', 'municipality']
+          enum: ["housenumber", "street", "locality", "municipality"]
         _type:
           type: string
-          enum: ['address']
+          enum: ["address"]
           description: "Rétro-compatibilité"
         context:
           type: string
@@ -763,11 +738,8 @@ components:
         citycode: "75113"
         x: 2.369063
         y: 48.822409
-        housenumberinfos: {
-          date: "2019-11-29",
-          source: "dgfip",
-          kind: "parcel"
-        }
+        housenumberinfos:
+          { date: "2019-11-29", source: "dgfip", kind: "parcel" }
         score: 0.6515151515151515
         _score: 0.6515151515151515
         name: "10 Rue Nationale"
@@ -784,9 +756,9 @@ components:
           type: string
           example: Feature
         properties:
-          $ref: '#/components/schemas/PoiProperties'
+          $ref: "#/components/schemas/PoiProperties"
         geometry:
-          $ref: '#/components/schemas/GeometryPoint'
+          $ref: "#/components/schemas/GeometryPoint"
     PoiProperties:
       type: object
       properties:
@@ -804,7 +776,7 @@ components:
         city:
           type: array
           items:
-            type : string
+            type: string
         category:
           $ref: "#/components/schemas/PoiType"
         extrafields:
@@ -815,42 +787,29 @@ components:
           type: number
         _type:
           type: string
-          enum: ['poi']
+          enum: ["poi"]
       example:
         toponym: "Pont National"
-        postcode: [77310,91100]
-        citycode: [77,77300,91,91450]
-        city: ["Saint-Fargeau-Ponthierry","Corbeil-Essonnes"]
+        postcode: [77310, 91100]
+        citycode: [77, 77300, 91, 91450]
+        city: ["Saint-Fargeau-Ponthierry", "Corbeil-Essonnes"]
         category: ["construction linéaire"]
-        extrafields: {
-                      "names":["pont strasbourg","pont national"],
-                      "cleabs": "CONSLINE0000000060494180"
-                  }
-        truegeometry: {
-                      "coordinates": [
-                          [
-                              2.03666899913969,
-                              44.3490469250535,
-                              257
-                          ],
-                          [
-                              2.03646952056093,
-                              44.3492684335352,
-                              256.3
-                          ],
-                          [
-                              2.03644906780383,
-                              44.3492907599887,
-                              256.3
-                          ],
-                          [
-                              2.03630075804051,
-                              44.3494542018237,
-                              256.3
-                          ]
-                      ],
-                      "type": "LineString"
-                  }
+        extrafields:
+          {
+            "names": ["pont strasbourg", "pont national"],
+            "cleabs": "CONSLINE0000000060494180",
+          }
+        truegeometry:
+          {
+            "coordinates":
+              [
+                [2.03666899913969, 44.3490469250535, 257],
+                [2.03646952056093, 44.3492684335352, 256.3],
+                [2.03644906780383, 44.3492907599887, 256.3],
+                [2.03630075804051, 44.3494542018237, 256.3],
+              ],
+            "type": "LineString",
+          }
         _score: 0.5757575757575758
         _type: "poi"
 
@@ -861,9 +820,9 @@ components:
           type: string
           example: Feature
         properties:
-          $ref: '#/components/schemas/PoiReverseProperties'
+          $ref: "#/components/schemas/PoiReverseProperties"
         geometry:
-          $ref: '#/components/schemas/GeometryPoint'
+          $ref: "#/components/schemas/GeometryPoint"
     PoiReverseProperties:
       type: object
       properties:
@@ -881,7 +840,7 @@ components:
         city:
           type: array
           items:
-            type : string
+            type: string
         category:
           $ref: "#/components/schemas/PoiType"
         extrafields:
@@ -892,44 +851,31 @@ components:
           type: number
         _type:
           type: string
-          enum: ['poi']
+          enum: ["poi"]
         distance:
           type: number
       example:
         toponym: "Pont National"
-        postcode: [77310,91100]
-        citycode: [77,77300,91,91450]
-        city: ["Saint-Fargeau-Ponthierry","Corbeil-Essonnes"]
+        postcode: [77310, 91100]
+        citycode: [77, 77300, 91, 91450]
+        city: ["Saint-Fargeau-Ponthierry", "Corbeil-Essonnes"]
         category: ["construction linéaire"]
-        extrafields: {
-                      "names":["pont strasbourg","pont national"],
-                      "cleabs": "CONSLINE0000000060494180"
-                  }
-        truegeometry: {
-                      "coordinates": [
-                          [
-                              2.03666899913969,
-                              44.3490469250535,
-                              257
-                          ],
-                          [
-                              2.03646952056093,
-                              44.3492684335352,
-                              256.3
-                          ],
-                          [
-                              2.03644906780383,
-                              44.3492907599887,
-                              256.3
-                          ],
-                          [
-                              2.03630075804051,
-                              44.3494542018237,
-                              256.3
-                          ]
-                      ],
-                      "type": "LineString"
-                  }
+        extrafields:
+          {
+            "names": ["pont strasbourg", "pont national"],
+            "cleabs": "CONSLINE0000000060494180",
+          }
+        truegeometry:
+          {
+            "coordinates":
+              [
+                [2.03666899913969, 44.3490469250535, 257],
+                [2.03646952056093, 44.3492684335352, 256.3],
+                [2.03644906780383, 44.3492907599887, 256.3],
+                [2.03630075804051, 44.3494542018237, 256.3],
+              ],
+            "type": "LineString",
+          }
         _score: 0.5757575757575758
         _type: "poi"
         distance: 100
@@ -937,7 +883,7 @@ components:
     PoiType:
       type: array
       items:
-        type : string
+        type: string
 
     PostalCode:
       maxLength: 5
@@ -955,41 +901,35 @@ components:
       type: object
       properties:
         type:
-          $ref: '#/components/schemas/GeometryType'
+          $ref: "#/components/schemas/GeometryType"
         coordinates:
           type: array
           items:
             type: number
       example:
         type: "Point"
-        coordinates: [
-                  2.03648539635326,
-                  44.3492508045369
-              ]
+        coordinates: [2.03648539635326, 44.3492508045369]
 
     GeometryPoint:
       type: object
       properties:
         type:
           type: string
-          enum: ['Point']
+          enum: ["Point"]
         coordinates:
           type: array
           items:
             type: number
       example:
-        type: 'Point'
-        coordinates: [
-                  2.03648539635326,
-                  44.3492508045369
-              ]
+        type: "Point"
+        coordinates: [2.03648539635326, 44.3492508045369]
 
     GeometryCircle:
       type: object
       properties:
         type:
           type: string
-          enum: ['Circle']
+          enum: ["Circle"]
         coordinates:
           type: array
           items:
@@ -997,11 +937,8 @@ components:
         radius:
           type: number
       example:
-        type: 'Circle'
-        coordinates: [
-                  2.35457222187139,
-                  48.8523027661354
-              ]
+        type: "Circle"
+        coordinates: [2.35457222187139, 48.8523027661354]
         radius: 100
 
     GeometryLineString:
@@ -1009,113 +946,80 @@ components:
       properties:
         type:
           type: string
-          enum: ['LineString']
+          enum: ["LineString"]
         coordinates:
           type: array
           items:
             type: number
       example:
-        type: 'LineString'
-        coordinates: [
-                      [
-                          2.35457222187139,
-                          48.8523027661354
-                      ],
-                      [
-                          2.35463049659443,
-                          48.8523731401755
-                      ],
-                      [
-                          2.35457222187139,
-                          48.8523027661354
-                      ]
-                  ]
+        type: "LineString"
+        coordinates:
+          [
+            [2.35457222187139, 48.8523027661354],
+            [2.35463049659443, 48.8523731401755],
+            [2.35457222187139, 48.8523027661354],
+          ]
 
     GeometryPolygon:
       type: object
       properties:
         type:
           type: string
-          enum: ['Polygon']
+          enum: ["Polygon"]
         coordinates:
           type: array
           items:
             type: number
       example:
-        type: 'Polygon'
-        coordinates: [
-                      [
-                          [
-                              2.35457222187139,
-                              48.8523027661354
-                          ],
-                          [
-                              2.35463049659443,
-                              48.8523731401755
-                          ],
-                          [
-                              2.35465580843827,
-                              48.8523650925735
-                          ],
-                          [
-                              2.35464724014948,
-                              48.8522756505323
-                          ],
-                          [
-                              2.35457222187139,
-                              48.8523027661354
-                          ]
-                      ]
-                  ]
+        type: "Polygon"
+        coordinates:
+          [
+            [
+              [2.35457222187139, 48.8523027661354],
+              [2.35463049659443, 48.8523731401755],
+              [2.35465580843827, 48.8523650925735],
+              [2.35464724014948, 48.8522756505323],
+              [2.35457222187139, 48.8523027661354],
+            ],
+          ]
 
     GeometryMultiPolygon:
       type: object
       properties:
         type:
           type: string
-          enum: ['MultiPolygon']
+          enum: ["MultiPolygon"]
         coordinates:
           type: array
           items:
             type: number
       example:
-        type: 'MultiPolygon'
-        coordinates: [
-                    [
-                        [
-                            [
-                                2.35457222187139,
-                                48.8523027661354
-                            ],
-                            [
-                                2.35463049659443,
-                                48.8523731401755
-                            ],
-                            [
-                                2.35465580843827,
-                                48.8523650925735
-                            ],
-                            [
-                                2.35457222187139,
-                                48.8523027661354
-                            ]
-                        ]
-                    ]
-                ]
+        type: "MultiPolygon"
+        coordinates:
+          [
+            [
+              [
+                [2.35457222187139, 48.8523027661354],
+                [2.35463049659443, 48.8523731401755],
+                [2.35465580843827, 48.8523650925735],
+                [2.35457222187139, 48.8523027661354],
+              ],
+            ],
+          ]
 
     GeometryType:
       type: string
       enum:
-      - Point
-      - MultiPolygon
-      - LineString
+        - Point
+        - MultiPolygon
+        - LineString
 
     Index:
       type: string
       enum:
-      - address
-      - poi
-      - parcel
+        - address
+        - poi
+        - parcel
       default: address
 
     HouseNumberInfos:
@@ -1124,7 +1028,7 @@ components:
         date:
           type: string
         kind:
-          $ref: '#/components/schemas/AddressPositionKing'
+          $ref: "#/components/schemas/AddressPositionKing"
         source:
           type: string
 
@@ -1133,14 +1037,13 @@ components:
       items:
         type: string
         enum:
-        - entrance
-        - building
-        - staircase
-        - unit
-        - parcel
-        - segment
-        - utility
-        - area
-        - postal
-        - unknown
-
+          - entrance
+          - building
+          - staircase
+          - unit
+          - parcel
+          - segment
+          - utility
+          - area
+          - postal
+          - unknown
