@@ -6,8 +6,9 @@
   "scripts": {
     "api:start": "node api",
     "lint": "xo",
-    "test": "c8 --all ava --no-worker-threads",
-    "test-lcov": "c8 --reporter=lcov --reporter=text --all ava --no-worker-threads",
+    "test": "c8 --all ava --no-worker-threads api indexes lib",
+    "test-lcov": "c8 --reporter=lcov --reporter=text --all ava --no-worker-threads api indexes lib",
+    "test-recette": "ava tests/recette",
     "poi:build-from-bdtopo": "node indexes/poi/scripts/build-from-bdtopo",
     "poi:build-index": "node indexes/poi/scripts/build-index",
     "poi:start": "node indexes/poi/service",
@@ -60,8 +61,11 @@
   },
   "c8": {
     "exclude": [
+      "**/__tests__/*.js",
       "api/index.js",
-      "**/service/index.js"
+      "**/service/index.js",
+      "tests",
+      "coverage"
     ]
   },
   "xo": {

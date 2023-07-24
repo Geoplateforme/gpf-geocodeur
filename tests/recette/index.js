@@ -9,7 +9,7 @@ import got from 'got'
 import yaml, {JSON_SCHEMA} from 'js-yaml'
 
 const {API_TEST_URL} = process.env
-const requestsFilePath = path.resolve('./tests/requests.yaml')
+const requestsFilePath = path.resolve('./tests/recette/definition.yaml')
 const requests = yaml.load(await readFile(requestsFilePath), {schema: JSON_SCHEMA})
 
 function getResults(item, route) {
