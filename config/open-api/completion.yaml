@@ -175,8 +175,8 @@ components:
                       description: "default value"
                     schema:
                       type: "object"
-                      properties: 
-                        type: 
+                      properties:
+                        type:
                           type: "string"
                         example:
                           type: "string"

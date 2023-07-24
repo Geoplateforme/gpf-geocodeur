@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Service de géocodage
-  description: Description de l'API du service de géocodage unitaire 2.0 de l'IGN. Chaque appel à l’API ne peut traiter qu’une seule adresse. 
+  description: Description de l'API du service de géocodage unitaire 2.0 de l'IGN. Chaque appel à l’API ne peut traiter qu’une seule adresse.
   contact:
     email: contact.geoservices@ign.fr
   version: 2.0.0
@@ -42,8 +42,8 @@ paths:
       - name: q
         in: query
         description: "chaîne décrivant la localisation à rechercher<br>
-        
-        
+
+
           Exemples de requêtes:<br>
           - /search?q=73 Avenue de Paris Saint-Mandé<br>
           - /search?q=cimetière Vincennes<br>
@@ -61,9 +61,9 @@ paths:
           - <b>address</b> pour la recherche par adresse<br>
           - <b>parcel</b> pour la recherche par parcelle cadastrale<br>
           - <b>poi</b> pour la recherche par lieu et unité administrative<br>
-          
+
           Il est possible de spécifier plusieurs indexes séparés par une virgule.
-          
+
           Exemples:
           - /search?index=parcel
           - /search?index=poi,address"
@@ -171,7 +171,7 @@ paths:
                       $ref: '#/components/schemas/GeocodeResponse'
         '400':
           description: 'Parse query failed'
-          content: 
+          content:
             application/json: {}
   /reverse:
     get:
@@ -187,7 +187,7 @@ paths:
           Si on veut ordonner les résultats, on peut alors utiliser les paramètres lon et lat pour préciser un point d'ordonnancement. <br>
           Ce paramètre n'est pas obligatoire pour des raisons de rétro-compatibilité. Si searchGeom n'est pas utilisé alors les paramètres lon et lat doivent l'être et on parle de point de recherche. <br>
           Lorsque la recherche est réalisée par intersection géométrique. Les types géométrique autorisés sont :
-          
+
           - Point
 
           - LineString
@@ -216,7 +216,7 @@ paths:
         in: query
         description: "Si searchGeom est utilisé, il s'agit de la latitude  du point d'ordonnancement. C'est le point à partir duquel est calculée la distance, puis le score permettant l'ordonnancement des résultats. <br>
         Dans un soucis de rétro-compatibilité, si searchGeom n'est pas utilisé, il s'agit de la latitude du point de recherche. À partir de ce point, un cercle est créé pour effectuer la recherche. En plus, ce sera aussi la latitude du point d'ordonnancement."
-        required: false 
+        required: false
         schema:
           type: number
       - name: index
@@ -225,9 +225,9 @@ paths:
           - <b>address</b> pour la recherche par adresse<br>
           - <b>parcel</b> pour la recherche par parcelle cadastrale<br>
           - <b>poi</b> pour la recherche par lieu et unité administrative<br>
-          
+
           Il est possible de spécifier plusieurs indexes séparés par une virgule.
-          
+
           Exemples:
           - /search?index=parcel
           - /search?index=poi,address"
@@ -325,9 +325,9 @@ paths:
                       $ref: '#/components/schemas/GeocodeReverseResponse'
         '400':
           description: 'Parse query failed'
-          content: 
+          content:
             application/json: {}
-            
+
 components:
 
   schemas:
@@ -385,8 +385,8 @@ components:
                       description: "default value"
                     schema:
                       type: "object"
-                      properties: 
-                        type: 
+                      properties:
+                        type:
                           type: "string"
                         example:
                           type: "string"
@@ -428,21 +428,21 @@ components:
       - $ref: '#/components/schemas/GeometryLineString'
       - $ref: '#/components/schemas/GeometryPolygon'
       - $ref: '#/components/schemas/GeometryCircle'
-      
+
     GeocodeResponse:
       type: object
       oneOf:
       - $ref: '#/components/schemas/Address'
       - $ref: '#/components/schemas/Poi'
       - $ref: '#/components/schemas/Parcel'
-      
+
     GeocodeReverseResponse:
       type: object
       oneOf:
       - $ref: '#/components/schemas/AddressReverse'
       - $ref: '#/components/schemas/PoiReverse'
       - $ref: '#/components/schemas/ParcelReverse'
-      
+
     Parcel:
       type: object
       properties:
@@ -453,7 +453,7 @@ components:
           $ref: '#/components/schemas/ParcelProperties'
         geometry:
           $ref: '#/components/schemas/GeometryPoint'
-          
+
     ParcelProperties:
       type: object
       properties:
@@ -530,7 +530,7 @@ components:
         }
         _score: 1
         _type: "parcel"
-    
+
     ParcelReverse:
       type: object
       properties:
@@ -541,7 +541,7 @@ components:
           $ref: '#/components/schemas/ParcelReverseProperties'
         geometry:
           $ref: '#/components/schemas/GeometryPoint'
-          
+
     ParcelReverseProperties:
       type: object
       properties:
@@ -701,7 +701,7 @@ components:
         _type: "address"
         contexte: "75, Paris"
         importance: "0.6"
-          
+
     AddressReverse:
       type: object
       properties:
@@ -784,7 +784,7 @@ components:
         contexte: "75, Paris"
         importance: "0.6"
         distance: 100
-    
+
     Poi:
       type: object
       properties:
@@ -795,7 +795,7 @@ components:
           $ref: '#/components/schemas/PoiProperties'
         geometry:
           $ref: '#/components/schemas/GeometryPoint'
-    PoiProperties: 
+    PoiProperties:
       type: object
       properties:
         toponym:
@@ -861,7 +861,7 @@ components:
                   }
         _score: 0.5757575757575758
         _type: "poi"
-    
+
     PoiReverse:
       type: object
       properties:
@@ -872,7 +872,7 @@ components:
           $ref: '#/components/schemas/PoiReverseProperties'
         geometry:
           $ref: '#/components/schemas/GeometryPoint'
-    PoiReverseProperties: 
+    PoiReverseProperties:
       type: object
       properties:
         toponym:
@@ -941,24 +941,24 @@ components:
         _score: 0.5757575757575758
         _type: "poi"
         distance: 100
-        
+
     PoiType:
       type: array
-      items: 
+      items:
         type : string
-      
+
     PostalCode:
       maxLength: 5
       minLength: 5
       type: string
       description: "Code postale"
-      
+
     InseeCode:
       maxLength: 5
       minLength: 2
       type: string
       description: "Code INSEE"
-    
+
     Geometry:
       type: object
       properties:
@@ -974,11 +974,11 @@ components:
                   2.03648539635326,
                   44.3492508045369
               ]
-              
+
     GeometryPoint:
       type: object
       properties:
-        type: 
+        type:
           type: string
           enum: ['Point']
         coordinates:
@@ -995,7 +995,7 @@ components:
     GeometryCircle:
       type: object
       properties:
-        type: 
+        type:
           type: string
           enum: ['Circle']
         coordinates:
@@ -1015,7 +1015,7 @@ components:
     GeometryLineString:
       type: object
       properties:
-        type: 
+        type:
           type: string
           enum: ['LineString']
         coordinates:
@@ -1038,11 +1038,11 @@ components:
                           48.8523027661354
                       ]
                   ]
-              
+
     GeometryPolygon:
       type: object
       properties:
-        type: 
+        type:
           type: string
           enum: ['Polygon']
         coordinates:
@@ -1117,7 +1117,7 @@ components:
       - Point
       - MultiPolygon
       - LineString
-      
+
     Index:
       type: string
       enum:
