@@ -64,10 +64,12 @@ for (const [route, routeRequests] of Object.entries(requests)) {
 
       t.truthy(results)
 
-      if (route === '/search' || route === '/reverse') {
-        t.true(results[0]?.id === r.results.firstResult.id)
-      } else if (route === '/completion') {
-        t.true(results[0]?.fulltext === r.results.firstResult.fulltext)
+      if (r.results.firstResult) {
+        if (route === '/search' || route === '/reverse') {
+          t.true(results[0]?.id === r.results.firstResult.id)
+        } else if (route === '/completion') {
+          t.true(results[0]?.fulltext === r.results.firstResult.fulltext)
+        }
       }
 
       if (r.results.only) {
