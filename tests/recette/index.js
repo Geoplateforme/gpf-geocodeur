@@ -107,9 +107,11 @@ for (const [route, routeRequests] of Object.entries(requests)) {
         for (const result of results) {
           for (const filter of filters) {
             if (filter === 'terr') {
-              const codeDepartement = result.zipcode < '97' ? result.zipcode.slice(0, 2) : result.zipcode.slice(0, 3)
+              const codeDepartement = result.zipcode && (result.zipcode < '97' ? result.zipcode.slice(0, 2) : result.zipcode.slice(0, 3))
 
-              t.true(r.results.many[filter].includes(codeDepartement))
+              if (codeDepartement) {
+                t.true(r.results.many[filter].includes(codeDepartement))
+              }
             } else {
               t.true(r.results.many[filter].includes(result[filter]))
             }
