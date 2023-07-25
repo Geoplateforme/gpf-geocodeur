@@ -210,7 +210,7 @@ test('getCapabilities / autocomplete', async t => {
   app.use('/', router)
 
   const response = await request(app)
-    .get('/autocomplete/getCapabilities')
+    .get('/completion/getCapabilities')
 
   t.is(response.status, 200)
   t.truthy(response.body.api)
@@ -237,7 +237,7 @@ test('openAPI / completion.yaml', async t => {
   app.use('/', router)
 
   const response = await request(app)
-    .get('/autocomplete/openapi/completion.yaml')
+    .get('/completion/openapi/completion.yaml')
 
   t.is(response.status, 200)
   t.is(response.headers['content-type'], 'text/yaml; charset=UTF-8')

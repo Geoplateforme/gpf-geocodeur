@@ -62,7 +62,7 @@ export default function createRouter(options = {}) {
     res.send(capabilities)
   }))
 
-  router.get('/autocomplete/getCapabilities', w(async (req, res) => {
+  router.get('/completion/getCapabilities', w(async (req, res) => {
     const capabilities = await computeAutocompleteCapabilities()
     res.send(capabilities)
   }))
@@ -71,7 +71,7 @@ export default function createRouter(options = {}) {
     res.sendFile(path.resolve('./config/open-api/geocode.yaml'))
   }))
 
-  router.get('/autocomplete/openapi/completion.yaml', w((req, res) => {
+  router.get('/completion/openapi/completion.yaml', w((req, res) => {
     res.sendFile(path.resolve('./config/open-api/completion.yaml'))
   }))
 
