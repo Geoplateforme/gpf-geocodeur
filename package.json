@@ -12,12 +12,15 @@
     "poi:build-from-bdtopo": "node indexes/poi/scripts/build-from-bdtopo",
     "poi:build-index": "node indexes/poi/scripts/build-index",
     "poi:publish-index": "node indexes/poi/scripts/publish-index",
+    "poi:download-index": "node indexes/poi/scripts/download-index",
     "poi:start": "node indexes/poi/service",
     "parcel:build-index": "node indexes/parcel/scripts/build-index",
     "parcel:publish-index": "node indexes/parcel/scripts/publish-index",
+    "parcel:download-index": "node indexes/parcel/scripts/download-index",
     "parcel:start": "node indexes/parcel/service",
     "address:build-index": "node indexes/address/scripts/build-index",
     "address:publish-index": "node indexes/address/scripts/publish-index",
+    "address:download-index": "node indexes/address/scripts/download-index",
     "address:start": "node indexes/address/service"
   },
   "dependencies": {
