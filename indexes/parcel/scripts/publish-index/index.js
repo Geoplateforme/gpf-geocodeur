@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import 'dotenv/config.js'
-import path from 'node:path'
 
 import {packAndUpload} from '../../../../lib/scripts/publish-index/index.js'
+import {PARCEL_INDEX_PATH} from '../../util/paths.js'
 
-await packAndUpload('parcel', path.resolve('./data/parcel/index'))
+await packAndUpload('parcel', PARCEL_INDEX_PATH)
