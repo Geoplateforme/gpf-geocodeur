@@ -4,4 +4,4 @@ import path from 'node:path'
 
 import {packAndUpload} from '../../../../lib/scripts/publish-index/index.js'
 
-await packAndUpload('address', path.resolve('./data/poi/index'))
+await packAndUpload('poi', path.resolve('./data/poi/index'))
