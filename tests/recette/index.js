@@ -52,6 +52,11 @@ for (const [route, routeRequests] of Object.entries(requests)) {
   for (const r of routeRequests) {
     test(`Test: ${route}${r.request}`, async t => {
       const url = RECETTE_API_URL + route + r.request
+
+      if (r.results?.error?.code === 400) {
+        return t.throwsAsync(() => got.get(url).json(), {message: 'Response code 400 (Bad Request)'})
+      }
+
       const responses = await got.get(url).json()
 
       t.truthy(responses)
