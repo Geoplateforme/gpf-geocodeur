@@ -520,7 +520,7 @@
       nbResult: 0
 
 /completion:
-  - request: "?text=bordeaux&type=PositionOfInterest"
+  - request: "?text=bordea&type=PositionOfInterest"
     results:
       firstResult:
         fulltext: "Bordeaux, 33000"
@@ -530,28 +530,28 @@
     results:
       firstResult:
         fulltext: "Paris"
-  - request: "?text=5 rue de la paix, paris&type=StreetAddress" # IGNGPF-1753
+  - request: "?text=5 rue de la paix, par&type=StreetAddress" # IGNGPF-1753
     results:
       firstResult:
         fulltext: "5 Rue de la Paix, 75002 Paris"
       only:
         country: "StreetAddress"
-  - request: "?text=5 rue de la paix, paris&type=StreetAddress&maximumResponses=2" # IGNGPF-1753
+  - request: "?text=5 rue de la paix, par&type=StreetAddress&maximumResponses=2" # IGNGPF-1753
     results:
       firstResult:
         fulltext: "5 Rue de la Paix, 75002 Paris"
       only:
         country: "StreetAddress"
       nbResult: 2
-  - request: "?text=5 rue de la paix, paris&type=StreetAddress&maximumResponses=21" # IGNGPF-1753
+  - request: "?text=5 rue de la paix, par&type=StreetAddress&maximumResponses=21" # IGNGPF-1753
     results:
       error:
         code: 400
-  - request: "?text=place du capitole, toulouse"
+  - request: "?text=place du capitole, tou"
     results:
       firstResult:
         fulltext: "Place du Capitole, 31000 Toulouse"
-  - request: "?text=avenue des champs-élysées, paris"
+  - request: "?text=avenue des champ, paris"
     results:
       firstResult:
         fulltext: "Avenue des Champs Elysées, 75008 Paris"
@@ -559,17 +559,17 @@
     results:
       firstResult:
         fulltext: "Lyon"
-  - request: "?text=bordeaux&type=StreetAddress"
+  - request: "?text=bordea&type=StreetAddress"
     results:
       firstResult:
         fulltext: "Bordeaux, 33800 Bordeaux"
       only:
         country: "StreetAddress"
-  - request: "?text=nantes"
+  - request: "?text=5 avenu ren, nant"
     results:
       firstResult:
-        fulltext: "Nantes, 44000"
-  - request: "?text=lille&citycode=59350"
+        fulltext: "5 Avenue René Bazin, 44000 Nantes"
+  - request: "?text=lil&citycode=59350"
     results:
       firstResult:
         fulltext: "Lille, 59000"
@@ -581,82 +581,82 @@
         country: "PositionOfInterest"
       including:
         poiType: "transport"
-  - request: "?text=montpellier&postcode=34000"
+  - request: "?text=montp&postcode=34000"
     results:
       firstResult:
         fulltext: "Montpellier, 34000"
-  - request: "?text=rennes&type=PositionOfInterest&postcode=35000"
+  - request: "?text=1 rue chev, rennes"
     results:
       firstResult:
-        fulltext: "Rennes, 35000"
+        fulltext: "Rue Jean Chevalier, 35000 Rennes"
       only:
-        country: "PositionOfInterest"
-  - request: "?text=marseille&type=PositionOfInterest"
+        country: "StreetAddress"
+  - request: "?text=marsei&type=PositionOfInterest"
     results:
       firstResult:
         fulltext: Marseille
       only:
         country: "PositionOfInterest"
-  - request: "?text=nice&type=PositionOfInterest"
+  - request: "?text=2 rue mar nice"
     results:
       firstResult:
-        fulltext: "Nice, 06000"
+        fulltext: "2 Rue du 24 Mars, 06100 Nice"
       only:
-        country: "PositionOfInterest"
-  - request: "?text=toulouse"
+        country: "StreetAddress"
+  - request: "?text=neuf toulo"
     results:
       firstResult:
-        fulltext: "Toulouse, 31000"
-  - request: "?text=gare de chateauroux&type=PositionOfInterest"
+        fulltext: "Chemin Neuf, 31100 Toulouse"
+  - request: "?text=gare chateaur&type=StreetAddress"
     results:
       firstResult:
-        fulltext: "Gare de Châteauroux, 36000 Châteauroux"
+        fulltext: "Rue de la Gare, 36000 Châteauroux"
       only:
-        country: "PositionOfInterest"
-  - request: "?text=assemblée"
+        country: "StreetAddress"
+  - request: "?text=assemblée nati"
     results:
       firstResult:
         fulltext: "Assemblée Nationale, 75001 Paris"
-  - request: "?text=sénat"
+  - request: "?text=séna"
     results:
       firstResult:
         fulltext: "Sénat, 75006 Paris 6e Arrondissement"
-  - request: "?text=aéroport paris"
+  - request: "?text=aéropor par"
     results:
       firstResult:
         fulltext: "Aeroport Paris Orly, 94290 Villeneuve-le-Roi"
-  - request: "?text=aéroport de fort-de-france"
+  - request: "?text=aéroport fort de fr"
     results:
       firstResult:
         fulltext: "Aéroport de Fort-de-France-le Lamentin, 97232 Le Lamentin"
-  - request: "?text=marche&terr=METROPOLE"
+  - request: "?text=rue la mar&terr=35"
     results:
       firstResult:
-        fulltext: "Marche, 35420 Louvigné-du-Désert"
-  - request: "?text=saint-pierre&terr=DOMTOM"
+        fulltext: "Rue de la Mare, 35400 Saint-Malo"
+  - request: "?text=amiral saint&terr=DOMTOM"
     results:
       firstResult:
-        fulltext: "Saint-Pierre, 97410"
-  - request: "?text=saint-denis&terr=974"
+        fulltext: "Rue Amiral Lacaze, 97410 Saint-Pierre"
+  - request: "?text=rue de la rép&terr=974"
     results:
       firstResult:
-        fulltext: "Saint-Denis, 97400"
-  - request: "?text=saint-pierre&terr=972"
+        fulltext: "Rue de la Republique, 97400 Saint-Denis"
+  - request: "?text=ciel saint&terr=972"
     results:
       firstResult:
-        fulltext: "Saint-Pierre, 97250"
-  - request: "?text=marche&terr=33,44"
+        fulltext: "Rue Monte au Ciel, 97250 Saint-Pierre"
+  - request: "?text=14 place rep&terr=33"
     results:
       firstResult:
-        fulltext: "Marche, 33580 Taillecavat"
-  - request: "?text=taille&bbox=-1.153564,44.095476,9.393311,47.672786"
+        fulltext: "14 Place de la République, 33160 Saint-Médard-en-Jalles"
+  - request: "?text=2 rue pri&bbox=0.725870,47.281951,0.742221,47.288516"
     results:
       firstResult:
-        fulltext: "Taille, 37250 Veigné"
-  - request: "?text=saint&bbox=-1.732407,48.851162,-0.414047,49.272285"
+        fulltext: "2 Rue Principale, 37250 Veigné"
+  - request: "?text=rue du murl&bbox=-1.095543,49.046420,-1.018295,49.076790"
     results:
       firstResult:
-        fulltext: "Sainte-Suzanne-sur-Vire, 50750"
+        fulltext: "Rue du Murlucouf, 50890 Condé-sur-Vire"
   - request: "?text=marché&terr=13" # Bug: Cette requête devrait produire plus de résultats
     results:
       firstResult:
@@ -665,7 +665,7 @@
         terr: ["13"]
       only:
         metropole: true
-  - request: "?text=marché robert&terr=972"
+  - request: "?text=marché robe&terr=972"
     results:
       firstResult:
         fulltext: "Marché, 97231 Le Robert"
@@ -675,12 +675,20 @@
         metropole: false
       many:
         terr: ["972"]
-  - request: "?text=republique&terr=DOMTOM,13"
+  - request: "?text=5 rue de la républ&terr=DOMTOM"
     results:
       firstResult:
-        fulltext: "République Dames, 13002 Marseille 2e Arrondissement"
+        fulltext: "5 Rue de la Republique, 97400 Saint-Denis"
+  - request: "?text=5 rue de la républ&terr=DOMTOM,13"
+    results:
+      firstResult:
+        fulltext: "5 Rue de la Republique, 97400 Saint-Denis"
       many:
         terr: ["13", "971", "972", "973", "974"]
+  - request: "?text=5 rue de la républ&terr=13"
+    results:
+      firstResult:
+        fulltext: "5 Rue de la Republique, 13400 Aubagne"
   - request: "?text=république 1&type=PositionOfInterest&poiType=station de métro"
     results:
       firstResult:
