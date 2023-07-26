@@ -34,7 +34,7 @@ function getResults(item, route) {
     result.sheet = properties.sheet
     result._type = properties._type
     result.metropole = properties.metropole
-  } else {
+  } else if (route === '/completion') {
     result.fulltext = item.fulltext
     result.city = item.city
     result.citycode = item.citycode
@@ -43,6 +43,8 @@ function getResults(item, route) {
     result.zipcode = item.zipcode
     result.poiType = item.poiType
     result.metropole = item.metropole
+  } else {
+    Object.assign(result, item)
   }
 
   return result
@@ -61,11 +63,13 @@ for (const [route, routeRequests] of Object.entries(requests)) {
 
       t.truthy(responses)
 
-      const results = responses.error
-        ? `Error: ${responses.error}`
-        : responses[route === '/search' || route === '/reverse' ? 'features' : 'results'].map(item =>
-          getResults(item, route)
-        )
+      const results = responses.error ? `Error: ${responses.error}` : (
+        route === '/'
+          ? [getResults(responses, route)]
+          : responses[route === '/search' || route === '/reverse' ? 'features' : 'results'].map(item =>
+            getResults(item, route)
+          )
+      )
 
       t.truthy(results)
 
