@@ -5,7 +5,9 @@ include:
     ref: main
     file:
       - "ci/docker-v5.yml"
-
+      - 'ci/chart-v2.yml'
+      - 'ci/versioning.yml'
+    
 cache:
   paths:
     - node_modules/
