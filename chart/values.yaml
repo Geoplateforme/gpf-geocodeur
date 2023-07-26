@@ -45,19 +45,7 @@ service:
   port: 80
 
 ingress:
-  enabled: true
-  className: "nginx"
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-manager-cert
-  hosts:
-    - host: geoplateforme-gpf-download.dev.gpf-tech.ign.fr
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls:
-    - secretName: geoplateforme-tls
-      hosts:
-        - geoplateforme-gpf-download.dev.gpf-tech.ign.fr
+  enabled: false
 
 resources:
   {}

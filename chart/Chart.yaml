@@ -3,4 +3,4 @@ name: gpf-geocodeur
 description: Chart for the deployment of the geocodeur project
 type: application
 version: 0.0.0
-appVersion: 0.0.0
+appVersion: "0.0.0"
