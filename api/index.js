@@ -23,6 +23,10 @@ if (process.env.CORS_DISABLE !== '1') {
   app.use(cors({origin: true}))
 }
 
+app.get('/ping', (req, res) => {
+  res.send('PONG!')
+})
+
 app.use('/', createRouter())
 
 app.listen(PORT, () => {

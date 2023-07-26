@@ -16,6 +16,10 @@ if (process.env.NODE_ENV !== 'production') {
   server.use(morgan('dev'))
 }
 
+server.get('/ping', (req, res) => {
+  res.send('PONG!')
+})
+
 server.use('/', await createRouter())
 
 server.listen(PORT, () => {
