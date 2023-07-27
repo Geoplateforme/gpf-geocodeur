@@ -1,0 +1,3 @@
+addok==1.1.1
+addok-france==1.1.3
+addok-fr==1.0.1

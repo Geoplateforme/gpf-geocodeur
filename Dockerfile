@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y build-essential gcc
 COPY package.json yarn.lock ./
 RUN yarn install --prod --frozen-lockfile
 
-RUN pip install --user addok==1.1.1 addok-france==1.1.3 addok-fr==1.0.1
+RUN pip install --user -r requirements.txt
 
 # Stage 2
 FROM --platform=linux/amd64 redis:7.0 AS redis
