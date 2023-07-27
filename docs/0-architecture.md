@@ -85,8 +85,17 @@ flowchart TB
   linkStyle 3 stroke:#2ecd71,stroke-width:2px;
 ```
 
-### Exigences techniques
+## Exigences techniques
 
-Les composants `index-address`, `index-poi` et `index-parcel` doivent être exécutés sur des machines disposant de processeurs rapides afin d’optimiser le temps de réponse. Les données (en particulier les fichiers LMDB) devront être hébergées sur un disque SSD __local__, idéalement de type NVMe. En effet LMDB s’appuie sur une technologie appellée memory-mapping (MMAP) qui nécessite des temps de réponses très bas pour des accès aléatoires très fréquents. Une quantité non négligeable de mémoire vive sera aussi requise pour faire tenir les bases Redis et les structures R-Tree en RAM. Concernant LMDB, plus la quantité de RAM allouée sera importante, plus les pages mémoires seront fréquemment disponibles en RAM, et plus les performances seront bonnes.
+Les composants `index-address`, `index-poi` et `index-parcel` doivent être exécutés sur des machines disposant de processeurs rapides afin d’optimiser le temps de réponse.
 
-On évitera à tout prix d’héberger les fichiers LMDB sur des stockages distants, à moins d’utiliser des technologies de pointe garantissant un grand nombre d’IOPS ainsi que des temps de réponse extrèmement bas.
+Les données (en particulier les fichiers LMDB) devront être hébergées sur un disque SSD __local__, idéalement de type NVMe. En effet LMDB s’appuie sur une technologie appellée [memory-mapping (MMAP)](https://en.wikipedia.org/wiki/Memory-mapped_file) qui nécessite des temps de réponse très bas pour des accès aléatoires très fréquents. Une quantité non négligeable de mémoire vive sera aussi requise pour faire tenir les bases Redis et les structures R-Tree en RAM. Concernant LMDB, plus la quantité de RAM allouée sera importante, plus les pages mémoires seront fréquemment disponibles en RAM, et plus les performances seront bonnes.
+
+⚠️ On évitera à tout prix d’héberger les fichiers LMDB sur des stockages distants, à moins d’utiliser des technologies de pointe garantissant un grand nombre d’IOPS ainsi que des temps de réponse extrèmement bas.
+
+| Composant | Exigence CPU | Exigence RAM | Exigence disque |
+| --- | --- | --- | --- |
+| `api` | Moyen à rapide | 1 Go | N/A |
+| `index-address` | Rapide | >= 8 Go | 10 Go SSD |
+| `index-poi` | Rapide | >= 5 Go | 6 Go SSD |
+| `index-parcel` | Rapide | >= 5 Go | 40 Go SSD |
