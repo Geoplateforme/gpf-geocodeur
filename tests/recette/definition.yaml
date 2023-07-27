@@ -1,108 +1,266 @@
+/:
+  - request: "geocodage/getCapabilities"
+    results:
+      hasProperties: ["info", "api", "operations", "indexes"]
+    userStories:
+      - IGNGPF-1727:
+        status: success
+      - IGNGPF-1859:
+        status: success
+  - request: "completion/getCapabilities"
+    results:
+      hasProperties: ["info", "api", "operations", "indexes"]
+    userStories:
+      - IGNGPF-1727:
+        status: success
+      - IGNGPF-1859:
+        status: success
+
 /search:
   - request: "?q=nancy"
     results:
       firstResult:
         id: "54395"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=mairie&citycode=54280"
     results:
       firstResult:
         id: "54280_0030"
       only:
         citycode: "54280"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1857:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=Cimetière de vincennes&index=poi"
     results:
       firstResult:
         id: "CIMETIER0000000004273495"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1855:
+        status: success
+      - IGNGPF-1859:
+        status: success
+      - IGNGPF-1924:
+        status: success
   - request: "?q=73 Avenue de Paris Saint-Mandé"
     results:
       firstResult:
         id: "94067_7115_00073"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=Paris&type=municipality"
     results:
       firstResult:
         id: "75056"
       only:
         type: "municipality"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1857:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=5 Rue de la Paix, Paris"
     results:
       firstResult:
         id: "75102_6998_00005"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=8 Rue de Strasbourg, Reims"
     results:
       firstResult:
         id: "51454_8430_00008"
+    userStories:
+      - IGNGPF-1728:
+        status: success
   - request: "?q=1 Place du Capitole, Toulouse"
     results:
       firstResult:
         id: "31555_1676_00001"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=5 Avenue de la République, Marseille&type=street"
     results:
       firstResult:
         id: "13202_7849"
       only:
         type: "street"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1857:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=10 Rue de Rivoli, Paris"
     results:
       firstResult:
         id: "75104_8249_00010"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=25 Rue Jean Jaurès, Lille"
     results:
       firstResult:
         id: "59350_4931_00025"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=gare&postcode=33200"
     results:
       firstResult:
         id: "33063_3841"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1857:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=Rue de Nantes, Rennes"
     results:
       firstResult:
         id: "35238_6860"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=12 Avenue de la Liberté, Strasbourg"
     results:
       firstResult:
         id: "67482_3975"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1859:
+        status: success
+  
   - request: "?q=7 Avenue des Champs-Élysées, Paris"
     results:
       firstResult:
         id: "75108_1733"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=3 Place de la Comédie, Montpellier"
     results:
       firstResult:
         id: "34172_1485_00003"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=Mon&index=poi&category=commune"
     results:
       firstResult:
         id: "COMMUNE_0000000009758896"
       including:
         category: "commune"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1729:
+        status: success
+      - IGNGPF-1857:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=charles&postcode=33000"
     results:
       firstResult:
         id: "33063_ak506c"
       only:
         postcode: "33000"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1857:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=La Grande Arche, Puteaux"
     results:
       firstResult:
         id: "92062_A102"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=2 Rue de la Paix, Paris"
     results:
       firstResult:
         id: "75102_6998_00002"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=10 Place de la Concorde, Paris"
     results:
       firstResult:
         id: "75108_2259_00010"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=tour eiffel&index=poi"
     results:
       firstResult:
         id: SURFACTI0000000000142427
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1855:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=tour eiffel&index=poi&postcode=45300"
     results:
       firstResult:
         id: PAIE_NAT0000000006007428
       only:
         postcode: "45300"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1729:
+        status: success
+      - IGNGPF-1855:
+        status: success
+      - IGNGPF-1857:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=&index=parcel&departmentcode=75&municipalitycode=056&districtcode=102"
     results:
       firstResult:
@@ -112,6 +270,15 @@
         departmentcode: "75"
         districtcode: "102"
         _type: "parcel"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1855:
+        status: success
+      - IGNGPF-1857:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=&lon=2.329070&lat=48.869469&index=parcel&departmentcode=75&municipalitycode=056&districtcode=102"
     results:
       firstResult:
@@ -121,6 +288,15 @@
         departmentcode: "75"
         districtcode: "102"
         _type: "parcel"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1855:
+        status: success
+      - IGNGPF-1857:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=&index=parcel&departmentcode=13&municipalitycode=111"
     results:
       firstResult:
@@ -128,6 +304,15 @@
       only:
         municipalitycode: "111"
         departmentcode: "13"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1855:
+        status: success
+      - IGNGPF-1857:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=&index=parcel&departmentcode=08&municipalitycode=437&oldmunicipalitycode=012"
     results:
       firstResult:
@@ -136,60 +321,225 @@
         municipalitycode: "437"
         departmentcode: "08"
         oldmunicipalitycode: "012"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1855:
+        status: success
+      - IGNGPF-1857:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=musée louvre&index=poi"
     results:
       firstResult:
         id: "SURFACTI0000000000142364"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1729:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=triomphe&index=poi&category=monument"
     results:
       firstResult:
         id: "SURFACTI0000000000142252"
+    userStories:
+      - IGNGPF-1728:
+        status: success
+      - IGNGPF-1729:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=150560000A0003&index=parcel"
     results:
       firstResult:
         id: "150560000A0003"
+    userStories:
+      - IGNGPF-1855:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=mairie&lon=2.451&lat=38.145"
     results:
       firstResult:
         id: "47280_6z3q2l"
+    userStories:
+      - IGNGPF-1925:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=mairie&lon=-0.976507&lat=47.206747&returntruegeometry=true"
     results:
       firstResult:
         id: "47280_6z3q2l"
       hasProperties: ["truegeometry"]
+    userStories:
+      - IGNGPF-1925:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=république&limit=3"
     results:
       firstResult:
         id: "28276_mvo6lp"
       nbResult: 3
+    userStories:
+      - IGNGPF-1855:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=place de la mairie"
     results:
       firstResult:
         id: "68066_2544"
+    userStories:
+      - IGNGPF-1855:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=place de la mairie&lon=2.503978&lat=48.697898"
     results:
       firstResult:
         id: "91114_2280"
+    userStories:
+      - IGNGPF-1925:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=place de la république"
     results:
       firstResult:
         id: "72181_4620"
+    userStories:
+      - IGNGPF-1855:
+        status: success
+      - IGNGPF-1859:
+        status: success
   - request: "?q=place de la république&lon=2.375574&lat=51.032209"
     results:
       firstResult:
         id: "59183_1440"
+    userStories:
+      - IGNGPF-1925:
+        status: success
+      - IGNGPF-1859:
+        status: success
+  - request: "?q=Montataire&index=poi&category=cimetière"
+    results:
+      firstResult:
+        id: "CIMETIER0000000039143988"
+      only:
+        _type: "poi"
+        category: ["cimetière"]
+    userStories:
+      - IGNGPF-1729:
+        status: success
+      - IGNGPF-1859:
+        status: success
+  - request: "?q=cimetière&postcode=60160&index=poi"
+    results:
+      firstResult:
+        id: "CIMETIER0000000039143983"
+      only:
+        _type: "poi"
+        category: ["cimetière"]
+    userStories:
+      - IGNGPF-1729:
+        status: success
+      - IGNGPF-1859:
+        status: success
+  - request: "?q=12 rue du Général de Gaulle&citycode=94003"
+    results:
+      firstResult:
+        id: "94003_4123_00012"
+      only:
+        citycode: "94003"
+      nbResult: 1
+    userStories:
+      - IGNGPF-1859:
+        status: success
+  - request: "?q=12 rue du Général de Gaulle&limit=20"
+    results:
+      firstResult:
+        id: "97411_0570_00012"
+      nbResult: 20
+    userStories:
+      - IGNGPF-1859:
+        status: success
+      - IGNGPF-1924:
+        status: success
+  - request: "?q=12 rue du Général de Gaulle&limit=21"
+    results:
+      error:
+        code: 400
+    userStories:
+      - IGNGPF-1924:
+        status: success
+  - request: "?q=12 rue du Général de Gaulle&city=Arcueil"
+    results:
+      firstResult:
+        id: "94003_4123_00012"
+      only:
+        city: "Arcueil"
+      nbResult: 1
+    userStories:
+      - IGNGPF-1859:
+        status: success
+  - request: "?q=12 rue du Général de Gaulle&lon=2.3262&lat=48.808"
+    results:
+      firstResult:
+        id: "94079_0500_00012"
+    userStories:
+      - IGNGPF-1925:
+        status: success
+      - IGNGPF-1859:
+        status: success
+  - request: "?q=75102000AB0006&index=parcel"
+    results:
+      firstResult:
+        id: "75102000AB0006"
+    userStories:
+      - IGNGPF-1730:
+        status: success
+      - IGNGPF-1859:
+        status: success
+  - request: "?q=30 rue jules verne 44521 Oudon&index=parcel,address"
+    results:
+      firstResult:
+        id: "44115_0208_00030"
+    userStories:
+      - IGNGPF-1855:
+        status: success
+      - IGNGPF-1859:
+        status: success
+  - request: "?q=30 rue jules verne 44521 Oudon&index=parcel"
+    results:
+      nbResult: 0
+    userStories:
+      - IGNGPF-1855:
+        status: success
+      - IGNGPF-1859:
+        status: success
 
 /reverse:
   - request: "?lon=2.3488&lat=48.8534"
     results:
       firstResult:
         id: "75104_6826"
+    userStories:
+      - IGNGPF-1866:
+        status: success
   - request: "?lon=2.3488&lat=48.8534&postcode=75004"
     results:
       firstResult:
         id: "75104_6826"
       only:
         postcode: "75004"
+    userStories:
+      - IGNGPF-1882:
+        status: success
   - request: "?lon=4.8357&lat=45.7640&type=housenumber&postcode=69002"
     results:
       firstResult:
@@ -197,12 +547,20 @@
       only:
         type: "housenumber"
         postcode: "69002"
+    userStories:
+      - IGNGPF-1877:
+        status: success
+      - IGNGPF-1882:
+        status: success
   - request: "?lon=1.4442&lat=43.6045&type=locality"
     results:
       firstResult:
         id: "31555_7618"
       only:
         type: "locality"
+    userStories:
+      - IGNGPF-1877:
+        status: success
   - request: "?lon=5.3811&lat=43.2965&10&index=parcel&city=marseille&section=0A"
     results:
       firstResult:
@@ -211,6 +569,9 @@
         city: "Marseille"
         section: "0A"
         _type: "parcel"
+    userStories:
+      - IGNGPF-1886:
+        status: success
   - request: "?lon=2.488132&lat=45.448845&index=parcel&sheet=03"
     results:
       firstResult:
@@ -218,6 +579,9 @@
       only:
         sheet: "03"
         _type: "parcel"
+    userStories:
+      - IGNGPF-1886:
+        status: success
   - request: "?lon=2.488132&lat=44.448845&index=parcel&number=0085"
     results:
       firstResult:
@@ -225,56 +589,91 @@
       only:
         number: "0085"
         _type: "parcel"
+    userStories:
+      - IGNGPF-1886:
+        status: success
   - request: "?lon=2.3522&lat=48.8566"
     results:
       firstResult:
         id: "75104_4664_00008"
+    userStories:
+      - IGNGPF-1866:
+        status: success
   - request: "?lon=3.0572&lat=50.6333"
     results:
       firstResult:
         id: "59350_7264_00016"
+    userStories:
+      - IGNGPF-1866:
+        status: success
   - request: "?lon=-0.5792&lat=44.8378&type=street"
     results:
       firstResult:
         id: "33063_8030"
+    userStories:
+      - IGNGPF-1877:
+        status: success
   - request: "?lon=-1.5536&lat=47.2184&postcode=44000"
     results:
       firstResult:
         id: "44109_2100_00004"
       only:
         postcode: "44000"
+    userStories:
+      - IGNGPF-1882:
+        status: success
   - request: "?lon=7.7521&lat=48.5839&type=housenumber"
     results:
       firstResult:
         id: "67482_1215_00003"
       only:
         type: "housenumber"
+    userStories:
+      - IGNGPF-1877:
+        status: success
   - request: "?lon=2.6412&lat=45.9640&postcode=63640"
     results:
       firstResult:
         id: "63094_vt55hm_01755"
       only:
         postcode: "63640"
+    userStories:
+      - IGNGPF-1882:
+        status: success
   - request: "?lon=1.9174&lat=47.9038"
     results:
       firstResult:
         id: "45234_6396"
+    userStories:
+      - IGNGPF-1866:
+        status: success
   - request: "?lon=3.8770&lat=43.6112&type=street"
     results:
       firstResult:
         id: "34172_3463"
       only:
         type: "street"
+    userStories:
+      - IGNGPF-1877:
+        status: success
   - request: "?lon=2.3018&lat=48.8720&index=poi"
     results:
       firstResult:
         id: "EQ_RESEA0000000000140144"
+    userStories:
+      - IGNGPF-1867:
+        status: success
   - request: "?lon=1.488132&lat=48.448845&index=parcel,poi"
     results:
       firstResult:
         id: "SURFACTI0000000015532410"
       many:
         _type: ["parcel", "poi"]
+    userStories:
+      - IGNGPF-1867:
+        status: success
+      - IGNGPF-1869:
+        status: success
   - request: "?lon=1.488132&lat=48.448845&index=parcel&returntruegeometry=1"
     results:
       firstResult:
@@ -282,6 +681,9 @@
       only:
         _type: "parcel"
       hasProperties: ["truegeometry"]
+    userStories:
+      - IGNGPF-1869:
+        status: success
   - request: "?lon=1.488132&lat=48.448845&index=parcel&returntruegeometry=true"
     results:
       firstResult:
@@ -289,30 +691,66 @@
       only:
         _type: "parcel"
       hasProperties: ["truegeometry"]
+    userStories:
+      - IGNGPF-1869:
+        status: success
   - request: "?lon=2.4594737981512083&lat=48.779516138928614&index=poi&category=station de métro"
     results:
       firstResult:
         id: "EQ_RESEA0000000004264339"
       including:
         category: "station de métro"
+    userStories:
+      - IGNGPF-1867:
+        status: success
   - request: "?searchgeom={\"type\": \"Point\", \"coordinates\": [2.25691, 46.5472]}&index=poi"
     results:
       firstResult:
         id: "DEPARTEM0000002150000518"
+    userStories:
+      - IGNGPF-1871:
+        status: success
+      - IGNGPF-1872:
+        status: success
+      - IGNGPF-1876:
+        status: success
   - request: "?lon=2&lat=46&searchgeom={\"type\": \"Point\", \"coordinates\": [2.25691, 46.5472]}&index=poi"
     results:
       firstResult:
         id: "COMMUNE_0000000009748965"
+    userStories:
+      - IGNGPF-1871:
+        status: success
+      - IGNGPF-1872:
+        status: success
+      - IGNGPF-1876:
+        status: success
   - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [2.25691, 46.5472], \"radius\": 100}&index=poi"
     results:
       firstResult:
         id: "DEPARTEM0000002150000518"
+    userStories:
+      - IGNGPF-1871:
+        status: success
+      - IGNGPF-1872:
+        status: success
+      - IGNGPF-1876:
+        status: success
   - request: "?searchgeom={\"type\": \"LineString\", \"coordinates\": [[1.909092, 47.922008],[1.913284, 47.920530]]}&index=poi,parcel"
     results:
       firstResult:
         id: "45147000AL0818"
       many:
         _type: ["poi", "parcel"]
+    userStories:
+      - IGNGPF-1871:
+        status: success
+      - IGNGPF-1872:
+        status: success
+      - IGNGPF-1873:
+        status: success
+      - IGNGPF-1876:
+        status: success
   - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
           [
             [
@@ -340,9 +778,451 @@
     results:
       firstResult:
         id: "77333_0230_00052_bis"
+    userStories:
+      - IGNGPF-1871:
+        status: success
+  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [-0.04691, 45.5472], \"radius\": 100}&index=address,poi&postcode=16250"
+    results:
+      firstResult:
+        id: "COMMUNE_0000000009753190"
+    userStories:
+      - IGNGPF-1882:
+        status: success
+  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [-0.04691, 45.5472], \"radius\": 100}&index=address,poi&postcode=16452"
+    results:
+      nbResult: 0
+    userStories:
+      - IGNGPF-1882:
+        status: success
+  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [-0.04691, 45.5472], \"radius\": 100}&index=address,poi&citycode=16175"
+    results:
+      firstResult:
+        id: "COMMUNE_0000000009753190"
+    userStories:
+      - IGNGPF-1883:
+        status: success
+  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [-0.04691, 45.5472], \"radius\": 100}&index=address,poi&citycode=17452"
+    results:
+      nbResult: 0
+    userStories:
+      - IGNGPF-1883:
+        status: success
+  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
+          [
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ]
+          ]
+        ]}&city=Saint-Maurice-la-Souterraine&index=address"
+    results:
+      firstResult:
+        id: "23219_r5f8ez_00006"
+      only:
+        _type: "address"
+    userStories:
+      - IGNGPF-1884:
+        status: success
+  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
+          [
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ]
+          ]
+        ]}&city=Marseille"
+    results:
+      nbResult: 0
+    userStories:
+      - IGNGPF-1884:
+        status: success
+  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
+          [
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ]
+          ]
+        ]}&city=Saint-Maurice-la-Souterraine&index=parcel"
+    results:
+      firstResult:
+        id: "23219000ZO0103"
+      only:
+        _type: "parcel"
+    userStories:
+      - IGNGPF-1884:
+        status: success
+  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
+          [
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ]
+          ]
+        ]}&city=Marseille&index=parcel"
+    results:
+      nbResult: 0
+    userStories:
+      - IGNGPF-1884:
+        status: success
+  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
+          [
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ]
+          ]
+        ]}&index=poi&category=administratif"
+    results:
+      firstResult:
+        id: "EPCI____0000002206235354"
+      only:
+        _type: "poi"
+      including::
+        category: ["administratif"]
+    userStories:
+      - IGNGPF-1885:
+        status: success
+  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
+          [
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ]
+          ]
+        ]}&index=poi&category=cimetière"
+    results:
+      nbResult: 0
+    userStories:
+      - IGNGPF-1885:
+        status: success
+  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [-0.04691, 45.5472], \"radius\": 100}&index=poi&category=administratif"
+    results:
+      firstResult:
+        id: "EPCI____0000002150235999"
+      including:
+        category: "administratif"
+    userStories:
+      - IGNGPF-1865:
+        status: success
+  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [-0.04691, 45.5472], \"radius\": 100}&index=poi&category=cimetière"
+    results:
+      nbResult: 0
+    userStories:
+      - IGNGPF-1865:
+        status: success
+  - request: "?lon=7.74565&lat=48.5837&type=locality"
+    results:
+      firstResult:
+        id: "67482_0234"
+      only:
+        type: "locality"
+    userStories:
+      - IGNGPF-1877:
+        status: success
+  - request: "?lon=-0.310692&lat=47.805303&type=municipality"
+    results:
+      firstResult:
+        id: "72106"
+      only:
+        type: "municipality"
+    userStories:
+      - IGNGPF-1877:
+        status: success
+  - request: "?lon=5.072154418102125&lat=49.38825211477351&index=parcel&departmentcode=08&municipalitycode=437&oldmunicipalitycode=012"
+    results:
+      firstResult:
+        id: "084370120A0003"
+      only:
+        municipalitycode: "437"
+        departmentcode: "08"
+        oldmunicipalitycode: "012"
+    userStories:
+      - IGNGPF-1886:
+        status: success
+  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
+          [
+            [
+              5.071742258804306,
+              49.38855254151187
+            ],
+            [
+              5.071742258804306,
+              49.387806013598436
+            ],
+            [
+              5.07343556694741,
+              49.387806013598436
+            ],
+            [
+              5.07343556694741,
+              49.38855254151187
+            ],
+            [
+              5.071742258804306,
+              49.38855254151187
+            ]
+          ]
+        ]}&index=parcel&departmentcode=08&municipalitycode=437&oldmunicipalitycode=012"
+    results:
+      firstResult:
+        id: "084370120A0003"
+      only:
+        municipalitycode: "437"
+        departmentcode: "08"
+        oldmunicipalitycode: "012"
+    userStories:
+      - IGNGPF-1887:
+        status: success
+  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
+          [
+            [
+              5.055491683376005,
+              49.401548235115285
+            ],
+            [
+              5.055491683376005,
+              49.40109135446201
+            ],
+            [
+              5.056439664111679,
+              49.40109135446201
+            ],
+            [
+              5.056439664111679,
+              49.401548235115285
+            ],
+            [
+              5.055491683376005,
+              49.401548235115285
+            ]
+          ]
+        ]}&index=parcel&departmentcode=08&municipalitycode=437&oldmunicipalitycode=012"
+    results:
+      nbResult: 0
+    userStories:
+      - IGNGPF-1887:
+        status: success
+  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
+          [
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ]
+          ]
+        ]}"
+    results:
+      nbResult: 5
+    userStories:
+      - IGNGPF-1888:
+        status: success
+  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
+          [
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ]
+          ]
+        ]}&limit=10"
+    results:
+      nbResult: 10
+    userStories:
+      - IGNGPF-1888:
+        status: success
+  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
+          [
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ]
+          ]
+        ]}&limit=21"
+    results:
+      error:
+        code: 400 
+    userStories:
+      - IGNGPF-1888:
+        status: success
+  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
+          [
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22113969483428
+            ],
+            [
+              1.4516257830532027,
+              46.22601074956114
+            ],
+            [
+              1.4399223818265057,
+              46.22601074956114
+            ]
+          ]
+        ]}&index=parcel&returntruegeometry=true"
+    results:
+      firstResult:
+        id: "23219000ZO0103"
+      only:
+        _type: "parcel"
+      hasProperties: ["truegeometry"]
+    userStories:
+      - IGNGPF-1889:
+        status: success
 
 /completion:
-  - request: "?text=bordeaux&type=PositionOfInterest"
+  - request: "?text=bordea&type=PositionOfInterest"
     results:
       firstResult:
         fulltext: "Bordeaux, 33000"
@@ -352,39 +1232,97 @@
     results:
       firstResult:
         fulltext: "Paris"
-  - request: "?text=5 rue de la paix, paris&type=StreetAddress&maximumResponses=2"
+  - request: "?text=5 rue de la paix"
+    results:
+      firstResult:
+        fulltext: "5 Rue de la Paix, 33000 Bordeaux"
+    userStories:
+      - IGNGPF-1706:
+        status: success
+  - request: "?text=5 rue de la paix bordeaux"
+    results:
+      firstResult:
+        fulltext: "5 Rue de la Paix, 33000 Bordeaux"
+    userStories:
+      - IGNGPF-1706:
+        status: success
+  - request: "?text=5 rue de la paix&postcode=33001"
+    results:
+      firstResult:
+        fulltext: "5 Rue de la Paix, 33000 Bordeaux"
+    userStories:
+      - IGNGPF-1706:
+        status: success
+  - request: "?text=5 rue de la paix, par&type=StreetAddress"
+    results:
+      firstResult:
+        fulltext: "5 Rue de la Paix, 75002 Paris"
+      only:
+        country: "StreetAddress"
+    userStories:
+      - IGNGPF-1753:
+        status: success
+  - request: "?text=5 rue de la paix, par&type=StreetAddress&maximumResponses=2"
     results:
       firstResult:
         fulltext: "5 Rue de la Paix, 75002 Paris"
       only:
         country: "StreetAddress"
       nbResult: 2
-  - request: "?text=place du capitole, toulouse"
+    userStories:
+      - IGNGPF-1753:
+        status: success
+  - request: "?text=5 rue de la paix, par&type=StreetAddress&maximumResponses=21"
+    results:
+      error:
+        code: 400
+    userStories:
+      - IGNGPF-1753:
+        status: success
+  - request: "?text=place du capitole, tou"
     results:
       firstResult:
         fulltext: "Place du Capitole, 31000 Toulouse"
-  - request: "?text=avenue des champs-élysées, paris"
+    userStories:
+      - IGNGPF-1749:
+        status: success
+  - request: "?text=avenue des champ, paris"
     results:
       firstResult:
         fulltext: "Avenue des Champs Elysées, 75008 Paris"
+    userStories:
+      - IGNGPF-1749:
+        status: success
   - request: "?text=lyon"
     results:
       firstResult:
         fulltext: "Lyon"
-  - request: "?text=bordeaux&type=StreetAddress"
+    userStories:
+      - IGNGPF-1749:
+        status: success
+  - request: "?text=bordea&type=StreetAddress"
     results:
       firstResult:
         fulltext: "Bordeaux, 33800 Bordeaux"
       only:
         country: "StreetAddress"
-  - request: "?text=nantes"
+    userStories:
+      - IGNGPF-1749:
+        status: success
+  - request: "?text=5 avenu ren, nant"
     results:
       firstResult:
-        fulltext: "Nantes, 44000"
-  - request: "?text=lille&citycode=59350"
+        fulltext: "5 Avenue René Bazin, 44000 Nantes"
+    userStories:
+      - IGNGPF-1749:
+        status: success
+  - request: "?text=lil&terr=59000"
     results:
       firstResult:
         fulltext: "Lille, 59000"
+    userStories:
+      - IGNGPF-1748:
+        status: success
   - request: "?text=strasbourg saint de&type=PositionOfInterest&poiType=transport"
     results:
       firstResult:
@@ -393,82 +1331,136 @@
         country: "PositionOfInterest"
       including:
         poiType: "transport"
-  - request: "?text=montpellier&postcode=34000"
+    userStories:
+      - IGNGPF-1749:
+        status: success
+  - request: "?text=montp&terr=34000"
     results:
       firstResult:
         fulltext: "Montpellier, 34000"
-  - request: "?text=rennes&type=PositionOfInterest&postcode=35000"
+    userStories:
+      - IGNGPF-1748:
+        status: success
+  - request: "?text=1 rue chev, rennes"
     results:
       firstResult:
-        fulltext: "Rennes, 35000"
+        fulltext: "Rue Jean Chevalier, 35000 Rennes"
       only:
-        country: "PositionOfInterest"
-  - request: "?text=marseille&type=PositionOfInterest"
+        country: "StreetAddress"
+    userStories:
+      - IGNGPF-1749:
+        status: success
+  - request: "?text=marsei&type=PositionOfInterest"
     results:
       firstResult:
         fulltext: Marseille
       only:
         country: "PositionOfInterest"
-  - request: "?text=nice&type=PositionOfInterest"
+    userStories:
+      - IGNGPF-1749:
+        status: success
+  - request: "?text=2 rue mar nice"
     results:
       firstResult:
-        fulltext: "Nice, 06000"
+        fulltext: "2 Rue du 24 Mars, 06100 Nice"
       only:
-        country: "PositionOfInterest"
-  - request: "?text=toulouse"
+        country: "StreetAddress"
+    userStories:
+      - IGNGPF-1749:
+        status: success
+  - request: "?text=neuf toulo"
     results:
       firstResult:
-        fulltext: "Toulouse, 31000"
-  - request: "?text=gare de chateauroux&type=PositionOfInterest"
+        fulltext: "Chemin Neuf, 31100 Toulouse"
+    userStories:
+      - IGNGPF-1749:
+        status: success
+  - request: "?text=gare chateaur&type=StreetAddress"
     results:
       firstResult:
-        fulltext: "Gare de Châteauroux, 36000 Châteauroux"
+        fulltext: "Rue de la Gare, 36000 Châteauroux"
       only:
-        country: "PositionOfInterest"
-  - request: "?text=assemblée"
+        country: "StreetAddress"
+    userStories:
+      - IGNGPF-1749:
+        status: success
+  - request: "?text=assemblée nati"
     results:
       firstResult:
         fulltext: "Assemblée Nationale, 75001 Paris"
-  - request: "?text=sénat"
+    userStories:
+      - IGNGPF-1749:
+        status: success
+  - request: "?text=séna"
     results:
       firstResult:
         fulltext: "Sénat, 75006 Paris 6e Arrondissement"
-  - request: "?text=aéroport paris"
+    userStories:
+      - IGNGPF-1749:
+        status: success
+  - request: "?text=aéropor par"
     results:
       firstResult:
         fulltext: "Aeroport Paris Orly, 94290 Villeneuve-le-Roi"
-  - request: "?text=aéroport de fort-de-france"
+    userStories:
+      - IGNGPF-1749:
+        status: success
+  - request: "?text=aéroport fort de fr"
     results:
       firstResult:
         fulltext: "Aéroport de Fort-de-France-le Lamentin, 97232 Le Lamentin"
-  - request: "?text=marche&terr=METROPOLE"
+    userStories:
+      - IGNGPF-1749:
+        status: success
+  - request: "?text=rue la mar&terr=35"
     results:
       firstResult:
-        fulltext: "Marche, 35420 Louvigné-du-Désert"
-  - request: "?text=saint-pierre&terr=DOMTOM"
+        fulltext: "Rue de la Mare, 35400 Saint-Malo"
+    userStories:
+      - IGNGPF-1748:
+        status: success
+  - request: "?text=amiral saint&terr=DOMTOM"
     results:
       firstResult:
-        fulltext: "Saint-Pierre, 97410"
-  - request: "?text=saint-denis&terr=974"
+        fulltext: "Rue Amiral Lacaze, 97410 Saint-Pierre"
+    userStories:
+      - IGNGPF-1748:
+        status: success
+  - request: "?text=rue de la rép&terr=974"
     results:
       firstResult:
-        fulltext: "Saint-Denis, 97400"
-  - request: "?text=saint-pierre&terr=972"
+        fulltext: "Rue de la Republique, 97400 Saint-Denis"
+    userStories:
+      - IGNGPF-1748:
+        status: success
+  - request: "?text=ciel saint&terr=972"
     results:
       firstResult:
-        fulltext: "Saint-Pierre, 97250"
-  - request: "?text=marche&terr=33,44"
+        fulltext: "Rue Monte au Ciel, 97250 Saint-Pierre"
+    userStories:
+      - IGNGPF-1748:
+        status: success
+  - request: "?text=14 place rep&terr=33"
     results:
       firstResult:
-        fulltext: "Marche, 33580 Taillecavat"
-  - request: "?text=taille&bbox=-1.153564,44.095476,9.393311,47.672786"
+        fulltext: "14 Place de la République, 33160 Saint-Médard-en-Jalles"
+    userStories:
+      - IGNGPF-1748:
+        status: success
+  - request: "?text=2 rue pri&bbox=0.725870,47.281951,0.742221,47.288516"
     results:
       firstResult:
-        fulltext: "Taille, 37250 Veigné"
-  - request: "?text=saint&bbox=-1.732407,48.851162,-0.414047,49.272285"
+        fulltext: "2 Rue Principale, 37250 Veigné"
+    userStories:
+      - IGNGPF-1751:
+        status: success
+  - request: "?text=rue du murl&bbox=-1.095543,49.046420,-1.018295,49.076790"
     results:
       firstResult:
-        fulltext: "Sainte-Suzanne-sur-Vire, 50750"
+        fulltext: "Rue du Murlucouf, 50890 Condé-sur-Vire"
+    userStories:
+      - IGNGPF-1751:
+        status: success
   - request: "?text=marché&terr=13" # Bug: Cette requête devrait produire plus de résultats
     results:
       firstResult:
@@ -477,7 +1469,7 @@
         terr: ["13"]
       only:
         metropole: true
-  - request: "?text=marché robert&terr=972"
+  - request: "?text=marché robe&terr=972"
     results:
       firstResult:
         fulltext: "Marché, 97231 Le Robert"
@@ -487,18 +1479,84 @@
         metropole: false
       many:
         terr: ["972"]
-  - request: "?text=republique&terr=DOMTOM,13"
+    userStories:
+      - IGNGPF-1753:
+        status: success
+  - request: "?text=5 rue de la républ&terr=DOMTOM"
     results:
       firstResult:
-        fulltext: "République Dames, 13002 Marseille 2e Arrondissement"
+        fulltext: "5 Rue de la Republique, 97400 Saint-Denis"
+    userStories:
+      - IGNGPF-1753:
+        status: success
+  - request: "?text=5 rue de la républ&terr=DOMTOM,13"
+    results:
+      firstResult:
+        fulltext: "5 Rue de la Republique, 97400 Saint-Denis"
       many:
         terr: ["13", "971", "972", "973", "974"]
-  - request: "?text=république 1&type=PositionOfInterest&poiType=station de métro"
+    userStories:
+      - IGNGPF-1753:
+        status: success
+      - IGNGPF-1748:
+        status: success
+  - request: "?text=5 rue de la républ&terr=13"
     results:
       firstResult:
-        fulltext: "République, 75001 Paris"
+        fulltext: "5 Rue de la Republique, 13400 Aubagne"
+    userStories:
+      - IGNGPF-1753:
+        status: success
+      - IGNGPF-1748:
+        status: success
+  - request: "?text=bastille&type=PositionOfInterest&poiType=transport"
+    results:
+      firstResult:
+        fulltext: "Bastille, 75004 Paris 4e Arrondissement"
       including:
-        poiType: "station de métro"
+        poiType: "transport"
+    userStories:
+      - IGNGPF-1749:
+        status: success
+  - request: "?text=bast&type=PositionOfInterest&poiType=transport"
+    results:
+      firstResult:
+        fulltext: "Bastille, 75004 Paris 4e Arrondissement"
+      including:
+        poiType: "transport"
+    userStories:
+      - IGNGPF-1749:
+        status: success
+  - request: "?text=bastille&type=PositionOfInterest&poiType=embouchure"
+    results:
+      nbResult: 0
+    userStories:
+      - IGNGPF-1749:
+        status: success
+  - request: "?text=gare de bordeaux&type=PositionOfInterest&poiType=transport"
+    results:
+      firstResult:
+        fulltext: "Gare de Bordeaux-Saint-Jean, 33800 Bordeaux"
+      including:
+        poiType: "transport"
+    userStories:
+      - IGNGPF-1750:
+        status: success
+  - request: "?text=gare de bord&type=PositionOfInterest&poiType=transport"
+    results:
+      firstResult:
+        fulltext: "Gare de Bordeaux-Saint-Jean, 33800 Bordeaux"
+      including:
+        poiType: "transport"
+    userStories:
+      - IGNGPF-1750:
+        status: success
+  - request: "?text=gare de bordeaux&type=PositionOfInterest&poiType=embouchure"
+    results:
+      nbResult: 0
+    userStories:
+      - IGNGPF-1750:
+        status: success
   - request: "?text=place du marché&terr=DOMTOM" # Bug: Cette requête devrait produire plus de résultats
     results:
       firstResult:
@@ -509,15 +1567,149 @@
     results:
       firstResult:
         fulltext: "Place de la Mairie, 68000 Colmar"
+    userStories:
+      - IGNGPF-1752:
+        status: success
   - request: "?text=place de la mairie&lonlat=2.503978,48.697898"
     results:
       firstResult:
         fulltext: "Place de la Mairie, 91800 Brunoy"
+    userStories:
+      - IGNGPF-1752:
+        status: success
   - request: "?text=place de la république"
     results:
       firstResult:
         fulltext: "place de la République, 72000 Le Mans"
+    userStories:
+      - IGNGPF-1752:
+        status: success
   - request: "?text=place de la république&lonlat=2.375574,51.032209"
     results:
       firstResult:
         fulltext: "Place de la République, 59140 Dunkerque"
+    userStories:
+      - IGNGPF-1752:
+        status: success
+  - request: "?text=14 rue Claude Tillier"
+    results:
+      firstResult:
+        fulltext: "14 Rue Claude Tillier, 75012 Paris"
+    userStories:
+      - IGNGPF-1760:
+        status: success
+  - request: "?text=14 rue Clade Tillier"
+    results:
+      firstResult:
+        fulltext: "14 Rue Claude Tillier, 75012 Paris"
+    userStories:
+      - IGNGPF-1760:
+        status: success
+  - request: "?text=14 rue Czuade Tillier"
+    results:
+      firstResult:
+        fulltext: "14 Rue Claude Tillier, 75012 Paris"
+    userStories:
+      - IGNGPF-1760:
+        status: success
+  - request: "?text=14 rue clade tilier"
+    results:
+      firstResult:
+        fulltext: "14 Rue Claude Tillier, 75012 Paris"
+    userStories:
+      - IGNGPF-1760:
+        status: success
+  - request: "?text=14 rie clzude tilier"
+    results:
+      firstResult:
+        fulltext: "14 Rue Claude Tillier, 75012 Paris"
+    userStories:
+      - IGNGPF-1760:
+        status: success
+  - request: "?text=14 rie clzude tilié"
+    results:
+      firstResult:
+        fulltext: "14 Rue de la Tilie, 70200 Magny-Danigon"
+    userStories:
+      - IGNGPF-1760:
+        status: success
+  - request: "?text=tour eiffel&type=PositionOfInterest&terr=75001"
+    results:
+      firstResult:
+        fulltext: "Tour Eiffel, 75001 Paris"
+      only:
+        country: "PositionOfInterest"
+    userStories:
+      - IGNGPF-1748:
+        status: success
+  - request: "?text=tour eif&type=PositionOfInterest&terr=75001"
+    results:
+      firstResult:
+        fulltext: "Tour Eiffel, 75001 Paris"
+      only:
+        country: "PositionOfInterest"
+    userStories:
+      - IGNGPF-1748:
+        status: success
+  - request: "?text=tour eiffel&type=PositionOfInterest&terr=DOMTOM"
+    results:
+      nbResult: 0
+    userStories:
+      - IGNGPF-1748:
+        status: success
+  - request: "?text=rue du 11 novembre drancy 93701"
+    results:
+      firstResult:
+        fulltext: "Rue du 11 Novembre, 93700 Drancy"
+    userStories:
+      - IGNGPF-1762:
+        status: success
+  - request: "?text=rue du onze novembre drancy"
+    results:
+      firstResult:
+        fulltext: "Rue du 11 Novembre, 93700 Drancy"
+    userStories:
+      - IGNGPF-1762:
+        status: success
+  - request: "?text=marché de rungis"
+    results:
+      firstResult:
+        fulltext: "Rue du Marché, 94150 Rungis"
+    userStories:
+      - IGNGPF-1762:
+        status: success
+  - request: "?text=marche de rungis"
+    results:
+      firstResult:
+        fulltext: "Rue du Marché, 94150 Rungis"
+    userStories:
+      - IGNGPF-1762:
+        status: success
+  - request: "?text=gare de metz"
+    results:
+      firstResult:
+        fulltext: "Gare de Metz, 57050 Metz"
+    userStories:
+      - IGNGPF-1762:
+        status: success
+  - request: "?text=GARE DE METZ"
+    results:
+      firstResult:
+        fulltext: "Gare de Metz, 57050 Metz"
+    userStories:
+      - IGNGPF-1762:
+        status: success
+  - request: "?text=12 av du general de gaulle champigny"
+    results:
+      firstResult:
+        fulltext: "12 Avenue du Général de Gaulle, 94500 Champigny-sur-Marne"
+    userStories:
+      - IGNGPF-1762:
+        status: success
+  - request: "?text=12 av du general de gaulle 94501"
+    results:
+      firstResult:
+        fulltext: "12 Avenue du Général de Gaulle, 94500 Champigny-sur-Marne"
+    userStories:
+      - IGNGPF-1762:
+        status: success
