@@ -27,5 +27,5 @@ test:
 test:recette:
   script:
     - yarn --frozen-lockfile
-    - yarn test:recette
+    - yarn test-recette
   when: manual
