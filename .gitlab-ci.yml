@@ -5,9 +5,9 @@ include:
     ref: main
     file:
       - "ci/docker-v5.yml"
-      - 'ci/chart-v2.yml'
-      - 'ci/versioning.yml'
-    
+      - "ci/chart-v2.yml"
+      - "ci/versioning.yml"
+
 cache:
   paths:
     - node_modules/
@@ -23,3 +23,9 @@ test:
   script:
     - yarn --frozen-lockfile
     - yarn test-lcov
+
+test:recette:
+  script:
+    - yarn --frozen-lockfile
+    - yarn test:recette
+  when: manual
