@@ -10,3 +10,7 @@ data
 coverage
 tmp
 pids
+chart
+docs
+tests
+__tests__
