@@ -6,7 +6,7 @@ S'il est plus simple d'utiliser des données déjà prêtes à l'emploi, il peut
 
 ## Pré-requis
 
-Pour exécuter les commandes présentées dans cette page vous devez disposer d'une installation valide, [native](installation.md) ou via [Docker](docker.md).
+Pour exécuter les commandes présentées dans cette page vous devez disposer d'une [installation valide](installation.md).
 
 Dans le cas de Docker pensez à créer un volume pour le répertoire `/data` interne à l'image afin de pouvoir éventuellement récupérer les données produites.
 
