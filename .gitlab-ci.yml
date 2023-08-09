@@ -27,6 +27,10 @@ test:
   script:
     - yarn --frozen-lockfile
     - yarn test-lcov
+  artifacts:
+    paths:
+      - coverage/lcov.info
+    expire_in: 1 week
 
 test:recette:
   script:
