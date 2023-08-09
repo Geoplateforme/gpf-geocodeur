@@ -1,10 +1,10 @@
 # Installation
 
-Cette page traite de l’installation native du géocodeur sans le recours à Docker. Pour installer le géocodeur avec Docker, [c’est par ici](docker.md).
+Cette page traite de l’installation native du géocodeur sans le recours à Docker. Pour installer le géocodeur avec Docker suivez les instructions du dernier paragraphe.
 
 ## Note relative à Windows
 
-L'utilisation du géocodeur sous Windows n'a pas été testée. L'utilisation de [l'image Docker](docker.md) est dans ce cas fortement recommandée.
+L'utilisation du géocodeur sous Windows n'a pas été testée. L'utilisation de l'image Docker est dans ce cas fortement recommandée.
 
 ## Pré-requis
 
@@ -65,3 +65,7 @@ yarn install --prod
 ```
 
 Vous pouvez désormais passer à l'étape suivante : [Configuration](configuration.md).
+
+## Image Docker
+
+L'image Docker pour `linux/amd64` peut être produite à partir du `Dockerfile`. Toutes les fonctionnalités sont alors immédiatement disponibles.
