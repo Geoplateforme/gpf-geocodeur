@@ -1,4 +1,4 @@
-# Données indexées
+# Production des index thématiques
 
 Pour déployer une instance du géocodeur il est nécessaire de disposer de données spécialement structurées qu'on appelera "index". Il y a un jeu de données par thématique.
 
@@ -72,16 +72,7 @@ Sur une machine moyenne satisfaisant aux exigences techniques présentées sur l
 
 Afin de faciliter le déploiement dans certains environnement de production, ce dépôt inclut des commandes pour publier les données indexées sur un bucket S3.
 
-Pour cela, vous devez tout d'abord configurer les variables d'environnement suivantes :
-
-| Variable | Description |
-| --- | --- |
-| `S3_REGION` | Région du stockage S3 |
-| `S3_ENDPOINT` | URL du stockage S3 |
-| `S3_BUCKET` | Nom du bucket |
-| `S3_PREFIX` | Préfixe pour le nom de l'objet créé |
-| `S3_ACCESS_KEY` | Clé d'accès S3 |
-| `S3_SECRET_KEY` | Secret |
+Pour cela, vous devez tout d'abord [configurer les variables d'environnement correspondantes](configuration.md).
 
 Les objets créés par le processus de publication ont la forme suivante : `{prefix}index-{type}-{datetime}.tar.gz`.\
 Exemple : `sample-57-index-address-2023-07-25-22-11-29.tar.gz`
