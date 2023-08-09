@@ -1,4 +1,4 @@
-# Indexation
+# Données indexées
 
 Pour déployer une instance du géocodeur il est nécessaire de disposer de données spécialement structurées qu'on appelera "index". Il y a un jeu de données par thématique.
 

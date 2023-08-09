@@ -1,4 +1,4 @@
-# Installation
+# Procédure d'installation
 
 Cette page traite de l’installation native du géocodeur sans le recours à Docker. Pour installer le géocodeur avec Docker suivez les instructions du dernier paragraphe.
 

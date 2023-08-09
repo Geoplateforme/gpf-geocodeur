@@ -1,26 +1,10 @@
 # geocodeur
 
-## Architecture
+## Documentation (en français)
 
-```mermaid
-graph TB
-  G["Géocodeur"]
-  G -- "API privée" --> IA["Index Address"]
-  G -- "API privée" --> IP["Index Parcel"]
-  G -- "API privée" --> IPO["Index POI"]
-  linkStyle 0 stroke:#2ecd71,stroke-width:2px;
-  linkStyle 1 stroke:#2ecd71,stroke-width:2px;
-  linkStyle 2 stroke:#2ecd71,stroke-width:2px;
-```
-
-## Prerequisites
-
-- 7z (`p7zip` / `p7zip-full`)
-- Redis 6 / Redis 7
-- Python 3.9 / 3.10 / 3.1 (`pyenv`)
-- Addok (`pip install addok addok-france addok-fr`)
-- Node.js 18 LTS and above
-- Yarn
+- [Architecture du service](docs/architecture.md)
+- [Procédure d'installation](docs/installation.md)
+- [Données indexées](docs/indexation.md)
 
 ## Copy and edit env file
 
