@@ -7,6 +7,10 @@ include:
       - "ci/docker-v5.yml"
       - "ci/chart-v2.yml"
       - "ci/versioning.yml"
+  - project: geoplateforme/templates
+    ref: main
+    file:
+      - "/ci/sonarqube.yml"
 
 cache:
   paths:
