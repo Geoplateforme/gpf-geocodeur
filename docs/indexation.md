@@ -2,7 +2,7 @@
 
 Pour déployer une instance du géocodeur il est nécessaire de disposer de données spécialement structurées qu'on appelera "index". Il y a un jeu de données par thématique.
 
-S'il est plus simple d'utiliser des données déjà prêtes à l'emploi, il peut être nécessaire de vouloir générer ces données.
+S'il est plus simple d'utiliser des données déjà prêtes à l'emploi, il peut dans certains cas être judicieux de les générer soi-même.
 
 ## Pré-requis
 
