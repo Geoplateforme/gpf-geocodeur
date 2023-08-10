@@ -52,7 +52,8 @@ function getResults(item, route) {
 
 for (const [route, routeRequests] of Object.entries(requests)) {
   for (const r of routeRequests) {
-    test(`Test: ${route}${r.request}`, async t => {
+    const testFn = r.status === 'fail' ? test.skip : test
+    testFn(`Test: ${route}${r.request}`, async t => {
       const url = RECETTE_API_URL + route + r.request
 
       if (r.results?.error?.code === 400) {

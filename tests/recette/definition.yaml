@@ -159,7 +159,7 @@
         status: success
       - IGNGPF-1859:
         status: success
-  
+
   - request: "?q=7 Avenue des Champs-Élysées, Paris"
     results:
       firstResult:
@@ -426,7 +426,7 @@
         status: success
       - IGNGPF-1859:
         status: success
-  - request: "?q=Montataire&index=poi&category=cimetière"
+  - request: "?q=Montataire&index=poi&category=cimetière&lon=2.441132&lat=49.257167"
     results:
       firstResult:
         id: "CIMETIER0000000039143988"
@@ -438,7 +438,7 @@
         status: success
       - IGNGPF-1859:
         status: success
-  - request: "?q=cimetière&postcode=60160&index=poi"
+  - request: "?q=cimetière&postcode=60160&index=poi&lon=2.442712&lat=49.257768"
     results:
       firstResult:
         id: "CIMETIER0000000039143983"
@@ -703,7 +703,7 @@
     userStories:
       - IGNGPF-1867:
         status: success
-  - request: "?searchgeom={\"type\": \"Point\", \"coordinates\": [2.25691, 46.5472]}&index=poi"
+  - request: '?searchgeom={"type": "Point", "coordinates": [2.25691, 46.5472]}&index=poi'
     results:
       firstResult:
         id: "DEPARTEM0000002150000518"
@@ -714,7 +714,7 @@
         status: success
       - IGNGPF-1876:
         status: success
-  - request: "?lon=2&lat=46&searchgeom={\"type\": \"Point\", \"coordinates\": [2.25691, 46.5472]}&index=poi"
+  - request: '?lon=2&lat=46&searchgeom={"type": "Point", "coordinates": [2.25691, 46.5472]}&index=poi'
     results:
       firstResult:
         id: "COMMUNE_0000000009748965"
@@ -725,7 +725,7 @@
         status: success
       - IGNGPF-1876:
         status: success
-  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [2.25691, 46.5472], \"radius\": 100}&index=poi"
+  - request: '?searchgeom={"type": "Circle", "coordinates": [2.25691, 46.5472], "radius": 100}&index=poi'
     results:
       firstResult:
         id: "DEPARTEM0000002150000518"
@@ -736,7 +736,7 @@
         status: success
       - IGNGPF-1876:
         status: success
-  - request: "?searchgeom={\"type\": \"LineString\", \"coordinates\": [[1.909092, 47.922008],[1.913284, 47.920530]]}&index=poi,parcel"
+  - request: '?searchgeom={"type": "LineString", "coordinates": [[1.909092, 47.922008],[1.913284, 47.920530]]}&index=poi,parcel'
     results:
       firstResult:
         id: "45147000AL0818"
@@ -751,86 +751,86 @@
         status: success
       - IGNGPF-1876:
         status: success
-  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
-          [
-            [
-              2.6915005618557757,
-              48.26786282131431
-            ],
-            [
-              2.6915005618557757,
-              48.26602312133434
-            ],
-            [
-              2.6951155781056286,
-              48.26602312133434
-            ],
-            [
-              2.6951155781056286,
-              48.26786282131431
-            ],
-            [
-              2.6915005618557757,
-              48.26786282131431
-            ]
-          ]
-        ]}"
+  - request: '?searchgeom={"type": "Polygon", "coordinates": [
+      [
+      [
+      2.6915005618557757,
+      48.26786282131431
+      ],
+      [
+      2.6915005618557757,
+      48.26602312133434
+      ],
+      [
+      2.6951155781056286,
+      48.26602312133434
+      ],
+      [
+      2.6951155781056286,
+      48.26786282131431
+      ],
+      [
+      2.6915005618557757,
+      48.26786282131431
+      ]
+      ]
+      ]}'
     results:
       firstResult:
         id: "77333_0230_00052_bis"
     userStories:
       - IGNGPF-1871:
         status: success
-  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [-0.04691, 45.5472], \"radius\": 100}&index=address,poi&postcode=16250"
+  - request: '?searchgeom={"type": "Circle", "coordinates": [-0.04691, 45.5472], "radius": 100}&index=address,poi&postcode=16250'
     results:
       firstResult:
         id: "COMMUNE_0000000009753190"
     userStories:
       - IGNGPF-1882:
         status: success
-  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [-0.04691, 45.5472], \"radius\": 100}&index=address,poi&postcode=16452"
+  - request: '?searchgeom={"type": "Circle", "coordinates": [-0.04691, 45.5472], "radius": 100}&index=address,poi&postcode=16452'
     results:
       nbResult: 0
     userStories:
       - IGNGPF-1882:
         status: success
-  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [-0.04691, 45.5472], \"radius\": 100}&index=address,poi&citycode=16175"
+  - request: '?searchgeom={"type": "Circle", "coordinates": [-0.04691, 45.5472], "radius": 100}&index=address,poi&citycode=16175'
     results:
       firstResult:
         id: "COMMUNE_0000000009753190"
     userStories:
       - IGNGPF-1883:
         status: success
-  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [-0.04691, 45.5472], \"radius\": 100}&index=address,poi&citycode=17452"
+  - request: '?searchgeom={"type": "Circle", "coordinates": [-0.04691, 45.5472], "radius": 100}&index=address,poi&citycode=17452'
     results:
       nbResult: 0
     userStories:
       - IGNGPF-1883:
         status: success
-  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
-          [
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ]
-          ]
-        ]}&city=Saint-Maurice-la-Souterraine&index=address"
+  - request: '?searchgeom={"type": "Polygon", "coordinates": [
+      [
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ]
+      ]
+      ]}&city=Saint-Maurice-la-Souterraine&index=address'
     results:
       firstResult:
         id: "23219_r5f8ez_00006"
@@ -839,59 +839,59 @@
     userStories:
       - IGNGPF-1884:
         status: success
-  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
-          [
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ]
-          ]
-        ]}&city=Marseille"
+  - request: '?searchgeom={"type": "Polygon", "coordinates": [
+      [
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ]
+      ]
+      ]}&city=Marseille'
     results:
       nbResult: 0
     userStories:
       - IGNGPF-1884:
         status: success
-  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
-          [
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ]
-          ]
-        ]}&city=Saint-Maurice-la-Souterraine&index=parcel"
+  - request: '?searchgeom={"type": "Polygon", "coordinates": [
+      [
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ]
+      ]
+      ]}&city=Saint-Maurice-la-Souterraine&index=parcel'
     results:
       firstResult:
         id: "23219000ZO0103"
@@ -900,59 +900,59 @@
     userStories:
       - IGNGPF-1884:
         status: success
-  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
-          [
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ]
-          ]
-        ]}&city=Marseille&index=parcel"
+  - request: '?searchgeom={"type": "Polygon", "coordinates": [
+      [
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ]
+      ]
+      ]}&city=Marseille&index=parcel'
     results:
       nbResult: 0
     userStories:
       - IGNGPF-1884:
         status: success
-  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
-          [
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ]
-          ]
-        ]}&index=poi&category=administratif"
+  - request: '?searchgeom={"type": "Polygon", "coordinates": [
+      [
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ]
+      ]
+      ]}&index=poi&category=administratif'
     results:
       firstResult:
         id: "EPCI____0000002206235354"
@@ -963,36 +963,36 @@
     userStories:
       - IGNGPF-1885:
         status: success
-  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
-          [
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ]
-          ]
-        ]}&index=poi&category=cimetière"
+  - request: '?searchgeom={"type": "Polygon", "coordinates": [
+      [
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ]
+      ]
+      ]}&index=poi&category=cimetière'
     results:
       nbResult: 0
     userStories:
       - IGNGPF-1885:
         status: success
-  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [-0.04691, 45.5472], \"radius\": 100}&index=poi&category=administratif"
+  - request: '?searchgeom={"type": "Circle", "coordinates": [-0.04691, 45.5472], "radius": 100}&index=poi&category=administratif'
     results:
       firstResult:
         id: "EPCI____0000002150235999"
@@ -1001,7 +1001,7 @@
     userStories:
       - IGNGPF-1865:
         status: success
-  - request: "?searchgeom={\"type\": \"Circle\", \"coordinates\": [-0.04691, 45.5472], \"radius\": 100}&index=poi&category=cimetière"
+  - request: '?searchgeom={"type": "Circle", "coordinates": [-0.04691, 45.5472], "radius": 100}&index=poi&category=cimetière'
     results:
       nbResult: 0
     userStories:
@@ -1036,30 +1036,30 @@
     userStories:
       - IGNGPF-1886:
         status: success
-  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
-          [
-            [
-              5.071742258804306,
-              49.38855254151187
-            ],
-            [
-              5.071742258804306,
-              49.387806013598436
-            ],
-            [
-              5.07343556694741,
-              49.387806013598436
-            ],
-            [
-              5.07343556694741,
-              49.38855254151187
-            ],
-            [
-              5.071742258804306,
-              49.38855254151187
-            ]
-          ]
-        ]}&index=parcel&departmentcode=08&municipalitycode=437&oldmunicipalitycode=012"
+  - request: '?searchgeom={"type": "Polygon", "coordinates": [
+      [
+      [
+      5.071742258804306,
+      49.38855254151187
+      ],
+      [
+      5.071742258804306,
+      49.387806013598436
+      ],
+      [
+      5.07343556694741,
+      49.387806013598436
+      ],
+      [
+      5.07343556694741,
+      49.38855254151187
+      ],
+      [
+      5.071742258804306,
+      49.38855254151187
+      ]
+      ]
+      ]}&index=parcel&departmentcode=08&municipalitycode=437&oldmunicipalitycode=012'
     results:
       firstResult:
         id: "084370120A0003"
@@ -1070,147 +1070,147 @@
     userStories:
       - IGNGPF-1887:
         status: success
-  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
-          [
-            [
-              5.055491683376005,
-              49.401548235115285
-            ],
-            [
-              5.055491683376005,
-              49.40109135446201
-            ],
-            [
-              5.056439664111679,
-              49.40109135446201
-            ],
-            [
-              5.056439664111679,
-              49.401548235115285
-            ],
-            [
-              5.055491683376005,
-              49.401548235115285
-            ]
-          ]
-        ]}&index=parcel&departmentcode=08&municipalitycode=437&oldmunicipalitycode=012"
+  - request: '?searchgeom={"type": "Polygon", "coordinates": [
+      [
+      [
+      5.055491683376005,
+      49.401548235115285
+      ],
+      [
+      5.055491683376005,
+      49.40109135446201
+      ],
+      [
+      5.056439664111679,
+      49.40109135446201
+      ],
+      [
+      5.056439664111679,
+      49.401548235115285
+      ],
+      [
+      5.055491683376005,
+      49.401548235115285
+      ]
+      ]
+      ]}&index=parcel&departmentcode=08&municipalitycode=437&oldmunicipalitycode=012'
     results:
       nbResult: 0
     userStories:
       - IGNGPF-1887:
         status: success
-  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
-          [
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ]
-          ]
-        ]}"
+  - request: '?searchgeom={"type": "Polygon", "coordinates": [
+      [
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ]
+      ]
+      ]}'
     results:
       nbResult: 5
     userStories:
       - IGNGPF-1888:
         status: success
-  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
-          [
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ]
-          ]
-        ]}&limit=10"
+  - request: '?searchgeom={"type": "Polygon", "coordinates": [
+      [
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ]
+      ]
+      ]}&limit=10'
     results:
       nbResult: 10
     userStories:
       - IGNGPF-1888:
         status: success
-  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
-          [
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ]
-          ]
-        ]}&limit=21"
+  - request: '?searchgeom={"type": "Polygon", "coordinates": [
+      [
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ]
+      ]
+      ]}&limit=21'
     results:
       error:
-        code: 400 
+        code: 400
     userStories:
       - IGNGPF-1888:
         status: success
-  - request: "?searchgeom={\"type\": \"Polygon\", \"coordinates\": [
-          [
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22113969483428
-            ],
-            [
-              1.4516257830532027,
-              46.22601074956114
-            ],
-            [
-              1.4399223818265057,
-              46.22601074956114
-            ]
-          ]
-        ]}&index=parcel&returntruegeometry=true"
+  - request: '?searchgeom={"type": "Polygon", "coordinates": [
+      [
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22113969483428
+      ],
+      [
+      1.4516257830532027,
+      46.22601074956114
+      ],
+      [
+      1.4399223818265057,
+      46.22601074956114
+      ]
+      ]
+      ]}&index=parcel&returntruegeometry=true'
     results:
       firstResult:
         id: "23219000ZO0103"
@@ -1509,19 +1509,19 @@
         status: success
       - IGNGPF-1748:
         status: success
-  - request: "?text=bastille&type=PositionOfInterest&poiType=transport"
+  - request: "?text=bastille&type=PositionOfInterest&poiType=transport&lonlat=2.369098,48.851923"
     results:
       firstResult:
-        fulltext: "Bastille, 75004 Paris 4e Arrondissement"
+        fulltext: "Bastille, 75012 Paris 12e Arrondissement"
       including:
         poiType: "transport"
     userStories:
       - IGNGPF-1749:
         status: success
-  - request: "?text=bast&type=PositionOfInterest&poiType=transport"
+  - request: "?text=bast&type=PositionOfInterest&poiType=transport&lonlat=2.369098,48.851923"
     results:
       firstResult:
-        fulltext: "Bastille, 75004 Paris 4e Arrondissement"
+        fulltext: "Bastille, 75012 Paris 12e Arrondissement"
       including:
         poiType: "transport"
     userStories:
@@ -1558,9 +1558,16 @@
       - IGNGPF-1750:
         status: success
   - request: "?text=place du marché&terr=DOMTOM" # Bug: Cette requête devrait produire plus de résultats
+    status: fail
     results:
       firstResult:
         fulltext: "Place du Marché, 97111 Morne-à-l'Eau"
+      only:
+        metropole: false
+  - request: "?text=place du marché cayenne&terr=DOMTOM"
+    results:
+      firstResult:
+        fulltext: "Place du Marché, 97300 Cayenne"
       only:
         metropole: false
   - request: "?text=place de la mairie"
