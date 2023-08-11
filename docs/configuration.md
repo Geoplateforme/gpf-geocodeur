@@ -27,6 +27,17 @@ Pour gagner du temps vous pouvez tout simplement recopier le fichier `.env.sampl
 | `POI_SERVICE_PORT` | Port à utiliser pour le service `poi` | `3003` |
 | `PORT` | Port à utiliser pour le service (alias) | |
 
+## Récupération des index pré-existants (build)
+
+| Nom de la variable | Description | Valeur par défaut |
+| --- | --- | --- |
+| `ADDRESS_ARCHIVE_URL` | URL vers l'archive des données pré-indexées (address) | |
+| `ADDRESS_ARCHIVE_URL_RESOLVER` | URL vers le pointeur contenant l'URL vers les dernières données pré-indexées (address) | |
+| `POI_ARCHIVE_URL` | URL vers l'archive des données pré-indexées (poi) | |
+| `POI_ARCHIVE_URL_RESOLVER` | URL vers le pointeur contenant l'URL vers les dernières données pré-indexées (poi) | |
+| `PARCEL_ARCHIVE_URL` | URL vers l'archive des données pré-indexées (parcel) | |
+| `PARCEL_ARCHIVE_URL_RESOLVER` | URL vers le pointeur contenant l'URL vers les dernières données pré-indexées (parcel) | |
+
 ## Production des index (build)
 
 | Nom de la variable | Description | Valeur par défaut |
@@ -45,6 +56,7 @@ Pour gagner du temps vous pouvez tout simplement recopier le fichier `.env.sampl
 | `S3_ENDPOINT` | URL du stockage S3 | |
 | `S3_BUCKET` | Nom du bucket | |
 | `S3_PREFIX` | Préfixe pour le nom de l'objet créé | |
+| `S3_VHOST` | V-Host du stockage S3 pour l'accès public | |
 | `S3_ACCESS_KEY` | Clé d'accès S3 | |
 | `S3_SECRET_KEY` | Secret | |
 

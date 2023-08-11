@@ -84,3 +84,17 @@ yarn parcel:publish-index
 ```
 
 L'opération prend quelques minutes en raison de la compression `gzip` et du temps de transfert (variable selon l'infrastructure S3 utilisée et votre localisation).
+
+## Récupération de données pré-indexées
+
+Pour récupérer les données pré-générées par des tiers ou via l'étape précédente, vous pouvez indiquer dans la configuration le chemin direct vers chaque archive ou le chemin vers le pointeur `latest` qui lui contient l'URL finale.
+
+Ces informations sont communiquées par le fournisseur ou en cohérence avec l'étape précédente.
+
+Les commandes à utiliser ensuite sont les suivantes (pour chaque thématique) :
+
+```bash
+yarn address:download-index
+yarn poi:download-index
+yarn parcel:download-index
+```
