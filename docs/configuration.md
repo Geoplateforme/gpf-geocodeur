@@ -56,7 +56,7 @@ Pour gagner du temps vous pouvez tout simplement recopier le fichier `.env.sampl
 | `S3_ENDPOINT` | URL du stockage S3 | |
 | `S3_BUCKET` | Nom du bucket | |
 | `S3_PREFIX` | Préfixe pour le nom de l'objet créé | |
-| `S3_VHOST` | V-Host du stockage S3 pour l'accès public | |
+| `S3_VHOST` | V-Host du stockage S3 pour l'accès public. Nécessaire pour produire les pointeurs `latest` | |
 | `S3_ACCESS_KEY` | Clé d'accès S3 | |
 | `S3_SECRET_KEY` | Secret | |
 
