@@ -18,6 +18,14 @@ Le géocodeur sera lancé sur les données du département de la Moselle en quel
 - [Démarrage du service](docs/service.md)
 - [Développement](docs/dev.md)
 
+## OpenAPI
+
+L'API du géocodeur expose ses propres descriptions [OpenAPI](https://www.openapis.org) (anciennemment Swagger).
+
+En attendant la mise en production du service vous pouvez utiliser celles de l'environnement de test :
+- [Géocodage](https://gpf-geocodeur.livingdata.co/geocodage/openapi/geocode.yaml)
+- [Auto-complétion](https://gpf-geocodeur.livingdata.co/completion/openapi/completion.yaml)
+
 ## Licence
 
 MIT
