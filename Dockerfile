@@ -21,7 +21,11 @@ COPY --from=redis /usr/local/bin/redis-server /usr/local/bin/redis-server
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /root/.local /root/.local
 
-RUN apt-get update && apt-get install -y p7zip-full && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y p7zip-full curl wget && \
+    wget -q https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && \
+    chmod +x /usr/bin/yq && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY . .
 
