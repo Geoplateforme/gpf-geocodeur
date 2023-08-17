@@ -19,7 +19,7 @@ const GEOCODE_INDEXES = process.env.GEOCODE_INDEXES
   ? process.env.GEOCODE_INDEXES.split(',')
   : ['address', 'poi', 'parcel']
 
-const {SERVER_API_URL} = process.env
+const {API_URL} = process.env
 
 export default function createRouter(options = {}) {
   const router = new express.Router()
@@ -73,7 +73,7 @@ export default function createRouter(options = {}) {
   router.get('/geocodage/openapi/geocode.yaml', w(async (req, res) => {
     const yamlPath = path.resolve('./config/open-api/geocode.yaml')
     const yamlContent = await readFile(yamlPath, {encoding: 'utf8'})
-    const editedYaml = yamlContent.replace('$API_URL', SERVER_API_URL)
+    const editedYaml = yamlContent.replace('$API_URL', API_URL)
 
     res.set('Content-Type', 'text/yaml')
     res.attachment('geocode.yaml')
@@ -83,7 +83,7 @@ export default function createRouter(options = {}) {
   router.get('/completion/openapi/completion.yaml', w(async (req, res) => {
     const yamlPath = path.resolve('./config/open-api/completion.yaml')
     const yamlContent = await readFile(yamlPath, {encoding: 'utf8'})
-    const editedYaml = yamlContent.replace('$API_URL', SERVER_API_URL)
+    const editedYaml = yamlContent.replace('$API_URL', API_URL)
 
     res.set('Content-Type', 'text/yaml')
     res.attachment('completion.yaml')
