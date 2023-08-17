@@ -13,6 +13,7 @@ import {extractSearchParams, extractReverseParams} from './params/base.js'
 import {extractParams as extractAutocompleteParams} from './params/autocomplete.js'
 import computeGeocodeCapabilities from './capabilities/geocode.js'
 import computeAutocompleteCapabilities from './capabilities/autocomplete.js'
+import {editConfig} from './open-api/edit-config.js'
 
 const GEOCODE_INDEXES = process.env.GEOCODE_INDEXES
   ? process.env.GEOCODE_INDEXES.split(',')
@@ -67,12 +68,24 @@ export default function createRouter(options = {}) {
     res.send(capabilities)
   }))
 
-  router.get('/geocodage/openapi/geocode.yaml', w((req, res) => {
-    res.sendFile(path.resolve('./config/open-api/geocode.yaml'))
+  router.get('/geocodage/openapi/geocode.yaml', w(async (req, res) => {
+    const yamlPath = path.resolve('./config/open-api/geocode.yaml')
+    const editedConfig = await editConfig(yamlPath, process.env.API_URL)
+
+    res
+      .set('Content-Type', 'text/yaml')
+      .attachment('geocode.yaml')
+      .send(editedConfig)
   }))
 
-  router.get('/completion/openapi/completion.yaml', w((req, res) => {
-    res.sendFile(path.resolve('./config/open-api/completion.yaml'))
+  router.get('/completion/openapi/completion.yaml', w(async (req, res) => {
+    const yamlPath = path.resolve('./config/open-api/completion.yaml')
+    const editedConfig = await editConfig(yamlPath, process.env.API_URL)
+
+    res
+      .set('Content-Type', 'text/yaml')
+      .attachment('completion.yaml')
+      .send(editedConfig)
   }))
 
   router.use(errorHandler)

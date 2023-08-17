@@ -11,6 +11,7 @@ Pour gagner du temps vous pouvez tout simplement recopier le fichier `.env.sampl
 | Nom de la variable | Description | Valeur par défaut |
 | --- | --- | --- |
 | `API_PORT` | Port à utiliser pour le service | `3000` |
+| `API_URL` | URL publique de l'API | |
 | `PORT` | Port à utiliser pour le service (alias) | |
 | `GEOCODE_INDEXES` | Types d'index à charger | `address,parcel,poi` |
 | `ADDRESS_INDEX_URL` | URL du service d'index `address` | `http://localhost:3001` |
