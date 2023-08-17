@@ -228,7 +228,7 @@ test('openAPI / geocode.yaml', async t => {
     .get('/geocodage/openapi/geocode.yaml')
 
   t.is(response.status, 200)
-  t.is(response.headers['content-type'], 'text/yaml; charset=UTF-8')
+  t.is(response.headers['content-type'], 'text/yaml; charset=utf-8')
 })
 
 test('openAPI / completion.yaml', async t => {
@@ -240,5 +240,5 @@ test('openAPI / completion.yaml', async t => {
     .get('/completion/openapi/completion.yaml')
 
   t.is(response.status, 200)
-  t.is(response.headers['content-type'], 'text/yaml; charset=UTF-8')
+  t.is(response.headers['content-type'], 'text/yaml; charset=utf-8')
 })

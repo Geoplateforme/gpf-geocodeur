@@ -1,6 +1,7 @@
 import process from 'node:process'
 import path from 'node:path'
 import express from 'express'
+import {readFile} from 'node:fs/promises'
 
 import w from '../lib/w.js'
 import errorHandler from '../lib/error-handler.js'
@@ -17,6 +18,8 @@ import computeAutocompleteCapabilities from './capabilities/autocomplete.js'
 const GEOCODE_INDEXES = process.env.GEOCODE_INDEXES
   ? process.env.GEOCODE_INDEXES.split(',')
   : ['address', 'poi', 'parcel']
+
+const {SERVER_API_URL} = process.env
 
 export default function createRouter(options = {}) {
   const router = new express.Router()
@@ -67,12 +70,24 @@ export default function createRouter(options = {}) {
     res.send(capabilities)
   }))
 
-  router.get('/geocodage/openapi/geocode.yaml', w((req, res) => {
-    res.sendFile(path.resolve('./config/open-api/geocode.yaml'))
+  router.get('/geocodage/openapi/geocode.yaml', w(async (req, res) => {
+    const yamlPath = path.resolve('./config/open-api/geocode.yaml')
+    const yamlContent = await readFile(yamlPath, {encoding: 'utf8'})
+    const editedYaml = yamlContent.replace('$API_URL', SERVER_API_URL)
+
+    res.set('Content-Type', 'text/yaml')
+    res.attachment('geocode.yaml')
+    res.send(editedYaml)
   }))
 
-  router.get('/completion/openapi/completion.yaml', w((req, res) => {
-    res.sendFile(path.resolve('./config/open-api/completion.yaml'))
+  router.get('/completion/openapi/completion.yaml', w(async (req, res) => {
+    const yamlPath = path.resolve('./config/open-api/completion.yaml')
+    const yamlContent = await readFile(yamlPath, {encoding: 'utf8'})
+    const editedYaml = yamlContent.replace('$API_URL', SERVER_API_URL)
+
+    res.set('Content-Type', 'text/yaml')
+    res.attachment('completion.yaml')
+    res.send(editedYaml)
   }))
 
   router.use(errorHandler)
