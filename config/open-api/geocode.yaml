@@ -6,7 +6,7 @@ info:
     email: contact.geoservices@ign.fr
   version: 2.0.0
 servers:
-  - url:
+  - url: $API_URL
 tags:
   - name: getCapabilities
     description: Découverte du service

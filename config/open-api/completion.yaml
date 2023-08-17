@@ -4,7 +4,7 @@ info:
   title: Autocompletion
   description: "Description de l'API du service d'autocompletion de l'IGN"
 servers:
-  - url: https://wxs.ign.fr/essentiels/geoportail/geocodage/rest/0.1/completion
+  - url: $API_URL/completion
 paths:
   /getCapabilities:
     get:
