@@ -8,7 +8,12 @@ import {readFile} from 'node:fs/promises'
 import got from 'got'
 import yaml, {JSON_SCHEMA} from 'js-yaml'
 
-const RECETTE_API_URL = process.env.RECETTE_API_URL || 'https://gpf-geocodeur.livingdata.co'
+const {RECETTE_API_URL} = process.env
+
+if (!RECETTE_API_URL) {
+  throw new Error('RECETTE_API_URL is required to run this script')
+}
+
 const requestsFilePath = path.resolve('./tests/recette/definition.yaml')
 const requests = yaml.load(await readFile(requestsFilePath), {schema: JSON_SCHEMA})
 
