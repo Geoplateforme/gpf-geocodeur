@@ -5,7 +5,7 @@ let _openApiConfigDate = null
 
 const FIVE_MINUTES = 5 * 60 * 1000
 
-export async function editConfig(yamlPath, apiUrl) {
+export async function editConfig(yamlPath, apiUrl = '') {
   if (_openApiConfig && (Date.now() - _openApiConfigDate < FIVE_MINUTES)) {
     return _openApiConfig.replace('$API_URL', apiUrl)
   }

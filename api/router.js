@@ -19,8 +19,6 @@ const GEOCODE_INDEXES = process.env.GEOCODE_INDEXES
   ? process.env.GEOCODE_INDEXES.split(',')
   : ['address', 'poi', 'parcel']
 
-const {API_URL} = process.env
-
 export default function createRouter(options = {}) {
   const router = new express.Router()
 
@@ -72,20 +70,22 @@ export default function createRouter(options = {}) {
 
   router.get('/geocodage/openapi/geocode.yaml', w(async (req, res) => {
     const yamlPath = path.resolve('./config/open-api/geocode.yaml')
-    const editedConfig = await editConfig(yamlPath, API_URL)
+    const editedConfig = await editConfig(yamlPath, process.env.API_URL)
 
-    res.set('Content-Type', 'text/yaml')
-    res.attachment('geocode.yaml')
-    res.send(editedConfig)
+    res
+      .set('Content-Type', 'text/yaml')
+      .attachment('geocode.yaml')
+      .send(editedConfig)
   }))
 
   router.get('/completion/openapi/completion.yaml', w(async (req, res) => {
     const yamlPath = path.resolve('./config/open-api/completion.yaml')
-    const editedConfig = await editConfig(yamlPath, API_URL)
+    const editedConfig = await editConfig(yamlPath, process.env.API_URL)
 
-    res.set('Content-Type', 'text/yaml')
-    res.attachment('completion.yaml')
-    res.send(editedConfig)
+    res
+      .set('Content-Type', 'text/yaml')
+      .attachment('completion.yaml')
+      .send(editedConfig)
   }))
 
   router.use(errorHandler)
