@@ -18,8 +18,8 @@ test('editConfig', async t => {
   const yamlPathB = 'bar.yaml'
   const apiUrl = 'https://api.example.com'
 
-  const editedContentA = await editConfig(yamlPathA, apiUrl, 'foo')
-  const editedContentB = await editConfig(yamlPathB, apiUrl, 'bar')
+  const editedContentA = await editConfig(yamlPathA, apiUrl)
+  const editedContentB = await editConfig(yamlPathB, apiUrl)
 
   t.is(editedContentA, 'Initial content foo https://api.example.com')
   t.is(editedContentB, 'Initial content bar https://api.example.com/bar')

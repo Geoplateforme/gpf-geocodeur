@@ -70,7 +70,7 @@ export default function createRouter(options = {}) {
 
   router.get('/geocodage/openapi/geocode.yaml', w(async (req, res) => {
     const yamlPath = path.resolve('./config/open-api/geocode.yaml')
-    const editedConfig = await editConfig(yamlPath, process.env.API_URL, 'geocode')
+    const editedConfig = await editConfig(yamlPath, process.env.API_URL)
 
     res
       .set('Content-Type', 'text/yaml')
@@ -80,7 +80,7 @@ export default function createRouter(options = {}) {
 
   router.get('/completion/openapi/completion.yaml', w(async (req, res) => {
     const yamlPath = path.resolve('./config/open-api/completion.yaml')
-    const editedConfig = await editConfig(yamlPath, process.env.API_URL, 'completion')
+    const editedConfig = await editConfig(yamlPath, process.env.API_URL)
 
     res
       .set('Content-Type', 'text/yaml')
