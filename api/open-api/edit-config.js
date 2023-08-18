@@ -6,16 +6,16 @@ const FIVE_MINUTES = 5 * 60 * 1000
 
 export async function editConfig(yamlPath, apiUrl = '') {
   if (configCache[yamlPath] && (Date.now() - configCache[yamlPath].date < FIVE_MINUTES)) {
-    const openApiConfig = await readFile(yamlPath, {encoding: 'utf8'})
-    return openApiConfig.replace('$API_URL', apiUrl)
+    return configCache[yamlPath].editedConfig
   }
 
   const openApiConfig = await readFile(yamlPath, {encoding: 'utf8'})
+  const editedConfig = openApiConfig.replace('$API_URL', apiUrl)
 
   configCache[yamlPath] = {
-    content: openApiConfig,
+    editedConfig,
     date: Date.now()
   }
 
-  return openApiConfig.replace('$API_URL', apiUrl)
+  return editedConfig
 }
