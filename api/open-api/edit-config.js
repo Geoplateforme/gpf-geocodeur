@@ -2,10 +2,8 @@ import {readFile} from 'node:fs/promises'
 
 const configCache = {}
 
-const FIVE_MINUTES = 5 * 60 * 1000
-
 export async function editConfig(yamlPath, apiUrl = '') {
-  if (configCache[yamlPath] && (Date.now() - configCache[yamlPath].date < FIVE_MINUTES)) {
+  if (configCache[yamlPath]) {
     return configCache[yamlPath].editedConfig
   }
 
@@ -13,8 +11,7 @@ export async function editConfig(yamlPath, apiUrl = '') {
   const editedConfig = openApiConfig.replace('$API_URL', apiUrl)
 
   configCache[yamlPath] = {
-    editedConfig,
-    date: Date.now()
+    editedConfig
   }
 
   return editedConfig
