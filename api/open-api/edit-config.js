@@ -1,19 +1,18 @@
 import {readFile} from 'node:fs/promises'
 
-let _openApiConfig = null
-let _openApiConfigDate = null
-
-const FIVE_MINUTES = 5 * 60 * 1000
+const configCache = {}
 
 export async function editConfig(yamlPath, apiUrl = '') {
-  if (_openApiConfig && (Date.now() - _openApiConfigDate < FIVE_MINUTES)) {
-    return _openApiConfig.replace('$API_URL', apiUrl)
+  if (configCache[yamlPath]) {
+    return configCache[yamlPath].editedConfig
   }
 
   const openApiConfig = await readFile(yamlPath, {encoding: 'utf8'})
+  const editedConfig = openApiConfig.replace('$API_URL', apiUrl)
 
-  _openApiConfig = openApiConfig
-  _openApiConfigDate = Date.now()
+  configCache[yamlPath] = {
+    editedConfig
+  }
 
-  return openApiConfig.replace('$API_URL', apiUrl)
+  return editedConfig
 }

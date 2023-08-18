@@ -4,7 +4,8 @@ import {editConfig} from '../edit-config.js'
 
 test.before(() => {
   mockFs({
-    'foo.yaml': 'Initial content $API_URL'
+    'foo.yaml': 'Initial content foo $API_URL',
+    'bar.yaml': 'Initial content bar $API_URL/bar'
   })
 })
 
@@ -13,10 +14,13 @@ test.after(() => {
 })
 
 test('editConfig', async t => {
-  const yamlPath = 'foo.yaml'
+  const yamlPathA = 'foo.yaml'
+  const yamlPathB = 'bar.yaml'
   const apiUrl = 'https://api.example.com'
 
-  const editedContent = await editConfig(yamlPath, apiUrl)
+  const editedContentA = await editConfig(yamlPathA, apiUrl)
+  const editedContentB = await editConfig(yamlPathB, apiUrl)
 
-  t.is(editedContent, 'Initial content https://api.example.com')
+  t.is(editedContentA, 'Initial content foo https://api.example.com')
+  t.is(editedContentB, 'Initial content bar https://api.example.com/bar')
 })
