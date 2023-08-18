@@ -16,7 +16,7 @@ import {reverse} from './reverse.js'
 export async function createRouter() {
   const db = await createDatabase()
   const rtreeIndex = await createRtree(ADDRESS_INDEX_RTREE_PATH)
-  const redisServer = await createRedisServer(ADDRESS_INDEX_PATH)
+  const redisServer = await createRedisServer(ADDRESS_INDEX_PATH, {crashOnFailure: true})
   const addokCluster = await createCluster({
     addokRedisUrl: ['unix:' + redisServer.socketPath],
     addokConfigModule: path.resolve('./indexes/address/config/addok.conf')
