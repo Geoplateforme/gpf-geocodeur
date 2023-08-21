@@ -25,7 +25,7 @@ export function prepareRequest(params) {
     q: params.q,
     center,
     filters,
-    limit: params.limit || 10,
+    limit: Math.max(params.limit || 10, 10),
     returntruegeometry: params.returntruegeometry,
     geometry: params.searchgeom
   }
