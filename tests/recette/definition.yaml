@@ -751,7 +751,8 @@
         status: success
       - IGNGPF-1876:
         status: success
-  - request: '?searchgeom={"type": "Polygon", "coordinates": [
+  - request:
+      '?lon=2.69388&lat=48.26668&searchgeom={"type": "Polygon", "coordinates": [
       [
       [
       2.6915005618557757,
@@ -807,7 +808,8 @@
     userStories:
       - IGNGPF-1883:
         status: success
-  - request: '?searchgeom={"type": "Polygon", "coordinates": [
+  - request:
+      '?lon=1.44837&lat=46.2221&searchgeom={"type": "Polygon", "coordinates": [
       [
       [
       1.4399223818265057,
@@ -1429,7 +1431,7 @@
   - request: "?text=rue de la rép&terr=974"
     results:
       firstResult:
-        fulltext: "Rue de la Republique, 97400 Saint-Denis"
+        fulltext: "Rue de la République, 97400 Saint-Denis"
     userStories:
       - IGNGPF-1748:
         status: success
@@ -1485,14 +1487,14 @@
   - request: "?text=5 rue de la républ&terr=DOMTOM"
     results:
       firstResult:
-        fulltext: "5 Rue de la Republique, 97400 Saint-Denis"
+        fulltext: "5 Rue de la République, 97400 Saint-Denis"
     userStories:
       - IGNGPF-1753:
         status: success
   - request: "?text=5 rue de la républ&terr=DOMTOM,13"
     results:
       firstResult:
-        fulltext: "5 Rue de la Republique, 97400 Saint-Denis"
+        fulltext: "5 Rue de la République, 97400 Saint-Denis"
       many:
         terr: ["13", "971", "972", "973", "974"]
     userStories:
