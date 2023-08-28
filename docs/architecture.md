@@ -97,5 +97,5 @@ Les données (en particulier les fichiers LMDB) devront être hébergées sur un
 | --- | --- | --- | --- |
 | `api` | Moyen à rapide | 1 Go | N/A |
 | `index-address` | Rapide | >= 8 Go | 10 Go SSD |
-| `index-poi` | Rapide | >= 5 Go | 6 Go SSD |
+| `index-poi` | Rapide | >= 8 Go | 6 Go SSD |
 | `index-parcel` | Rapide | >= 5 Go | 40 Go SSD |
