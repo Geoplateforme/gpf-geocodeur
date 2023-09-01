@@ -116,7 +116,7 @@ export function parseArrayValues(values, type) {
 export function extractParam(query, paramName, definition) {
   const {type, array, allowedValues, required, defaultValue, nameInQuery, validate, extract} = definition
 
-  const rawValue = query[(nameInQuery || paramName).toLowerCase()]
+  const rawValue = query[(nameInQuery || paramName)]
   let parsedValue
 
   // Parsing
