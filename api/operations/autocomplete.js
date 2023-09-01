@@ -144,7 +144,7 @@ export function formatResult(resultFeature) {
       metropole: properties.citycode ? properties.citycode.slice(0, 2) < '97' : undefined,
       poiType: properties.category,
       street: properties.category.includes('administratif') || properties.category.includes('commune') ? computePoiCity(properties.city) : properties.toponym,
-      kind: properties.toponym || '',
+      kind: properties.category[0] || '',
       fulltext: computeFulltext(properties),
       classification: properties.classification
     }
