@@ -137,7 +137,7 @@ test('extractParam / limit', t => {
   t.is(validateLimit('1'), 1)
   t.is(validateLimit('5'), 5)
   t.is(validateLimit('20'), 20)
-  t.is(validateLimit(''), 5)
+  t.is(validateLimit(''), 10)
 
   for (const limit of ['0', '-1', '101']) {
     t.throws(() => validateLimit(limit), {message: 'Param limit must be an integer between 1 and 20'})
@@ -419,7 +419,7 @@ test('extractSearchParams / missing q but parcel only', t => {
     }),
     {
       indexes: ['parcel'],
-      limit: 5,
+      limit: 10,
       autocomplete: true,
       departmentcode: '57',
       municipalitycode: '415'
@@ -433,7 +433,7 @@ test('extractSearchParams / city', t => {
     q: 'toto'
   }), {
     indexes: ['address'],
-    limit: 5,
+    limit: 10,
     city: 'Metz',
     citycode: '57463',
     q: 'toto',
@@ -478,7 +478,7 @@ test('extractReverseParams / city / found', t => {
     lat: '48.5'
   }), {
     indexes: ['address'],
-    limit: 5,
+    limit: 10,
     city: 'Metz',
     citycode: '57463',
     lon: 2.1,
