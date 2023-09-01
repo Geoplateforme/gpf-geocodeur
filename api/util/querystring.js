@@ -6,7 +6,7 @@ export function normalizeQuery(query) {
   const normalizedQuery = {}
 
   for (const [key, value] of Object.entries(query)) {
-    normalizedQuery[key.toLowerCase().trim()] = ensureSingleValue(value).trim()
+    normalizedQuery[key.trim()] = ensureSingleValue(value).trim()
   }
 
   return normalizedQuery

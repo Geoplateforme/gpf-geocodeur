@@ -13,8 +13,8 @@ test('normalizeQuery', t => {
     Bar: '1',
     ' plop ': ['X', 'Y']
   }), {
-    foo: 'c',
-    bar: '1',
+    FOO: 'c',
+    Bar: '1',
     plop: 'Y'
   })
 })
