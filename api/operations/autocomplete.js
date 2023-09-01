@@ -123,7 +123,8 @@ export function formatResult(resultFeature) {
       ...result,
       country: 'StreetAddress',
       city: properties.city,
-      oldcity: properties.oldcity,
+      oldcity: properties.oldcity || '',
+      kind: '',
       zipcode: properties.postcode,
       street: properties.street,
       metropole: properties.citycode ? properties.citycode.slice(0, 2) < '97' : undefined,
@@ -143,7 +144,7 @@ export function formatResult(resultFeature) {
       metropole: properties.citycode ? properties.citycode.slice(0, 2) < '97' : undefined,
       poiType: properties.category,
       street: properties.category.includes('administratif') || properties.category.includes('commune') ? computePoiCity(properties.city) : properties.toponym,
-      kind: properties.toponym,
+      kind: properties.toponym || '',
       fulltext: computeFulltext(properties),
       classification: properties.classification
     }

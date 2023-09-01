@@ -86,6 +86,7 @@ test('formatResult / address 1', t => {
     street: 'Street1',
     metropole: false,
     fulltext: 'Street1, 12345 City A',
+    kind: '',
     x: 12.34,
     y: 56.78,
     classification: 7
@@ -114,6 +115,7 @@ test('formatResult / address 2', t => {
     street: 'Street2',
     metropole: false,
     fulltext: 'Street2, 12346 City B',
+    kind: '',
     x: 2,
     y: 40,
     classification: 7
