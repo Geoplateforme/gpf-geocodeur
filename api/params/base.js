@@ -80,7 +80,7 @@ export const PARAMS = {
 
   limit: {
     type: 'integer',
-    defaultValue: 5,
+    defaultValue: 10,
     validate(v) {
       if (v < 1 || v > 20) {
         throw new Error('Param limit must be an integer between 1 and 20')
