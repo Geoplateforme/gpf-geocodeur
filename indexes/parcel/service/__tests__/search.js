@@ -1,5 +1,5 @@
 import test from 'ava'
-import {formatResult, checkConfig, getById, search, reverse, asArray, structuredSearch} from '../search.js'
+import {formatResult, checkConfig, getById, search, reverse, asArray, structuredSearch, buildSearchPattern} from '../search.js'
 
 test('checkConfig / no db', t => {
   t.throws(() => checkConfig({db: 'database'}), {
@@ -336,3 +336,85 @@ test('formatResult / returntruegeometry', t => {
   })
 })
 
+test('buildSearchPattern / general', t => {
+  t.throws(() => buildSearchPattern({}), {message: 'departmentcode is required for structured search'})
+  t.throws(() => buildSearchPattern({departmentcode: '75'}), {message: 'municipalitycode or districtcode is required for structured search'})
+
+  t.is(buildSearchPattern({
+    departmentcode: '54',
+    municipalitycode: '084'
+  }), '54084000******')
+
+  t.is(buildSearchPattern({
+    departmentcode: '54',
+    municipalitycode: '084',
+    oldmunicipalitycode: '123'
+  }), '54084123******')
+
+  t.is(buildSearchPattern({
+    departmentcode: '54',
+    municipalitycode: '084',
+    section: 'AZ'
+  }), '54084000AZ****')
+
+  t.is(buildSearchPattern({
+    departmentcode: '54',
+    municipalitycode: '084',
+    section: 'AZ',
+    number: '0001'
+  }), '54084000AZ0001')
+})
+
+test('buildSearchPattern / Paris', t => {
+  t.is(buildSearchPattern({
+    departmentcode: '75',
+    districtcode: '101'
+  }), '75101000******')
+
+  t.is(buildSearchPattern({
+    departmentcode: '75',
+    municipalitycode: '056'
+  }), '75***000******')
+
+  t.is(buildSearchPattern({
+    departmentcode: '75',
+    municipalitycode: '056',
+    districtcode: '101'
+  }), '75101000******')
+})
+
+test('buildSearchPattern / Lyon', t => {
+  t.is(buildSearchPattern({
+    departmentcode: '69',
+    districtcode: '381'
+  }), '69381000******')
+
+  t.is(buildSearchPattern({
+    departmentcode: '69',
+    municipalitycode: '123'
+  }), '6938*000******')
+
+  t.is(buildSearchPattern({
+    departmentcode: '69',
+    municipalitycode: '123',
+    districtcode: '381'
+  }), '69381000******')
+})
+
+test('buildSearchPattern / Marseille', t => {
+  t.is(buildSearchPattern({
+    departmentcode: '13',
+    districtcode: '201'
+  }), '13201000******')
+
+  t.is(buildSearchPattern({
+    departmentcode: '13',
+    municipalitycode: '055'
+  }), '132**000******')
+
+  t.is(buildSearchPattern({
+    departmentcode: '13',
+    municipalitycode: '055',
+    districtcode: '201'
+  }), '13201000******')
+})

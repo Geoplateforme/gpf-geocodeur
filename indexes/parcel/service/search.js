@@ -35,14 +35,30 @@ export function asArray(result) {
   return result ? [result] : []
 }
 
-export function structuredSearch(options) {
-  const {filters, limit, returntruegeometry, db} = options
-  const {departmentcode, municipalitycode, oldmunicipalitycode, districtcode, section, sheet, number} = filters
-
+export function buildSearchPattern({departmentcode, municipalitycode, oldmunicipalitycode, districtcode, section, number}) {
   validateStructuredSearchParams({departmentcode, municipalitycode, districtcode})
 
-  const citycode = `${departmentcode}${districtcode || municipalitycode}`
-  const searchPattern = `${citycode}${oldmunicipalitycode || '000'}${section || '**'}${number || '****'}`
+  let citycode
+
+  if (districtcode) {
+    citycode = `${departmentcode}${districtcode}`
+  } else if (departmentcode === '75' && municipalitycode === '056') {
+    citycode = '75***'
+  } else if (departmentcode === '69' && municipalitycode === '123') {
+    citycode = '6938*'
+  } else if (departmentcode === '13' && municipalitycode === '055') {
+    citycode = '132**'
+  } else {
+    citycode = `${departmentcode}${municipalitycode}`
+  }
+
+  return `${citycode}${oldmunicipalitycode || '000'}${section || '**'}${number || '****'}`
+}
+
+export function structuredSearch(options) {
+  const {filters, limit, returntruegeometry, db} = options
+
+  const searchPattern = buildSearchPattern(filters)
 
   if (!searchPattern.includes('*')) {
     return asArray(getById({q: searchPattern, returntruegeometry, db}))
@@ -62,7 +78,7 @@ export function structuredSearch(options) {
 
     const parcelFeature = db.getFeatureById(parcelId)
 
-    if (sheet && parcelFeature.properties.sheet !== sheet) {
+    if (filters.sheet && parcelFeature.properties.sheet !== filters.sheet) {
       continue
     }
 
