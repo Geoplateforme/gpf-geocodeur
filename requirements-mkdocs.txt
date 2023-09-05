@@ -1,0 +1,4 @@
+mkdocs>=1.4,<1.5
+mkdocs-material
+mkdocs-mermaid2-plugin
+mkdocs-macros-plugin

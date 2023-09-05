@@ -1,0 +1,30 @@
+site_name: Geocodeur de la géoplateforme
+site_url: https://geoplateforme.pages.gpf-tech.ign.fr/geocodeur/
+nav:
+  - Architecture: architecture.md
+  - Guide Utilisateur:
+    - Installation: user/installation.md
+    - Configuration: user/configuration.md
+    - Développement : user/dev.md
+    - Production des index thématiques: 
+        - Sur la géoplateforme : user/gpf-indexation.md
+        - Sur un autre environnement : user/indexation.md
+    - Génération des POI: user/poi.md
+    - Démarrage du service: user/service.md
+theme: 
+  language: fr
+  name: material
+  logo: assets/images/logo.png
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.indexes
+
+plugins:
+  - macros
+  - mermaid2
+
+extra_css:
+  - assets/stylesheets/extra.css

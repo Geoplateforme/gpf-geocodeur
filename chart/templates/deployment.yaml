@@ -93,19 +93,15 @@ spec:
             initialDelaySeconds: 10
             periodSeconds: 5
           startupProbe:
-            exec:
-              command:
-                - /bin/bash
-                - -c
-                - echo "OK"
+            httpGet:
+              path: /ping
+              port: http
             failureThreshold: 9
             periodSeconds: 10
           readinessProbe:
-            exec:
-              command:
-                - /bin/bash
-                - -c
-                - echo "OK"
+            httpGet:
+              path: /ping
+              port: http
             initialDelaySeconds: 10
             periodSeconds: 30
           resources:

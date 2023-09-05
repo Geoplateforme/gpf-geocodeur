@@ -21,11 +21,13 @@ Pour chaque thématique il est possible de restreindre les données produites à
 La variable d'environnement `BAN_ADDOK_URL` doit être renseignée au préalable. Elle doit contenir une URL paramétrable pointant vers les données de la Base Adresse Nationale (ou structurées de la même manière, au format Addok JSON).
 
 La valeur recommandée est :
-```
+
+```bash
 BAN_ADDOK_URL=https://adresse.data.gouv.fr/data/ban/adresses/latest/addok/adresses-addok-{dep}.ndjson.gz
 ```
 
 La production de l'index se fait à l'aide de la commande suivante :
+
 ```bash
 yarn address:build-index
 ```
@@ -37,11 +39,13 @@ Sur une machine moyenne satisfaisant aux exigences techniques présentées sur l
 La variable d'environnement `PARCELLAIRE_EXPRESS_URL` doit être renseignée au préalable. Elle doit contenir une URL paramétrable pointant vers un millésime du produit PARCELLAIRE EXPRESS de l'IGN.
 
 Exemple de configuration :
-```
+
+```bash
 PARCELLAIRE_EXPRESS_URL=https://gpf-ign-data.s3.sbg.io.cloud.ovh.net/parcellaire-express/PARCELLAIRE_EXPRESS_1-1__SHP_{crs}_{dep}_2023-01-01.7z
 ```
 
 La production de l'index se fait à l'aide de la commande suivante :
+
 ```bash
 yarn parcel:build-index
 ```
@@ -55,12 +59,14 @@ Sur une machine moyenne satisfaisant aux exigences techniques présentées sur l
 Les variables d'environnement `ADMIN_EXPRESS_URL` et `BDTOPO_URL` doivent être renseignées au préalable. Elles doivent contenir des URL paramétrables pointant vers des millésimes des produits BD TOPO et ADMIN EXPRESS COG de l'IGN.
 
 Exemple de configuration :
-```
+
+```bash
 ADMIN_EXPRESS_URL=https://gpf-ign-data.s3.sbg.io.cloud.ovh.net/admin-express/ADMIN-EXPRESS-COG_3-2__SHP_WGS84G_FRA_2023-05-03.7z
 BDTOPO_URL=https://gpf-ign-data.s3.sbg.io.cloud.ovh.net/bdtopo/BDTOPO_3-3_TOUSTHEMES_GPKG_{crs}_{dep}_2023-03-15.7z
 ```
 
 La production de l'index se fait à l'aide des commandes suivantes :
+
 ```bash
 yarn poi:build-from-bdtopo # environ 2 heures
 yarn poi:build-index # environ 20 minutes

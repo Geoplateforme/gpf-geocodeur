@@ -13,6 +13,7 @@ Pour chaque couche de la BD TOPO, sont définies les règles de construction des
 Ce champs obligatoire permet de définir les règles de construction de chaque champ de l'objet POI à constituer.
 
 Un champ peut être défini de 2 manières :
+
 - avec une valeur primitive (`Number`, `String`, `Boolean`) ou un tableau de valeurs primitives si le champ est de type multiple ;
 - avec une fonction prenant en arguments les propriétés de l'objet source BD TOPO et retournant une valeur primitive ou un tableau de valeurs primitives telles défini que ci-dessus.
 
