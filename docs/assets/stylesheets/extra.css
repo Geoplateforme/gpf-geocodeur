@@ -1,0 +1,9 @@
+main > .md-grid {
+    min-height: 400px;
+    width: 95%;
+    max-width: none;
+}
+
+.md-typeset__table thead {
+    background-color: var(--md-footer-bg-color--dark);
+}

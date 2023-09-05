@@ -1,6 +1,7 @@
 # Architecture du service
 
 Le géocodeur multi-thématique de la Géoplateforme est une API permettant d'interroger simultanément 3 grandes typologies de données :
+
 - les adresses, voies et lieux-dits de la [Base Adresse Nationale](https://adresse.data.gouv.fr) ;
 - les points d’intérêt issus de la BD TOPO ;
 - les parcelles catastrales de la base Parcellaire Express.
@@ -28,6 +29,7 @@ flowchart TB
 ## Fonctionnalités et index
 
 3 fonctionnalités principales sont proposées par le service :
+
 - la recherche textuelle ou géocodage simple (avec ou sans auto-complétion) ;
 - la recherche spatiale ou géocodage inversé
 - la recherche structurée (sur la base de critères multiples)
