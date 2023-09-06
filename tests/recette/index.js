@@ -17,42 +17,31 @@ if (!RECETTE_API_URL) {
 const requestsFilePath = path.resolve('./tests/recette/definition.yaml')
 const requests = yaml.load(await readFile(requestsFilePath), {schema: JSON_SCHEMA})
 
-function getResults(item, route) {
-  const properties = item.properties || {}
-  const result = {}
-
+function prepareResult(rawResult, route) {
   if (route === '/search' || route === '/reverse') {
-    result.id = properties?.extrafields?.cleabs || properties.id
-    result.city = Array.isArray(properties.city) ? properties.city[0] : properties.city
-    result.citycode = Array.isArray(properties.citycode) ? properties.citycode[0] : properties.citycode
-    result.postcode = Array.isArray(properties.postcode) ? properties.postcode[0] : properties.postcode
-    result.type = properties.type
-    result.municipalitycode = properties.municipalitycode
-    result.oldmunicipalitycode = properties.oldmunicipalitycode
-    result.departmentcode = properties.departmentcode
-    result.districtcode = properties.districtcode
-    result.section = properties.section
-    result.category = properties.category
-    result.zipcode = properties.zipcode
-    result.truegeometry = properties.truegeometry
-    result.number = properties.number
-    result.sheet = properties.sheet
-    result._type = properties._type
-    result.metropole = properties.metropole
-  } else if (route === '/completion') {
-    result.fulltext = item.fulltext
-    result.city = item.city
-    result.citycode = item.citycode
-    result.postcode = item.postcode
-    result.country = item.country
-    result.zipcode = item.zipcode
-    result.poiType = item.poiType
-    result.metropole = item.metropole
-  } else {
-    Object.assign(result, item)
+    const {properties} = rawResult
+
+    const result = {
+      ...properties,
+      id: properties?.extrafields?.cleabs || properties.id
+    }
+
+    if (properties.city) {
+      result.city = Array.isArray(properties.city) ? properties.city[0] : properties.city
+    }
+
+    if (properties.citycode) {
+      result.citycode = Array.isArray(properties.citycode) ? properties.citycode[0] : properties.citycode
+    }
+
+    if (properties.postcode) {
+      result.postcode = Array.isArray(properties.postcode) ? properties.postcode[0] : properties.postcode
+    }
+
+    return result
   }
 
-  return result
+  return rawResult
 }
 
 for (const [route, routeRequests] of Object.entries(requests)) {
@@ -71,9 +60,9 @@ for (const [route, routeRequests] of Object.entries(requests)) {
 
       const results = responses.error ? `Error: ${responses.error}` : (
         route === '/'
-          ? [getResults(responses, route)]
+          ? [prepareResult(responses, route)]
           : responses[route === '/search' || route === '/reverse' ? 'features' : 'results'].map(item =>
-            getResults(item, route)
+            prepareResult(item, route)
           )
       )
 

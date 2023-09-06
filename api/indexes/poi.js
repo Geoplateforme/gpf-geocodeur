@@ -22,6 +22,7 @@ export function prepareRequest(params) {
     center,
     filters,
     limit: Math.max(params.limit || 10, 10),
+    returntruegeometry: params.returntruegeometry,
     geometry: params.searchgeom,
     autocomplete: params.autocomplete
   }

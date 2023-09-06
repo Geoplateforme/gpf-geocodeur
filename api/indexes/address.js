@@ -23,6 +23,7 @@ export function prepareRequest(params) {
     filters,
     limit: Math.max(params.limit || 10, 10),
     geometry: params.searchgeom,
+    returntruegeometry: params.returntruegeometry,
     autocomplete: params.autocomplete
   }
 }
