@@ -113,6 +113,28 @@ paths:
                         "kind": "",
                         "fulltext": "2 av pasteur,35400 Saint-Malo",
                       },
+                      {
+                        "country": "PositionOfInterest",
+                        "names": [
+                          "Saint-Malo"
+                        ],
+                        "zipcode": "35400",
+                        "zipcodes": [
+                          "35400" 
+                        ],
+                        "metropole": true,
+                        "city": "Saint-Malo",
+                        "street": "Saint-Malo",
+                        "poiType": [
+                          "lieu-dit habité",
+                          "zone d'habitation"
+                        ],
+                        "kind": "lieu-dit habité",
+                        "fulltext": "Saint-Malo, 35400 Saint-Malo",
+                        "classification": 7,
+                        "x": -1.994067,
+                        "y": 48.647186
+                      }
                     ],
                 }
         default:
@@ -225,7 +247,9 @@ components:
         results:
           type: array
           items:
-            $ref: "#/components/schemas/Address"
+            oneOf:
+              - $ref: "#/components/schemas/Address"
+              - $ref: "#/components/schemas/Poi"
     Address:
       type: object
       required:
@@ -238,6 +262,7 @@ components:
         - classification
         - kind
         - fulltext
+        - metropole
       properties:
         country:
           type: string
@@ -262,6 +287,59 @@ components:
           type: string
         fulltext:
           type: string
+        metropole:
+          type: boolean
+    Poi:
+      type: object
+      required:
+        - country
+        - city
+        - x
+        - y
+        - zipcode
+        - zipcodes
+        - poiType
+        - street
+        - classification
+        - kind
+        - fulltext
+        - metropole
+      properties:
+        country:
+          type: string
+        city:
+          type: string
+        x:
+          type: number
+          format: float
+        y:
+          type: number
+          format: float
+        zipcode:
+          type: string
+          minLength: 5
+          maxLength: 5
+        zipcodes:
+          type: array
+          items:
+            type: string
+            minLength: 5
+            maxLength: 5
+        poiType:
+          type: array
+          items:
+            type: string
+        street:
+          type: string
+        classification:
+          type: integer
+          format: int32
+        kind:
+          type: string
+        fulltext:
+          type: string
+        metropole:
+          type: boolean
     Error:
       type: object
       required:
