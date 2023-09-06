@@ -73,7 +73,8 @@ test('formatResult / address 1', t => {
       street: 'Street1',
       citycode: '97001',
       score: 0.9,
-      _type: 'address'
+      _type: 'address',
+      type: 'street'
     },
     geometry: {
       coordinates: [12.34, 56.78]
@@ -86,7 +87,7 @@ test('formatResult / address 1', t => {
     street: 'Street1',
     metropole: false,
     fulltext: 'Street1, 12345 City A',
-    kind: '',
+    kind: 'street',
     x: 12.34,
     y: 56.78,
     classification: 7
@@ -102,7 +103,8 @@ test('formatResult / address 2', t => {
       street: 'Street2',
       citycode: '97001',
       score: 0.8,
-      _type: 'address'
+      _type: 'address',
+      type: 'street'
     },
     geometry: {
       coordinates: [2, 40]
@@ -115,7 +117,7 @@ test('formatResult / address 2', t => {
     street: 'Street2',
     metropole: false,
     fulltext: 'Street2, 12346 City B',
-    kind: '',
+    kind: 'street',
     x: 2,
     y: 40,
     classification: 7

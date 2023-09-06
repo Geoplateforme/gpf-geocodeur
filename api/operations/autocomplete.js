@@ -124,7 +124,7 @@ export function formatResult(resultFeature) {
       country: 'StreetAddress',
       city: properties.city,
       oldcity: properties.oldcity || '',
-      kind: '',
+      kind: properties.type,
       zipcode: properties.postcode,
       street: properties.street,
       metropole: properties.citycode ? properties.citycode.slice(0, 2) < '97' : undefined,
