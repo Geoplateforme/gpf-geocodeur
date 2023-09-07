@@ -27,13 +27,13 @@ export function isDepartmentcodeValid(departmentcode) {
 
 export function parseFloatAndValidate(value) {
   if (!/^[+-]?(\d+(\.\d*)?)$/.test(value)) {
-    throw new TypeError('Unable to parse value as float')
+    throw new TypeError('unable to parse value as float')
   }
 
   const num = Number.parseFloat(value)
 
   if (Number.isNaN(num)) {
-    throw new TypeError('Unable to parse value as float')
+    throw new TypeError('unable to parse value as float')
   }
 
   return num
@@ -52,17 +52,17 @@ export function parseValue(value, type) {
 
   if (type === 'integer') {
     if (!/^([+-]?[1-9]\d*|0)$/.test(trimmedValue)) {
-      throw new TypeError('Unable to parse value as integer')
+      throw new TypeError('unable to parse value as integer')
     }
 
     const num = Number.parseInt(trimmedValue, 10)
 
     if (Number.isNaN(num)) {
-      throw new TypeError('Unable to parse value as integer')
+      throw new TypeError('unable to parse value as integer')
     }
 
     if (!Number.isSafeInteger(num)) {
-      throw new TypeError('Unable to parse value as integer')
+      throw new TypeError('unable to parse value as integer')
     }
 
     return num
@@ -83,7 +83,7 @@ export function parseValue(value, type) {
       return false
     }
 
-    throw new Error('Unable to parse value as boolean')
+    throw new TypeError('unable to parse value as boolean')
   }
 
   if (type === 'object') {
@@ -92,17 +92,17 @@ export function parseValue(value, type) {
     try {
       parsedObject = JSON.parse(trimmedValue)
     } catch {
-      throw new TypeError('Unable to parse value as object')
+      throw new TypeError('unable to parse value as valid JSON or GeoJSON object')
     }
 
     if (!parsedObject || typeof parsedObject !== 'object') {
-      throw new TypeError('Unable to parse value as object')
+      throw new TypeError('unable to parse value as valid JSON or GeoJSON object')
     }
 
     return parsedObject
   }
 
-  throw new TypeError('Unsupported value type: ' + type)
+  throw new TypeError('unsupported value type: ' + type)
 }
 
 export function parseArrayValues(values, type) {
@@ -114,60 +114,66 @@ export function parseArrayValues(values, type) {
 }
 
 export function extractParam(query, paramName, definition) {
-  const {type, array, allowedValues, required, defaultValue, nameInQuery, validate, extract} = definition
+  const {type, array, allowedValues, required, defaultValue, validate, extract} = definition
 
-  const rawValue = query[(nameInQuery || paramName)]
+  const nameInQuery = definition.nameInQuery || paramName
+
+  const rawValue = query[nameInQuery]
   let parsedValue
 
-  // Parsing
-  if (rawValue) {
-    parsedValue = array
-      ? parseArrayValues(rawValue, type)
-      : parseValue(rawValue, type)
-  }
+  try {
+    // Parsing
+    if (rawValue) {
+      parsedValue = array
+        ? parseArrayValues(rawValue, type)
+        : parseValue(rawValue, type)
+    }
 
-  // Enum
-  if (parsedValue && allowedValues) {
-    if (array) {
-      const unexpectedValue = parsedValue.find(v => !allowedValues.includes(v))
-      if (unexpectedValue) {
-        throw new Error(`Unexpected value '${unexpectedValue}' for param ${paramName}`)
+    // Enum
+    if (parsedValue && allowedValues) {
+      if (array) {
+        const unexpectedValue = parsedValue.find(v => !allowedValues.includes(v))
+        if (unexpectedValue) {
+          throw new TypeError(`unexpected value '${unexpectedValue}'`)
+        }
+      } else if (!allowedValues.includes(parsedValue)) {
+        throw new TypeError(`unexpected value '${parsedValue}'`)
       }
-    } else if (!allowedValues.includes(parsedValue)) {
-      throw new Error(`Unexpected value '${parsedValue}' for param ${paramName}`)
-    }
-  }
-
-  // Custom extraction
-  if (type === 'custom' && parsedValue) {
-    if (!extract) {
-      throw new Error('Missing extract function for custom param')
     }
 
-    parsedValue = extract(parsedValue)
-  }
+    // Custom extraction
+    if (type === 'custom' && parsedValue) {
+      if (!extract) {
+        throw new TypeError('unexpected error')
+      }
 
-  // Validation
-  if (parsedValue !== undefined && validate) {
-    validate(parsedValue)
-  }
+      parsedValue = extract(parsedValue)
+    }
 
-  // Required
-  if (parsedValue === undefined && required) {
-    throw new Error(`${paramName} is a required param`)
-  }
+    // Validation
+    if (parsedValue !== undefined && validate) {
+      validate(parsedValue)
+    }
 
-  // Default value
-  if (parsedValue === undefined && defaultValue) {
-    parsedValue = defaultValue
-  }
+    // Required
+    if (parsedValue === undefined && required) {
+      throw new TypeError('required param')
+    }
 
-  // Dedupe
-  if (Array.isArray(parsedValue)) {
-    parsedValue = [...new Set(parsedValue)]
-  }
+    // Default value
+    if (parsedValue === undefined && defaultValue) {
+      parsedValue = defaultValue
+    }
 
-  return parsedValue
+    // Dedupe
+    if (Array.isArray(parsedValue)) {
+      parsedValue = [...new Set(parsedValue)]
+    }
+
+    return parsedValue
+  } catch (error) {
+    throw new TypeError(`${nameInQuery}: ${error.message}`)
+  }
 }
 
 export function extractSingleParams(query, paramsDefinition) {

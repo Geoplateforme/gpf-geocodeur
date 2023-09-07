@@ -40,7 +40,7 @@ test('parseValue / boolean', t => {
   t.false(parseValue(' false ', 'boolean'))
   t.false(parseValue('no', 'boolean'))
   t.false(parseValue('0', 'boolean'))
-  t.throws(() => parseValue('a', 'boolean'), {message: 'Unable to parse value as boolean'})
+  t.throws(() => parseValue('a', 'boolean'), {message: 'unable to parse value as boolean'})
 })
 
 test('parseValue / integer', t => {
@@ -51,9 +51,9 @@ test('parseValue / integer', t => {
   t.is(parseValue('0', 'integer'), 0)
   t.is(parseValue(' +100 ', 'integer'), 100)
 
-  t.throws(() => parseValue('abc', 'integer'), {message: 'Unable to parse value as integer'})
-  t.throws(() => parseValue('1.0', 'integer'), {message: 'Unable to parse value as integer'})
-  t.throws(() => parseValue('100000000000000000000000000000000', 'integer'), {message: 'Unable to parse value as integer'})
+  t.throws(() => parseValue('abc', 'integer'), {message: 'unable to parse value as integer'})
+  t.throws(() => parseValue('1.0', 'integer'), {message: 'unable to parse value as integer'})
+  t.throws(() => parseValue('100000000000000000000000000000000', 'integer'), {message: 'unable to parse value as integer'})
 })
 
 test('parseValue / float', t => {
@@ -64,8 +64,8 @@ test('parseValue / float', t => {
   t.is(parseValue('0', 'float'), 0)
   t.is(parseValue(' +100.99994 ', 'float'), 100.999_94)
 
-  t.throws(() => parseValue('abc', 'float'), {message: 'Unable to parse value as float'})
-  t.throws(() => parseValue('1.0abc', 'float'), {message: 'Unable to parse value as float'})
+  t.throws(() => parseValue('abc', 'float'), {message: 'unable to parse value as float'})
+  t.throws(() => parseValue('1.0abc', 'float'), {message: 'unable to parse value as float'})
 })
 
 test('parseValue / object', t => {
@@ -77,12 +77,12 @@ test('parseValue / object', t => {
   t.deepEqual(parseValue('{"foo": "bar", "foobar": 123}', 'object'), {foo: 'bar', foobar: 123})
   t.deepEqual(parseValue('{"foobar": [12, 1.1]}', 'object'), {foobar: [12, 1.1]})
 
-  t.throws(() => parseValue('foo', 'object'), {message: 'Unable to parse value as object'})
-  t.throws(() => parseValue('123', 'object'), {message: 'Unable to parse value as object'})
+  t.throws(() => parseValue('foo', 'object'), {message: 'unable to parse value as valid JSON or GeoJSON object'})
+  t.throws(() => parseValue('123', 'object'), {message: 'unable to parse value as valid JSON or GeoJSON object'})
 })
 
 test('parseValue / other', t => {
-  t.throws(() => parseValue('abc', 'other'), {message: 'Unsupported value type: other'})
+  t.throws(() => parseValue('abc', 'other'), {message: 'unsupported value type: other'})
 })
 
 test('parseFloatAndValidate', t => {
@@ -90,8 +90,8 @@ test('parseFloatAndValidate', t => {
   t.is(parseFloatAndValidate('-99.9'), -99.9)
   t.is(parseFloatAndValidate('0'), 0)
 
-  t.throws(() => parseValue('abc', 'float'), {message: 'Unable to parse value as float'})
-  t.throws(() => parseValue('1.0abc', 'float'), {message: 'Unable to parse value as float'})
+  t.throws(() => parseValue('abc', 'float'), {message: 'unable to parse value as float'})
+  t.throws(() => parseValue('1.0abc', 'float'), {message: 'unable to parse value as float'})
 })
 
 test('extractParam / custom', t => {

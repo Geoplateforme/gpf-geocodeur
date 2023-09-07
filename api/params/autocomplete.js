@@ -24,11 +24,11 @@ export function validateLonlat(lonlat) {
   const [lon, lat] = lonlat
 
   if (lon < -180 || lon > 180) {
-    throw new Error('lon must be a float between -180 and 180')
+    throw new Error('lon: must be a float between -180 and 180')
   }
 
   if (lat < -90 || lat > 90) {
-    throw new Error('lat must be a float between -90 and 90')
+    throw new Error('lat: must be a float between -90 and 90')
   }
 }
 
@@ -36,19 +36,19 @@ export function validateBbox(bbox) {
   const [xmin, ymin, xmax, ymax] = bbox
 
   if (xmin < -180 || xmin > 180) {
-    throw new Error('xmin must be a float between -180 and 180')
+    throw new Error('xmin: must be a float between -180 and 180')
   }
 
   if (ymin < -90 || ymin > 90) {
-    throw new Error('ymin must be a float between -90 and 90')
+    throw new Error('ymin: must be a float between -90 and 90')
   }
 
   if (xmax < -180 || xmax > 180) {
-    throw new Error('xmax must be a float between -180 and 180')
+    throw new Error('xmax: must be a float between -180 and 180')
   }
 
   if (ymax < -90 || ymax > 90) {
-    throw new Error('ymax must be a float between -90 and 90')
+    throw new Error('ymax: must be a float between -90 and 90')
   }
 }
 
@@ -70,7 +70,7 @@ export const AUTOCOMPLETE = {
     array: true,
     validate(v) {
       if (v.some(value => !isTerrValid(value))) {
-        throw new Error('Unexpected value(s) for param terr')
+        throw new Error('unexpected value')
       }
     },
     description: 'une limitation de la zone de recherche de localisants',
@@ -89,7 +89,7 @@ export const AUTOCOMPLETE = {
       const coordinates = v.split(',')
 
       if (coordinates.length !== 2) {
-        throw new Error('lonlat must be in the format "lon,lat"')
+        throw new Error('must be in the format "lon,lat"')
       }
 
       const lon = parseFloatAndValidate(coordinates[0])
@@ -118,7 +118,7 @@ export const AUTOCOMPLETE = {
     defaultValue: 10,
     validate(v) {
       if (v < 1 || v > 15) {
-        throw new Error('Param limit must be an integer between 1 and 15')
+        throw new Error('must be an integer between 1 and 15')
       }
     },
     description: 'le nombre maximum de réponses que l\'on souhaite voir retournées',
@@ -131,7 +131,7 @@ export const AUTOCOMPLETE = {
       const coordinates = v.split(',')
 
       if (coordinates.length !== 4) {
-        throw new Error('bbox must be in the format "xmin,ymin,xmax,ymax"')
+        throw new Error('must be in the format "xmin,ymin,xmax,ymax"')
       }
 
       const xmin = parseFloatAndValidate(coordinates[0])
