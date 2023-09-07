@@ -39,18 +39,19 @@ test:recette:
     - yarn --frozen-lockfile
     - yarn test-recette
   when: manual
-# pages:
-#   stage: deploy
-#   script:
-#   - python -m pip install -U virtualenv
-#   - virtualenv venv
-#   - source venv/bin/activate
-#   - python -m pip install -U pip
-#   - python -m pip install -U setuptools wheel
-#   - python -m pip install -U -r requirements-mkdocs.txt
-#   - mkdocs build --strict --verbose -d public
-#   artifacts:
-#     paths:
-#     - public
-#   rules:
-#     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+
+pages:
+  stage: deploy
+  script:
+    - python -m pip install -U virtualenv
+    - virtualenv venv
+    - source venv/bin/activate
+    - python -m pip install -U pip
+    - python -m pip install -U setuptools wheel
+    - python -m pip install -U -r requirements-mkdocs.txt
+    - mkdocs build --strict --verbose -d public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
