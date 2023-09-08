@@ -32,7 +32,7 @@ La production de l'index se fait à l'aide de la commande suivante :
 yarn address:build-index
 ```
 
-Sur une machine moyenne satisfaisant aux exigences techniques présentées sur la page [Architecture](architecture.md) l'opération dure environ **30 minutes** et génère des fichiers pesant environ **9 Go**.
+Sur une machine moyenne satisfaisant aux exigences techniques présentées sur la page [Architecture](../architecture.md) l'opération dure environ **30 minutes** et génère des fichiers pesant environ **9 Go**.
 
 ### Index parcel
 
@@ -50,7 +50,7 @@ La production de l'index se fait à l'aide de la commande suivante :
 yarn parcel:build-index
 ```
 
-Sur une machine moyenne satisfaisant aux exigences techniques présentées sur la page [Architecture](architecture.md) l'opération dure environ **7 heures** et génère des fichiers pesant environ **40 Go**.
+Sur une machine moyenne satisfaisant aux exigences techniques présentées sur la page [Architecture](../architecture.md) l'opération dure environ **7 heures** et génère des fichiers pesant environ **40 Go**.
 
 **Attention** : sur une machine avec un disque distant, peu performant, et/ou si la source de téléchargement des données PARCELLAIRE EXPRESS dispose d'une faible bande passante ce traitement peut facilement durer plusieurs jours !!!
 
@@ -72,7 +72,7 @@ yarn poi:build-from-bdtopo # environ 2 heures
 yarn poi:build-index # environ 20 minutes
 ```
 
-Sur une machine moyenne satisfaisant aux exigences techniques présentées sur la page [Architecture](architecture.md) l'opération dure environ **3 heures** et génère des fichiers pesant environ **10 Go**.
+Sur une machine moyenne satisfaisant aux exigences techniques présentées sur la page [Architecture](../architecture.md) l'opération dure environ **3 heures** et génère des fichiers pesant environ **10 Go**.
 
 ## Stockage S3 des données
 
