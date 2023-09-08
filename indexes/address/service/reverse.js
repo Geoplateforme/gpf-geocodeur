@@ -26,6 +26,8 @@ export function formatResult(feature, {center}) {
     const distance = computeDistance(feature, center)
     result.properties.distance = distance
     result.properties.score = computeScore(distance)
+  } else {
+    result.properties.distance = 0
   }
 
   return result

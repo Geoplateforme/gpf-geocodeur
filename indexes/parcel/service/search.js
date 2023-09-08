@@ -153,12 +153,12 @@ export function reverse(options) {
 
   return reverseBase({
     ...options,
-    formatResult,
+    formatResult: (feature, options) => formatResult(feature, {...options, forceDistance: true}),
     getFeatureByIdx: idx => options.db.getFeatureByIdx(idx)
   })
 }
 
-export function formatResult(feature, {center, distanceCache, returntruegeometry}) {
+export function formatResult(feature, {center, distanceCache, returntruegeometry, forceDistance}) {
   const result = {
     type: 'Feature',
     geometry: {
@@ -178,6 +178,10 @@ export function formatResult(feature, {center, distanceCache, returntruegeometry
     const distance = computeDistance(feature, center)
     result.properties.distance = distance
     result.properties.score = computeScore(distance)
+  }
+
+  if (forceDistance && !result.properties.distance) {
+    result.properties.distance = 0
   }
 
   if (returntruegeometry) {
