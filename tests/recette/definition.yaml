@@ -1464,6 +1464,7 @@
       - IGNGPF-1751:
         status: success
   - request: "?text=marché&terr=13" # Bug: Cette requête devrait produire plus de résultats
+    status: fail
     results:
       firstResult:
         fulltext: "Rue du marche, 13015 Marseille"
