@@ -22,45 +22,45 @@ test('validateSearchgeom', t => {
     ]
   ]}), undefined)
 
-  t.throws(() => validateSearchgeom({type: 'foo', coordinates: [2.1, 48.5]}), {message: 'Geometry type not allowed: foo'})
-  t.throws(() => validateSearchgeom({coordinates: [2.1, 48.5]}), {message: 'Geometry object must have a \'type\' property'})
-  t.throws(() => validateSearchgeom({type: 'Point'}), {message: 'Geometry not valid: "coordinates" member required'})
+  t.throws(() => validateSearchgeom({type: 'foo', coordinates: [2.1, 48.5]}), {message: 'geometry type (foo) not allowed'})
+  t.throws(() => validateSearchgeom({coordinates: [2.1, 48.5]}), {message: 'geometry object must have a \'type\' property'})
+  t.throws(() => validateSearchgeom({type: 'Point'}), {message: 'geometry not valid: "coordinates" member required'})
 
   t.throws(
     () => validateSearchgeom({type: 'Circle', coordinates: [2.1, 48.5]}),
-    {message: 'Geometry not valid: radius property is missing'})
+    {message: 'geometry not valid: radius property is missing'})
 
   t.throws(
     () => validateSearchgeom({type: 'Circle', coordinates: [2.1, 48.5], radius: 'foo'}),
-    {message: 'Geometry not valid: radius must be a positive float'})
+    {message: 'geometry not valid: radius must be a positive float'})
 
   t.throws(() => validateSearchgeom({type: 'LineString', coordinates: [
     ['foo', 48.8],
     [2.3, 49.8],
     [2.3, 50.8]
-  ]}), {message: 'Geometry not valid: each element in a position must be a number'})
+  ]}), {message: 'geometry not valid: each element in a position must be a number'})
 })
 
 test('validateSearchgeom / wrong structure', t => {
   t.throws(
     () => validateSearchgeom({type: 'Point', coordinates: [48.5]}),
-    {message: 'Geometry not valid: position must have 2 or more elements'})
+    {message: 'geometry not valid: position must have 2 or more elements'})
 
   t.throws(
     () => validateSearchgeom({type: 'Circle', coordinates: [48.5], radius: 100}),
-    {message: 'Geometry not valid: Coordinates must be an array of two entries'})
+    {message: 'geometry not valid: Coordinates must be an array of two entries'})
 
   t.throws(
     () => validateSearchgeom({type: 'LineString', coordinates: [2.1]}),
-    {message: 'Geometry not valid: a line needs to have two or more coordinates to be valid'})
+    {message: 'geometry not valid: a line needs to have two or more coordinates to be valid'})
 
   t.throws(
     () => validateSearchgeom({type: 'LineString', coordinates: [2.1, 48.5]}),
-    {message: 'Geometry not valid: position should be an array, is a number instead'})
+    {message: 'geometry not valid: position should be an array, is a number instead'})
 
   t.throws(
     () => validateSearchgeom({type: 'Polygon', coordinates: [2.1, 48.5]}),
-    {message: 'Geometry not valid: a number was found where a coordinate array should have been found: this needs to be nested more deeply'})
+    {message: 'geometry not valid: a number was found where a coordinate array should have been found: this needs to be nested more deeply'})
 
   t.throws(
     () => validateSearchgeom({type: 'Polygon', coordinates: [
@@ -69,7 +69,7 @@ test('validateSearchgeom / wrong structure', t => {
         [4.3, 49.8]
       ]
     ]}),
-    {message: 'Geometry not valid: a LinearRing of coordinates needs to have four or more positions'})
+    {message: 'geometry not valid: a LinearRing of coordinates needs to have four or more positions'})
 
   t.throws(
     () => validateSearchgeom({type: 'Polygon', coordinates: [
@@ -84,7 +84,7 @@ test('validateSearchgeom / wrong structure', t => {
         [3.2, 49.2]
       ]
     ]}),
-    {message: 'Geometry not valid: a LinearRing of coordinates needs to have four or more positions'})
+    {message: 'geometry not valid: a LinearRing of coordinates needs to have four or more positions'})
 })
 
 test('validateSearchgeom / geometry too large', t => {
@@ -98,7 +98,7 @@ test('validateSearchgeom / geometry too large', t => {
         [1.7478, 49.1334]
       ]
     ], type: 'Polygon'}),
-    {message: 'Geometry is too big: bbox max length must be less than 1000m'}
+    {message: 'geometry is too big: bbox max length must be less than 1000m'}
   )
 })
 
@@ -113,19 +113,19 @@ test('extractParam / q', t => {
 
   t.throws(
     () => extractQ('aa'),
-    {message: 'must contain between 3 and 200 chars and start with a number or a letter'}
+    {message: 'q: must contain between 3 and 200 chars and start with a number or a letter'}
   )
   t.throws(
     () => extractQ('-aaa'),
-    {message: 'must contain between 3 and 200 chars and start with a number or a letter'}
+    {message: 'q: must contain between 3 and 200 chars and start with a number or a letter'}
   )
   t.throws(
     () => extractQ('   aa'),
-    {message: 'must contain between 3 and 200 chars and start with a number or a letter'}
+    {message: 'q: must contain between 3 and 200 chars and start with a number or a letter'}
   )
   t.throws(
     () => extractQ(Array.from({length: 300}).fill('a').join('')),
-    {message: 'must contain between 3 and 200 chars and start with a number or a letter'}
+    {message: 'q: must contain between 3 and 200 chars and start with a number or a letter'}
   )
 })
 
@@ -140,11 +140,11 @@ test('extractParam / limit', t => {
   t.is(validateLimit(''), 10)
 
   for (const limit of ['0', '-1', '101']) {
-    t.throws(() => validateLimit(limit), {message: 'Param limit must be an integer between 1 and 20'})
+    t.throws(() => validateLimit(limit), {message: 'limit: must be an integer between 1 and 20'})
   }
 
   for (const limit of ['0.5', 'foo']) {
-    t.throws(() => validateLimit(limit), {message: 'Unable to parse value as integer'})
+    t.throws(() => validateLimit(limit), {message: 'limit: unable to parse value as integer'})
   }
 })
 
@@ -160,8 +160,8 @@ test('extractParam / indexes', t => {
   t.deepEqual(extractIndexes(''), ['address'])
   t.deepEqual(extractIndexes(), ['address'])
 
-  t.throws(() => extractIndexes('foo,bar'), {message: 'Unexpected value \'foo\' for param indexes'})
-  t.throws(() => extractIndexes('address,foo'), {message: 'Unexpected value \'foo\' for param indexes'})
+  t.throws(() => extractIndexes('foo,bar'), {message: 'index: unexpected value \'foo\''})
+  t.throws(() => extractIndexes('address,foo'), {message: 'index: unexpected value \'foo\''})
 })
 
 test('extractParam / lon-lat', t => {
@@ -183,11 +183,11 @@ test('extractParam / lon-lat', t => {
   t.is(extractLon('-166.56'), -166.56)
   t.is(extractLon('166.56'), 166.56)
 
-  t.throws(() => extractLat('a'), {message: 'Unable to parse value as float'})
-  t.throws(() => extractLat('-95'), {message: 'lat must be a float between -90 and 90'})
+  t.throws(() => extractLat('a'), {message: 'lat: unable to parse value as float'})
+  t.throws(() => extractLat('-95'), {message: 'lat: must be a float between -90 and 90'})
 
-  t.throws(() => extractLon('a'), {message: 'Unable to parse value as float'})
-  t.throws(() => extractLon('-195'), {message: 'lon must be a float between -180 and 180'})
+  t.throws(() => extractLon('a'), {message: 'lon: unable to parse value as float'})
+  t.throws(() => extractLon('-195'), {message: 'lon: must be a float between -180 and 180'})
 })
 
 test('extractParam / type', t => {
@@ -200,8 +200,8 @@ test('extractParam / type', t => {
   t.is(extractType('locality'), 'locality')
   t.is(extractType('municipality'), 'municipality')
 
-  t.throws(() => extractType('foo'), {message: 'Unexpected value \'foo\' for param type'})
-  t.throws(() => extractType('housenumber bar'), {message: 'Unexpected value \'housenumber bar\' for param type'})
+  t.throws(() => extractType('foo'), {message: 'type: unexpected value \'foo\''})
+  t.throws(() => extractType('housenumber bar'), {message: 'type: unexpected value \'housenumber bar\''})
 })
 
 test('extractParam / postcode', t => {
@@ -211,9 +211,9 @@ test('extractParam / postcode', t => {
 
   t.is(extractPostcode('12345'), '12345')
 
-  t.throws(() => extractPostcode('1234'), {message: 'Param postcode must contain 5 digits'})
-  t.throws(() => extractPostcode('123456'), {message: 'Param postcode must contain 5 digits'})
-  t.throws(() => extractPostcode('12E45'), {message: 'Param postcode must contain 5 digits'})
+  t.throws(() => extractPostcode('1234'), {message: 'postcode: must contain 5 digits'})
+  t.throws(() => extractPostcode('123456'), {message: 'postcode: must contain 5 digits'})
+  t.throws(() => extractPostcode('12E45'), {message: 'postcode: must contain 5 digits'})
 })
 
 test('extractParam / citycode', t => {
@@ -225,13 +225,13 @@ test('extractParam / citycode', t => {
   t.is(extractCitycode('1A345'), '1A345')
   t.is(extractCitycode('1B345'), '1B345')
 
-  t.throws(() => extractCitycode('12A45'), {message: 'Param citycode is invalid'})
-  t.throws(() => extractCitycode('A1245'), {message: 'Param citycode is invalid'})
-  t.throws(() => extractCitycode('123A5'), {message: 'Param citycode is invalid'})
-  t.throws(() => extractCitycode('1234A'), {message: 'Param citycode is invalid'})
-  t.throws(() => extractCitycode('1a345'), {message: 'Param citycode is invalid'})
-  t.throws(() => extractCitycode('1b345'), {message: 'Param citycode is invalid'})
-  t.throws(() => extractCitycode('1A3456'), {message: 'Param citycode is invalid'})
+  t.throws(() => extractCitycode('12A45'), {message: 'citycode: not valid'})
+  t.throws(() => extractCitycode('A1245'), {message: 'citycode: not valid'})
+  t.throws(() => extractCitycode('123A5'), {message: 'citycode: not valid'})
+  t.throws(() => extractCitycode('1234A'), {message: 'citycode: not valid'})
+  t.throws(() => extractCitycode('1a345'), {message: 'citycode: not valid'})
+  t.throws(() => extractCitycode('1b345'), {message: 'citycode: not valid'})
+  t.throws(() => extractCitycode('1A3456'), {message: 'citycode: not valid'})
 })
 
 test('extractParam / city', t => {
@@ -247,7 +247,7 @@ test('extractParam / city', t => {
 
   t.throws(
     () => extractCity(Array.from({length: 60}).fill('a').join('')),
-    {message: 'must contain between 1 and 50 chars'}
+    {message: 'city: must contain between 1 and 50 chars'}
   )
 })
 
@@ -275,7 +275,7 @@ test('extractParam / returntruegeometry', t => {
   t.false(extractReturntruegeometry(' false '))
   t.false(extractReturntruegeometry('no'))
   t.false(extractReturntruegeometry('0'))
-  t.throws(() => extractReturntruegeometry('a'), {message: 'Unable to parse value as boolean'})
+  t.throws(() => extractReturntruegeometry('a'), {message: 'returntruegeometry: unable to parse value as boolean'})
 })
 
 test('extractParam / departmentcode', t => {
@@ -292,11 +292,11 @@ test('extractParam / departmentcode', t => {
   t.is(extractDepartmentcode('974'), '974')
   t.is(extractDepartmentcode('976'), '976')
 
-  t.throws(() => extractDepartmentcode('20'), {message: 'Param departmentcode is invalid'})
-  t.throws(() => extractDepartmentcode('97'), {message: 'Param departmentcode is invalid'})
-  t.throws(() => extractDepartmentcode('3A'), {message: 'Param departmentcode is invalid'})
-  t.throws(() => extractDepartmentcode('001'), {message: 'Param departmentcode is invalid'})
-  t.throws(() => extractDepartmentcode('12345'), {message: 'Param departmentcode is invalid'})
+  t.throws(() => extractDepartmentcode('20'), {message: 'departmentcode: not valid'})
+  t.throws(() => extractDepartmentcode('97'), {message: 'departmentcode: not valid'})
+  t.throws(() => extractDepartmentcode('3A'), {message: 'departmentcode: not valid'})
+  t.throws(() => extractDepartmentcode('001'), {message: 'departmentcode: not valid'})
+  t.throws(() => extractDepartmentcode('12345'), {message: 'departmentcode: not valid'})
 })
 
 test('extractParam / municipalitycode', t => {
@@ -308,10 +308,10 @@ test('extractParam / municipalitycode', t => {
   t.is(extractMunicipalitycode('001'), '001')
   t.is(extractMunicipalitycode('01'), '01')
 
-  t.throws(() => extractMunicipalitycode('1234'), {message: 'Param municipalitycode is invalid'})
-  t.throws(() => extractMunicipalitycode('12A'), {message: 'Param municipalitycode is invalid'})
-  t.throws(() => extractMunicipalitycode('A12'), {message: 'Param municipalitycode is invalid'})
-  t.throws(() => extractMunicipalitycode('1A3'), {message: 'Param municipalitycode is invalid'})
+  t.throws(() => extractMunicipalitycode('1234'), {message: 'municipalitycode: not valid'})
+  t.throws(() => extractMunicipalitycode('12A'), {message: 'municipalitycode: not valid'})
+  t.throws(() => extractMunicipalitycode('A12'), {message: 'municipalitycode: not valid'})
+  t.throws(() => extractMunicipalitycode('1A3'), {message: 'municipalitycode: not valid'})
 })
 
 test('extractParam / oldmunicipalitycode', t => {
@@ -322,11 +322,11 @@ test('extractParam / oldmunicipalitycode', t => {
   t.is(extractOldmunicipalitycode('123'), '123')
   t.is(extractOldmunicipalitycode('000'), '000')
 
-  t.throws(() => extractOldmunicipalitycode('01'), {message: 'Param oldmunicipalitycode is invalid'})
-  t.throws(() => extractOldmunicipalitycode('1234'), {message: 'Param oldmunicipalitycode is invalid'})
-  t.throws(() => extractOldmunicipalitycode('12A'), {message: 'Param oldmunicipalitycode is invalid'})
-  t.throws(() => extractOldmunicipalitycode('A12'), {message: 'Param oldmunicipalitycode is invalid'})
-  t.throws(() => extractOldmunicipalitycode('1A3'), {message: 'Param oldmunicipalitycode is invalid'})
+  t.throws(() => extractOldmunicipalitycode('01'), {message: 'oldmunicipalitycode: not valid'})
+  t.throws(() => extractOldmunicipalitycode('1234'), {message: 'oldmunicipalitycode: not valid'})
+  t.throws(() => extractOldmunicipalitycode('12A'), {message: 'oldmunicipalitycode: not valid'})
+  t.throws(() => extractOldmunicipalitycode('A12'), {message: 'oldmunicipalitycode: not valid'})
+  t.throws(() => extractOldmunicipalitycode('1A3'), {message: 'oldmunicipalitycode: not valid'})
 })
 
 test('extractParam / districtcode', t => {
@@ -336,9 +336,9 @@ test('extractParam / districtcode', t => {
 
   t.is(extractDistrictcode('123'), '123')
 
-  t.throws(() => extractDistrictcode('1A2'), {message: 'Param districtcode is invalid'})
-  t.throws(() => extractDistrictcode('1'), {message: 'Param districtcode is invalid'})
-  t.throws(() => extractDistrictcode('1234'), {message: 'Param districtcode is invalid'})
+  t.throws(() => extractDistrictcode('1A2'), {message: 'districtcode: not valid'})
+  t.throws(() => extractDistrictcode('1'), {message: 'districtcode: not valid'})
+  t.throws(() => extractDistrictcode('1234'), {message: 'districtcode: not valid'})
 })
 
 test('extractParam / section', t => {
@@ -352,11 +352,11 @@ test('extractParam / section', t => {
   t.is(extractSection('A'), 'A')
   t.is(extractSection(''), undefined)
 
-  t.throws(() => extractSection('A1'), {message: 'Param section is invalid'})
-  t.throws(() => extractSection('ab'), {message: 'Param section is invalid'})
-  t.throws(() => extractSection('b2'), {message: 'Param section is invalid'})
-  t.throws(() => extractSection('aaa'), {message: 'Param section is invalid'})
-  t.throws(() => extractSection('ba2'), {message: 'Param section is invalid'})
+  t.throws(() => extractSection('A1'), {message: 'section: not valid'})
+  t.throws(() => extractSection('ab'), {message: 'section: not valid'})
+  t.throws(() => extractSection('b2'), {message: 'section: not valid'})
+  t.throws(() => extractSection('aaa'), {message: 'section: not valid'})
+  t.throws(() => extractSection('ba2'), {message: 'section: not valid'})
 })
 
 test('extractParam / number', t => {
@@ -369,9 +369,9 @@ test('extractParam / number', t => {
   t.is(extractNumber('01'), '01')
   t.is(extractNumber(''), undefined)
 
-  t.throws(() => extractNumber('a12'), {message: 'Param number is invalid'})
-  t.throws(() => extractNumber('12a'), {message: 'Param number is invalid'})
-  t.throws(() => extractNumber('12345'), {message: 'Param number is invalid'})
+  t.throws(() => extractNumber('a12'), {message: 'number: not valid'})
+  t.throws(() => extractNumber('12a'), {message: 'number: not valid'})
+  t.throws(() => extractNumber('12345'), {message: 'number: not valid'})
 })
 
 test('extractParam / sheet', t => {
@@ -383,9 +383,9 @@ test('extractParam / sheet', t => {
   t.is(extractSheet('01'), '01')
   t.is(extractSheet(''), undefined)
 
-  t.throws(() => extractSheet('1234'), {message: 'Param sheet is invalid'})
-  t.throws(() => extractSheet('a12'), {message: 'Param sheet is invalid'})
-  t.throws(() => extractSheet('12a'), {message: 'Param sheet is invalid'})
+  t.throws(() => extractSheet('1234'), {message: 'sheet: not valid'})
+  t.throws(() => extractSheet('a12'), {message: 'sheet: not valid'})
+  t.throws(() => extractSheet('12a'), {message: 'sheet: not valid'})
 })
 
 test('extractSearchParams / all params', t => {
@@ -407,7 +407,7 @@ test('extractSearchParams / all params', t => {
 
 test('extractSearchParams / missing q parameter', t => {
   const error = t.throws(() => extractSearchParams({}), {message: 'Failed parsing query'})
-  t.deepEqual(error.detail, ['q is a required param'])
+  t.deepEqual(error.detail, ['q: required param'])
 })
 
 test('extractSearchParams / missing q but parcel only', t => {

@@ -18,16 +18,16 @@ test('isTerrValid', t => {
 
 test('validateLonlat', t => {
   t.is(validateLonlat([1, -66]), undefined)
-  t.throws(() => validateLonlat([-195, 48]), {message: 'lon must be a float between -180 and 180'})
-  t.throws(() => validateLonlat([2, -95]), {message: 'lat must be a float between -90 and 90'})
+  t.throws(() => validateLonlat([-195, 48]), {message: 'lon: must be a float between -180 and 180'})
+  t.throws(() => validateLonlat([2, -95]), {message: 'lat: must be a float between -90 and 90'})
 })
 
 test('validateBbox', t => {
   t.is(validateBbox([1, -66, 2, -66]), undefined)
-  t.throws(() => validateBbox([-195, -44, 2, -66]), {message: 'xmin must be a float between -180 and 180'})
-  t.throws(() => validateBbox([1, -95, 2, -66]), {message: 'ymin must be a float between -90 and 90'})
-  t.throws(() => validateBbox([1, -44, -195, -66]), {message: 'xmax must be a float between -180 and 180'})
-  t.throws(() => validateBbox([1, -44, 2, 95]), {message: 'ymax must be a float between -90 and 90'})
+  t.throws(() => validateBbox([-195, -44, 2, -66]), {message: 'xmin: must be a float between -180 and 180'})
+  t.throws(() => validateBbox([1, -95, 2, -66]), {message: 'ymin: must be a float between -90 and 90'})
+  t.throws(() => validateBbox([1, -44, -195, -66]), {message: 'xmax: must be a float between -180 and 180'})
+  t.throws(() => validateBbox([1, -44, 2, 95]), {message: 'ymax: must be a float between -90 and 90'})
 })
 
 test('extractParam / text', t => {
@@ -38,23 +38,23 @@ test('extractParam / text', t => {
   t.is(extractText('foo'), 'foo')
   t.is(extractText(' foo '), 'foo')
 
-  t.throws(() => extractText(''), {message: 'text is a required param'})
+  t.throws(() => extractText(''), {message: 'text: required param'})
 
   t.throws(
     () => extractText('aa'),
-    {message: 'must contain between 3 and 200 chars and start with a number or a letter'}
+    {message: 'text: must contain between 3 and 200 chars and start with a number or a letter'}
   )
   t.throws(
     () => extractText('-aaa'),
-    {message: 'must contain between 3 and 200 chars and start with a number or a letter'}
+    {message: 'text: must contain between 3 and 200 chars and start with a number or a letter'}
   )
   t.throws(
     () => extractText('   aa'),
-    {message: 'must contain between 3 and 200 chars and start with a number or a letter'}
+    {message: 'text: must contain between 3 and 200 chars and start with a number or a letter'}
   )
   t.throws(
     () => extractText(Array.from({length: 300}).fill('a').join('')),
-    {message: 'must contain between 3 and 200 chars and start with a number or a letter'}
+    {message: 'text: must contain between 3 and 200 chars and start with a number or a letter'}
   )
 })
 
@@ -71,8 +71,8 @@ test('extractParam / terr', t => {
   t.deepEqual(extractTerr('2A'), ['2A'])
   t.deepEqual(extractTerr('01,12345,METROPOLE,DOMTOM'), ['01', '12345', 'METROPOLE', 'DOMTOM'])
 
-  t.throws(() => extractTerr('aaaaaa,bar'), {message: 'Unexpected value(s) for param terr'})
-  t.throws(() => extractTerr('METROPOLE,bbbbbb'), {message: 'Unexpected value(s) for param terr'})
+  t.throws(() => extractTerr('aaaaaa,bar'), {message: 'terr: unexpected value'})
+  t.throws(() => extractTerr('METROPOLE,bbbbbb'), {message: 'terr: unexpected value'})
 })
 
 test('extractParam / poiType', t => {
@@ -95,10 +95,10 @@ test('extractParam / lonlat', t => {
   t.deepEqual(extractLonlat('1.1,-66.56'), [1.1, -66.56])
   t.is(extractLonlat(''), undefined)
 
-  t.throws(() => extractLonlat('1'), {message: 'lonlat must be in the format "lon,lat"'})
-  t.throws(() => extractLonlat('a,a'), {message: 'Unable to parse value as float'})
-  t.throws(() => extractLonlat('2,-95'), {message: 'lat must be a float between -90 and 90'})
-  t.throws(() => extractLonlat('-195,48'), {message: 'lon must be a float between -180 and 180'})
+  t.throws(() => extractLonlat('1'), {message: 'lonlat: must be in the format "lon,lat"'})
+  t.throws(() => extractLonlat('a,a'), {message: 'lonlat: unable to parse value as float'})
+  t.throws(() => extractLonlat('2,-95'), {message: 'lonlat: lat: must be a float between -90 and 90'})
+  t.throws(() => extractLonlat('-195,48'), {message: 'lonlat: lon: must be a float between -180 and 180'})
 })
 
 test('extractParam / type', t => {
@@ -110,8 +110,8 @@ test('extractParam / type', t => {
   t.deepEqual(extractType('StreetAddress'), ['StreetAddress'])
   t.deepEqual(extractType('PositionOfInterest,StreetAddress'), ['PositionOfInterest', 'StreetAddress'])
 
-  t.throws(() => extractType('foo'), {message: 'Unexpected value \'foo\' for param type'})
-  t.throws(() => extractType('housenumber bar'), {message: 'Unexpected value \'housenumber bar\' for param type'})
+  t.throws(() => extractType('foo'), {message: 'type: unexpected value \'foo\''})
+  t.throws(() => extractType('housenumber bar'), {message: 'type: unexpected value \'housenumber bar\''})
 })
 
 test('extractParam / maximumResponses', t => {
@@ -125,11 +125,11 @@ test('extractParam / maximumResponses', t => {
   t.is(extractMaximumResponses(''), 10)
 
   for (const maximumResponses of ['0', '-1', '101']) {
-    t.throws(() => extractMaximumResponses(maximumResponses), {message: 'Param limit must be an integer between 1 and 15'})
+    t.throws(() => extractMaximumResponses(maximumResponses), {message: 'maximumResponses: must be an integer between 1 and 15'})
   }
 
   for (const maximumResponses of ['0.5', 'foo']) {
-    t.throws(() => extractMaximumResponses(maximumResponses), {message: 'Unable to parse value as integer'})
+    t.throws(() => extractMaximumResponses(maximumResponses), {message: 'maximumResponses: unable to parse value as integer'})
   }
 })
 
@@ -142,12 +142,12 @@ test('extractParam / bbox', t => {
   t.deepEqual(extractBbox('1.1,-44.4,2.2,-66.56'), [1.1, -44.4, 2.2, -66.56])
   t.is(extractBbox(''), undefined)
 
-  t.throws(() => extractBbox('1'), {message: 'bbox must be in the format "xmin,ymin,xmax,ymax"'})
-  t.throws(() => extractBbox('a,b,c,d'), {message: 'Unable to parse value as float'})
-  t.throws(() => extractBbox('-195,-44,2,-66'), {message: 'xmin must be a float between -180 and 180'})
-  t.throws(() => extractBbox('1,-95,2,-66'), {message: 'ymin must be a float between -90 and 90'})
-  t.throws(() => extractBbox('1,-44,-195,-66'), {message: 'xmax must be a float between -180 and 180'})
-  t.throws(() => extractBbox('1,-44,2,95'), {message: 'ymax must be a float between -90 and 90'})
+  t.throws(() => extractBbox('1'), {message: 'bbox: must be in the format "xmin,ymin,xmax,ymax"'})
+  t.throws(() => extractBbox('a,b,c,d'), {message: 'bbox: unable to parse value as float'})
+  t.throws(() => extractBbox('-195,-44,2,-66'), {message: 'bbox: xmin: must be a float between -180 and 180'})
+  t.throws(() => extractBbox('1,-95,2,-66'), {message: 'bbox: ymin: must be a float between -90 and 90'})
+  t.throws(() => extractBbox('1,-44,-195,-66'), {message: 'bbox: xmax: must be a float between -180 and 180'})
+  t.throws(() => extractBbox('1,-44,2,95'), {message: 'bbox: ymax: must be a float between -90 and 90'})
 })
 
 test('extractParams', t => {
@@ -181,5 +181,5 @@ test('extractParams / maximumResponses', t => {
 
 test('extractParams / missing text parameter', t => {
   const error = t.throws(() => extractParams({}), {message: 'Failed parsing query'})
-  t.deepEqual(error.detail, ['text is a required param'])
+  t.deepEqual(error.detail, ['text: required param'])
 })

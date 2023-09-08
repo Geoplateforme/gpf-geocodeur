@@ -14,7 +14,7 @@ const SEARCHGEOM_BBOX_MAX_LENGTH = 1000
 
 export function validateSearchgeom(searchgeom) {
   if (!Object.hasOwn(searchgeom, 'type')) {
-    throw createError(400, 'Geometry object must have a \'type\' property')
+    throw createError(400, 'geometry object must have a \'type\' property')
   }
 
   const allowedGeometryTypes = new Set([
@@ -25,7 +25,7 @@ export function validateSearchgeom(searchgeom) {
   ])
 
   if (!allowedGeometryTypes.has(searchgeom.type)) {
-    throw createError(400, `Geometry type not allowed: ${searchgeom.type}`)
+    throw createError(400, `geometry type (${searchgeom.type}) not allowed`)
   }
 
   if (searchgeom.type === 'Circle') {
@@ -35,12 +35,12 @@ export function validateSearchgeom(searchgeom) {
   const errors = hint(searchgeom)
 
   if (errors.length > 0) {
-    throw createError(400, `Geometry not valid: ${errors[0].message}`)
+    throw createError(400, `geometry not valid: ${errors[0].message}`)
   }
 
   const bbox = computeBbox(searchgeom)
   if (bboxMaxLength(bbox) > SEARCHGEOM_BBOX_MAX_LENGTH / 1000) {
-    throw createError(400, `Geometry is too big: bbox max length must be less than ${SEARCHGEOM_BBOX_MAX_LENGTH}m`)
+    throw createError(400, `geometry is too big: bbox max length must be less than ${SEARCHGEOM_BBOX_MAX_LENGTH}m`)
   }
 }
 
@@ -83,7 +83,7 @@ export const PARAMS = {
     defaultValue: 10,
     validate(v) {
       if (v < 1 || v > 20) {
-        throw new Error('Param limit must be an integer between 1 and 20')
+        throw new Error('must be an integer between 1 and 20')
       }
     },
     description: 'nombre maximum de candidats retournés',
@@ -94,7 +94,7 @@ export const PARAMS = {
     type: 'float',
     validate(v) {
       if (v < -180 || v > 180) {
-        throw new Error('lon must be a float between -180 and 180')
+        throw new Error('must be a float between -180 and 180')
       }
     },
     description: 'longitude d’un localisant pour favoriser les candidats les plus proches',
@@ -105,7 +105,7 @@ export const PARAMS = {
     type: 'float',
     validate(v) {
       if (v < -90 || v > 90) {
-        throw new Error('lat must be a float between -90 and 90')
+        throw new Error('must be a float between -90 and 90')
       }
     },
     description: 'latitude d’un localisant pour favoriser les candidats les plus proches',
@@ -123,7 +123,7 @@ export const PARAMS = {
     type: 'string',
     validate(v) {
       if (!/^\d{5}$/.test(v)) {
-        throw new Error('Param postcode must contain 5 digits')
+        throw new Error('must contain 5 digits')
       }
     },
     description: 'filtre pour les index address et poi. Il permet de filtrer les résultats par code postal',
@@ -134,7 +134,7 @@ export const PARAMS = {
     type: 'string',
     validate(v) {
       if (!/^(\d{5}|\d[AB]\d{3})$/.test(v)) {
-        throw new Error('Param citycode is invalid')
+        throw new Error('not valid')
       }
     },
     description: 'filtre pour les index address et poi. Il permet de filtrer les résultats par code INSSE',
@@ -176,7 +176,7 @@ export const PARAMS = {
     type: 'string',
     validate(v) {
       if (!isDepartmentcodeValid(v)) {
-        throw new Error('Param departmentcode is invalid')
+        throw new Error('not valid')
       }
     },
     description: 'filtre pour l’index parcel. Il permet de filtrer par code de département',
@@ -187,7 +187,7 @@ export const PARAMS = {
     type: 'string',
     validate(v) {
       if (!/^\d{2,3}$/.test(v)) {
-        throw new Error('Param municipalitycode is invalid')
+        throw new Error('not valid')
       }
     },
     description: 'filtre pour l’index parcel. Il permet de filtrer par code de commune',
@@ -198,7 +198,7 @@ export const PARAMS = {
     type: 'string',
     validate(v) {
       if (!/^\d{3}$/.test(v)) {
-        throw new Error('Param oldmunicipalitycode is invalid')
+        throw new Error('not valid')
       }
     },
     description: 'filtre pour l’index parcel. Il permet de filtrer par code d’ancienne commune',
@@ -209,7 +209,7 @@ export const PARAMS = {
     type: 'string',
     validate(v) {
       if (!/^\d{3}$/.test(v)) {
-        throw new Error('Param districtcode is invalid')
+        throw new Error('not valid')
       }
     },
     description: 'filtre pour l’index parcel. Il permet de filtrer par code d’arrondissement',
@@ -220,7 +220,7 @@ export const PARAMS = {
     type: 'string',
     validate(v) {
       if (!/^(\d{1,2}|[A-Z]{1,2}|0?[A-Z])$/.test(v)) {
-        throw new Error('Param section is invalid')
+        throw new Error('not valid')
       }
     },
     description: 'filtre pour l’index parcel. Il permet de filtrer par section',
@@ -231,7 +231,7 @@ export const PARAMS = {
     type: 'string',
     validate(v) {
       if (!/^\d{1,4}$/.test(v)) {
-        throw new Error('Param number is invalid')
+        throw new Error('not valid')
       }
     },
     description: 'filtre pour l’index parcel. Il permet de filtrer par feuille',
@@ -242,7 +242,7 @@ export const PARAMS = {
     type: 'string',
     validate(v) {
       if (!/^\d{1,2}$/.test(v)) {
-        throw new Error('Param sheet is invalid')
+        throw new Error('not valid')
       }
     },
     description: 'filtre pour l’index parcel. Il permet de filtrer par feuille',
@@ -284,7 +284,7 @@ export function extractSearchParams(query) {
   cleanupStructuredSearchParams(parsedParams)
 
   if (!('q' in parsedParams)) {
-    throw createError(400, 'Failed parsing query', {detail: ['q is a required param']})
+    throw createError(400, 'Failed parsing query', {detail: ['q: required param']})
   }
 
   if ('city' in parsedParams) {
