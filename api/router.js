@@ -58,7 +58,7 @@ export default function createRouter(options = {}) {
     }
   }))
 
-  router.get('/geocodage/getCapabilities', w(async (req, res) => {
+  router.get('/getCapabilities', w(async (req, res) => {
     const capabilities = await computeGeocodeCapabilities()
     res.send(capabilities)
   }))
@@ -68,7 +68,7 @@ export default function createRouter(options = {}) {
     res.send(capabilities)
   }))
 
-  router.get('/geocodage/openapi/geocode.yaml', w(async (req, res) => {
+  router.get('/openapi.yaml', w(async (req, res) => {
     const yamlPath = path.resolve('./config/open-api/geocode.yaml')
     const editedConfig = await editConfig(yamlPath, process.env.API_URL)
 
@@ -78,7 +78,7 @@ export default function createRouter(options = {}) {
       .send(editedConfig)
   }))
 
-  router.get('/completion/openapi/completion.yaml', w(async (req, res) => {
+  router.get('/completion/openapi.yaml', w(async (req, res) => {
     const yamlPath = path.resolve('./config/open-api/completion.yaml')
     const editedConfig = await editConfig(yamlPath, process.env.API_URL)
 

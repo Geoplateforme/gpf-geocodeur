@@ -1,5 +1,5 @@
 /:
-  - request: "geocodage/getCapabilities"
+  - request: "getCapabilities"
     results:
       hasProperties: ["info", "api", "operations", "indexes"]
     userStories:
