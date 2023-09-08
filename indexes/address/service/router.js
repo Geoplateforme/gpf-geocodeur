@@ -28,7 +28,18 @@ export async function createRouter() {
 
   router.post('/search', w(async (req, res) => {
     const results = await addokCluster.geocode(prepareParams(req.body))
-    res.send(results)
+
+    if (!req.body.returntruegeometry) {
+      return res.send(results)
+    }
+
+    res.send(results.map(feature => {
+      const truegeometry = JSON.stringify(feature.geometry)
+      return {
+        ...feature,
+        properties: {...feature.properties, truegeometry}
+      }
+    }))
   }))
 
   router.post('/reverse', w((req, res) => {
