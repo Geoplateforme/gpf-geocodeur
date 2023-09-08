@@ -24,7 +24,7 @@ test('formatResult', t => {
   t.deepEqual(formatedResult, {
     type: 'Feature',
     geometry: {type: 'Point', coordinates: [12, 8]},
-    properties: {foo: 'bar'}
+    properties: {foo: 'bar', distance: 0}
   })
 })
 
