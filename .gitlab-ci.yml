@@ -42,6 +42,7 @@ test:recette:
 
 pages:
   stage: deploy
+  when: manual
   script:
     - python -m pip install -U virtualenv
     - virtualenv venv
