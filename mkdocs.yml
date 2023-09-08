@@ -1,4 +1,4 @@
-site_name: Geocodeur de la géoplateforme
+site_name: Géocodeur de la géoplateforme
 site_url: https://geoplateforme.pages.gpf-tech.ign.fr/geocodage/geocodeur/
 nav:
   - Architecture: architecture.md
