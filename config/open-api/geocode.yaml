@@ -187,7 +187,7 @@ paths:
           description:
             "Géométrie de recherche. La géométrie est réalisé par intersection géométrique. Si ce paramètre est utilisé seul, c'est que l'on souhaite une recherche sans ordonnancement des résultats (tous les objets intersectant la géométrie de recherche ont un score de 1).<br>
             Si on veut ordonner les résultats, on peut alors utiliser les paramètres lon et lat pour préciser un point d'ordonnancement. <br>
-            Ce paramètre n'est pas obligatoire pour des raisons de rétro-compatibilité. Si searchGeom n'est pas utilisé alors les paramètres lon et lat doivent l'être et on parle de point de recherche. <br>
+            Ce paramètre n'est pas obligatoire pour des raisons de rétro-compatibilité. Si searchgeom n'est pas utilisé alors les paramètres lon et lat doivent l'être et on parle de point de recherche. <br>
             Lorsque la recherche est réalisée par intersection géométrique. Les types géométrique autorisés sont :
 
             - Point
@@ -199,9 +199,9 @@ paths:
             - Circle<br>
             Exemple de géométrie de type Circle :<br>
             {<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;type: 'Circle',<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;coordinates: [2.0, 48.5],<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;radius: 100<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;\"type\": \"Circle\",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;\"coordinates\": [2.294469, 48.858244],<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;\"radius\": 100<br>
             }<br>
             Pour l'index <b>address</b>, seules les géométries de type 'Polygon' et 'Circle' sont autorisées.<br>
             Le plus grand côté du rectangle d’emprise de la géométrie ne doit pas excéder 1000 mètres."
@@ -210,16 +210,16 @@ paths:
         - name: lon
           in: query
           description: |
-            Si searchGeom est utilisé, il s'agit de la longitude du point d'ordonnancement. C'est le point à partir duquel est calculée la distance, puis le score permettant l'ordonnancement des résultats. <br>
-            Dans un soucis de rétro-compatibilité, si searchGeom n'est pas utilisé, il s'agit de la longitude du point de recherche. À partir de ce point, un cercle est créé pour effectuer la recherche. En plus, ce sera aussi la longitude du point d'ordonnancement.
+            Si searchgeom est utilisé, il s'agit de la longitude du point d'ordonnancement. C'est le point à partir duquel est calculée la distance, puis le score permettant l'ordonnancement des résultats. <br>
+            Dans un soucis de rétro-compatibilité, si searchgeom n'est pas utilisé, il s'agit de la longitude du point de recherche. À partir de ce point, un cercle est créé pour effectuer la recherche. En plus, ce sera aussi la longitude du point d'ordonnancement.
           required: false
           schema:
             type: number
         - name: lat
           in: query
           description: |
-            Si searchGeom est utilisé, il s'agit de la latitude  du point d'ordonnancement. C'est le point à partir duquel est calculée la distance, puis le score permettant l'ordonnancement des résultats.
-            Dans un soucis de rétro-compatibilité, si searchGeom n'est pas utilisé, il s'agit de la latitude du point de recherche. À partir de ce point, un cercle est créé pour effectuer la recherche. En plus, ce sera aussi la latitude du point d'ordonnancement.
+            Si searchgeom est utilisé, il s'agit de la latitude  du point d'ordonnancement. C'est le point à partir duquel est calculée la distance, puis le score permettant l'ordonnancement des résultats.
+            Dans un soucis de rétro-compatibilité, si searchgeom n'est pas utilisé, il s'agit de la latitude du point de recherche. À partir de ce point, un cercle est créé pour effectuer la recherche. En plus, ce sera aussi la latitude du point d'ordonnancement.
           required: false
           schema:
             type: number
