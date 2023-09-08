@@ -15,7 +15,7 @@ tags:
   - name: reverse
     description: Géocodage inverse
 paths:
-  /geocodage/getCapabilities:
+  /getCapabilities:
     get:
       tags:
         - getCapabilities

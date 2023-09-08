@@ -24,8 +24,8 @@ L'API du géocodeur expose ses propres descriptions [OpenAPI](https://www.openap
 
 En attendant la mise en production du service vous pouvez utiliser celles de l'environnement de test :
 
-- [Géocodage](https://gpf-geocodeur.livingdata.co/geocodage/openapi/geocode.yaml)
-- [Auto-complétion](https://gpf-geocodeur.livingdata.co/completion/openapi/completion.yaml)
+- [Géocodage](https://gpf-geocodeur.livingdata.co/openapi.yaml)
+- [Auto-complétion](https://gpf-geocodeur.livingdata.co/completion/openapi.yaml)
 
 ## Licence
 
