@@ -29,7 +29,7 @@ export function validateSearchgeom(searchgeom) {
   }
 
   if (searchgeom.type === 'Circle') {
-    return validateCircle(searchgeom, SEARCHGEOM_BBOX_MAX_LENGTH)
+    return validateCircle(searchgeom, SEARCHGEOM_BBOX_MAX_LENGTH / 2)
   }
 
   const errors = hint(searchgeom)
