@@ -1126,7 +1126,7 @@
       ]
       ]}'
     results:
-      nbResult: 5
+      nbResult: 10
     userStories:
       - IGNGPF-1888:
         status: success
@@ -1153,9 +1153,9 @@
       46.22601074956114
       ]
       ]
-      ]}&limit=10'
+      ]}&limit=5'
     results:
-      nbResult: 10
+      nbResult: 5
     userStories:
       - IGNGPF-1888:
         status: success
