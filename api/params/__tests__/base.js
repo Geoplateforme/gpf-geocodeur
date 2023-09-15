@@ -347,9 +347,9 @@ test('extractParam / section', t => {
   }
 
   t.is(extractSection('0A'), '0A')
-  t.is(extractSection('1'), '1')
+  t.is(extractSection('1'), '01')
   t.is(extractSection('11'), '11')
-  t.is(extractSection('A'), 'A')
+  t.is(extractSection('A'), '0A')
   t.is(extractSection(''), undefined)
 
   t.throws(() => extractSection('A1'), {message: 'section: not valid'})
@@ -366,7 +366,7 @@ test('extractParam / number', t => {
 
   t.is(extractNumber('1234'), '1234')
   t.is(extractNumber('0011'), '0011')
-  t.is(extractNumber('01'), '01')
+  t.is(extractNumber('01'), '0001')
   t.is(extractNumber(''), undefined)
 
   t.throws(() => extractNumber('a12'), {message: 'number: not valid'})
@@ -379,7 +379,7 @@ test('extractParam / sheet', t => {
     return extractParam({sheet}, 'sheet', PARAMS.sheet, PARAMS)
   }
 
-  t.is(extractSheet('1'), '1')
+  t.is(extractSheet('1'), '01')
   t.is(extractSheet('01'), '01')
   t.is(extractSheet(''), undefined)
 

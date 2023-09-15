@@ -104,3 +104,12 @@ test('extractParam / custom', t => {
 
   t.is(extractParam({foo: 'bar'}, 'foo', def), 'barbaz')
 })
+
+test('extractParam / normalize', t => {
+  const def = {
+    type: 'string',
+    normalize: v => v.padStart(6, '0')
+  }
+
+  t.is(extractParam({foo: '1'}, 'foo', def), '000001')
+})

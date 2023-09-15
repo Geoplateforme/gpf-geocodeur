@@ -1,3 +1,4 @@
+/* eslint complexity: off */
 import createError from 'http-errors'
 
 export function isFirstCharValid(string) {
@@ -114,7 +115,7 @@ export function parseArrayValues(values, type) {
 }
 
 export function extractParam(query, paramName, definition) {
-  const {type, array, allowedValues, required, defaultValue, validate, extract} = definition
+  const {type, array, allowedValues, required, defaultValue, validate, normalize, extract} = definition
 
   const nameInQuery = definition.nameInQuery || paramName
 
@@ -153,6 +154,11 @@ export function extractParam(query, paramName, definition) {
     // Validation
     if (parsedValue !== undefined && validate) {
       validate(parsedValue)
+    }
+
+    // Normalization
+    if (parsedValue !== undefined && normalize) {
+      parsedValue = normalize(parsedValue)
     }
 
     // Required
