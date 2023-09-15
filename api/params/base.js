@@ -223,6 +223,9 @@ export const PARAMS = {
         throw new Error('not valid')
       }
     },
+    normalize(v) {
+      return v.padStart(2, '0')
+    },
     description: 'filtre pour l’index parcel. Il permet de filtrer par section',
     example: 'AC'
   },
@@ -234,6 +237,9 @@ export const PARAMS = {
         throw new Error('not valid')
       }
     },
+    normalize(v) {
+      return v.padStart(4, '0')
+    },
     description: 'filtre pour l’index parcel. Il permet de filtrer par feuille',
     example: '0035'
   },
@@ -244,6 +250,9 @@ export const PARAMS = {
       if (!/^\d{1,2}$/.test(v)) {
         throw new Error('not valid')
       }
+    },
+    normalize(v) {
+      return v.padStart(2, '0')
     },
     description: 'filtre pour l’index parcel. Il permet de filtrer par feuille',
     example: '1'
