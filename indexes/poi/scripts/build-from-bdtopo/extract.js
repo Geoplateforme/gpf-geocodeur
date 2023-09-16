@@ -3,7 +3,7 @@ import gdal from 'gdal-async'
 import truncate from '@turf/truncate'
 import centroid from '@turf/centroid'
 
-import {getCommune} from '../../../../lib/cog.js'
+import {getCommune, isPLM} from '../../../../lib/cog.js'
 
 export function computeFields(originalProperties, fieldsDefinition, computedFieldsSchema) {
   return mapValues(fieldsDefinition, (resolver, fieldName) => {
@@ -79,7 +79,15 @@ export function * extractFeatures({datasetPath, layersDefinitions, cleabsUniqInd
         const communes = citycode.map(c => getCommune(c)).filter(Boolean)
 
         const depcode = chain(communes).map('departement').compact().uniq().value()
-        const postcode = chain(communes).map('codesPostaux').compact().flatten().uniq().value()
+
+        const postcode = chain(communes)
+          .filter(commune => !isPLM(commune))
+          .map('codesPostaux')
+          .compact()
+          .flatten()
+          .uniq()
+          .value()
+
         const city = chain(communes).map('nom').compact().uniq().value()
 
         fields.citycode = [...citycode, ...depcode]
