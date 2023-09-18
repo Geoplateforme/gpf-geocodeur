@@ -1,4 +1,5 @@
 /* eslint camelcase: off, curly: off, object-shorthand: off */
+import {getCodesCommunesMembresEpci} from '../../../../lib/cog.js'
 
 export const MAIN_CATEGORIES = [
   'cimetière',
@@ -13,6 +14,16 @@ export const MAIN_CATEGORIES = [
   'zone d\'habitation'
 ]
 
+export const COMPUTED_FIELDS_SCHEMA = {
+  name: Array,
+  toponym: String,
+  category: Array,
+  classification: Number,
+  postcode: Array,
+  citycode: Array,
+  city: Array
+}
+
 export const LAYERS = {
   cimetiere: {
     fields: {
@@ -24,6 +35,9 @@ export const LAYERS = {
         if (importance >= '2' && importance <= '4') return 5
         return 7
       }
+    },
+    extrafields: {
+      nature_detaillee: ({nature_detaillee}) => nature_detaillee || ''
     },
     computeCommunes: true
   },
@@ -293,6 +307,32 @@ export const LAYERS = {
         return Math.max(1, classification - (chefLieu ? 1 : 0))
       }
     },
+    extrafields: {
+      population: ({population}) => typeof population === 'number' ? population.toString() : '',
+      status: ({capitale_d_etat, chef_lieu_de_region, chef_lieu_de_departement, chef_lieu_d_arrondissement, chef_lieu_de_collectivite_terr}) => {
+        if (capitale_d_etat) {
+          return 'capitale d\'état'
+        }
+
+        if (chef_lieu_de_region) {
+          return 'chef-lieu de région'
+        }
+
+        if (chef_lieu_de_departement) {
+          return 'chef-lieu de département'
+        }
+
+        if (chef_lieu_d_arrondissement) {
+          return 'chef-lieu d\'arrondissement'
+        }
+
+        if (chef_lieu_de_collectivite_terr) {
+          return 'chef-lieu de collectivité territoriale'
+        }
+
+        return ''
+      }
+    },
     simplification: 0.0002
   },
 
@@ -309,6 +349,9 @@ export const LAYERS = {
       city: ({nom_officiel}) => nom_officiel,
       classification: 2
     },
+    extrafields: {
+      population: ({population}) => typeof population === 'number' ? population.toString() : ''
+    },
     simplification: 0.0002
   },
 
@@ -318,6 +361,9 @@ export const LAYERS = {
       toponym: ({nom_officiel}) => nom_officiel,
       category: ['administratif', 'epci'],
       classification: 2
+    },
+    extrafields: {
+      codes_insee_des_communes_membres: ({code_siren}) => getCodesCommunesMembresEpci(code_siren)
     },
     simplification: 0.0005
   },

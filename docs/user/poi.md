@@ -17,6 +17,12 @@ Un champ peut être défini de 2 manières :
 - avec une valeur primitive (`Number`, `String`, `Boolean`) ou un tableau de valeurs primitives si le champ est de type multiple ;
 - avec une fonction prenant en arguments les propriétés de l'objet source BD TOPO et retournant une valeur primitive ou un tableau de valeurs primitives telles défini que ci-dessus.
 
+## `extrafields`
+
+Champs optionnel qui permet de définir les règles de construction des champs additionnels `extrafields` de l'objet POI à constituer. Le champs `cleabs` est automatiquement calculé.
+
+Il fonctionne comme `fields`.
+
 ## `filter`
 
 Fonction optionnelle permettant de déterminer si un objet source BD TOPO doit être pris en compte ou non par l'extraction. Elle prend en argument les propritétés de l'objet source BD TOPO et doit retourner un booléen (`true` si l'objet est conservé).
