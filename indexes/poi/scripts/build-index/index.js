@@ -17,7 +17,13 @@ import {extractFeatures} from './extract.js'
 
 const INPUT_FILE = path.join(POI_DATA_PATH, 'poi.ndjson')
 
-const indexer = await createIndexer(POI_INDEX_MDB_BASE_PATH, {geometryType: 'Mixed', idFn: p => p.extrafields.cleabs})
+const indexer = await createIndexer(POI_INDEX_MDB_BASE_PATH, {
+  geometryType: 'Mixed',
+  idFn: p => p.extrafields.cleabs,
+  shouldUseTileIndexFn({properties}) {
+    return properties.category.includes('administratif') || properties.category.includes('cours d\'eau')
+  }
+})
 
 await indexer.writeFeatures(extractFeatures(INPUT_FILE))
 

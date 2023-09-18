@@ -13,7 +13,8 @@ export function reverse(options) {
   return reverseBase({
     ...options,
     formatResult,
-    getFeatureByIdx: idx => options.db.getFeatureByIdx(idx)
+    getFeatureByIdx: idx => options.db.getFeatureByIdx(idx),
+    enableTileIndex: true
   })
 }
 
