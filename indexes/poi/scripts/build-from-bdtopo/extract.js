@@ -63,9 +63,9 @@ export function * extractFeatures({datasetPath, layersDefinitions, cleabsUniqInd
 
       fields.importance = computeImportance(fields.classification)
 
-      fields.extrafields = {
-        cleabs
-      }
+      /* Extra fields */
+      fields.extrafields = computeFields(properties, config.extrafields || {}, {})
+      fields.extrafields.cleabs = cleabs
 
       let geometry = feature.getGeometry()
       geometry.transform(transformation)

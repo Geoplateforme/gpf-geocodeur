@@ -6,8 +6,9 @@ import {
 } from '../mapping.js'
 
 test('LAYERS / cimetiere', t => {
-  const {fields} = LAYERS.cimetiere
+  const {fields, extrafields} = LAYERS.cimetiere
   const {name, toponym, classification} = fields
+  const {nature_detaillee} = extrafields
 
   t.is(name({toponyme: 'Cimetière Saint-Joseph', nature: 'Militaire'}), 'Cimetière Saint-Joseph')
   t.is(name({toponyme: '', nature: 'Militaire'}), 'Cimetière militaire')
@@ -22,6 +23,9 @@ test('LAYERS / cimetiere', t => {
   t.is(classification({importance: '3'}), 5)
   t.is(classification({importance: '4'}), 5)
   t.is(classification({importance: '5'}), 7)
+
+  t.is(nature_detaillee({nature_detaillee: 'Cimetière militaire allemand'}), 'Cimetière militaire allemand')
+  t.is(nature_detaillee({nature_detaillee: null}), '')
 })
 
 test('LAYERS / reservoir', t => {
@@ -436,8 +440,9 @@ test('LAYERS / lieu_dit_non_habite', t => {
 })
 
 test('LAYERS / commune', t => {
-  const {fields, simplification} = LAYERS.commune
+  const {fields, extrafields, simplification} = LAYERS.commune
   const {name, toponym, category, postcode, citycode, classification} = fields
+  const {status, population} = extrafields
 
   t.is(name({nom_officiel: 'Commune A'}), 'Commune A')
   t.is(toponym({nom_officiel: 'Commune A'}), 'Commune A')
@@ -494,11 +499,23 @@ test('LAYERS / commune', t => {
     population: 100}), 4)
 
   t.is(simplification, 0.0002)
+
+  t.is(population({population: 1}), '1')
+  t.is(population({population: 0}), '0')
+  t.is(population({population: null}), '')
+
+  t.is(status({capitale_d_etat: true}), 'capitale d\'état')
+  t.is(status({chef_lieu_de_region: true}), 'chef-lieu de région')
+  t.is(status({chef_lieu_de_departement: true}), 'chef-lieu de département')
+  t.is(status({chef_lieu_d_arrondissement: true}), 'chef-lieu d\'arrondissement')
+  t.is(status({chef_lieu_de_collectivite_terr: true}), 'chef-lieu de collectivité territoriale')
+  t.is(status({}), '')
 })
 
 test('LAYERS / arrondissement_municipal', t => {
-  const {fields, simplification} = LAYERS.arrondissement_municipal
+  const {fields, extrafields, simplification} = LAYERS.arrondissement_municipal
   const {name, toponym, category, postcode, citycode, city, classification} = fields
+  const {population} = extrafields
 
   t.is(name({nom_officiel: 'Arrondissement A'}), 'Arrondissement A')
   t.is(toponym({nom_officiel: 'Arrondissement A'}), 'Arrondissement A')
@@ -509,11 +526,16 @@ test('LAYERS / arrondissement_municipal', t => {
   t.is(classification, 2)
 
   t.is(simplification, 0.0002)
+
+  t.is(population({population: 1}), '1')
+  t.is(population({population: 0}), '0')
+  t.is(population({population: null}), '')
 })
 
 test('LAYERS / epci', t => {
-  const {fields, simplification} = LAYERS.epci
+  const {fields, extrafields, simplification} = LAYERS.epci
   const {name, toponym, category, classification} = fields
+  const {codes_insee_des_communes_membres} = extrafields
 
   t.is(name({nom_officiel: 'EPCI A'}), 'EPCI A')
   t.is(toponym({nom_officiel: 'EPCI A'}), 'EPCI A')
@@ -521,6 +543,9 @@ test('LAYERS / epci', t => {
   t.is(classification, 2)
 
   t.is(simplification, 0.0005)
+
+  t.is(codes_insee_des_communes_membres({code_siren: '200039865'}).length, 46)
+  t.true(codes_insee_des_communes_membres({code_siren: '200039865'}).includes('57463'))
 })
 
 test('LAYERS / departement', t => {

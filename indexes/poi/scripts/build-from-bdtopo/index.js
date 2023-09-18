@@ -14,7 +14,7 @@ import {computeDepartements} from '../../../../lib/cli.js'
 
 import {POI_DATA_PATH, POI_DATA_CATEGORIES_PATH} from '../../util/paths.js'
 
-import {LAYERS, MAIN_CATEGORIES} from './mapping.js'
+import {LAYERS, COMPUTED_FIELDS_SCHEMA, MAIN_CATEGORIES} from './mapping.js'
 import {createCommunesIndex} from './communes.js'
 import {createAccumulator} from './categories.js'
 import {extractFeatures} from './extract.js'
@@ -24,16 +24,6 @@ const {BDTOPO_URL} = process.env
 const communesIndex = await createCommunesIndex()
 const cleabsUniqIndex = new Set()
 const categoriesAccumulator = createAccumulator(MAIN_CATEGORIES)
-
-const COMPUTED_FIELDS_SCHEMA = {
-  name: Array,
-  toponym: String,
-  category: Array,
-  classification: Number,
-  postcode: Array,
-  citycode: Array,
-  city: Array
-}
 
 await mkdir(POI_DATA_PATH, {recursive: true})
 const outputFile = createWriteStream(path.join(POI_DATA_PATH, 'poi.ndjson'), {encoding: 'utf8'})
