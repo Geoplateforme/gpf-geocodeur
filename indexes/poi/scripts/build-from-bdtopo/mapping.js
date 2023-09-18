@@ -198,7 +198,8 @@ export const LAYERS = {
       ],
       classification: 7
     },
-    computeCommunes: true
+    computeCommunes: true,
+    simplification: 0.0001
   },
 
   cours_d_eau: {
@@ -211,7 +212,8 @@ export const LAYERS = {
       ],
       classification: 7
     },
-    computeCommunes: true
+    computeCommunes: true,
+    simplification: 0.0001
   },
 
   detail_hydrographique: {
@@ -241,7 +243,8 @@ export const LAYERS = {
       ],
       classification: 7
     },
-    computeCommunes: true
+    computeCommunes: true,
+    simplification: 0.0001
   },
 
   zone_d_activite_ou_d_interet: {
@@ -261,7 +264,8 @@ export const LAYERS = {
         return 9
       }
     },
-    computeCommunes: true
+    computeCommunes: true,
+    simplification: 0.0001
   },
 
   lieu_dit_non_habite: {
