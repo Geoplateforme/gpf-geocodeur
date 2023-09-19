@@ -60,6 +60,7 @@
     "nock": "^13.3.3",
     "p-event": "^6.0.0",
     "pbf": "^3.2.1",
+    "piscina": "^4.1.0",
     "tar-fs": "^3.0.4"
   },
   "devDependencies": {
