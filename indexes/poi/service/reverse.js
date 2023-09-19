@@ -1,9 +1,13 @@
+import {workerData} from 'node:worker_threads'
+
 import {omit} from 'lodash-es'
 import distance from '@turf/distance'
+import Flatbush from 'flatbush'
 
 import {computeScore} from '../../../lib/spatial-index/util.js'
 
 import {reverse as reverseBase} from '../../../lib/spatial-index/reverse.js'
+import {createInstance} from '../../../lib/spatial-index/lmdb.js'
 
 export function reverse(options) {
   if (!options.db) {
@@ -50,3 +54,17 @@ export function computeDistance(feature, center) {
   const {lon, lat} = feature.properties
   return Math.round(distance(center, [lon, lat]) * 1000)
 }
+
+const db = createInstance(workerData.dbPath, {
+  geometryType: 'Polygon',
+  readOnly: true,
+  cache: true
+})
+
+const rtreeIndex = Flatbush.from(workerData.rtreeIndexBuffer)
+
+function reverseJob(params) {
+  return reverse({...params, db, rtreeIndex})
+}
+
+export default reverseJob
