@@ -1,6 +1,6 @@
 import test from 'ava'
 import {extractParam} from '../../util/params.js'
-import {PARAMS, extractSearchParams, extractReverseParams, validateSearchgeom, validateLonLat, cleanupStructuredSearchParams} from '../base.js'
+import {PARAMS, extractSearchParams, extractReverseParams, validateSearchgeom, validateLonLat, hasStructuredSearchParams} from '../base.js'
 
 test('validateSearchgeom', t => {
   t.is(validateSearchgeom({type: 'Circle', coordinates: [2.1, 48.5], radius: 100}), undefined)
@@ -441,6 +441,15 @@ test('extractSearchParams / city', t => {
   })
 })
 
+test('extractSearchParams / q+structured params conflict', t => {
+  const error = t.throws(
+    () => extractSearchParams({q: 'foo', departmentcode: '57'}),
+    {message: 'Failed parsing query'}
+  )
+
+  t.deepEqual(error.detail, ['q param and structured search cannot be used together'])
+})
+
 test('extractReverseParams / with searchgeom', t => {
   t.deepEqual(extractReverseParams({
     searchgeom: '{"type": "Circle", "coordinates": [2.1, 48.5], "radius": 100}',
@@ -515,8 +524,8 @@ test('validateLonLat', t => {
   t.notThrows(() => validateLonLat({lon: 0, lat: 0, foo: 'bar'}))
 })
 
-test('cleanupStructuredSearchParams', t => {
-  const params = {
+test('hasStructuredSearchParams', t => {
+  t.true(hasStructuredSearchParams({
     departmentcode: 'a',
     municipalitycode: 'b',
     oldmunicipalitycode: 'c',
@@ -525,8 +534,7 @@ test('cleanupStructuredSearchParams', t => {
     sheet: 'f',
     number: 'g',
     foo: 'bar'
-  }
+  }))
 
-  cleanupStructuredSearchParams(params)
-  t.deepEqual(params, {foo: 'bar'})
+  t.false(hasStructuredSearchParams({q: 'toto'}))
 })
