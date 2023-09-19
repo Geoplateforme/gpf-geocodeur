@@ -259,14 +259,16 @@ export const PARAMS = {
   }
 }
 
-export function cleanupStructuredSearchParams(params) {
-  delete params.departmentcode
-  delete params.municipalitycode
-  delete params.oldmunicipalitycode
-  delete params.districtcode
-  delete params.section
-  delete params.sheet
-  delete params.number
+export function hasStructuredSearchParams(params) {
+  return Boolean(
+    params.departmentcode
+    || params.municipalitycode
+    || params.oldmunicipalitycode
+    || params.districtcode
+    || params.section
+    || params.sheet
+    || params.number
+  )
 }
 
 export function validateLonLat(params) {
@@ -290,7 +292,9 @@ export function extractSearchParams(query) {
     return parsedParams
   }
 
-  cleanupStructuredSearchParams(parsedParams)
+  if ('q' in parsedParams && hasStructuredSearchParams(parsedParams)) {
+    throw createError(400, 'Failed parsing query', {detail: ['q param and structured search cannot be used together']})
+  }
 
   if (!('q' in parsedParams)) {
     throw createError(400, 'Failed parsing query', {detail: ['q: required param']})
