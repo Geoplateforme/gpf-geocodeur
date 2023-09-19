@@ -211,7 +211,8 @@ export const LAYERS = {
       ],
       classification: 7
     },
-    computeCommunes: true
+    computeCommunes: true,
+    simplification: 0.0001
   },
 
   detail_hydrographique: {

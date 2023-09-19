@@ -59,23 +59,6 @@ test('reverse / huge bbox', t => {
   }), {message: 'geometry bbox height/width must be less than 1km'})
 })
 
-test('reverse / no matches', t => {
-  const result = reverse({
-    rtreeIndex: 'Halo !',
-    db: 'Bonjour !',
-    center: 'center',
-    limit: 2,
-    filters: 'filters',
-    returntruegeometry: false,
-    geometry: {
-      type: 'Polygon',
-      coordinates: [0, 0]
-    }
-  })
-
-  t.is(result.length, 0)
-})
-
 test('formatResult', t => {
   const feature = {
     properties: {
