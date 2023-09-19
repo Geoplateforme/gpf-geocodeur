@@ -55,7 +55,7 @@
     "morgan": "^1.10.0",
     "msgpackr": "^1.9.9",
     "nanoid": "^4.0.2",
-    "natural": "^6.5.0",
+    "natural": "^6.7.2",
     "ndjson": "^2.0.0",
     "nock": "^13.3.3",
     "p-event": "^6.0.0",
