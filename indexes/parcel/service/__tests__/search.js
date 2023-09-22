@@ -75,58 +75,150 @@ test('search / no limit', t => {
 })
 
 test('structuredSearch', t => {
-  const options = {
-    db: {
-      getFeatureById() {
+  const db = {
+    getFeatureById(id) {
+      if (id === '540840000A1234') {
         return {
           type: 'Feature',
           properties: {
-            lon: 12,
-            lat: 8
+            id: '540840000A1234',
+            departmentcode: '54',
+            municipalitycode: '084',
+            oldmunicipalitycode: '000',
+            sheet: '01',
+            section: '0A',
+            number: '1234',
+            lon: null,
+            lat: null
           },
-          geometry: {
-            type: 'Point',
-            coordinates: [12, 8]
-          }
+          geometry: {}
         }
-      },
-      idIdxDb: {
-        getKeys() {
-          return [
-            121_010,
-            101_212,
-            281_182
-          ]
+      }
+
+      if (id === '540840000A1235') {
+        return {
+          type: 'Feature',
+          properties: {
+            id: '540840000A1235',
+            departmentcode: '54',
+            municipalitycode: '084',
+            oldmunicipalitycode: '000',
+            sheet: '02',
+            section: '0A',
+            number: '1235',
+            lon: null,
+            lat: null
+          },
+          geometry: {}
+        }
+      }
+
+      if (id === '540840000B1235') {
+        return {
+          type: 'Feature',
+          properties: {
+            id: '540840000B1235',
+            departmentcode: '54',
+            municipalitycode: '084',
+            oldmunicipalitycode: '000',
+            sheet: '01',
+            section: '0B',
+            number: '1235',
+            lon: null,
+            lat: null
+          },
+          geometry: {}
         }
       }
     },
-    limit: 1,
-    filters: {
-      departmentcode: 55,
-      municipalitycode: 55_210,
-      section: 6,
-      number: 6
-    },
-    returntruegeometry: true
+    idIdxDb: {
+      getKeys() {
+        return [
+          '540840000A1234',
+          '540840000A1235',
+          '540840000B1235'
+        ]
+      }
+    }
   }
 
-  const result = structuredSearch(options)
+  t.deepEqual(structuredSearch({
+    db,
+    limit: 5,
+    filters: {
+      departmentcode: '54',
+      municipalitycode: '084',
+      section: '0A'
+    }
+  }), [
+    {
+      type: 'Feature',
+      properties: {
+        id: '540840000A1234',
+        city: 'Mont-Bonvillers',
+        departmentcode: '54',
+        municipalitycode: '084',
+        oldmunicipalitycode: '000',
+        sheet: '01',
+        section: '0A',
+        number: '1234'
+      },
+      geometry: {type: 'Point', coordinates: [null, null]}
+    },
+    {
+      type: 'Feature',
+      properties: {
+        id: '540840000A1235',
+        city: 'Mont-Bonvillers',
+        departmentcode: '54',
+        municipalitycode: '084',
+        oldmunicipalitycode: '000',
+        sheet: '02',
+        section: '0A',
+        number: '1235'
+      },
+      geometry: {type: 'Point', coordinates: [null, null]}
+    }
+  ])
 
-  t.deepEqual(result,
-    [
-      {
-        type: 'Feature',
-        geometry: {type: 'Point', coordinates: [12, 8]},
-        properties: {
-          city: undefined,
-          truegeometry: {
-            type: 'Point',
-            coordinates: [12, 8]
-          }
-        }
-      }
-    ]
-  )
+  t.deepEqual(structuredSearch({
+    db,
+    limit: 5,
+    filters: {
+      departmentcode: '54',
+      municipalitycode: '084',
+      section: '0A',
+      sheet: '02'
+    }
+  }), [
+    {
+      type: 'Feature',
+      properties: {
+        id: '540840000A1235',
+        city: 'Mont-Bonvillers',
+        departmentcode: '54',
+        municipalitycode: '084',
+        oldmunicipalitycode: '000',
+        sheet: '02',
+        section: '0A',
+        number: '1235'
+      },
+      geometry: {type: 'Point', coordinates: [null, null]}
+    }
+  ])
+
+  t.deepEqual(structuredSearch({
+    db,
+    limit: 5,
+    filters: {
+      departmentcode: '54',
+      municipalitycode: '084',
+      oldmunicipalitycode: '000',
+      section: '0A',
+      number: '1234',
+      sheet: '02'
+    }
+  }), [])
 })
 
 test('search / no center', t => {
