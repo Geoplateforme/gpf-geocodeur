@@ -110,7 +110,7 @@ paths:
             enum: ["housenumber", "street", "locality", "municipality"]
         - name: city
           in: query
-          description: "Filtre pour les index address et parcel. Il permet de filtrer par nom de commune."
+          description: "Filtre pour les index address et poi. Il permet de filtrer par nom de commune."
           schema:
             type: string
         - name: category
@@ -185,9 +185,9 @@ paths:
           in: query
           required: false
           description:
-            "Géométrie de recherche. La géométrie est réalisé par intersection géométrique. Si ce paramètre est utilisé seul, c'est que l'on souhaite une recherche sans ordonnancement des résultats (tous les objets intersectant la géométrie de recherche ont un score de 1).<br>
-            Si on veut ordonner les résultats, on peut alors utiliser les paramètres lon et lat pour préciser un point d'ordonnancement. <br>
-            Ce paramètre n'est pas obligatoire pour des raisons de rétro-compatibilité. Si searchgeom n'est pas utilisé alors les paramètres lon et lat doivent l'être et on parle de point de recherche. <br>
+            'Géométrie de recherche. La géométrie est réalisé par intersection géométrique. Si ce paramètre est utilisé seul, c''est que l''on souhaite une recherche sans ordonnancement des résultats (tous les objets intersectant la géométrie de recherche ont un score de 1).<br>
+            Si on veut ordonner les résultats, on peut alors utiliser les paramètres lon et lat pour préciser un point d''ordonnancement. <br>
+            Ce paramètre n''est pas obligatoire pour des raisons de rétro-compatibilité. Si searchgeom n''est pas utilisé alors les paramètres lon et lat doivent l''être et on parle de point de recherche. <br>
             Lorsque la recherche est réalisée par intersection géométrique. Les types géométrique autorisés sont :
 
             - Point
@@ -199,12 +199,12 @@ paths:
             - Circle<br>
             Exemple de géométrie de type Circle :<br>
             {<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;\"type\": \"Circle\",<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;\"coordinates\": [2.294469, 48.858244],<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;\"radius\": 100<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"type": "Circle",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"coordinates": [2.294469, 48.858244],<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"radius": 100<br>
             }<br>
-            Pour l'index <b>address</b>, seules les géométries de type 'Polygon' et 'Circle' sont autorisées.<br>
-            Le plus grand côté du rectangle d’emprise de la géométrie ne doit pas excéder 1000 mètres."
+            Pour l''index <b>address</b>, seules les géométries de type ''Polygon'' et ''Circle'' sont autorisées.<br>
+            Le plus grand côté du rectangle d’emprise de la géométrie ne doit pas excéder 1000 mètres.'
           schema:
             type: string
         - name: lon

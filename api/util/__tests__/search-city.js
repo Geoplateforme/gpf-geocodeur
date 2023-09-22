@@ -2,12 +2,26 @@ import test from 'ava'
 import {searchCity, normalizeString} from '../search-city.js'
 
 test('searchCity', t => {
-  t.is(searchCity('t'), undefined)
-  t.is(searchCity('y'), '80829')
-  t.is(searchCity('metz'), '57463')
-  t.is(searchCity('st etienne'), '42218')
-  t.is(searchCity('nantes'), '44109')
-  t.is(searchCity('paris 7e'), '75107')
+  t.deepEqual(searchCity('t'), [])
+  t.deepEqual(searchCity('y'), [{code: '80829', nom: 'Y', score: 1}])
+
+  const metz = searchCity('metz')
+  t.is(metz.length, 8)
+  t.is(metz[0].code, '57463')
+
+  const stEtienne = searchCity('st etienne')
+  t.is(stEtienne.length, 65)
+  t.is(stEtienne[0].code, '42218')
+
+  const nantes = searchCity('nantes')
+  t.is(nantes.length, 2)
+  t.is(nantes[0].code, '44109')
+
+  const paris7 = searchCity('paris 7e')
+  t.is(paris7.length, 1)
+  t.is(paris7[0].code, '75107')
+
+  t.is(searchCity('saint sauveur').length, 35)
 })
 
 test('normalizeString', t => {
