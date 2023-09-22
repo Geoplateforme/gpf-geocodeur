@@ -62,6 +62,7 @@ export function structuredSearch(options) {
 
   if (!searchPattern.includes('*')) {
     return asArray(getById({q: searchPattern, returntruegeometry, db}))
+      .filter(f => featureMatches(f, null, filters))
   }
 
   const start = searchPattern.slice(0, searchPattern.indexOf('*')).padEnd(14, '0')
