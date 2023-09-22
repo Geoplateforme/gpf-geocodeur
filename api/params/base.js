@@ -8,7 +8,7 @@ import {validateCircle} from '../../lib/geometries.js'
 
 import {extractSingleParams, isFirstCharValid, isDepartmentcodeValid} from '../util/params.js'
 import {normalizeQuery} from '../util/querystring.js'
-import {handleCityParam} from '../util/search-city.js'
+import {searchCity} from '../util/search-city.js'
 
 const SEARCHGEOM_BBOX_MAX_LENGTH = 1000
 
@@ -148,7 +148,7 @@ export const PARAMS = {
         throw new Error('must contain between 1 and 50 chars')
       }
     },
-    description: 'filtre pour les index address et parcel. Il permet de filtrer par nom de commune',
+    description: 'filtre pour les index address et poi. Il permet de filtrer par nom de commune',
     example: 'saint-mandé'
   },
 
@@ -300,8 +300,31 @@ export function extractSearchParams(query) {
     throw createError(400, 'Failed parsing query', {detail: ['q: required param']})
   }
 
+  if ('city' in parsedParams && parsedParams.indexes.includes('parcel')) {
+    throw createError(400, 'Failed parsing query', {
+      detail: ['city cannot be used with parcel index']
+    })
+  }
+
+  if ('city' in parsedParams && 'citycode' in parsedParams) {
+    throw createError(400, 'Failed parsing query', {detail: ['city and citycode params cannot be used together']})
+  }
+
   if ('city' in parsedParams) {
-    handleCityParam(parsedParams)
+    const matchingCities = searchCity(parsedParams.city)
+
+    if (matchingCities.length === 0) {
+      throw createError(400, 'Failed parsing query', {detail: [
+        'city: No matching cities found'
+      ]})
+    }
+
+    if (matchingCities.length === 1) {
+      parsedParams.citycode = matchingCities[0].code
+    } else {
+      parsedParams.matchingCities = matchingCities
+      parsedParams.q = `${parsedParams.q} ${parsedParams.city}`
+    }
   }
 
   return parsedParams
@@ -323,8 +346,26 @@ export function extractReverseParams(query) {
     throw createError(400, 'Failed parsing query', {detail: ['At least lon/lat or searchgeom must be defined']})
   }
 
+  if ('city' in parsedParams && parsedParams.indexes.includes('parcel')) {
+    throw createError(400, 'Failed parsing query', {
+      detail: ['city cannot be used with parcel index']
+    })
+  }
+
+  if ('city' in parsedParams && 'citycode' in parsedParams) {
+    throw createError(400, 'Failed parsing query', {detail: ['city and citycode params cannot be used together']})
+  }
+
   if ('city' in parsedParams) {
-    handleCityParam(parsedParams)
+    const matchingCities = searchCity(parsedParams.city)
+
+    if (matchingCities.length === 0) {
+      throw createError(400, 'Failed parsing query', {detail: [
+        'city: No matching cities found'
+      ]})
+    }
+
+    parsedParams.citycode = matchingCities.map(c => c.code)
   }
 
   return parsedParams

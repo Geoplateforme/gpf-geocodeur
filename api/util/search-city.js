@@ -1,8 +1,9 @@
-import createError from 'http-errors'
 import {deburr, chain} from 'lodash-es'
 import Flexsearch from 'flexsearch'
 import computeDistance from 'natural/lib/natural/distance/jaro-winkler_distance.js'
 import {getCommunes} from '../../lib/cog.js'
+
+const SEARCH_CITY_MIN_SCORE = 0.85
 
 const codesIndex = new Map()
 const namesIndex = new Flexsearch.Index({
@@ -36,22 +37,19 @@ function searchCandidates(q) {
 export function searchCity(inputString) {
   const normalizedInput = normalizeString(inputString).trim()
 
-  const results = chain(searchCandidates(normalizedInput))
+  return chain(searchCandidates(normalizedInput))
     .map(code => {
       const commune = codesIndex.get(code)
 
       return {
         code: commune.code,
+        nom: commune.nom,
         score: computeDistance(normalizedInput, commune._normalizedNom, {ignoreCase: false})
       }
     })
+    .filter(r => r.score >= SEARCH_CITY_MIN_SCORE)
     .sortBy(r => -r.score)
-    .take(1)
     .value()
-
-  if (results.length === 1) {
-    return results[0].code
-  }
 }
 
 export function normalizeString(string) {
@@ -59,22 +57,4 @@ export function normalizeString(string) {
     .toLowerCase()
     .replaceAll(/[^a-z\d]+/g, ' ')
     .replaceAll(/sainte?\s/g, 'st ')
-}
-
-export function handleCityParam(params) {
-  const foundCitycode = searchCity(params.city)
-
-  if (!foundCitycode) {
-    throw createError(400, 'Failed to parse query', {detail: [
-      'city not found'
-    ]})
-  }
-
-  if ('citycode' in params && foundCitycode !== params.citycode) {
-    throw createError(400, 'Failed to parse query', {detail: [
-      'city and citycode are not consistent'
-    ]})
-  }
-
-  params.citycode = foundCitycode
 }

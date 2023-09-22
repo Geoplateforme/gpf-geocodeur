@@ -427,16 +427,79 @@ test('extractSearchParams / missing q but parcel only', t => {
   )
 })
 
-test('extractSearchParams / city', t => {
+test('extractSearchParams / city + parcel', t => {
+  const error = t.throws(
+    () => extractSearchParams({
+      city: 'Foo Bar',
+      q: 'toto',
+      index: 'parcel'
+    }),
+    {message: 'Failed parsing query'}
+  )
+
+  t.deepEqual(error.detail, ['city cannot be used with parcel index'])
+})
+
+test('extractSearchParams / city + citycode', t => {
+  const error = t.throws(
+    () => extractSearchParams({
+      city: 'Foo Bar',
+      q: 'toto',
+      citycode: '12345'
+    }),
+    {message: 'Failed parsing query'}
+  )
+
+  t.deepEqual(error.detail, ['city and citycode params cannot be used together'])
+})
+
+test('extractSearchParams / city / single result', t => {
   t.deepEqual(extractSearchParams({
-    city: 'Metz',
+    city: 'Lorry-lès-Metz',
     q: 'toto'
   }), {
     indexes: ['address'],
     limit: 10,
-    city: 'Metz',
-    citycode: '57463',
+    city: 'Lorry-lès-Metz',
+    citycode: '57415',
     q: 'toto',
+    autocomplete: true
+  })
+})
+
+test('extractSearchParams / city / no result', t => {
+  const error = t.throws(
+    () => extractSearchParams({
+      city: 'Foo Bar',
+      q: 'toto'
+    }),
+    {message: 'Failed parsing query'}
+  )
+
+  t.deepEqual(error.detail, ['city: No matching cities found'])
+})
+
+test('extractSearchParams / city / multiple results', t => {
+  t.deepEqual(extractSearchParams({
+    city: 'Nantes',
+    q: 'toto'
+  }), {
+    indexes: ['address'],
+    limit: 10,
+    city: 'Nantes',
+    matchingCities: [
+      {
+        code: '44109',
+        nom: 'Nantes',
+        score: 1
+      },
+      {
+        code: '38273',
+        nom: 'Nantes-en-Ratier',
+        score: 0.875
+      }
+    ],
+    q: 'toto Nantes',
     autocomplete: true
   })
 })
@@ -482,14 +545,14 @@ test('extractReverseParams / no searchgeom no lonlat', t => {
 
 test('extractReverseParams / city / found', t => {
   t.deepEqual(extractReverseParams({
-    city: 'Metz',
+    city: 'Lorry-lès-Metz',
     lon: '2.1',
     lat: '48.5'
   }), {
     indexes: ['address'],
     limit: 10,
-    city: 'Metz',
-    citycode: '57463',
+    city: 'Lorry-lès-Metz',
+    citycode: ['57415'],
     lon: 2.1,
     lat: 48.5,
     autocomplete: true
@@ -503,7 +566,18 @@ test('extractReverseParams / city / not found', t => {
     lat: '48.5'
   }))
 
-  t.is(error.detail[0], 'city not found')
+  t.is(error.detail[0], 'city: No matching cities found')
+})
+
+test('extractReverseParams / city + parcel', t => {
+  const error = t.throws(() => extractReverseParams({
+    city: 'Metz',
+    index: 'parcel,poi',
+    lon: '2.1',
+    lat: '48.5'
+  }))
+
+  t.is(error.detail[0], 'city cannot be used with parcel index')
 })
 
 test('extractReverseParams / city / conflict with citycode', t => {
@@ -514,7 +588,7 @@ test('extractReverseParams / city / conflict with citycode', t => {
     lat: '48.5'
   }))
 
-  t.is(error.detail[0], 'city and citycode are not consistent')
+  t.is(error.detail[0], 'city and citycode params cannot be used together')
 })
 
 test('validateLonLat', t => {
