@@ -78,7 +78,7 @@ export function structuredSearch(options) {
 
     const parcelFeature = db.getFeatureById(parcelId)
 
-    if (filters.sheet && parcelFeature.properties.sheet !== filters.sheet) {
+    if (!featureMatches(parcelFeature, null, filters)) {
       continue
     }
 
