@@ -7,11 +7,25 @@ export default async function search(params, options = {}) {
   const postFilters = []
 
   if (params.matchingCities) {
-    const acceptableCitycodes = new Set(params.matchingCities.map(c => c.code))
-    postFilters.push(
-      r => r.properties.citycode && r.properties.citycode.some(code => acceptableCitycodes.has(code))
-    )
+    postFilters.push(matchingCitiesPostFilter(params.matchingCitiesPostFilter))
   }
 
-  return mergeResults(results, params)
+  return mergeResults(results, {...params, postFilters})
+}
+
+export function matchingCitiesPostFilter(matchingCities) {
+  const acceptableCitycodes = new Set(matchingCities.map(c => c.code))
+  return ({properties}) => {
+    let {citycode} = properties
+
+    if (!citycode) {
+      return false
+    }
+
+    if (!Array.isArray(citycode)) {
+      citycode = [citycode]
+    }
+
+    return citycode.some(code => acceptableCitycodes.has(code))
+  }
 }
