@@ -7,7 +7,7 @@ export default async function search(params, options = {}) {
   const postFilters = []
 
   if (params.matchingCities) {
-    postFilters.push(matchingCitiesPostFilter(params.matchingCitiesPostFilter))
+    postFilters.push(matchingCitiesPostFilter(params.matchingCities))
   }
 
   return mergeResults(results, {...params, postFilters})
