@@ -81,7 +81,7 @@ export default function createRouter(options = {}) {
       .send(editedConfig)
   }))
 
-  router.get('/docs/geocode', (req, res) => {
+  router.get('/openapi', (req, res) => {
     const page = computeHtmlPage({pageTitle: 'API de géocodage', openApiDefinitionUrl: '/openapi.yaml'})
     res.type('html').send(page)
   })
@@ -96,7 +96,7 @@ export default function createRouter(options = {}) {
       .send(editedConfig)
   }))
 
-  router.get('/docs/completion', (req, res) => {
+  router.get('/completion/openapi', (req, res) => {
     const page = computeHtmlPage({pageTitle: 'API de d’auto-complétion', openApiDefinitionUrl: '/completion/openapi.yaml'})
     res.type('html').send(page)
   })
