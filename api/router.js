@@ -14,6 +14,7 @@ import {extractParams as extractAutocompleteParams} from './params/autocomplete.
 import computeGeocodeCapabilities from './capabilities/geocode.js'
 import computeAutocompleteCapabilities from './capabilities/autocomplete.js'
 import {editConfig} from './open-api/edit-config.js'
+import {computeHtmlPage} from './open-api/swagger-ui.js'
 
 const GEOCODE_INDEXES = process.env.GEOCODE_INDEXES
   ? process.env.GEOCODE_INDEXES.split(',')
@@ -78,6 +79,11 @@ export default function createRouter(options = {}) {
       .send(editedConfig)
   }))
 
+  router.get('/docs/geocode', (req, res) => {
+    const page = computeHtmlPage({pageTitle: 'API de géocodage', openApiDefinitionUrl: '/openapi.yaml'})
+    res.type('html').send(page)
+  })
+
   router.get('/completion/openapi.yaml', w(async (req, res) => {
     const yamlPath = path.resolve('./config/open-api/completion.yaml')
     const editedConfig = await editConfig(yamlPath, process.env.API_URL)
@@ -87,6 +93,15 @@ export default function createRouter(options = {}) {
       .attachment('completion.yaml')
       .send(editedConfig)
   }))
+
+  router.get('/docs/completion', (req, res) => {
+    const page = computeHtmlPage({pageTitle: 'API de d’auto-complétion', openApiDefinitionUrl: '/completion/openapi.yaml'})
+    res.type('html').send(page)
+  })
+
+  router.get('/', (req, res) => {
+    res.redirect('/docs/geocode')
+  })
 
   router.use(errorHandler)
 
