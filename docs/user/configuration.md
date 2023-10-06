@@ -18,6 +18,7 @@ Pour gagner du temps vous pouvez tout simplement recopier le fichier `.env.sampl
 | `PARCEL_INDEX_URL` | URL du service d'index `parcel` | `http://localhost:3002` |
 | `POI_INDEX_URL` | URL du service d'index `poi` | `http://localhost:3003` |
 | `CORS_DISABLE` | Option permettant de désactiver les en-têtes CORS (en cas d'API Manager ou reverse proxy les prenant déjà en charge) (`1` pour désactiver) | `0` |
+| `API_ROOT_REDIRECTION` | URL vers laquelle rediriger l’utilisateur s'il tente d'accéder à l'URL racine. Renvoie une `404` si non définie | |
 
 ## Services d'index thématiques (run)
 

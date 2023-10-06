@@ -20,6 +20,8 @@ const GEOCODE_INDEXES = process.env.GEOCODE_INDEXES
   ? process.env.GEOCODE_INDEXES.split(',')
   : ['address', 'poi', 'parcel']
 
+const {API_ROOT_REDIRECTION} = process.env
+
 export default function createRouter(options = {}) {
   const router = new express.Router()
 
@@ -100,7 +102,11 @@ export default function createRouter(options = {}) {
   })
 
   router.get('/', (req, res) => {
-    res.redirect('/docs/geocode')
+    if (API_ROOT_REDIRECTION) {
+      return res.redirect(API_ROOT_REDIRECTION)
+    }
+
+    res.sendStatus(404)
   })
 
   router.use(errorHandler)
