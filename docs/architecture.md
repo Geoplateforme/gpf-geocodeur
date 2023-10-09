@@ -4,7 +4,7 @@ Le géocodeur multi-thématique de la Géoplateforme est une API permettant d'in
 
 - les adresses, voies et lieux-dits de la [Base Adresse Nationale](https://adresse.data.gouv.fr) ;
 - les points d’intérêt issus de la BD TOPO ;
-- les parcelles catastrales de la base Parcellaire Express.
+- les parcelles cadastrales de la base Parcellaire Express.
 
 Chacune de ces typologies est incarnée par un composant logiciel fortement couplé aux données que l’on appelera `index`. Ces composants peuvent _scaler_ indépendamment en fonction de la charge et de l’intérêt des utilisateurs pour telle ou telle thématique.
 
