@@ -561,7 +561,7 @@
     userStories:
       - IGNGPF-1877:
         status: success
-  - request: "?lon=5.3811&lat=43.2965&10&index=parcel&city=marseille&section=0A"
+  - request: "?lon=5.3811&lat=43.2965&10&index=parcel&section=0A"
     results:
       firstResult:
         id: "132018030A0163"
@@ -870,7 +870,7 @@
     userStories:
       - IGNGPF-1884:
         status: success
-  - request: '?searchgeom={"type": "Polygon", "coordinates": [
+  - request: '?index=parcel&searchgeom={"type": "Polygon", "coordinates": [
       [
       [
       1.4399223818265057,
@@ -893,7 +893,7 @@
       46.22601074956114
       ]
       ]
-      ]}&city=Saint-Maurice-la-Souterraine&index=parcel'
+      ]}'
     results:
       firstResult:
         id: "23219000ZO0103"
@@ -925,7 +925,7 @@
       46.22601074956114
       ]
       ]
-      ]}&city=Marseille&index=parcel'
+      ]}&index=parcel'
     results:
       nbResult: 0
     userStories:
