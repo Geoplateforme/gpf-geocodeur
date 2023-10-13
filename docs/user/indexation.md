@@ -41,7 +41,7 @@ La variable d'environnement `PARCELLAIRE_EXPRESS_URL` doit être renseignée au 
 Exemple de configuration :
 
 ```bash
-PARCELLAIRE_EXPRESS_URL=https://gpf-ign-data.s3.sbg.io.cloud.ovh.net/parcellaire-express/PARCELLAIRE_EXPRESS_1-1__SHP_{crs}_{dep}_2023-01-01.7z
+PARCELLAIRE_EXPRESS_URL=https://gpf-ign-data.s3.sbg.io.cloud.ovh.net/parcellaire-express/PARCELLAIRE_EXPRESS_1-1__SHP_{crs}_{dep}_2023-07-01.7z
 ```
 
 La production de l'index se fait à l'aide de la commande suivante :
@@ -62,7 +62,7 @@ Exemple de configuration :
 
 ```bash
 ADMIN_EXPRESS_URL=https://gpf-ign-data.s3.sbg.io.cloud.ovh.net/admin-express/ADMIN-EXPRESS-COG_3-2__SHP_WGS84G_FRA_2023-05-03.7z
-BDTOPO_URL=https://gpf-ign-data.s3.sbg.io.cloud.ovh.net/bdtopo/BDTOPO_3-3_TOUSTHEMES_GPKG_{crs}_{dep}_2023-03-15.7z
+BDTOPO_URL=https://gpf-ign-data.s3.sbg.io.cloud.ovh.net/bdtopo/BDTOPO_3-3_TOUSTHEMES_GPKG_{crs}_{dep}_2023-09-15.7z
 ```
 
 La production de l'index se fait à l'aide des commandes suivantes :

@@ -65,7 +65,7 @@ Les paramètres des procédures sont actuellement en dur. Il n'est pas prévu da
 Variable | Description | Valeur
 ---------|----------|---------
  ADMIN_EXPRESS_URL |  Structure d'URL du millésime ADMIN COG à utiliser | <https://gpf-ign-data.s3.sbg.io.cloud.ovh.net/admin-express/ADMIN-EXPRESS-COG_3-2__SHP_WGS84G_FRA_2023-05-03.7z>
- BDTOPO_URL | Structure d'URL du millésime BD TOPO à utiliser | <https://gpf-ign-data.s3.sbg.io.cloud.ovh.net/bdtopo/BDTOPO_3-3_TOUSTHEMES_GPKG_{crs}_{dep}_2023-03-15.7z>
+ BDTOPO_URL | Structure d'URL du millésime BD TOPO à utiliser | <https://gpf-ign-data.s3.sbg.io.cloud.ovh.net/bdtopo/BDTOPO_3-3_TOUSTHEMES_GPKG_{crs}_{dep}_2023-09-15.7z>
 
 ### Adresses
 
@@ -77,7 +77,7 @@ Variable | Description | Valeur
 
 Variable | Description | Valeur
 ---------|----------|---------
- PARCELLAIRE_EXPRESS_URL |  Structure d'URL du millésime PARCELLAIRE EXPRESS à utiliser | <https://gpf-ign-data.s3.sbg.io.cloud.ovh.net/parcellaire-express/PARCELLAIRE_EXPRESS_1-1__SHP_{crs}_{dep}_2023-01-01.7z>
+ PARCELLAIRE_EXPRESS_URL |  Structure d'URL du millésime PARCELLAIRE EXPRESS à utiliser | <https://gpf-ign-data.s3.sbg.io.cloud.ovh.net/parcellaire-express/PARCELLAIRE_EXPRESS_1-1__SHP_{crs}_{dep}_2023-07-01.7z>
 
 ## Suivi
 
