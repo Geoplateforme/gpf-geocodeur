@@ -659,8 +659,6 @@ components:
         citycode: "75113"
         x: 2.369063
         y: 48.822409
-        housenumberinfos:
-          { date: "2019-11-29", source: "dgfip", kind: "parcel" }
         score: 0.6515151515151515
         _score: 0.6515151515151515
         name: "10 Rue Nationale"
@@ -738,8 +736,6 @@ components:
         citycode: "75113"
         x: 2.369063
         y: 48.822409
-        housenumberinfos:
-          { date: "2019-11-29", source: "dgfip", kind: "parcel" }
         score: 0.6515151515151515
         _score: 0.6515151515151515
         name: "10 Rue Nationale"

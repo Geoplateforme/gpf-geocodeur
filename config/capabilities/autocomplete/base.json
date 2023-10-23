@@ -10,7 +10,7 @@
   "operations": [
     {
       "id": "completion",
-      "description": "fourni des suggestions d'objets géolocalisés pouvant correspondre à la chaine de caractères entrée par l'utilisateur.",
+      "description": "fournit des suggestions d'objets géolocalisés pouvant correspondre à la chaine de caractères entrée par l'utilisateur.",
       "url": "/completion?",
       "methods": [
         "GET"

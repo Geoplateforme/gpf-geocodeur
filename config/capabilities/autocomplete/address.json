@@ -21,28 +21,28 @@
     },
     {
       "name": "oldcity",
-      "description": "Les anciens nom de la commune",
+      "description": "Nom de la commune ancienne absorbée (le cas échéant)",
       "type": "string",
       "queryable": false,
       "filter": false
     },
     {
       "name": "zipcode",
-      "description": "Le code postal de la commune",
+      "description": "Code postal de l’adresse, de la voie ou de la commune",
       "type": "string",
       "queryable": false,
       "filter": true
     },
     {
       "name": "street",
-      "description": "Le Libelle",
+      "description": "Nom de la voie de l’adresse",
       "type": "string",
       "queryable": false,
       "filter": false
     },
     {
       "name": "classification",
-      "description": "La Classification",
+      "description": "Code classification de l’adresse. Vaudra toujours 7.",
       "type": "integer",
       "queryable": false,
       "filter": false
@@ -70,7 +70,7 @@
     },
     {
       "name": "importance",
-      "description": "Le Poids",
+      "description": "Indicateur d’importance du localisant servant au calcul du score. Issu de la Base Adresse Nationale.",
       "type": "float",
       "queryable": false,
       "filter": false

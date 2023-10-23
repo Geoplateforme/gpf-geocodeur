@@ -10,7 +10,7 @@
   "operations": [
     {
       "id": "search",
-      "description": "fourni les coordonnées géographiques d'un lieu (adresse, point d'intérêt, parcelle cadastrale...)",
+      "description": "fournit les coordonnées géographiques d'un lieu (adresse, point d'intérêt, parcelle cadastrale...)",
       "url": "/search?",
       "methods": [
         "GET"
@@ -18,7 +18,7 @@
     },
     {
       "id": "reverse",
-      "description": "fourni des lieux (adresse, point d'intérêt, parcelle cadastrale...) à partir de coordonnées géographiques",
+      "description": "fournit des lieux (adresse, point d'intérêt, parcelle cadastrale...) à partir de coordonnées géographiques",
       "url": "/reverse?",
       "methods": [
         "GET"

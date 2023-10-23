@@ -39,12 +39,11 @@ paths:
           example: "2, avenue pasteur saint m"
         - name: terr
           in: query
-          description: Une limitation de la zone de recherche de localisants
+          description: Une limitation de la zone de recherche de localisants. Une liste peut être fournie en séparant les valeurs par des virgules.
           required: false
           schema:
             type: string
-            enum: ["METROPOLE", "DOMTOM", "75", "75013", "93160,97,77300"]
-          example: "DOMTOM"
+          example: "DOMTOM,METROPOLE,75,75013"
         - name: poiType
           in: query
           description: |
@@ -120,7 +119,7 @@ paths:
                         ],
                         "zipcode": "35400",
                         "zipcodes": [
-                          "35400" 
+                          "35400"
                         ],
                         "metropole": true,
                         "city": "Saint-Malo",

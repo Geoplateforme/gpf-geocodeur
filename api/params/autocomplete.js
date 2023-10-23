@@ -73,7 +73,7 @@ export const AUTOCOMPLETE = {
         throw new Error('unexpected value')
       }
     },
-    description: 'une limitation de la zone de recherche de localisants',
+    description: 'une limitation de la zone de recherche de localisants. Les valeurs acceptés sont METROPOLE, DOMTOM, les codes département et les codes communes (INSEE).',
     example: '75013'
   },
 

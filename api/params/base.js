@@ -62,7 +62,7 @@ export const PARAMS = {
       validateSearchgeom(v)
     },
     operation: 'reverse',
-    description: 'géométrie de recherche',
+    description: 'géométrie de recherche par intersection spatiale. Les géométries autorisées sont : Point, LineString, Polygon et Circle. LineString et Point sont inopérants pour l’index address.',
     example: '{"type":"Polygon","coordinates":[[[2.354550,48.837961],[2.354550,48.839232],[2.357211,48.839232],[2.357211,48.837961],[2.354550,48.837961]]]}'
   },
 
@@ -137,7 +137,7 @@ export const PARAMS = {
         throw new Error('not valid')
       }
     },
-    description: 'filtre pour les index address et poi. Il permet de filtrer les résultats par code INSSE',
+    description: 'filtre pour les index address et poi. Il permet de filtrer les résultats par code INSEE',
     example: '94067'
   },
 

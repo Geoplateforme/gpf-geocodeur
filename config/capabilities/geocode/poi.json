@@ -39,7 +39,7 @@
     },
     {
       "name": "extrafields",
-      "description": "les champs supplementaires",
+      "description": "champs supplémentaires formatés au format JSON. Contient notamment la valeur 'cleabs' qui est l’identifiant unique dans la BD TOPO.",
       "type": "string",
       "queryable": false,
       "filter": false
