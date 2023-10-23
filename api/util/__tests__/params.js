@@ -11,7 +11,8 @@ test('isFirstCharValid', t => {
 
 test('isDepartmentcodeValid', t => {
   t.true(isDepartmentcodeValid('01'))
-  t.true(isDepartmentcodeValid('972'))
+  t.true(isDepartmentcodeValid('97'))
+  t.false(isDepartmentcodeValid('972'))
   t.true(isDepartmentcodeValid('2A'))
   t.true(isDepartmentcodeValid('2B'))
   t.false(isDepartmentcodeValid('20'))

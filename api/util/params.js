@@ -7,19 +7,11 @@ export function isFirstCharValid(string) {
 }
 
 export function isDepartmentcodeValid(departmentcode) {
-  if (departmentcode.length < 2 || departmentcode.length > 3 || departmentcode === '20') {
+  if (departmentcode.length !== 2 || departmentcode === '20') {
     return false
   }
 
-  if (departmentcode.length === 3) {
-    if (departmentcode >= '971' && departmentcode <= '978') {
-      return true
-    }
-
-    return false
-  }
-
-  if ((departmentcode >= '01' && departmentcode <= '95' && /\d{2}/.test(departmentcode)) || departmentcode === '2A' || departmentcode === '2B') {
+  if ((departmentcode >= '01' && departmentcode <= '95' && /\d{2}/.test(departmentcode)) || departmentcode === '97' || departmentcode === '2A' || departmentcode === '2B') {
     return true
   }
 
