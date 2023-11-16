@@ -615,7 +615,7 @@ components:
         city:
           type: string
           description: "Commune de l'adresse"
-        disctrict:
+        district:
           type: string
           description: "Arrondissement de l'adresse"
         street:
@@ -690,7 +690,7 @@ components:
         city:
           type: string
           description: "Commune de l'adresse"
-        disctrict:
+        district:
           type: string
           description: "Arrondissement de l'adresse"
         street:
